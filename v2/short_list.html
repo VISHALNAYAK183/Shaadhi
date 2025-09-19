@@ -412,6 +412,7 @@
           axios.post('https://www.sharutech.com/matrimony/z_shortlisted2.php', data3, {
               headers: {
                   'Content-Type': 'application/json',
+                        "Authorization": "Bearer " + localStorage.getItem("jwtToken")
               }
           })
           .then(function(response) {
@@ -441,6 +442,7 @@
         axios.post('https://www.sharutech.com/matrimony/z_shortlisted2.php', data1, {
             headers: {
                 'Content-Type': 'application/json',
+                      "Authorization": "Bearer " + localStorage.getItem("jwtToken")
             }
         })
         .then(function(response) {
@@ -590,6 +592,7 @@ function unshortlistProfile(event, matriId) {
     axios.post('https://www.sharutech.com/matrimony/z_shortlisted2.php', data, {
         headers: {
             'Content-Type': 'application/json',
+                  "Authorization": "Bearer " + localStorage.getItem("jwtToken")
         }
     })
     .then(function(response) {

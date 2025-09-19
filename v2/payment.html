@@ -352,6 +352,7 @@
       axios.post('https://www.sharutech.com/matrimony/token_cashfree.php', data, {
           headers: {
               'Content-Type': 'application/json',
+                    "Authorization": "Bearer " + localStorage.getItem("jwtToken")
           }
       })
       .then(function(response) {

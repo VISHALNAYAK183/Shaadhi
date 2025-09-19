@@ -587,7 +587,7 @@ body::before {
         .then((response) => response.json())
         .then((data) => {
             if (data.dataout[0].p_out_mssg_flg === "Y") {
-                // ✅ Decode JWT
+             
                 let token = data.dataout[0].token;
                 localStorage.setItem("jwtToken", token);
 

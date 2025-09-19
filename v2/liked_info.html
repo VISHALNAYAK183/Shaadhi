@@ -379,6 +379,7 @@
           axios.post('https://www.sharutech.com/matrimony/z_matri_liked2.php', data3, {
               headers: {
                   'Content-Type': 'application/json',
+                        "Authorization": "Bearer " + localStorage.getItem("jwtToken")
               }
           })
           .then(function(response) {
@@ -407,6 +408,7 @@
         axios.post('https://www.sharutech.com/matrimony/z_matri_liked2.php', data1, {
             headers: {
                 'Content-Type': 'application/json',
+                      "Authorization": "Bearer " + localStorage.getItem("jwtToken")
             }
         })
         .then(function(response) {

@@ -799,6 +799,7 @@ document.addEventListener("DOMContentLoaded", function () {
 return axios.post('https://www.sharutech.com/matrimony/update_profile.php', data, {
     headers: {
         'Content-Type': 'application/json',
+        "Authorization": "Bearer " + localStorage.getItem("jwtToken")
     }
   })
   .then(function(response) {

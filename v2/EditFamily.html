@@ -494,6 +494,7 @@ function set_motherTongue() {
 return axios.post('https://www.sharutech.com/matrimony/update_profile.php', update, {
   headers: {
       'Content-Type': 'application/json',
+    "Authorization": "Bearer " + localStorage.getItem("jwtToken")
   }
 })
 .then(function(response) {

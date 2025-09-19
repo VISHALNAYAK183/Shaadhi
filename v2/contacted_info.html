@@ -395,6 +395,7 @@
         axios.post('https://www.sharutech.com/matrimony/z_contacted_profile2.php', data1, {
             headers: {
                 'Content-Type': 'application/json',
+                "Authorization": "Bearer " + localStorage.getItem("jwtToken")
             }
         })
         .then(function(response) {

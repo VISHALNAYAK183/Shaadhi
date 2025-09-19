@@ -590,6 +590,7 @@ document.getElementById('educationForm').addEventListener('submit', function(eve
   return axios.post('https://www.sharutech.com/matrimony/update_profile.php', update, {
    headers: {
        'Content-Type': 'application/json',
+        "Authorization": "Bearer " + localStorage.getItem("jwtToken")
    }
 })
 //console.log("hello")

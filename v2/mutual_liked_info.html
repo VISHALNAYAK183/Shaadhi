@@ -397,6 +397,7 @@
           axios.post('https://www.sharutech.com/matrimony/matri_liked.php', data3, {
               headers: {
                   'Content-Type': 'application/json',
+                        "Authorization": "Bearer " + localStorage.getItem("jwtToken")
               }
           })
           .then(function(response) {

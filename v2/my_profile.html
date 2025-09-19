@@ -381,6 +381,7 @@
       axios.post('https://www.sharutech.com/matrimony/matri_liked.php', data, {
                 headers: {
                     'Content-Type': 'application/json',
+                          "Authorization": "Bearer " + localStorage.getItem("jwtToken")
                 }
             })
             .then(function(response) {
@@ -625,6 +626,7 @@ function myProfile(){
         axios.post('https://www.sharutech.com/matrimony/my_profile.php', data, {
             headers: {
                 'Content-Type': 'application/json',
+                      "Authorization": "Bearer " + localStorage.getItem("jwtToken")
             }
         })
         .then(function(response) {
@@ -691,6 +693,7 @@ function displayRadioButton() {
     axios.post('https://www.sharutech.com/matrimony/profile_status.php', val, {
         headers: {
             'Content-Type': 'application/json',
+                  "Authorization": "Bearer " + localStorage.getItem("jwtToken")
         }
     })
     .then(function(response) {
@@ -1134,6 +1137,7 @@ function setDefaultRadioButton() {
         axios.post('https://www.sharutech.com/matrimony/my_profile.php', data, {
             headers: {
                 'Content-Type': 'application/json',
+                      "Authorization": "Bearer " + localStorage.getItem("jwtToken")
             }
         })
         .then(function(response) {
@@ -1210,6 +1214,7 @@ function setDefaultRadioButton() {
     axios.post('https://www.sharutech.com/matrimony/edit_image.php', photo, {
         headers: {
             'Content-Type': 'application/json',
+                  "Authorization": "Bearer " + localStorage.getItem("jwtToken")
         }
     })
     .then(function(response) {
