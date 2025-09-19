@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-72x72.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-96x96.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-128x128.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-144x144.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-152x152.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-167x167.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-180x180.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-192x192.png">
+    <!-- updated for Tab space for Edit -->
+     <style>
+       /* Default styles (for larger screens like desktops) */
+
+       .profile-basic {
+        max-width: 600px;
+        margin: 20px auto;
+        padding: 5px;
+        background: #f9f9f9;
+        /*border: 1px solid #ddd;
+        border-radius: 10px;*/
+        font-family: Arial, sans-serif;
+    }
+    .profile-item1 {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+    }
+    .profile-label1 {
+        flex: 2; /* Allocates space for labels */
+        font-weight: bold;
+        color: #333;
+    }
+    .profile-item1 span {
+        flex: 2; /* Allocates space for values */
+        color: #555;
+        text-align: left; /* Aligns values properly */
+        margin-left: 20px;
+    }
+    .option-button {
+        margin-bottom: 20px;
+    }
+    p {
+        display: flex;
+        align-items: center;
+      }
+      
+      #dob {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        align-items: center;
+      }
+      
+      .option-button {
+        display: flex;
+        flex: 2;
+        align-items: right;
+        margin-left: auto; /* Pushes the button to the right */
+      }
+    </style>   
+</head>
+<script>
+    
+        // Assuming loadSectionDetails is defined somewhere globally
+     
+        
+        // You can also call any other necessary initialization functions
+    
+    function openPageAndPostMessage() {
+        // Ensure `myProfileNew` is dynamically populated
+        if (typeof myProfileNew !== "undefined" && myProfileNew !== null) {
+            // Store the data in sessionStorage
+            sessionStorage.setItem("formData", JSON.stringify(myProfileNew));
+    
+            // Redirect to the same page
+            window.location.href = "EditRegister.html";
+        } else {
+           console.error("myProfileNew is not defined or empty.");
+        }
+    }
+    function openEditAdditional(){
+        if (typeof myProfileNew !== "undefined" && myProfileNew !== null) {
+            // Store the data in sessionStorage
+            sessionStorage.setItem("formData", JSON.stringify(myProfileNew));
+    
+            // Redirect to the same page
+            window.location.href = "EditAdditionalDetail.html";
+        } else {
+           console.error("myProfileNew is not defined or empty.");
+        }
+    
+    }
+    function openEditEducation(){
+        if (typeof myProfileNew !== "undefined" && myProfileNew !== null) {
+            // Store the data in sessionStorage
+            sessionStorage.setItem("formData", JSON.stringify(myProfileNew));
+    
+            // Redirect to the same page
+            window.location.href = "EditEducation.html";
+        } else {
+           console.error("myProfileNew is not defined or empty.");
+        }
+    }
+    function openEditHoroscope(){
+        if (typeof myProfileNew !== "undefined" && myProfileNew !== null) {
+            // Store the data in sessionStorage
+            sessionStorage.setItem("formData", JSON.stringify(myProfileNew));
+    
+            // Redirect to the same page
+            window.location.href = "EditHoroscope.html";
+        } else {
+           console.error("myProfileNew is not defined or empty.");
+        }
+
+    }
+    function openEditFamily(){
+        if (typeof myProfileNew !== "undefined" && myProfileNew !== null) {
+            // Store the data in sessionStorage
+            sessionStorage.setItem("formData", JSON.stringify(myProfileNew));
+    
+            // Redirect to the same page
+            window.location.href = "EditFamily.html";
+        } else {
+           console.error("Edit family is not defined or empty.");
+        }
+    }
+    function openEditPhoto(){
+        if (typeof myProfileNew !== "undefined" && myProfileNew !== null) {
+            // Store the data in sessionStorage
+            sessionStorage.setItem("formData", JSON.stringify(myProfileNew));
+    
+            // Redirect to the same page
+            window.location.href = "EditPhoto.html";
+        } else {
+           console.error("Edit family is not defined or empty.");
+        }
+    }
+    
+</script>
+<body>
+
+    <div id="navbar-placeholder"></div>
+
+    <!-- Main Layout -->
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div id="sidebar-placeholder"></div>
+
+
+        <!-- Main Content Area -->
+        <main id="content" class="content">
+            <div id="waiting-dialog" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center; z-index: 9999;">
+                <div style="background-color: white; padding: 20px; border-radius: 8px;">
+                    <div class="loader" style="border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 50px; height: 50px; animation: spin 2s linear infinite;"></div>
+                    <p style="text-align: center; margin-top: 10px;">Please Wait...</p>
+                </div>
+            </div>
+            
+            <!-- Default Dashboard Content -->
+            <section class="profile">
+                <div class="profile-container">
+                    <!-- Left Section -->
+                    <div class="profile-left profile-details">
+                        <h2><i class="fa fa-arrow-left" style="color:orange;border:1px solid black;border-radius: 50%;padding:5px;margin-right: 15px;" onclick="goBack()"></i>My Profile</h2>
+                        <p><span class="labelStar"><strong>Name:</strong></span> <span id="profileNameText"></span></p>
+                        <p><span class="labelStar"><strong>Age:</strong></span><span id="profileAge"></span></p>
+                        <p><span class="labelStar"><strong>Height:</strong></span> <span id="profileHeight"></span></p>
+                        <p><span class="labelStar"><strong>Weight:</strong></span> <span id="profileWeight"></span></p>
+                        <div class="more-section" id="more">
+                            <!-- <script>
+                                loadSectionDetails("basic"); 
+                            </script> -->
+                            <!-- <button id="moreButton" class="more-button">More</button> -->
+                            <!-- <script>
+                                window.onload = function() {
+                                    // Ensure the options row is visible on page load
+                                    document.getElementById("optionsRow").style.display = "flex"; 
+                            
+                                    // Call the loadSectionDetails function after ensuring the row is visible
+                                    loadSectionDetails("basic"); 
+                                };
+                            </script> -->
+                            <div id="optionsRow" class="options-row" style="display: none;">
+                                <button class="option-button" data-section="basic" id="basic">Basic</button>
+                                <button class="option-button" data-section="additional" id="additional">Additional</button>
+                                <button class="option-button" data-section="education" id="education">Education</button>
+                                <button class="option-button" data-section="horoscope" id="horoscope">Horoscope</button>
+                                <button class="option-button" data-section="family" id="family">Family</button>
+                                <button class="option-button" data-section="photo" id="photo">Photo</button>
+                                <button class="option-button" data-section="delete" id="profilestatus" >Profile Status</button>
+                            </div>
+                        </div>
+                        <div id="detailsSection" class="details-section profile-details">
+                            <!-- Dynamic content will load here -->
+                        </div>
+                    </div>
+                    <!-- <script>
+                        
+                    </script>
+                     -->
+                    <!-- Right Section -->
+                    <div class="profile-right">
+                        <!-- <hr/> -->
+                        <div class="icon-row1">
+                            <img id="profilePhoto" alt="User Photo" class="profile-photo">
+                            <!-- </div> -->
+                            <div class="icon-row">
+                                <h2>Matri Id&nbsp;:&nbsp;<span id="matriText"></span></h2>
+
+                                <!-- <div class="icon-item likedClass" id="likeId" onclick="toggleLike(this)">
+                                    <i class="fa fa-heart" id="likeIdIcon"></i>
+                                    <span>Like</span>
+                                </div>
+                                <div class="icon-item" onclick="contactInfoSection()">
+                                    <i class="fa fa-phone"></i>
+                                    <span>Contact Info</span>
+                                </div>
+                                <div class="icon-item" onclick="chatInfoSection()">
+                                    <i class="fa fa-comment"></i>
+                                    <span>Chat Now</span>
+                                </div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              
+
+                <div id="zoomModal" class="zoom-modal" style="display: none;">
+                    <div class="zoom-modal-content">
+                        <span id="closeZoom" class="close-zoom">&times;</span>
+                        <img id="zoomedImage" class="zoomed-image" src="" alt="Zoomed Image">
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+
+    <script>
+        function loadHTMLContent(elementId, url, callback) {
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById(elementId).innerHTML = data;
+                    if (callback) callback(); // Execute callback after content is loaded
+                })
+                .catch(error =>console.error('Error loading HTML:', error));
+        }
+        // Load Navbar and Sidebar
+        loadHTMLContent('navbar-placeholder', 'navbar.html');
+        loadHTMLContent('sidebar-placeholder', 'sidebar.html', function () {
+            // Add event listeners after the sidebar content is loaded
+            const menus = document.querySelectorAll('.matches-menu');
+
+            menus.forEach(menu => {
+                menu.addEventListener('click', function (event) {
+                    // Prevent default behavior only for parent menu links
+                    if (!event.target.closest('.submenu a')) {
+                        event.preventDefault();
+                    }
+
+                    // Check if the clicked element has a submenu
+                    const submenu = this.querySelector('.submenu');
+
+                    // If the submenu exists, toggle its visibility
+                    if (submenu) {
+                        const isVisible = submenu.style.display === 'block';
+
+                        // Close all submenus
+                        document.querySelectorAll('.submenu').forEach(s => {
+                            s.style.display = 'none';
+                        });
+
+                        // Toggle only the clicked submenu
+                        submenu.style.display = isVisible ? 'none' : 'block';
+                    }
+                });
+            });
+
+            // Add listeners to submenu links to ensure navigation works
+            const submenuLinks = document.querySelectorAll('.submenu a');
+            submenuLinks.forEach(link => {
+                link.addEventListener('click', function (event) {
+                    // Allow navigation or custom logic for submenu links
+                   //consolelog(`Navigating to ${this.getAttribute('href')}`);
+                });
+            });
+        });
+
+        function toggleProfileDropdown() {
+            const dropdown = document.getElementById('profileDropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+
+            // Attach a click event listener to close the dropdown when clicking outside
+            if (dropdown.style.display === 'block') {
+                document.addEventListener('click', closeDropdownOnClickOutside);
+            }
+        }
+
+    // Close the dropdown on outside click
+    function closeDropdownOnClickOutside(event) {
+        const dropdown = document.getElementById('profileDropdown');
+        const profileIcon = document.querySelector('.profile-icon');
+
+        // Check if the clicked element is outside the dropdown or profile icon
+        if (!dropdown.contains(event.target) && !profileIcon.contains(event.target)) {
+            dropdown.style.display = 'none';
+            document.removeEventListener('click', closeDropdownOnClickOutside); // Clean up the event listener
+        }
+    }
+
+
+        function logout() {
+           //consolelog("User logged out");
+            localStorage.clear();
+            localStorage.setItem("visitedSuccessPage", "true");
+            window.location.href = 'Login.html';
+        }
+      // "More" Button Functionality
+
+      const moreButton = document.getElementById("moreButton");
+      const optionsRow = document.getElementById("optionsRow");
+      const detailsSection = document.getElementById("detailsSection");
+
+      // const planStatus = profileData?.plan_status || "Not Paid"; // Example: Replace with actual plan status logic
+      /*moreButton.addEventListener('click', function () {
+         
+            optionsRow.style.display = "flex";
+            moreButton.style.display = "none";
+            loadSectionDetails("basic");
+         
+             window.onload = function() {
+            loadSectionDetails("basic");  // This will be called when the page loads
+        };
+      });*/
+
+      // Handle option button clicks
+      document.querySelectorAll(".option-button").forEach(button => {
+          button.addEventListener('click', function () {
+              const section = this.getAttribute("data-section");
+              loadSectionDetails(section);
+
+          });
+      });
+
+      function toggleLike(element) {
+        const icon = element.querySelector('i'); // Get the icon inside the clicked element
+        
+        // Toggle the classes for the heart icon
+        icon.classList.toggle('fa-heart'); // Outline class
+        icon.classList.toggle('fa-heart-o'); // Filled class (or vice versa)
+        icon.style.color = icon.classList.contains('fa-heart-o') ? '#d0afaf' : 'red';
+
+        // Set the color based on the toggled class
+        if (icon.classList.contains('fa-heart')) {
+            icon.style.color = 'red'; // If heart is filled, make it red
+        } else if (icon.classList.contains('fa-heart-o')){
+            icon.style.color = '#d0afaf'; // Reset the color when unliked
+        }else {
+            icon.style.color = '#d0afaf'; // Reset the color when unliked
+        }
+
+        // You can also set a status type if needed
+        const type = icon.classList.contains('fa-heart') ? 'liked' : 'disliked';
+      const data={
+          "matri_id_by": localStorage.getItem('matriId'),
+          "matri_id_to": localStorage.getItem("matriIdTo"),
+          "type": type
+      }
+     //consolelog(data);
+      axios.post('https://www.sharutech.com/matrimony/matri_liked.php', data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(function(response) {
+               //consolelog('Success:', response.data);
+                if(response.data.message.p_out_mssg_flg === 'Y'){
+                  //consolelog(response.data.dataout[0].viewed_count);
+                }else{
+                 //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);
+                }
+            });
+      }
+
+      function contactInfoSection(){
+       
+            Swal.fire({
+            // title: 'Creator Contact Info',
+            html: `
+                <h3 style="margin-bottom:10px;">Contact Information</h3>
+                <div style="text-align: left;">
+                <p><strong>Creator Phone No&nbsp;:</strong> ${localStorage.getItem("phone")}</p>
+                <p><strong>Email Id&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</strong> ${localStorage.getItem("email")}</p>
+                </div>
+            `,
+            // icon: 'info',
+            confirmButtonText: 'Close',
+            confirmButtonColor: '#3085d6',
+            background: '#f7f7f7',
+            customClass: {
+                title: 'swal-title',
+                htmlContainer: 'swal-html-container',
+            },
+            });
+        
+    }
+
+    function chatInfoSection(){
+        window.location.href = "chats.html";
+    }
+
+    function goBack() {
+                history.back();
+    }
+
+    function getPhotoHTML(photoArray) {
+        return photoArray.map(photoUrl => {
+            return `
+                <div class="photo-item" style="position: relative; display: inline-block; margin: 10px;">
+                    <img class="photo" src="${photoUrl.url}" alt="Photo" style="width: 150px; height: 150px; object-fit: cover; cursor: pointer;">
+                    <div class="edit-icon" 
+                         style="position: absolute; top: 5px; right: 5px; background-color: rgba(0, 0, 0, 0.6); color: white; border-radius: 50%; width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; cursor: pointer;" 
+                         onclick="showPhotoOptions('${photoUrl.sl_id}')">
+                         ✎
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+    function showPhotoOptions(photoId) {
+        const popup = document.createElement('div');
+        popup.style.position = 'fixed';
+        popup.style.top = '50%';
+        popup.style.left = '50%';
+        popup.style.transform = 'translate(-50%, -50%)';
+        popup.style.backgroundColor = 'white';
+        popup.style.boxShadow = '0 4px 8px rgba(0, 0, 0, 0.2)';
+        popup.style.padding = '20px';
+        popup.style.borderRadius = '8px';
+        popup.style.zIndex = '1000';
+    
+        popup.innerHTML = `
+            <p style="margin: 0 0 10px;">Choose an option:</p> 
+            <button style="position: absolute; top: 5px; right: 5px; cursor: pointer; font-size: 16px;" onclick="closePopup()">✖</button >           
+            <button style="margin: 5px; padding: 10px; cursor: pointer;" onclick="setAsProfilePhoto('${photoId}')">Set as Profile Photo</button>
+            <button style="margin: 5px; padding: 10px; cursor: pointer;" onclick="deletePhoto('${photoId}')">Delete</button>
+            
+        `;
+    
+        document.body.appendChild(popup);
+    }
+    
+    
+    img=localStorage.getItem("baseURL")
+    function setAsProfilePhoto(photoId) {
+        // Retrieve base URL from localStorage
+       
+       //consolelog('ll',photoId)
+        // Extract unique sl_id for the selected photo (assume sl_id is part of photoUrl or data)
+        const sl_id = photoId; // Replace with your logic to extract sl_id
+        const matri_id =localStorage.getItem("matriId"); // Replace with the actual matri_id for the user
+       //consolelog("m",matri_id)
+        const data = {
+            type: "profile",
+            matri_id: matri_id,
+            sl_id: sl_id
+        };
+       //consolelog("bhbj",data);
+
+        call_api(data);
+       
+    }
+
+
+    function swal_file(){
+        Swal.fire({
+            title: "Success!",
+            text: "Profile photo updated successfully.",
+            icon: "success",
+            confirmButtonText: "OK"
+        });
+
+
+        Swal.fire({
+            title: "Error!",
+            text: "Failed to update profile photo.",
+            icon: "error",
+            confirmButtonText: "OK"
+        });
+
+    }
+
+    function call_api(data){
+        axios.post('https://www.sharutech.com/matrimony/edit_image.php', data, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            closePopup();
+            Swal.fire({
+                title: "Success!",
+                text: "Profile photo updated successfully.",
+                icon: "success",
+                confirmButtonText: "OK"
+            });
+           //consolelog("Success:", response.data);
+           
+        })
+        .catch(error => {
+           console.error("Error:", error);
+           
+        });
+
+    }
+
+    function deletePhoto(photoId) {
+       //consolelog("Deleting photo with ID:", photoId);
+    
+        // Retrieve the necessary identifiers
+        const matri_id = localStorage.getItem("matriId"); // Replace with the actual matri_id for the user
+        const sl_id = photoId;
+        // Create the payload
+        const data = {
+            type: "delet",
+            matri_id: matri_id,
+            sl_id: sl_id // Use the photoId passed to the function
+        };
+       //consolelog("Delete Payload:", data);
+    
+        // Make the API call
+        call_delete_api(data);
+    }
+    
+    function call_delete_api(data) {
+        axios.post('https://www.sharutech.com/matrimony/edit_image.php', data, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+           //consolelog("Delete Success:", response.data);
+            closePopup();
+            if (response.data.message && response.data.message.p_out_mssg_flg === "Y") {
+                Swal.fire({
+                    title: "Success!",
+                    text: "Photo deleted successfully.",
+                    icon: "success",
+                    confirmButtonText: "OK"
+                });
+    
+                // Optionally refresh the photo gallery or remove the deleted photo from the DOM
+               
+            } else {
+                Swal.fire({
+                    title: "Error!",
+                    text: "Failed to delete photo.",
+                    icon: "error",
+                    confirmButtonText: "OK"
+                });
+            }
+        })
+        
+        
+    }
+    
+
+    function closePopup() {
+        const popup = document.querySelector('body > div[style*="z-index: 1000"]');
+        if (popup) {
+            document.body.removeChild(popup);
+        }
+    }
+        
+
+
+
+
+// Function to initialize the zoom functionality
+function initZoom() {
+    const photos = document.querySelectorAll('.photo');
+    const zoomModal = document.getElementById('zoomModal');
+    const zoomedImage = document.getElementById('zoomedImage');
+    const closeZoom = document.getElementById('closeZoom');
+
+    // When any photo is clicked, show the zoomed-in version
+    photos.forEach(photo => {
+        photo.addEventListener('click', () => {
+            zoomedImage.src = photo.src;  // Set the clicked image as the zoomed image
+            zoomModal.style.display = 'flex';  // Show the modal
+        });
+    });
+
+    // Close the zoom modal when the close button is clicked
+    closeZoom.addEventListener('click', () => {
+        zoomModal.style.display = 'none';  // Hide the modal
+    });
+
+    // Close the zoom modal when clicking anywhere outside the image
+    window.addEventListener('click', (event) => {
+        if (event.target === zoomModal) {
+            zoomModal.style.display = 'none';  // Hide the modal if clicked outside
+        }
+    });
+}
+
+let myProfileNew=[];
+function myProfile(){
+    const data = {
+            matri_id:localStorage.getItem('matriId')          
+        };
+       //consolelog(data);
+
+        axios.post('https://www.sharutech.com/matrimony/my_profile.php', data, {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(function(response) {
+           //consolelog('Success:', response.data);
+            if(response.data.message.p_out_mssg_flg === 'Y'){
+            //consolelog(response.data.dataout);
+                let myProfile=response.data.dataout[0];
+                myProfileNew=response.data.dataout[0];
+                document.getElementById("profileNameText").textContent = `${(myProfile.first_name==null || myProfile.first_name=='null')?'':myProfile.first_name+" "+myProfile.last_name}`;
+                document.getElementById("profileAge").textContent = `${(myProfile.age==null || myProfile.age=='null')?'':myProfile.age+"yrs"}`;
+                document.getElementById("profileHeight").textContent = `${(myProfile.height==null || myProfile.height=='null')?'': myProfile.height+"cm"}`;
+                document.getElementById("profileWeight").textContent = `${(myProfile.weight==null || myProfile.weight=='null')?'':myProfile.weight+"kg"}`;
+             let imgURL='';
+                if(myProfile.gender_type==='Male' && (myProfile.url===null || myProfile.url==='')){
+                    imgURL='../img/2.png';
+                }else if(myProfile.gender_type==='Female' && (myProfile.url===null || myProfile.url==='')){
+                    imgURL='../img/1.png';
+                }else{  
+                    imgURL=localStorage.getItem("baseURL")+myProfile.url;
+                }
+                document.getElementById("profilePhoto").src = imgURL;
+                const matriText=document.getElementById("matriText");
+                matriText.textContent=myProfile.matri_id;
+            // updateProgressBar(percent);
+            // hideWaitingDialog();
+            }else{
+           //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);
+            // hideWaitingDialog();
+            }
+        });
+}
+
+
+
+// Function to handle button click and display the stored value
+// Function to handle radio button selection and API call
+
+function displayRadioButton() {
+    const radios = document.getElementsByName('utrr');
+    let selectedValue = 'None';
+
+    for (let radio of radios) {
+        if (radio.checked) {
+            selectedValue = radio.value;
+           //consolelog("ch",selectedValue)
+            break;
+        }
+    }
+
+   
+
+    // Save the selected value to localStorage
+   // localStorage.setItem('profile_status', selectedValue);
+
+    const val = {
+        id: localStorage.getItem('mId'),
+        matri_id: localStorage.getItem('matriId'),
+        status: selectedValue,
+    };
+
+   //consolelog(val);
+    
+        
+    axios.post('https://www.sharutech.com/matrimony/profile_status.php', val, {
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(function(response) {
+       //consolelog('API Response:', response.data);
+
+        const profileStatus = response.data.profile_status || val.status;
+        localStorage.setItem('profile_status', profileStatus);
+
+        Swal.fire({
+            title: "Success!",
+            text: "Profile status updated successfully.",
+            icon: "success",
+            confirmButtonText: "OK",
+        });
+    })
+    .catch(function(error) {
+       console.error('Error:', error);
+        Swal.fire({
+            title: "Error!",
+            text: "Failed to update profile status.",
+            icon: "error",
+            confirmButtonText: "OK",
+        });
+    });
+    //restoreRadioButtonState();
+}
+
+// Function to restore the checked state on page load
+function restoreRadioButtonState() {
+    const savedStatus = localStorage.getItem('profile_status');
+   //consolelog('Saved Status:', savedStatus);
+
+    const radios = document.getElementsByName('utrr');
+   //consolelog('Radio buttons found:', radios.length); // This should show the actual number of radio buttons
+
+    if (savedStatus) {
+        for (let radio of radios) {
+           //consolelog(`Radio value: ${radio.value}, Expected value: ${savedStatus}`);
+            if (String(radio.value) === String(savedStatus)) {
+                radio.checked = true;
+               //consolelog(`Radio button with value ${radio.value} is now checked`);
+                return; 
+            }
+        }
+       //consolewarn('No matching radio button found for saved status:', savedStatus);
+    }
+}
+
+function setDefaultRadioButton() {
+    const defaultStatus = localStorage.getItem('profile_status'); // Define the default value you want (e.g., "1" for "Active")
+   //consolelog("defaultStatus",defaultStatus);
+    // Set the default radio button to checked
+    const defaultRadio = document.querySelector(`input[name="utrr"][value="${defaultStatus}"]`);
+   //consolelog("defaultStatus",defaultRadio);
+    if (defaultRadio) {
+        defaultRadio.checked = true;
+    }
+
+    // Optionally save the default value to localStorage
+    //localStorage.setItem('profile_status', defaultStatus);
+}
+
+// Call this function when the page loads
+//document.addEventListener('DOMContentLoaded', restoreRadioButtonState);
+
+      // Function to load section details dynamically
+      
+      function loadSectionDetails(section) {
+        
+        let heightInCm = parseFloat(myProfileNew.height);
+
+        // Convert to feet and inches
+        let heightInFeet = heightInCm / 30.48;
+        let feet = Math.floor(heightInFeet);
+        let inches = Math.round((heightInFeet - feet) * 12);
+        let profileCreator='';
+      
+          const sectionData = {
+              basic: `
+              
+
+<div class="profile-basic">
+    <button 
+    class="option-button" 
+    data-section="edit" 
+    id="edit" 
+    onClick="openPageAndPostMessage()" 
+    >
+    Edit
+</button>
+    <div class="profile-item1">
+        <strong class="profile-label1">Date of Birth:</strong>
+        <span id="dob">${moment(myProfileNew.dob).format("DD-MMM-YYYY")}</span>
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">Phone No:</strong>
+        <span id="phone">${myProfileNew.phone}</span>
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">Email:</strong>
+        <span id="email">${myProfileNew.email}</span>
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">Profile Creator:</strong>
+        <span id="profileCreator">${myProfileNew.creator_name}</span>
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">Profile Created Date:</strong>
+        <span id="profileCreatedDate">${moment(myProfileNew.created_date).format("DD-MMM-YYYY hh:mm:ss")}</span>
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">Profile Creating For:</strong>
+        <span id="profileCreatingFor">${myProfileNew.profile_for}</span>
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">Profile Creating Phone:</strong>
+        <span id="profileCreatingPhone">${myProfileNew.creator_phone}</span>
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">Marital Status:</strong>
+        <span id="maritalStatus">${myProfileNew.status}</span>
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">Sub Caste:</strong>
+        <span id="subCaste">${myProfileNew.sub_caste}</span>
+    </div>
+</div>
+
+                `,
+              additional: `
+             
+                    <div class="profile-basic">
+                         <button 
+            class="option-button" 
+            data-section="edit" 
+            id="edit" 
+            onClick="openEditAdditional()">
+            Edit
+        </button>
+    <div class="profile-item1">
+        <strong class="profile-label1">Height:</strong>
+        <span id="profileHeight">${parseInt(myProfileNew.height)+"cm"}</span>
+        
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">Weight:</strong>
+        <span id="profileWeight">${myProfileNew.weight}Kg</span>
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">Complexion:</strong>
+        <span id="profileComplexion">${myProfileNew.complexion}</span>
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">Blood Group:</strong>
+        <span id="profileBloodGroup">${myProfileNew.blood_group}</span>
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">Disability:</strong>
+        <span id="disability">${myProfileNew.disability}</span>
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">Country:</strong>
+        <span id="profileCountry">${myProfileNew.country}</span>
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">State:</strong>
+        <span id="profileState">${myProfileNew.state}</span>
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">City:</strong>
+        <span id="profileCity">${myProfileNew.city}</span>
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">Address:</strong>
+        <span id="profileAddress">${myProfileNew.address}</span>
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">Remarks:</strong>
+        <span id="profileRemarks">${myProfileNew.remark}</span>
+    </div>
+</div>
+
+                `,
+              education: `
+                    <div class="profile-basic">
+                        <button 
+            class="option-button" 
+            data-section="edit" 
+            id="edit" 
+            onClick="openEditEducation()">
+            Edit
+        </button>
+    <div class="profile-item1">
+        <strong class="profile-label1">Qualification:</strong>
+        <span id="qualification1">${myProfileNew.qualification}</span>
+        
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">Specialization:</strong>
+        <span id="specialization">${myProfileNew.specialization}</span>
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">Profession:</strong>
+        <span id="profession">${myProfileNew.occupation}</span>
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">Company:</strong>
+        <span id="company">${myProfileNew.company}</span>
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">Company City:</strong>
+        <span id="companyCity">${myProfileNew.company_city}</span>
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">Salary:</strong>
+        <span id="salaryRange">${myProfileNew.salary}</span>
+    </div>
+</div>
+
+                `,
+              horoscope: `
+                     <div class="profile-basic">
+                         <button 
+            class="option-button" 
+            data-section="edit" 
+            id="edit" 
+            onClick="openEditHoroscope()">
+            Edit
+        </button>
+    <div class="profile-item1">
+       
+        <strong class="profile-label1">Nakshatra:</strong>
+        <span id="nakshatra">${myProfileNew.nakshatra}</span>
+        
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">Rashi:</strong>
+        <span id="rashi">${myProfileNew.rashi}</span>
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">Gothra:</strong>
+        <span id="gothra">${myProfileNew.gothra}</span>
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">Birth Place:</strong>
+        <span id="bplace">${myProfileNew.birth_place}</span>
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">Birth Time:</strong>
+        <span id="bTime">${myProfileNew.birth_time}</span>
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">Family Diety:</strong>
+        <span id="familyDiety">${myProfileNew.family_diety}</span>
+    </div>
+</div>
+
+                `,
+              family: `
+                    <div class="profile-basic">
+                        <button 
+            class="option-button" 
+            data-section="edit" 
+            id="edit" 
+            onClick="openEditFamily()">
+            Edit
+        </button>
+         <div class="profile-item1">
+        <strong class="profile-label1">No. of kids:</strong>
+        <span id="kids">${myProfileNew.kids}</span>
+        
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">Father's Name:</strong>
+        <span id="fatherName">${myProfileNew.father_name}</span>
+        
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">Father's Occupation:</strong>
+        <span id="fatherOccupation">${myProfileNew.father_ocupation}</span>
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">Mother's Name:</strong>
+        <span id="motherName">${myProfileNew.mother_name}</span>
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">Mother's Occupation:</strong>
+        <span id="motherOccupation">${myProfileNew.mother_occupation}</span>
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">No of Brother's:</strong>
+        <span id="brothers">${myProfileNew.number_of_brothers}</span>
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">No of Sister's:</strong>
+        <span id="sisters">${myProfileNew.number_of_sisters}</span>
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">Permanent Address:</strong>
+        <span id="pAddress">${myProfileNew.home_town}</span>
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">Mother Tongue:</strong>
+        <span id="motherTongue">${myProfileNew.mother_tongue}</span>
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">Family Type:</strong>
+        <span id="familyType">${myProfileNew.family_type}</span>
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">Reference Name:</strong>
+        <span id="referenceName">${myProfileNew.reference}</span>
+    </div>
+    <div class="profile-item1">
+        <strong class="profile-label1">Reference Number:</strong>
+        <span id="referenceNumber">${myProfileNew.reference_number}</span>
+    </div>
+</div>
+
+                `,
+                photo: `
+                <button 
+            class="option-button" 
+            data-section="edit" 
+            id="edit" 
+            onClick="openEditPhoto()">
+            Upload
+        </button>
+                        <div class="photo-row">
+                        ${getPhotoHTML(photos_url)}
+                        </div>
+                        `,
+
+
+                
+                
+                    delete: `
+                        <div>
+                        <input type="radio" id="r1" name="utrr" value="1">
+                        <label for="r1">Active</label><br><br>
+
+                        <input type="radio" id="r2" name="utrr" value="2">
+                        <label for="r2">Married</label><br><br>
+
+                        <input type="radio" id="r3" name="utrr" value="3">
+                        <label for="r3">Not Interested</label><br><br>
+
+                        <input type="radio" id="r4" name="utrr" value="4">
+                        <label for="r4">Delete</label><br><br>
+
+                        <button class="option-button-sub" id="delete1" onclick="displayRadioButton()">Submit</button> 
+                        </div>                    
+                    `,
+                    
+                   
+                    
+          };
+         
+           
+         
+          detailsSection.innerHTML = sectionData[section] || "<p>No details available for this section.</p>";
+              // Initialize zoom functionality after the section is loaded
+            if (section === 'photo') {
+                initZoom();
+            }
+
+
+            if (section === 'delete') {
+                setDefaultRadioButton();
+            }
+
+       
+           
+
+
+
+          
+        }
+
+    // Function to update progress bar
+   
+    // let baseURL='';
+    document.addEventListener('DOMContentLoaded', function () {
+        const waitingDialog = document.getElementById('waiting-dialog');
+       //consolelog('DOM fully loaded and parsed');
+        
+        if(localStorage.getItem('matriId')== 'NULL'||localStorage.getItem('matriId')==''||localStorage.getItem('matriId')== null ){
+            logout();
+        }
+         async function loadSectionRow() {
+            // Ensure the options row is visible on page load
+            document.getElementById("optionsRow").style.display = "flex"; 
+            
+            try {
+                // Wait for the data to load before calling loadSectionDetails
+                await loadSectionDetails("basic"); 
+
+            } catch (error) {
+               console.error("Error loading section details:", error);
+            }
+        };
+    
+        // Example of how loadSectionDetails function might look with async
+        async function loadSectionDetails1(section) {
+            // Simulate an async operation, like fetching data from an API
+            let response = await fetchData(section);
+    
+            if (response.success) {
+                // Process the loaded data and update the DOM
+               //consolelog(`Section ${section} loaded successfully!`);
+               
+            } else {
+               console.error("Failed to load section data");
+            }
+        }
+    
+        // Simulated async data-fetching function
+        async function fetchData(section) {
+            return new Promise((resolve) => {
+                setTimeout(() => {
+                    resolve({ success: true, data: section });
+                }, 1000); // Simulate a 1-second delay for fetching data
+            });
+        }
+        // Show the waiting dialog
+        function showWaitingDialog() {
+            waitingDialog.style.display = 'flex';
+        }
+
+        // Hide the waiting dialog
+        function hideWaitingDialog() {
+            waitingDialog.style.display = 'none';
+        }
+        
+        const data = {
+            id:localStorage.getItem('mId'),
+            matri_id:localStorage.getItem('matriId')
+        };
+       //consolelog(data);
+
+        axios.post('https://www.sharutech.com/matrimony/my_profile.php', data, {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(function(response) {
+           //consolelog('Success:', response.data);
+            //console.log('API Data Loaded');
+            
+            if(response.data.message.p_out_mssg_flg === 'Y'){
+            localStorage.setItem("matriId", response.data.dataout[0].matri_id);
+            // localStorage.setItem("baseURL", response.data.my_profile[0].base_url);
+            
+            const image = document.getElementById("profilePicture");
+            image.src = localStorage.getItem("baseURL")+response.data.dataout[0]["url"];
+            const profileImg = document.getElementById("profileImg");
+            profileImg.src = localStorage.getItem("baseURL")+response.data.dataout[0]["url"];
+            const profileFor = document.getElementById("profileFor");
+            const profileFor1 = document.getElementById("profileFor1");
+            const profileId = document.getElementById("profileId");
+            const profileMatriId = document.getElementById("profileMatriId");
+            profileFor.textContent = response.data.dataout[0].first_name+" "+response.data.dataout[0].last_name;
+            profileFor1.textContent = response.data.dataout[0].first_name+" "+response.data.dataout[0].last_name;
+            profileId.textContent=response.data.dataout[0].matri_id;
+            profileMatriId.textContent=response.data.dataout[0].matri_id;
+           //consolelog(response.data.dataout);
+                let myProfile=response.data.dataout[0];
+                myProfileNew=response.data.dataout[0];
+                document.getElementById("profileNameText").textContent = `${(myProfile.first_name==null || myProfile.first_name=='null')?'':myProfile.first_name+" "+myProfile.last_name}`;
+                document.getElementById("profileAge").textContent = `${(myProfile.age==null || myProfile.age=='null')?'':myProfile.age+"yrs"}`;
+                document.getElementById("profileHeight").textContent = `${(myProfile.height==null || myProfile.height=='null')?'': myProfile.height+"cm"}`;
+                document.getElementById("profileWeight").textContent = `${(myProfile.weight==null || myProfile.weight=='null')?'':myProfile.weight+"kg"}`;
+             let imgURL='';
+                if(myProfile.gender_type==='Male' && (myProfile.url===null || myProfile.url==='')){
+                    imgURL='../img/2.png';
+                }else if(myProfile.gender_type==='Female' && (myProfile.url===null || myProfile.url==='')){
+                    imgURL='../img/1.png';
+                }else{  
+                    imgURL=localStorage.getItem("baseURL")+myProfile.url;
+                }
+                document.getElementById("profilePhoto").src = imgURL;
+                const matriText=document.getElementById("matriText");
+                matriText.textContent=myProfile.matri_id;
+
+            
+           
+            let baseURL=response.data.dataout[0].base_url;
+            loadSectionRow();      
+
+
+
+
+           // myProfile();
+            hideWaitingDialog();
+            //setDefaultRadioButton();
+            //restoreRadioButtonState();
+            }else{
+           //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);
+            hideWaitingDialog();
+            }
+        });
+ 
+
+       
+        
+    });
+   
+    const photo = {
+        //id:localStorage.getItem('mId'),
+        matri_id:localStorage.getItem('matriId'),
+        type:"get_image",
+        //url:localStorage.getItem('url'),
+    };
+    photos_url=[];
+   //consolelog("ch",photo);
+
+    axios.post('https://www.sharutech.com/matrimony/edit_image.php', photo, {
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(function(response) {
+       //consolelog('Siiii:', response.data);
+        if (response.data.message.p_out_mssg_flg === 'Y') {
+            // Access `dataout` properly from `response.data`
+            const dataout = response.data.dataout; // Ensure this matches the API structure
+            if (dataout && dataout.length > 0) {
+               //consolelog("pic", dataout[0].url);
+                for(i=0;i<dataout.length;i++){
+            
+                    photos_url[i] ={ url : localStorage.getItem("baseURL")+dataout[i].url ,
+                                     sl_id:dataout[i].sl_id
+                                    }
+                   //consolelog(photos_url[i]);
+                }
+            } else {
+                Swal.fire({
+                    title: "Error!",
+                    text: "Please Retry Again.",
+                    icon: "error",
+                    confirmButtonText: "OK"
+                });
+               //consolewarn("No dataout or empty array in response.");
+
+            }
+        }
+    }) 
+
+
+
+    
+// Get the profile_status from localStorage
+/*function checkRadiobutton() {
+    // Retrieve the profile_status from localStorage
+    const profileStatus = localStorage.getItem("profile_status");
+   //consolelog("Profile Status from localStorage:", profileStatus);
+   //consolelog(document.getElementById("r2").value);
+    // Check if profileStatus exists in localStorage
+    if (profileStatus) {
+        var radios = document.getElementsByName("utrr");
+       //consolelog("vv",radios);
+        for (var i = 0; i < radios.length; i++) {
+           //consolelog(i);
+           //consolelog(radios[i].value);
+           // if (radios[i].value == "1") { 
+               // radios[i].checked = true;
+               document.getElementById("r1").checked =true;
+                
+                //break; // Stop the loop once the correct radio button is found
+            //}
+        }
+    } else {
+       //consolewarn("No profile_status found in localStorage.");
+    }
+};
+*/
+
+/*function displayRadioButton() {
+    // Get all radio buttons with the name "status"
+    const radios = document.getElementsByName('status');
+    let selectedValue = 'None';
+
+    // Loop through the radio buttons to find the checked one
+    for (let radio of radios) {
+        if (radio.checked) {
+            selectedValue = radio.id;
+            break;
+        }
+    }
+    document.getElementById('selectedValue').textContent = selectedValue;
+    let profileStatus = localStorage.getItem("profile_status");
+
+    // Display the value in the console
+   //consolelog("Profile Status: ", profileStatus); 
+   // let selectedValue1 = document.querySelector('input[name="status"]:checked').value;
+   
+} */
+
+
+</script>
+<!-- <script src="rad.js"></script>   -->
+</body>
+</html>

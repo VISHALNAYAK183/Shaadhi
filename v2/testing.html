@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Affan - PWA Mobile HTML Template">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="theme-color" content="#0134d4">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <!-- Title -->
+  <title>Affan - PWA Mobile HTML Template</title>
+
+  <!-- Favicon -->
+  <link rel="icon" href="img/core-img/favicon.ico">
+  <link rel="apple-touch-icon" href="img/icons/icon-96x96.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="img/icons/icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="167x167" href="img/icons/icon-167x167.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="img/icons/icon-180x180.png">
+
+  <!-- Style CSS -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="sign_up.css">
+
+  <!-- Web App Manifest -->
+  <link rel="manifest" href="manifest.json">
+
+</head>
+
+<body>
+  <!-- Preloader -->
+  <div id="preloader">
+    <div class="spinner-grow text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+  <!-- Internet Connection Status -->
+  <div class="internet-connection-status" id="internetStatus"></div>
+
+  <!-- Back Button -->
+  <!-- <div class="login-back-button">
+    <a href="login.html">
+      <i class="bi bi-arrow-left-short text-sign-color"></i>
+    </a>
+  </div> -->
+
+  <!-- Login Wrapper Area -->
+  <div class="login-wrapper d-flex login-bg-signup" style="flex-direction: column;">
+    <div class="custom-container">
+      <h4 class="my-5 text-center text-sign-color">Sign Up</h4>
+    </div>
+      <!-- Register Form -->
+      <div class="register-form" style="margin: 30px 12%;">
+        <form action="basic_info.html">
+          <div class="form-group">
+            <select class="form-select mb-3 text-sign-color" id="create-select" name="create-select" required>
+              <option value="" disabled selected hidden></option>
+              <option value="1">Self</option>
+              <option value="2">Son</option>
+              <option value="3">Daughter</option>
+              <option value="4">Brother</option>
+              <option value="5">Sister</option>
+              <!-- <option value="Other">Other</option> -->
+            </select>
+            <label class="label text-sign-color" for="create-select">Creating Profile for</label>
+            <span id="create-error" class="error-message">Please select an option.</span>
+          </div>
+
+          <div class="form-group text-start">
+            <input class="form-control text-sign-color" type="text" id="name-input" placeholder=" ">
+            <label class="label text-sign-color" for="name-input">Your Name</label>
+            <span id="name-error" class="error-message">Please enter your name.</span>
+          </div>
+
+          <div class="form-group text-start position-relative">
+            <input class="form-control text-sign-color" id="phone-input" type="text" placeholder=" ">
+            <label class="label text-sign-color" for="phone-input">Phone Number</label>
+            <span id="phone-error" class="error-message">Please enter a valid phone number.</span>
+          </div>
+
+          <div class="form-group text-start position-relative" id="otp-button-section">
+            <button type="button" class="btn w-100 btn-grad-reg" id="get-otp-btn">Get OTP</button>
+          </div>
+
+          <!-- <div class="form-group text-start position-relative" id="otp-section" style="display: none;">
+            <input class="form-control text-sign-color" id="otp-input" type="password" placeholder="" maxlength="6" inputmode="numeric" oninput="if(this.value.length > 6) this.value = this.value.slice(0, 6);">
+            <span id="otp-error" class="error-message">Please enter a valid OTP.</span>
+          </div> -->
+          <div class="form-group text-start position-relative" id="otp-section" style="display: none;">
+            <input class="form-control text-sign-color" id="otp-input" type="text" placeholder=" " maxlength="4" inputmode="numeric">
+            <label class="label text-sign-color" for="otp-input">Enter OTP</label>
+            <span id="otp-error" class="error-message">Please enter a valid OTP.</span>
+            <div id="otp-timer" class="mt-2"></div>
+            <p id="resend-otp-btn" class="text-sign-color" style="display: none;" onclick="resendOtp()"><strong><u>Resend OTP</u></strong></p>
+            <!-- <button id="resend-otp-btn" class="text-sign-color" style="display: none;" onclick="resendOtp()">Resend OTP</button> -->
+          </div>
+
+          <div class="form-group text-start position-relative" id="password-section" style="display: none;">
+            <input class="form-control text-sign-color" id="psw-input" type="password" placeholder=" ">
+            <label class="label text-sign-color" for="psw-input">New password</label>
+            <div class="position-absolute" id="password-visibility">
+              <i class="bi bi-eye"></i>
+              <i class="bi bi-eye-slash"></i>
+            </div>
+            <span id="psw-error" class="error-message">Please enter a password.</span>
+          </div>
+          
+          <div class="form-group text-start position-relative" id="password-confirm-section" style="display: none;">
+            <input class="form-control text-sign-color" id="psw-input-confirm" type="password" placeholder=" " oninput="checkPasswordMatch()">
+            <label class="label text-sign-color" for="psw-input-confirm">Confirm password</label>
+            <div class="position-absolute" id="password-visibility-confirm">
+              <i class="bi bi-eye"></i>
+              <i class="bi bi-eye-slash"></i>
+            </div>
+            <span id="password-error" class="error-message">Passwords do not match.</span> <!-- Error message -->
+          </div>
+
+          <div class="form-check">
+            <input class="form-check-input" id="checkedCheckbox" type="checkbox" value="" checked>
+            <label class="fw-normal text-sign-color" for="checkedCheckbox">I agree with the <a class="stretched-link text-sign-color" href="">Terms &amp; Policy.</a></label>
+          </div>
+
+          <button class="btn w-100 btn-grad-reg" type="submit" id="next-btn">Next</button>
+        </form>
+        <div class="text-center my-3">
+          <p class="fw-normal text-sign-color"><u>or</u></p>
+        </div>
+        <div class="text-center my-3"></div>
+          <div id="g_id_onload"
+               data-client_id="YOUR_GOOGLE_CLIENT_ID"
+               data-context="signup"
+               data-ux_mode="popup"
+               data-callback="handleGoogleSignIn"
+               data-auto_prompt="false">
+          </div>
+          <div class="g_id_signin" data-type="standard"></div>
+        </div>
+        <div class="login-meta-data text-center">
+          <p class="mt-3 mb-0 text-sign-color">Already have an account? <a class="stretched-link" href="login.html">Login</a></p>
+        </div>
+      </div>
+    
+  </div>
+
+  <!-- All JavaScript Files -->
+  <script src="js/bootstrap.bundle.min.js"></script>
+  <script src="js/internet-status.js"></script>
+  <script src="js/dark-rtl.js"></script>
+  <script src="js/pswmeter.js"></script>
+  <script src="js/active.js"></script>
+  <script src="js/pwa.js"></script>
+
+  <!-- Google Sign-In API -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+  <!-- Custom JavaScript -->
+  <script>
+    // document.getElementById('get-otp-btn').addEventListener('click', function () {
+    // const phoneInput = document.getElementById('phone-input').value;
+    // const phoneError = document.getElementById('phone-error');
+
+    //     if (phoneInput && phoneInput.length === 10 && /^\d+$/.test(phoneInput)) {
+    //         phoneError.style.display = 'none';
+    //         document.getElementById('otp-section').style.display = 'block';
+    //         document.getElementById('otp-input').value='';
+    //     } else {
+    //         phoneError.style.display = 'block';
+    //         document.getElementById('otp-section').style.display = 'none';
+    //         document.getElementById('otp-input').value='';
+    //     }
+    // });
+
+    let timer;
+    let countdown = 30;
+    let correctOtp = '0000';
+
+    document.getElementById('get-otp-btn').addEventListener('click', function () {
+    const phoneInput = document.getElementById('phone-input').value;
+    const phoneError = document.getElementById('phone-error');
+
+    if (phoneInput && phoneInput.length === 10 && /^\d+$/.test(phoneInput)) {
+        phoneError.style.display = 'none';
+        document.getElementById('otp-section').style.display = 'block';
+        document.getElementById('otp-input').value = '';
+        document.getElementById('otp-button-section').style.display = 'none';
+
+        const data = {
+            "user": phoneInput,
+            "category": "register"
+        };
+
+        // Call OTP API
+        axios.post('https://www.sharutech.com/matrimony/login.php', data, {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(response => {
+           //consolelog('phone number sent:', response);
+    
+        // Check if the number already exists
+        if (response.data.message.p_out_mssg_flg === 'N') {
+            phoneError.textContent = "Phone Number Already Exists!";
+            phoneError.style.display = 'block'; // Display the error message
+            document.getElementById('otp-section').style.display = 'none'; // Hide OTP section
+            document.getElementById('otp-input').value = ''; // Clear OTP input
+            document.getElementById('otp-button-section').style.display = 'block';
+        } else if (response.data.message.p_out_mssg_flg === 'Y') {
+            // Proceed to send OTP
+            const data1 = {
+                "type": "otp",
+                "number": phoneInput
+            };
+
+            axios.post('https://www.sharutech.com/matrimony/send_sms.php', data1, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => {
+                // Ensure to check the response for the OTP
+                correctOtp = response.data.data.Otp; // Ensure this is the correct path
+                startTimer();
+            });
+        }
+    });
+    } else {
+        phoneError.textContent = "Please enter a valid phone number.";
+        phoneError.style.display = 'block';
+        document.getElementById('otp-section').style.display = 'none';
+        document.getElementById('otp-input').value = '';
+    }
+});
+
+
+    const otpInput = document.getElementById('otp-input');
+    otpInput.addEventListener('input', function()  {
+      const enteredOtp = this.value;
+      // Assume you store the correct OTP somewhere (e.g., in a variable or a cookie)
+      // const correctOtp = '1234'; // Replace this with the actual OTP logic
+
+      if (enteredOtp.length === 4) {
+        if (enteredOtp === correctOtp) {
+            clearInterval(timer); // Clear the timer
+            document.getElementById('otp-timer').textContent = ''; // Clear timer display
+            document.getElementById('otp-section').style.display = 'none'; // Hide OTP section
+            document.getElementById('password-section').style.display = 'block'; // Show password section
+            document.getElementById('password-confirm-section').style.display = 'block'; // Show confirm password section
+            document.getElementById('resend-otp-btn').style.display = 'none'; // Hide resend button
+        } else {
+            document.getElementById('otp-error').style.display = 'block'; // Show error for incorrect OTP
+            document.getElementById('resend-otp-btn').style.display = 'block'; // Show resend button
+        }
+    } else {
+        document.getElementById('otp-error').style.display = 'none'; // Hide error if OTP is incomplete
+    }
+    });
+
+    function startTimer() {
+        document.getElementById('resend-otp-btn').style.display = 'none'; // Hide resend button
+        countdown = 30; // Reset countdown
+        updateTimerDisplay(); // Show initial timer
+
+        timer = setInterval(() => {
+            countdown--;
+            updateTimerDisplay();
+
+            if (countdown <= 0) {
+                clearInterval(timer);
+                document.getElementById('resend-otp-btn').style.display = 'block'; // Show resend button
+            }
+        }, 1000);
+    }
+
+    function updateTimerDisplay() {
+        document.getElementById('otp-timer').textContent = `Resend OTP in ${countdown} seconds`;
+    }
+
+    function resendOtp() {
+    const phoneInput = document.getElementById('phone-input').value;
+
+    if (phoneInput && phoneInput.length === 10 && /^\d+$/.test(phoneInput)) {
+        // Call OTP API again
+        const data1 = {
+            "type": "otp",
+            "number": phoneInput
+        };
+
+              axios.post('https://www.sharutech.com/matrimony/send_sms.php', data1, {
+                  headers: {
+                      'Content-Type': 'application/json',
+                  }
+              })
+              .then(response => {
+                  // Ensure to check the response for the OTP
+                  correctOtp = response.data.data.Otp; // Ensure this is the correct path to get the OTP from API response
+                  startTimer(); // Restart the OTP timer
+                  document.getElementById('phone-error').style.display = 'none';
+              });
+          } else {
+              // Display an error if phone number is invalid
+              document.getElementById('phone-error').textContent = "Please enter a valid phone number.";
+              document.getElementById('phone-error').style.display = 'block';
+          }
+      };
+
+
+
+    function checkPasswordMatch() {
+      const password = document.getElementById('psw-input').value;
+      const confirmPassword = document.getElementById('psw-input-confirm').value;
+      const passwordError = document.getElementById('password-error');
+
+      if (password !== confirmPassword) {
+        passwordError.style.display = 'block'; // Show error message
+      } else {
+        passwordError.style.display = 'none'; // Hide error message if passwords match
+      }
+    }
+
+    document.getElementById('next-btn').addEventListener('click', function (e) {
+      e.preventDefault();
+
+      // Get form values
+      const createSelect = document.getElementById('create-select').value;
+      const name = document.getElementById('name-input').value;
+      const phone = document.getElementById('phone-input').value;
+      const otp = document.getElementById('otp-input').value;
+      const password = document.getElementById('psw-input').value;
+      const confirmPassword = document.getElementById('psw-input-confirm').value;
+
+      // Error elements
+      const createError = document.getElementById('create-error');
+      const nameError = document.getElementById('name-error');
+      const phoneError = document.getElementById('phone-error');
+      const otpError = document.getElementById('otp-error');
+      const pswError = document.getElementById('psw-error');
+      const passwordError = document.getElementById('password-error');
+
+      let valid = true;
+
+      // Validate each field and display error message if necessary
+      if (!createSelect) {
+        createError.style.display = 'block';
+        valid = false;
+      } else {
+        createError.style.display = 'none';
+      }
+
+      if (!name) {
+        nameError.style.display = 'block';
+        valid = false;
+      } else {
+        nameError.style.display = 'none';
+      }
+
+      if (!phone || phone.length !== 10 || !/^\d+$/.test(phone)) {
+        phoneError.style.display = 'block';
+        valid = false;
+      } else {
+        phoneError.style.display = 'none';
+      }
+
+      if (!otp || otp.length !== 4) {
+        otpError.style.display = 'block';
+        valid = false;
+      } else {
+        otpError.style.display = 'none';
+      }
+
+      if (!password) {
+        pswError.style.display = 'block';
+        valid = false;
+      } else {
+        pswError.style.display = 'none';
+      }
+
+      if (password !== confirmPassword) {
+        passwordError.style.display = 'block';
+        valid = false;
+      } else {
+        passwordError.style.display = 'none';
+      }
+
+      // If form is valid, proceed to the next page
+      if (valid) {
+        // Submit form or proceed to next step
+        localStorage.setItem('profileFor', createSelect);
+        localStorage.setItem('name', name);
+        localStorage.setItem('phone', phone);
+        localStorage.setItem('password', confirmPassword);
+       //consolelog(createSelect,name,phone,confirmPassword,createSelect)
+        window.location.href = 'basic_info.html'; // Redirect to the next page
+      }
+    });
+  </script>
+</body>
+
+</html> 

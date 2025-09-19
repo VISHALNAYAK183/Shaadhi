@@ -1,0 +1,62 @@
+@import url("css/bootstrap.min.css");
+@import url("css/bootstrap-icons.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+
+
+.custom-container {
+margin-left: auto;
+margin-right: auto;
+}
+
+.btn-grad-reg {
+background-image: -webkit-gradient(linear, left top, right top, from(#b54b4b), color-stop(51%, #882d2d), to(#b43838));
+background-image: linear-gradient(to right, #b54b4b 0%, #882d2d 51%, #b43838 100%);
+text-align: center;
+text-transform: uppercase;
+-webkit-transition: 1s;
+transition: 1s;
+color: white;
+-webkit-box-shadow: 0 0 20px #eee;
+        box-shadow: 0 0 20px #eee;
+border-radius: 10px;
+display: block;
+}
+
+.btn-grad-reg:hover {
+background-position: right center; /* change the direction of the change here */
+color: #fff;
+text-decoration: none;
+}
+
+.btn-submit {
+display: -webkit-box;
+display: -ms-flexbox;
+display: flex;
+-webkit-box-align: center;
+    -ms-flex-align: center;
+        align-items: center;
+-webkit-box-pack: center;
+    -ms-flex-pack: center;
+        justify-content: center;
+-webkit-box-flex: 0;
+    -ms-flex: 0 0 2rem;
+        flex: 0 0 2rem;
+width: 2rem;
+height: 2rem;
+padding: 0 !important;
+background-color: var(--primary-950);
+color: var(--white);
+border-radius: 50%;
+border: 0 !important;
+font-size: 1.125rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--primary-950);
+  font-weight: 600;
+}

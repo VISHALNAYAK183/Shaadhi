@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- <meta name="description" content="Affan - PWA Mobile HTML Template"> -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="theme-color" content="#0134d4">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <title>Upload Image</title>
+    <link rel="shortcut icon" type="image/png" href="../img/icon-72x72.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-96x96.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-128x128.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-144x144.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-152x152.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-167x167.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-180x180.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-192x192.png">
+    <!-- Style CSS -->
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link rel="stylesheet" href="../css/upload-image.css">
+
+    <!-- CropperJS CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.css">
+
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Web App Manifest -->
+
+</head>
+<body>
+
+    <!-- Page Container-->
+    <div class="d-flex justify-content-center background-image" style="height: 100vh;">
+        <div class="page-content-wrapper">
+            <!-- Element Heading -->
+            <div class="custom-container">
+                <div class="element-heading">
+                    <h4 class="my-5 text-center text-sign-color">Upload Image</h4>
+                </div>
+            </div>
+
+            <div class="upload-sections-row">
+                <!-- Main Profile Image Upload -->
+                <div class="upload-section">
+                    <h5>Upload Main Image</h5>
+                    <div id="mainImagePlaceholder" class="upload-box main-box" onclick="triggerFileInput('mainImage')">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <input type="file" id="mainImage" accept="image/*" onchange="loadImage(event, 'main')" style="display: none;">
+                </div>
+
+                <!-- Additional Images Upload -->
+                <div class="upload-section">
+                    <h5>Upload Additional Images</h5>
+                    <div id="extraImagePlaceholder1" class="upload-box" onclick="triggerFileInput('extraImage1')">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <input type="file" id="extraImage1" accept="image/*" onchange="loadImage(event, 'extra1')" style="display: none;">
+
+                    <div id="extraImagePlaceholder2" class="upload-box" onclick="triggerFileInput('extraImage2')">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <input type="file" id="extraImage2" accept="image/*" onchange="loadImage(event, 'extra2')" style="display: none;">
+
+                    <div id="extraImagePlaceholder3" class="upload-box" onclick="triggerFileInput('extraImage3')">
+                        <i class="fas fa-plus-circle"></i>
+                    </div>
+                    <input type="file" id="extraImage3" accept="image/*" onchange="loadImage(event, 'extra3')" style="display: none;">
+                </div>
+
+                <!-- CropperJS Overlay -->
+                <div class="crop-overlay" id="cropOverlay" style="display: none;">
+                    <div class="crop-container">
+                        <img id="cropImage" alt="Crop Image" style="max-width: 100%; max-height: 60vh;">
+                        
+                        <!-- CropperJS Controls with Icons -->
+                        <div class="crop-buttons">
+                            <i class="fas fa-search-plus" onclick="cropper.zoom(0.1)"></i> <!-- Zoom In -->
+                            <i class="fas fa-search-minus" onclick="cropper.zoom(-0.1)"></i> <!-- Zoom Out -->
+                            <i class="fas fa-undo" onclick="cropper.rotate(-45)"></i> <!-- Rotate Left -->
+                            <i class="fas fa-redo" onclick="cropper.rotate(45)"></i> <!-- Rotate Right -->
+                            <i class="fas fa-arrows-alt-h" onclick="cropper.scaleX(-1)"></i> <!-- Invert Horizontally -->
+                            <i class="fas fa-arrows-alt-v" onclick="cropper.scaleY(-1)"></i> <!-- Invert Vertically -->
+                            <i class="fas fa-sync-alt" onclick="cropper.reset()"></i> <!-- Reset -->
+                            <i class="fas fa-check-circle" onclick="confirmCrop()"></i> <!-- Confirm -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="custom-container my-3">
+                <button class="btn btn-grad-reg" type="submit" onclick="submitForm()" style="width: 40%; display: block; margin: 0 auto;">Submit</button>
+            </div>
+            <div id="loader" class="loader-container">
+                <div class="loading-text">Loading</div>
+                <div class="dots">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.6.2/cropper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        let cropper;
+        let currentImageType = ''; // To track if cropping 'main' or 'extra' image
+        const uploadedImages = []; // Array to hold uploaded images
+        const matri_id = localStorage.getItem('matriId');//localStorage.getItem('matriId');
+        const id = localStorage.getItem('mId');//localStorage.getItem('mId');
+        const userId = matri_id;
+        function triggerFileInput(inputId) {
+            document.getElementById(inputId).click();
+        }
+
+        // Function to open image in cropper overlay
+        function loadImage(event, type) {
+            const file = event.target.files[0];
+            if (file) {
+                currentImageType = type;
+                const image = document.getElementById('cropImage');
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    image.src = e.target.result;
+                    document.getElementById('cropOverlay').style.display = 'flex';
+                    cropper = new Cropper(image, {
+                        aspectRatio: 1, // fixed frame aspect ratio
+                        viewMode: 2,
+                        autoCropArea: 1,
+                        responsive: true,
+                    });
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        
+
+        // Confirm crop and display result
+        function confirmCrop() {
+            const canvas = cropper.getCroppedCanvas({
+                width: currentImageType === 'main' ? 1000 : 750,
+                height: currentImageType === 'main' ? 1000 : 750,
+            });
+
+            // Convert to blob for storage or upload
+            canvas.toBlob((blob) => {
+                let fileName;
+                if (currentImageType === 'main') {
+                    fileName = `${userId}_main_image.jpeg`;
+                } else {
+                    fileName = `${userId}_extra_image_${currentImageType.charAt(currentImageType.length - 1)}.jpeg`;
+                }
+
+                // Prepare FormData to upload the image
+                const formData = new FormData();
+                formData.append('file', blob, fileName);
+                
+                // Save the image URL in the uploadedImages array
+                const url = URL.createObjectURL(blob);
+                uploadedImages.push({ name: fileName, blob: blob, url: url });
+
+                // Show the cropped image in the placeholder
+                document.getElementById(`${currentImageType === 'main' ? 'mainImagePlaceholder' : 'extraImagePlaceholder' + currentImageType.charAt(currentImageType.length - 1)}`).style.backgroundImage = `url(${url})`;
+                document.getElementById(`${currentImageType === 'main' ? 'mainImagePlaceholder' : 'extraImagePlaceholder' + currentImageType.charAt(currentImageType.length - 1)}`).style.backgroundSize = 'cover';
+
+                // Reset cropper and hide overlay
+                cropper.destroy();
+                cropper = null;
+                document.getElementById('cropOverlay').style.display = 'none';
+            });
+        }
+        
+        // Function to handle form submission
+        function submitForm() {
+            if (uploadedImages.length == 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Please upload at least one image before submitting the form.',
+                });
+                return; // Stop the function execution
+            }else{
+                const apiEndpoint = 'https://www.sharutech.com/matrimony/upload_image.php'; // Replace with your API endpoint
+                document.getElementById("loader").style.display = "flex";
+                // Prepare FormData object for API call
+                const formData = new FormData();
+                uploadedImages.forEach(image => {
+                    formData.append('images[]', image.blob, image.name);
+                });
+                formData.append('matri_id', matri_id);
+                formData.append('id', id);
+                formData.append('Profile', "1");
+               //consolelog('matri_id', matri_id);
+
+                // Make an API call to upload the images
+                axios.post(apiEndpoint, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                .then(response => {
+                   //consolelog('Images uploaded successfully:', response.data);
+                    // Handle success (e.g., show a success message, redirect, etc.);
+                    if(response.data[0].p_out_mssg_flg === 'Y'){
+                        localStorage.setItem('matriId', matri_id);
+                        localStorage.setItem('mId', id);
+                        window.location.href = 'my_profile.html';
+                        document.getElementById("loader").style.display = "none";
+                    }else{
+                        document.getElementById("loader").style.display = "none";
+                       //consolelog(response.data[0].p_out_mssg_flg,"and",response.data[0].p_out_mssg);
+                    }
+                })
+                .catch(error => {
+                    document.getElementById("loader").style.display = "none";
+                   console.error('Error uploading images:', error);
+                    // Handle error (e.g., show an error message)
+                });
+            }
+        }
+    </script>
+</body>
+</html>

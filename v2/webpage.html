@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Taralabalu Matrimony Login</title>
+    <style>
+      img {
+        width: 80%;
+        align-items: center;
+        justify-content: center;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      .login-container {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        max-width: 100%;
+        width: 100%;
+        text-align: center;
+        border: 2px solid #b33e3e;
+      }
+      .login-container h2 {
+        margin-bottom: 20px;
+        color: #b33e3e;
+      }
+      .input-group {
+        margin-bottom: 15px;
+        text-align: left;
+      }
+      .input-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      .input-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+      .btn {
+        background-color: #b33e3e;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+      }
+      .btn:hover {
+        background-color: #9c3535;
+      }
+      .login-section,
+      .otp-section {
+        border: 1px solid #b33e3e;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 4px;
+        width: 25%;
+      }
+      .otp-section {
+        padding-bottom: 98px;
+      }
+      .flexContainer {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 50px;
+      }
+      .imageLogo {
+        width: 8%;
+      }
+      .extra-section {
+        margin-top: 20px;
+        text-align: center;
+      }
+      .or-divider {
+        margin: 20px 0;
+        position: relative;
+      }
+      .or-divider span {
+        background-color: #fff;
+        padding: 0 10px;
+        position: relative;
+        z-index: 1;
+      }
+      .or-divider::before {
+        content: "";
+        width: 100%;
+        height: 1px;
+        background-color: #ccc;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        z-index: 0;
+      }
+      .google-login-btn {
+        background-color: #b33e3e;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 25%;
+        margin: 0 auto;
+        display: block;
+      }
+      .google-login-btn:hover {
+        background-color: #357ae8;
+      }
+      .otp-section .btn {
+        margin-bottom: 5px;
+      }
+      #otp-input-container {
+        display: none;
+      }
+      #resend-otp {
+        color: #b33e3e;
+        margin-left: 5px;
+        cursor: pointer;
+        text-decoration: underline;
+      }
+      .flexEnd {
+        display: flex;
+        justify-content: flex-end;
+      }
+      .flexEnd a {
+        font-size: 14px;
+        text-decoration: none;
+        margin: 10px 0 0 0;
+      }
+
+      /* pop up */
+      .popup {
+        position: absolute;
+        top: 40px;
+        right: 50px;
+        background: rgb(255, 255, 255);
+        width: auto;
+        border: 2px solid forestgreen;
+        border-left: 4px solid forestgreen;
+        padding: 0px 20px;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        animation: popup .1s linear;
+      }
+      @keyframes popup{
+        from{
+          transform: translateX(100px);
+          opacity: 0;
+        }to{
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+      .popup p {
+        color: #000;
+        text-transform: capitalize;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <div id="popupmsg"></div>
+      <img
+        src="../img/shiva_linga.png"
+        alt="Taralabalu Matrimony"
+        class="imageLogo"
+      />
+      <h2>Taralabalu Matrimony</h2>
+
+      <div class="flexContainer">
+        <div class="login-section">
+          <h2>Login with Password</h2>
+          <div class="input-group">
+            <label for="phone-email">Phone or Email</label>
+            <input type="text" id="phone-email" placeholder="Phone or Email" />
+          </div>
+          <div class="input-group">
+            <label for="password">Enter Password</label>
+            <input type="password" id="password" placeholder="Enter Password" />
+            <p><a href="#">Forgot Password?</a></p>
+          </div>
+          <button class="btn" onclick="loginWithPassword()">LOGIN</button>
+        </div>
+
+        <div class="otp-section" id="otpContainer">
+          <h2>Login with OTP</h2>
+          <div class="input-group">
+            <label for="otp-phone-email">Phone or Email</label>
+            <input
+              type="text"
+              id="otp-phone-email"
+              placeholder="Phone or Email"
+            />
+          </div>
+          <button class="btn" id="generate-otp" onclick="generateOtp()">
+            Generate OTP
+          </button>
+
+          <div id="otp-input-container">
+            <div class="input-group">
+              <label for="otp">Enter OTP</label>
+              <input type="text" id="otp" placeholder="Enter OTP" />
+              <div class="flexEnd">
+                <a
+                  href="#"
+                  id="resend-otp"
+                  style="display: none; text-decoration: none"
+                  onclick="resendOtp()"
+                  >Resend OTP</a
+                >
+              </div>
+            </div>
+            <button class="btn" onclick="loginWithOtp()">Login with OTP</button>
+            <p id="otp-timer"></p>
+          </div>
+        </div>
+      </div>
+
+      <div class="extra-section">
+        <p>Don't have an account? <a href="Signup.html">Register</a></p>
+        <div class="or-divider"><span>or</span></div>
+        <button class="google-login-btn" onclick="googleLogin()">
+          Sign in with Google
+        </button>
+      </div>
+    </div>
+
+    <script>
+      const OTP_TIMEOUT_DURATION = 30;
+      let otpTimeout;
+
+      function isValidEmail(email) {
+        const emailRegex = /^[^\\s@]+@[^\s@]+\\.[^\\s@]+$/;
+        return emailRegex.test(email);
+      }
+
+      function isValidPhone(phone) {
+        const phoneRegex = /^(\+?\d{1,3})?(\d{10})$/;
+        return phoneRegex.test(phone);
+      }
+
+      function handleLoginSuccess() {
+        // alert("Login successful");
+        const popup = document.getElementById("popupmsg");
+              popup.innerHTML = ` <div class="popup">
+                        <p>login successful</p>
+                                </div>`;
+
+              setInterval(() => {
+                popup.style.display = "none";
+                window.location.href = "dashboard.html";
+              }, 2000);
+            
+      }
+
+      function loginWithPassword() {
+        const emailOrPhone = document.getElementById("phone-email").value;
+        const password = document.getElementById("password").value;
+        if (!isValidEmail(emailOrPhone) && !isValidPhone(emailOrPhone)) {
+          alert("Please enter a valid email or phone number");
+          return;
+        }
+        const data = { user: emailOrPhone, password: password };
+        fetch("https://www.sharutech.com/matrimony/login.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.message.p_out_mssg_flg === "Y") {
+        // Handle successful login
+        const userInfo = data.dataout[0]; // Assuming you want to use the first entry
+       //consolelog("Login successful:", userInfo);
+        handleLoginSuccess(); // Call your success handler function
+      } else {
+        alert("Login failed: " + data.message.p_out_mssg);
+      }
+          })
+          .catch((error) =>console.error("Error:", error));
+      }
+
+      function generateOtp() {
+        const emailOrPhone = document.getElementById("otp-phone-email").value;
+        const pad = document.getElementById("otpContainer");
+        if (!isValidPhone(emailOrPhone)) {
+          alert("Please enter a valid phone number");
+          return;
+        }
+        const data = { user: emailOrPhone };
+        fetch("https://www.sharutech.com/matrimony/login.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.message.p_out_mssg_flg === "Y") {
+              sendOtpSms(emailOrPhone);
+              pad.style.paddingBottom = 0;
+            } else alert("Phone number not registered. Please register first.");
+          })
+          .catch(() => alert("An error occurred. Please try again."));
+      }
+
+      function sendOtpSms(emailOrPhone) {
+        const smsData = { type: "otp", number: emailOrPhone };
+        fetch("https://www.sharutech.com/matrimony/send_sms.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(smsData),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.success || data.data.Otp) {
+              // alert("OTP sent successfully via SMS");
+
+              const popup = document.getElementById("popupmsg");
+              popup.innerHTML = ` <div class="popup">
+                        <p>successfully send OTP via SMS</p>
+                                </div>`;
+
+              setInterval(() => {
+                popup.style.display = "none";
+              }, 3000);
+              document.getElementById("otp-input-container").style.display =
+                "block";
+              startOtpTimer();
+              document.getElementById("generate-otp").style.display = "none";
+            } else alert(data.message?.p_out_mssg || "Failed to send OTP");
+          })
+          .catch(() => alert("An error occurred. Please try again."));
+      }
+
+      function startOtpTimer() {
+        let timeLeft = OTP_TIMEOUT_DURATION;
+        document.getElementById(
+          "otp-timer"
+        ).innerText = `You can request a new OTP in ${timeLeft} seconds.`;
+        otpTimeout = setInterval(() => {
+          timeLeft--;
+          document.getElementById(
+            "otp-timer"
+          ).innerText = `You can request a new OTP in ${timeLeft} seconds.`;
+          if (timeLeft <= 0) {
+            clearInterval(otpTimeout);
+            document.getElementById("otp-timer").innerText = "";
+            document.getElementById("resend-otp").style.display = "inline";
+          }
+        }, 1000);
+      }
+
+      function resendOtp() {
+        clearInterval(otpTimeout);
+        document.getElementById("resend-otp").style.display = "none";
+        generateOtp();
+      }
+
+      function loginWithOtp() {
+        const emailOrPhone = document.getElementById("otp-phone-email").value;
+        const otp = document.getElementById("otp").value;
+        const data = { user: emailOrPhone ,otp: otp };
+        fetch("https://www.sharutech.com/matrimony/login.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+           //consolelog(data);
+            if (data.message.p_out_mssg_flg === 'Y'){
+              localStorage.setItem('matriId', data.dataout[0].matri_id);
+                    localStorage.setItem('mId', data.dataout[0].id);
+                    localStorage.setItem('phone', data.dataout[0].phone);
+              handleLoginSuccess();
+            }else{alert("OTP verification failed. Please try again.")};
+          })
+          .catch(() => alert("An error occurred. Please try again."));
+      }
+
+      function googleLogin() {
+        alert("Google Login not yet implemented");
+      }
+    </script>
+  </body>
+</html>

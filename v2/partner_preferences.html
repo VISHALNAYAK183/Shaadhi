@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Partner Preferences</title>
+  <link rel="shortcut icon" type="image/png" href="../img/icon-72x72.png">
+  <link rel="shortcut icon" type="image/png" href="../img/icon-96x96.png">
+  <link rel="shortcut icon" type="image/png" href="../img/icon-128x128.png">
+  <link rel="shortcut icon" type="image/png" href="../img/icon-144x144.png">
+  <link rel="shortcut icon" type="image/png" href="../img/icon-152x152.png">
+  <link rel="shortcut icon" type="image/png" href="../img/icon-167x167.png">
+  <link rel="shortcut icon" type="image/png" href="../img/icon-180x180.png">
+  <link rel="shortcut icon" type="image/png" href="../img/icon-192x192.png">
+  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+  <style>
+    /* CSS styles remain unchanged */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      /* background: linear-gradient(135deg, #f06, #4a90e2); */
+      background-image: url('https://png.pngtree.com/background/20230208/original/pngtree-beautiful-indian-wedding-background-picture-image_2026053.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+      font-family: 'Poppins', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      /* height: 160vh; */
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      /* display: flex;
+      align-items: center;
+      justify-content: center; */
+      width: 50%;
+      margin: 0 auto;
+      background-color: #fff;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .range-slider {
+      position: relative;
+      height: 40px;
+    }
+
+    input[type="range"] {
+      position: absolute;
+      width: 100%;
+      height: 8px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: #f3ebeb;
+      border-radius: 5px;
+      outline: none;
+      pointer-events: none;
+    
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      background-color: #28a745;
+      border-radius: 50%;
+      cursor: pointer;
+      pointer-events: all;
+      position: relative;
+      z-index: 1; /* Ensures the thumb is on top */
+      top: 2px; 
+    }
+
+    input[type="range"]:focus::-webkit-slider-thumb {
+      transform: scale(1.6);
+      position: relative; /* Allows adjustment */
+      background: #72a156;
+        z-index: 1; /* Ensures the thumb is on top */
+        top: 2px; /* Adjust this value to align the thumb with the track */
+    }
+
+
+    .range-values {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 5px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 10px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .btn:hover {
+      background-color: #218838;
+    }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      margin-bottom: 20px; /* Added margin for spacing */
+    }
+
+    .dropdown-selected {
+      background-color: #fff;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .dropdown-list {
+      display: none;
+      position: absolute;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      max-height: 200px;
+      overflow-y: auto;
+      width: 100%;
+      z-index: 1;
+      margin-top: 5px;
+    }
+
+    .dropdown-list label {
+      display: block;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .dropdown-list label:hover {
+      background-color: #f2f2f2;
+    }
+
+    .dropdown-search {
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+      border: none;
+      border-bottom: 1px solid #ccc;
+    }
+    input#city, select#education {
+        width: 100%; /* Make both elements take full width of their parent */
+        max-width: 500px; /* Optional: Set max-width if needed */
+        padding: 8px;
+        font-size: 16px;
+        box-sizing: border-box; /* Ensure padding doesn't affect total width */
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      max-height: 200px; /* Limit height */
+      overflow-y: auto; /* Enable scrolling */
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+      }
+    .dropdown-content a {
+      padding: 8px 16px;
+      display: block;
+      cursor: pointer;
+    }
+    .dropdown-content a:hover {
+      background-color: #ddd;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .show {
+      display: block;
+    }
+
+    @media only screen and (max-width: 600px) {
+      .dropdown-selected {
+        font-size: 14px;
+      }
+      .dropdown-list label {
+        padding: 8px;
+      }
+    }
+
+    .error-message {
+      color: red;
+      font-size: 14px;
+      display: none;
+    }
+    .age-container, .height-container, .income-container {
+      display: flex; /* Makes the label and input fields align in one line */
+      align-items: center; /* Vertically centers the items */
+      margin-bottom: 10px; /* Add some space below this container */
+    }
+
+    .input-fields {
+      display: flex; /* Keep the input fields in one line */
+      align-items: center; /* Center the inputs vertically */
+      margin-left: 10px; /* Add space between the label and input fields */
+    }
+
+    .separator {
+      margin: 0 10px; /* Space around the separator */
+      font-size: 16px; /* Same font size as inputs */
+      color: #090303; /* Color of the separator */
+    }
+
+    .age-input, .height-input, .income-input {
+      width: 45%; /* Set a fixed width for each input */
+      padding: 10px; /* Increased padding for height */
+      font-size: 16px; /* Font size */
+      border: 1px solid #ccc; /* Border style */
+      border-radius: 5px; /* Rounded corners */
+      margin-right: 0px; /* Space between inputs */
+    }
+
+    .age-input:last-child, .height-input:last-child, .income-input:last-child {
+      margin-right: 0; /* Remove margin from the last input */
+    }
+
+    .age-input:focus, .height-input:focus, .income-input:focus {
+      outline: none; /* Remove default outline */
+      border-color: #0134d4; /* Change border color on focus */
+    }
+
+    .range-slider {
+      width: 90%;
+      margin: 20px 20px;
+      position: relative;
+      height: 30px;
+    }
+
+    .slider-track {
+      position: absolute;
+      width: 100%;
+      height: 4px;
+      background: #ddd;
+      border-radius: 5px;
+    }
+
+    .slider-range {
+      position: absolute;
+      height: 4px;
+      background: #aee1df;
+      border-radius: 5px;
+    }
+
+    .slider-thumb {
+      position: absolute;
+      top: -8px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      cursor: pointer;
+      background-color: #08ca4fb4; /* Default color for both */
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Consistent shadow */
+      border: 2px solid #fff; /* Optional: Adds a white border for clarity */
+    }
+
+    /* Specific styles for the min thumb */
+    .slider-thumb.min {
+      left: 0%; /* Positioned at the start */
+    }
+
+    /* Specific styles for the max thumb */
+    .slider-thumb.max {
+      left: 100%; /* Positioned at the end */
+    }
+    /* Hover and focus effects to ensure consistency */
+    .slider-thumb:hover,
+    .slider-thumb:focus {
+      transform: scale(1.2); /* Slight zoom effect */
+      background-color: #314e3d; /* Consistent color on interaction */
+      outline: none; /* Removes the default focus outline */
+    }
+
+    .input-fields {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .input-fields input {
+      width: 48%;
+      padding: 5px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .input-fields input:focus {
+      outline: none;
+      border-color: #0134d4;
+    }
+
+    .loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            z-index: 9999; /* Ensure it appears above other content */
+            display: none; /* Hide by default */
+        }
+
+        /* Loader Text and Dots */
+        .loading-text {
+            font-size: 24px;
+            font-family: Arial, sans-serif;
+            color: white;
+            margin-right: 10px;
+        }
+
+        .dots {
+            display: inline-block;
+        }
+
+        .dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: white;
+            border-radius: 50%;
+            margin-left: 5px;
+            opacity: 0;
+            animation: bounce 1.4s infinite both;
+        }
+
+        .dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        /* Bounce Animation for Dots */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                opacity: 0;
+                transform: translateY(0);
+            }
+            40% {
+                opacity: 1;
+                transform: translateY(-10px);
+            }
+            60% {
+                opacity: 1;
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Button Styles */
+        #loadButton {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        #loadButton:hover {
+            background-color: #0056b3;
+        }
+
+
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Partner Search Preferences</h2>
+
+  <form id="partnerForm">
+     <!-- Dual Thumb Slider for Age Range -->
+     <div class="form-group">
+      <label>Age: </label>
+      <div class="age-container">
+        <span>Min:&nbsp;</span><input type="number" id="minAgeInput" class="age-input" value="18" placeholder="18" min="18" max="100" 
+          onfocus="clearPlaceholder('minAgeInput', 'Min')" onblur="setPlaceholder('minAgeInput', 'Min')" 
+          oninput="minAge.value = this.value;updateAgeLabels();">
+          <span class="separator">-</span>
+          <span>Max:&nbsp;</span><input type="number" id="maxAgeInput" class="age-input" value="100" placeholder="100" min="18" max="100" 
+          onfocus="clearPlaceholder('maxAgeInput', 'Max')" onblur="setPlaceholder('maxAgeInput', 'Max')" 
+          oninput="maxAge.value = this.value;updateAgeLabels();">
+      </div>
+      <div class="range-slider">
+          <input type="range" id="minAge" min="18" max="100" value="18" oninput="updateAgeSliderLabels()">
+          <input type="range" id="maxAge" min="18" max="100" value="100" oninput="updateAgeSliderLabels()">
+      </div>
+  </div>
+
+  <div class="form-group">
+    <label>Height: </label>
+    <div class="height-container">
+      <span>Min:&nbsp;</span><input type="number" id="minHeightInput" class="height-input" placeholder="0" value="0" min="0" max="250" 
+            onfocus="clearPlaceholder('minHeightInput', 'Min')" onblur="setPlaceholder('minHeightInput', 'Min')" 
+            oninput="minHeight.value = this.value;updateHeightLabels()">
+        <span class="separator">-</span>
+        <span>Max:&nbsp;</span><input type="number" id="maxHeightInput" class="height-input" placeholder="in cm" value="250" min="0" max="250" 
+            onfocus="clearPlaceholder('maxHeightInput', 'Max')" onblur="setPlaceholder('maxHeightInput', 'Max')" 
+            oninput="maxHeight.value = this.value;updateHeightLabels();">
+    </div>
+    <div class="range-slider">
+        <input type="range" id="minHeight" min="0" max="250" value="0" oninput="updateHeightSliderLabels()">
+        <input type="range" id="maxHeight" min="0" max="250" value="250" oninput="updateHeightSliderLabels()">
+    </div>
+</div>
+
+   
+
+     <!-- Sub Caste Dropdown -->
+     <div class="form-group">
+      <label class="formLabel">Sub Caste</label>
+      <select id="subCasteDropdown" multiple="multiple" style="width: 100%;">
+          <option value="" disabled selected>Select Sub Caste</option>
+        </select>
+      </div>
+
+        <!-- Sub Caste Dropdown -->
+      <div class="form-group">
+      <label class="formLabel">Marital Status</label>
+      <select id="maritalStatus" multiple="multiple" style="width: 100%;">
+          <!-- <option value="" disabled selected>Select Marital Status</option> -->
+              <option value="1">Unmarried</option>
+              <option value="2">Widow/Widower</option>
+              <option value="3">Divorcee</option>
+              <option value="4">Separated</option>
+              <option value="5">Married</option>
+        </select>
+      </div>
+
+
+      <!-- Country Dropdown -->
+      <div class="form-group">
+          <label class="formLabel">Country</label>
+          <select id="country" multiple="multiple" style="width: 100%;">
+              <option value="" disabled selected>Select Country</option>
+            </select>
+        <span id="country-error" class="error-message">Please select a country.</span>
+      </div>
+
+    <!-- State Dropdown -->
+    <div class="form-group">
+      <label class="formLabel">State</label>
+      <select id="state" multiple="multiple" style="width: 100%;">
+          <option value="" disabled selected>Select State</option>
+        </select>
+        <span id="state-error" class="error-message">Please select a state.</span>
+    </div>
+
+    <!-- City Dropdown -->
+    <div class="form-group">
+      <label class="formLabel">City</label>
+      <select id="city" multiple="multiple" style="width: 100%;">
+          <option value="" disabled selected>Select City</option>
+        </select>
+        <span id="city-error" class="error-message">Please select a city.</span>
+    </div>
+
+
+    <!-- Education Dropdown -->
+    <div class="form-group">
+      <label class="formLabel">Education</label>
+      <select id="educationDropdown" multiple="multiple" style="width: 100%;">
+          <option value="" disabled selected>Select Education</option>
+        </select>
+  </div>
+
+    <!-- Income Range Inputs -->
+    <div class="form-group">
+      <label>Income(In Lakhs): </label>
+      <div class="income-container">
+        <span>Min:&nbsp;</span><input type="number" id="minIncomeInput" class="income-input" placeholder="0" value="0" min="0" max="500" 
+              onfocus="clearPlaceholder('minIncomeInput', 'Min')" onblur="setPlaceholder('minIncomeInput', 'Min')" 
+              oninput="minIncome.value = this.value;updateIncomeLabels();">
+          <span class="separator">-</span>
+          <span>Max:&nbsp;</span><input type="number" id="maxIncomeInput" class="income-input" placeholder="500" value="500" min="0" max="500" 
+              onfocus="clearPlaceholder('maxIncomeInput', 'Max')" onblur="setPlaceholder('maxIncomeInput', 'Max')" 
+              oninput="maxIncome.value = this.value;updateIncomeLabels();">
+      </div>
+      <div class="range-slider">
+          <input type="range" id="minIncome" min="0" max="500" value="0" oninput="updateIncomeSliderLabels()">
+          <input type="range" id="maxIncome" min="0" max="500" value="500" oninput="updateIncomeSliderLabels()">
+      </div>
+  </div>
+  
+
+    <button type="button" class="btn" onclick="submitForm()">Submit</button>
+    <div id="loader" class="loader-container">
+      <div class="loading-text">Loading</div>
+      <div class="dots">
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+      </div>
+  </div>
+  </form>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+
+
+
+function toggleDropdown(dropdownId) {
+    document.getElementById(dropdownId).classList.toggle('show');
+}
+
+function clearDropdown(type) {
+    document.getElementById(`${type}Options`).innerHTML = '';
+    document.getElementById(type).value = '';
+}
+
+$(document).ready(function () {
+    // Initialize Select2 for both dropdowns
+    $('#subCasteDropdown').select2({
+        placeholder: 'Select Sub Caste',
+        allowClear: true,
+    });
+
+    $('#maritalStatus').select2({
+        placeholder: 'Select Marital Status',
+        allowClear: true,
+    });
+
+
+    $('#educationDropdown').select2({
+        placeholder: 'Select Education',
+        allowClear: true,
+    });
+
+    $('#country').select2({
+        placeholder: 'Select Country',
+        allowClear: true,
+    });
+
+    $('#state').select2({
+        placeholder: 'Select State',
+        allowClear: true,
+    });
+
+    $('#city').select2({
+        placeholder: 'Select City',
+        allowClear: true,
+    });
+    
+});
+
+
+
+document.addEventListener('DOMContentLoaded', () => {
+   //consolelog('Fetching countries...'); // Debugging
+    updateAgeLabels();
+    updateHeightLabels();
+    updateIncomeLabels();
+      fetchCountry();
+        fetchSubCaste();
+        fetchEducation();
+});
+
+    const minAgeInput = document.getElementById("minAgeInput");
+    const maxAgeInput = document.getElementById("maxAgeInput");
+    const minAge = document.getElementById("minAge");
+    const maxAge = document.getElementById("maxAge");
+
+function updateAgeLabels() {
+    // Sync inputs with sliders
+    minAge.value = minAgeInput.value;
+    maxAge.value = maxAgeInput.value;
+
+    // Validation logic
+    if (minAgeInput.value === "" || isNaN(minAgeInput.value)) {
+      minAge.value = 18;
+    }
+    if (maxAgeInput.value === "" || isNaN(maxAgeInput.value)) {
+      maxAge.value = 100;
+    }
+
+  }
+
+  function updateAgeSliderLabels() {
+    
+    if( parseInt(maxAge.value) <= parseInt(minAge.value))
+  {
+    maxAge.value = (parseInt(minAgeInput.value) + 2);
+   //consolelog( maxAge.value);
+    if(parseInt(minAge.value)>= 98){
+      minAge.value = 98;
+    }
+  }
+    
+    minAgeInput.value = minAge.value;
+    maxAgeInput.value = maxAge.value;
+  }
+
+
+    const minHeightInput = document.getElementById('minHeightInput');
+    const maxHeightInput = document.getElementById('maxHeightInput');
+    const minHeightSlider = document.getElementById('minHeight');
+    const maxHeightSlider = document.getElementById('maxHeight');
+
+    function updateHeightLabels() {
+    // Sync inputs with sliders
+    if(minHeightInput.value < maxHeightInput.value){
+      minHeightSlider.value = minHeightInput.value;
+      maxHeightSlider.value = maxHeightInput.value;
+    }
+    // Validation logic
+    if (minHeightInput.value === "" || isNaN(minHeightInput.value)) {
+      minHeightSlider.value = 0;
+    }
+    if (maxHeightInput.value === "" || isNaN(maxHeightInput.value)) {
+      maxHeightSlider.value = 250;
+    }
+
+  }
+
+    function updateHeightSliderLabels() {
+      if( parseInt(minHeightSlider.value) >= parseInt(maxHeightSlider.value))
+  {
+    maxHeightSlider.value = (parseInt(minHeightSlider.value) + 10);
+   //consolelog( maxHeightSlider.value);
+    
+  }
+
+  if(parseInt(minHeightSlider.value)>= 240){
+      minHeightSlider.value = 240;
+    }
+      
+          minHeightInput.value = minHeightSlider.value;
+          maxHeightInput.value = maxHeightSlider.value;  
+
+    }
+
+    const minIncomeInput = document.getElementById('minIncomeInput');
+    const maxIncomeInput = document.getElementById('maxIncomeInput');
+    const minIncomeSlider = document.getElementById('minIncome');
+    const maxIncomeSlider = document.getElementById('maxIncome');
+
+    function updateIncomeLabels() {
+    // Sync inputs with sliders
+    minIncomeSlider.value = minIncomeInput.value;
+    maxIncomeSlider.value = maxIncomeInput.value;
+
+    // Validation logic
+    if (minIncomeInput.value === "" || isNaN(minIncomeInput.value)) {
+      minIncomeSlider.value = 0;
+    }
+    if (maxIncomeInput.value === "" || isNaN(maxIncomeInput.value)) {
+      maxIncomeSlider.value = 500;
+    }
+
+  }
+
+    function updateIncomeSliderLabels() {
+        // Update the age input fields based on the slider values
+        minIncomeInput.value = minIncomeSlider.value;
+        maxIncomeInput.value = maxIncomeSlider.value;
+
+    }
+
+    function clearPlaceholder(id, placeholder) {
+    const input = document.getElementById(id);
+    if (input.placeholder === placeholder) {
+      input.placeholder = "";
+    }
+  }
+
+  function setPlaceholder(id, placeholder) {
+    const input = document.getElementById(id);
+    if (input.placeholder === "") {
+      input.placeholder = placeholder;
+    }
+  }
+
+
+        // Close dropdowns if clicked outside
+  window.onclick = function(event) {
+    if (!event.target.matches('input')) {
+      const dropdowns = document.getElementsByClassName('dropdown-content');
+      Array.from(dropdowns).forEach(dropdown => {
+        if (dropdown.classList.contains('show')) {
+          dropdown.classList.remove('show');
+        }
+      });
+    }
+  };
+    
+  
+  function fetchSubCaste(){
+            // Clear the dropdown
+            $('#subCasteDropdown').empty();
+
+            // Add default placeholder option
+            // $('#subCasteDropdown').append('<option value="" disabled selected>Select Sub Caste</option>');
+
+            // Fetch sub-caste data
+            axios.post('https://www.sharutech.com/matrimony/get_info.php', {
+                type: "sub_caste",
+                caste_id: "1"
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+                .then(function (response) {
+                   //consolelog('Success:', response.data);
+
+                    // Check if the API response is successful
+                    if (response.data.message.p_out_mssg_flg === 'Y') {
+                        const subCastes = response.data.dataout;
+
+                        // Append new options dynamically
+                        subCastes.forEach(function (subCaste) {
+                            $('#subCasteDropdown').append('<option value="' + subCaste.id + '">' + subCaste.sub_caste + '</option>');
+                        });
+                    } else {
+                       console.error('API Error:', response.data.message.p_out_mssg_flg, response.data.message.p_out_mssg);
+                    }
+                });
+                
+
+
+        }
+
+        function fetchEducation() {
+            $('#educationDropdown').empty();
+
+            // Add default placeholder option
+            // $('#educationDropdown').append('<option value="" disabled selected>Select Education</option>');
+
+            // Fetch sub-caste data
+            axios.post('https://www.sharutech.com/matrimony/get_data.php', {
+               type: "education"
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+                .then(function (response) {
+                   //consolelog('Success:', response.data);
+
+                    // Check if the API response is successful
+                    if (response.data.message.p_out_mssg_flg === 'Y') {
+                        const educations = response.data.dataout;
+
+                        // Append new options dynamically
+                        educations.forEach(function (education) {
+                            $('#educationDropdown').append('<option value="' + education.id + '">' + education.name + '</option>');
+                        });
+                    } else {
+                       console.error('API Error:', response.data.message.p_out_mssg_flg, response.data.message.p_out_mssg);
+                    }
+                });
+
+        }
+
+     
+    // -------------------------------------------------******-------------------------------------//
+
+    
+
+       function fetchCountry() {
+            $('#country').empty();
+
+                // Add default placeholder option
+                // $('#country').append('<option value="" disabled selected>Select Country</option>');
+
+                // Fetch sub-caste data
+                axios.post('https://www.sharutech.com/matrimony/country_state_city.php', {
+                type: "country"
+                }, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                    .then(function (response) {
+                       //consolelog('Success:', response.data);
+
+                        // Check if the API response is successful
+                        if (response.data.message.p_out_mssg_flg === 'Y') {
+                            const countries = response.data.data;
+
+                            // Append new options dynamically
+                            countries.forEach(function (country) {
+                                $('#country').append('<option value="' + country.country_id + '">' + country.country_name + '</option>');
+                            });
+                        } else {
+                           console.error('API Error:', response.data.message.p_out_mssg_flg, response.data.message.p_out_mssg);
+                        }
+                    });
+
+        }
+
+    // -----------------------------------*-------------------------------------------- //
+
+     // State Script -----------------------------*----------------------- //
+
+     $(document).on('change',"#country",function(){
+        $('#state').empty();
+
+            // Add default placeholder option
+            // $('#state').append('<option value="" disabled selected>Select State</option>');
+         const country_ids=$(this).val();
+         const data={
+                type: "state",
+                country:country_ids, 
+                id:"28"
+            }
+
+            axios.post('https://www.sharutech.com/matrimony/country_state_city.php',data, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                    .then(function (response) {
+                       //consolelog('Success:', response.data);
+
+                        // Check if the API response is successful
+                        if (response.data.message.p_out_mssg_flg === 'Y') {
+                            const states = response.data.data;
+
+                            // Append new options dynamically
+                            states.forEach(function (state) {
+                                $('#state').append('<option value="' + state.state_id + '">' + state.state_name + '</option>');
+                            });
+                        } else {
+                           console.error('API Error:', response.data.message.p_out_mssg_flg, response.data.message.p_out_mssg);
+                        }
+                    });
+     });
+
+     // City Script -----------------------------*----------------------- //
+     $(document).on('change',"#state",function(){
+        $('#city').empty();
+
+        // Add default placeholder option
+        // $('#city').append('<option value="" disabled selected>Select City</option>');
+        const countryIds=$("#country").val();
+         const stateIds=$(this).val();
+         const data={
+                type:"city",
+                country:countryIds,
+                state:stateIds,
+                id:"30"
+            }
+
+            axios.post('https://www.sharutech.com/matrimony/country_state_city.php',data, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                    .then(function (response) {
+                       //consolelog('Success:', response.data);
+
+                        // Check if the API response is successful
+                        if (response.data.message.p_out_mssg_flg === 'Y') {
+                            const cities = response.data.data;
+
+                            // Append new options dynamically
+                            cities.forEach(function (city) {
+                                $('#city').append('<option value="' + city.city_id + '">' + city.city_name + '</option>');
+                            });
+                        } else {
+                           console.error('API Error:', response.data.message.p_out_mssg_flg, response.data.message.p_out_mssg);
+                        }
+                    });
+     });
+        
+    // -----------------------------------*-------------------------------------------- //
+
+    // Form Submission
+function submitForm() {
+    const min_age = parseInt(document.getElementById('minAge').value);
+    const max_age = parseInt(document.getElementById('maxAge').value);
+    const height_min = parseInt(document.getElementById('minHeight').value);
+    const height_max = parseInt(document.getElementById('maxHeight').value);
+    const income_from = parseInt(document.getElementById('minIncome').value);
+    const income_to = parseInt(document.getElementById('maxIncome').value);
+
+
+  
+
+    // Age validation
+    if (minAge < 18 || maxAge > 100) {
+        //alert('Please ensure that the minimum age is at least 18 and the maximum age does not exceed 100.');
+        Swal.fire({
+          icon: 'error',
+          title: 'Please Ensure that the minimum age is atleast 18 and the maximum age doesnot exceed 100.',
+          text: 'Please try again.',
+          confirmButtonText: 'OK'
+      }).then((result) => {
+          // Reload the page when the alert is closed
+          if (result.isConfirmed) {
+              location.reload(); // Reload the page
+          }
+      });
+        return; // Prevent form submission
+    }
+
+    if (minAge > maxAge) {
+        //alert('Minimum age cannot be greater than maximum age.');
+        Swal.fire({
+          icon: 'error',
+          title: 'Minimum age cannot be greater than maximum age.',
+          text: 'Please try again.',
+          confirmButtonText: 'OK'
+      }).then((result) => {
+          // Reload the page when the alert is closed
+          if (result.isConfirmed) {
+              location.reload(); // Reload the page
+          }
+      });
+        return; // Prevent form submission
+    }
+
+      let matri_id=localStorage.getItem('matriId');
+      let id=localStorage.getItem('mId');
+
+      let stateSelected1="";
+          let citySelected1="";
+          let countrySelected1="";
+          let educationSelected1="";
+
+      // let maritalStatus=localStorage.getItem('maritalStatus');
+      document.getElementById("loader").style.display = "flex";
+      // if (isValid) {
+       const data = {     
+          matri_id:localStorage.getItem('matriId'),
+          marital_status: ($("#maritalStatus").val()).join(","),
+          height_min: height_min,
+          height_max:height_max,
+          sub_caste:($("#subCasteDropdown").val()).join(","),
+          blood_group: "A+,A-,B+,B-,AB+,AB-,O+,O-",
+          city:($("#city").val()).join(","),
+          country:($("#country").val()).join(","),
+          state:($("#state").val()).join(","),
+          education:($("#educationDropdown").val()).join(","),
+          income_from:income_from,
+          income_to:income_to,    
+          min_age: min_age,
+          max_age: max_age
+
+    };
+
+   //consolelog(data);
+        
+        axios.post('https://www.sharutech.com/matrimony/search_preference.php', data, {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(function(response) {
+           //consolelog('Success:', response.data);
+            
+
+            if(response.data.message.p_out_mssg_flg === 'Y'){
+                    window.location.href = 'dashboard.html';
+                    localStorage.setItem('matriId', matri_id);
+                    localStorage.setItem('mId', id);
+                    document.getElementById("loader").style.display = "none";
+                //window.location.href = 'EducationDetails.html';
+            }else{
+              document.getElementById("loader").style.display = "none";
+              Swal.fire({
+                icon: 'error',
+                title: '',
+                text: 'Please try again.',
+                confirmButtonText: 'OK'
+                })
+                 //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);
+            }
+        })
+        .catch(function(error) {
+               console.error('Error:', error);
+                // Optionally display an error message to the user
+            });
+      // }  
+}
+    
+   
+</script>
+
+</body>
+</html>

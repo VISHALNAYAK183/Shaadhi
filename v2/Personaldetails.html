@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Details Form</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f06, #4a90e2);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
+            width: 400px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #444;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+        }
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .option-button {
+            color: black;
+            background-color: white;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            padding: 4px 6px; 
+            font-size: 10px; 
+            margin: 5px;
+            cursor: pointer;
+            flex: 1 0 20%; 
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .option-button.selected {
+            background-color: black;
+            color: white;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #f06;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #e94560;
+        }
+        .hidden {
+            display: none;
+        }
+        a{
+            text-decoration: none;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Personal Details</h2>
+    <form action="/submit-personal-details" method="POST">
+        <div class="form-group">
+            <label>Marital Status:</label>
+            <div class="button-group" id="marital-status">
+                <button type="button" class="option-button" onclick="selectMaritalStatus('never-married')">Never Married</button>
+                <button type="button" class="option-button" onclick="selectMaritalStatus('divorced')">Divorced</button>
+                <button type="button" class="option-button" onclick="selectMaritalStatus('widowed')">Widowed</button>
+                <button type="button" class="option-button" onclick="selectMaritalStatus('awaiting-divorce')">Awaiting Divorce</button>
+            </div>
+            <input type="hidden" id="maritalStatus" name="maritalStatus" required>
+        </div>
+
+        <div class="form-group hidden" id="children-group">
+            <label>Number of Children:</label>
+            <div class="button-group" id="number-of-children">
+                <button type="button" class="option-button" onclick="selectChildren('none')">None</button>
+                <button type="button" class="option-button" onclick="selectChildren('1')">1</button>
+                <button type="button" class="option-button" onclick="selectChildren('2')">2</button>
+                <button type="button" class="option-button" onclick="selectChildren('3')">3</button>
+                <button type="button" class="option-button" onclick="selectChildren('4')">4 or Above</button>
+            </div>
+            <input type="hidden" id="numberOfChildren" name="numberOfChildren">
+        </div>
+
+        <div class="form-group">
+            <label>Family Status:</label>
+            <div class="button-group" id="family-status">
+                <button type="button" class="option-button" onclick="selectFamilyStatus('middle-class')">Middle Class</button>
+                <button type="button" class="option-button" onclick="selectFamilyStatus('upper-middle-class')">Upper Middle Class</button>
+                <button type="button" class="option-button" onclick="selectFamilyStatus('high-class')">High Class</button>
+                <button type="button" class="option-button" onclick="selectFamilyStatus('rich-affluent')">Rich/Affluent</button>
+            </div>
+            <input type="hidden" id="familyStatus" name="familyStatus" required>
+        </div>
+
+        <div class="form-group">
+            <label>Family Type:</label>
+            <div class="button-group" id="family-type">
+                <button type="button" class="option-button" onclick="selectFamilyType('joint')">Joint</button>
+                <button type="button" class="option-button" onclick="selectFamilyType('nuclear')">Nuclear</button>
+            </div>
+            <input type="hidden" id="familyType" name="familyType" required>
+        </div>
+
+        <div class="form-group">
+            <label>Any Disability:</label>
+            <div class="button-group" id="disability-status">
+                <button type="button" class="option-button" onclick="selectDisability('none')">None</button>
+                <button type="button" class="option-button" onclick="selectDisability('physically-challenged')">Physically Challenged</button>
+            </div>
+            <input type="hidden" id="disability" name="disability" required>
+        </div>
+
+        <div>
+            <button type="submit"> <a href="Familydetails.html">Next</a></button>
+        </div>
+    </form>
+</div>
+
+<script>
+    function selectMaritalStatus(value) {
+        const buttons = document.querySelectorAll('#marital-status .option-button');
+        buttons.forEach(button => {
+            button.classList.remove('selected');
+        });
+        document.getElementById('maritalStatus').value = value;
+        event.target.classList.add('selected');
+
+       
+        document.getElementById('children-group').classList.toggle('hidden', value === 'never-married');
+    }
+
+    function selectChildren(value) {
+        const buttons = document.querySelectorAll('#number-of-children .option-button');
+        buttons.forEach(button => {
+            button.classList.remove('selected');
+        });
+        document.getElementById('numberOfChildren').value = value;
+        event.target.classList.add('selected');
+    }
+
+    function selectFamilyStatus(value) {
+        const buttons = document.querySelectorAll('#family-status .option-button');
+        buttons.forEach(button => {
+            button.classList.remove('selected');
+        });
+        document.getElementById('familyStatus').value = value;
+        event.target.classList.add('selected');
+    }
+
+    function selectFamilyType(value) {
+        const buttons = document.querySelectorAll('#family-type .option-button');
+        buttons.forEach(button => {
+            button.classList.remove('selected');
+        });
+        document.getElementById('familyType').value = value;
+        event.target.classList.add('selected');
+    }
+
+    function selectDisability(value) {
+        const buttons = document.querySelectorAll('#disability-status .option-button');
+        buttons.forEach(button => {
+            button.classList.remove('selected');
+        });
+        document.getElementById('disability').value = value;
+        event.target.classList.add('selected');
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,682 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    overflow-y: hidden;
+}
+
+
+.container-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.container-header1,.container-header {
+    margin-bottom: 1rem;
+}
+
+.search-input {
+    margin-right: 10px; /* Add margin to space it from the icon */
+    padding: 10px 15px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+.recently-joined-header,.recently-login-header,.profile-matched-header{
+    margin-top: 0.6rem;
+}
+
+/* Navbar Styling */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1f4a4e;
+    color: white;
+    padding: 0.5rem;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.navbar-left h1 {
+    font-size: 1.5rem;
+    margin:0;
+}
+
+.navbar-right {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-right span {
+    margin-right: 10px;
+}
+
+.logout-button {
+    background-color: #e63946;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-left: 1rem;
+}
+
+/* Full Page Layout */
+.dashboard-container {
+    display: flex;
+    height: calc(100vh - 60px); /* Adjust height based on navbar height */
+}
+
+#sidebar-placeholder{
+    background-color: #ff9248;
+    color:#ffffff;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #ff9248;
+    padding: 10px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin: 10px 0;
+    position: relative;
+}
+
+.sidebar ul .submenu {
+    display: none; /* Hide the submenu initially */
+    padding-left: 20px; /* Indent submenu items */
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: #ffffff;
+    display: block;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.sidebar ul li a:hover {
+    background-color: #1f4a4e;
+}
+
+.submenu li {
+    margin: 5px 0;
+}
+
+/* Main Content Styling */
+.content {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+    background-color: #f9f9f9;
+}
+
+/* Profile Section */
+.profile {
+    margin-bottom: 2rem;
+}
+
+.profile h2 {
+    font-size: 1.8rem;
+    color: #006d77;
+    margin-bottom: 1rem;
+}
+
+.profile-card {
+    display: flex;
+    background-color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+/* 
+.profile-photo {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+
+} */
+
+.profile-info p {
+    margin: 0.5rem 0;
+}
+
+/* Matches Section */
+.matches h2 {
+    font-size: 1.8rem;
+    color: #006d77;
+    margin-bottom: 1rem;
+}
+
+.matches-grid {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.match-card {
+    width: 200px;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.match-card img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.match-info {
+    padding: 0.5rem;
+}
+
+.view-profile-button {
+    background-color: #006d77;
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 0.5rem;
+    cursor: pointer;
+    border-radius: 0 0 8px 8px;
+}
+
+.profile-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    overflow: hidden;
+}
+
+.picon1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.profile-icon img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.profile-dropdown {
+    display: none;
+    position: absolute;
+    top: 70px;
+    right: 0;
+    background-color: #fff;
+    color: black;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    width: 200px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.profile-dropdown.active {
+    display: block;
+}
+
+.profile-dropdown p {
+    margin: 5px 0;
+}
+
+.profileImg {
+    display: flex; /* Use Flexbox */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    margin-bottom: 10px; /* Add spacing below the image */
+}
+
+.profileImg img {
+    width: 40px; /* Set icon width */
+    height: 40px; /* Set icon height */
+    border-radius: 50%; /* Optional: Make the image circular */
+    object-fit: cover; /* Ensure the image scales correctly */
+}
+
+.profile-dropdown button {
+    margin-top: 10px;
+    width: 100%;
+    padding: 8px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.profile-dropdown button:hover {
+    background-color: #d32f2f;
+}
+
+/* Right Navbar Image */
+.left-navbar-image {
+    width: 220px!important;
+    height: 60px!important;
+    border-radius: 8px;
+    border:1px solid grey;
+    margin-left: 10px;
+    /* padding:5px; */
+    cursor: pointer;
+}
+
+
+.dashboard-container {
+            display: flex;
+        }
+
+.card-container-wrapper {
+    position: relative;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    display: flex;
+    padding-bottom: 10px;
+    scroll-behavior: smooth; /* Smooth scrolling */
+    width: 100%;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: nowrap; /* Prevent wrapping */
+    gap: 10px;
+    justify-content: flex-start;
+    white-space: nowrap; /* Prevent wrapping of items */
+}
+
+.card {
+    width: 150px;
+    margin: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.card:hover {
+    background-color: #e75e09;
+    cursor: pointer;
+    color: white; /* Uncomment if you want text color to change */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2), 0 6px 20px rgba(0, 0, 0, 0.19);
+    transition: box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.card img{
+    width:80%;
+    height: 150px;
+    object-fit: cover;
+    padding:2px;
+}
+
+.card-text {
+    text-align: left; /* Aligns this specific text to the left */
+    margin: 0;        /* Optional: Remove extra margins */
+    font-size: 14px;  /* Optional: Adjust font size */
+    color: #333;      /* Optional: Set text color */
+}
+
+/* Arrow button styles */
+.arrow-button {
+    position: absolute;
+    top: 50%;
+    z-index: 100;
+    background-color: #333;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 20px;
+    border-radius: 50%;
+}
+
+
+.arrow-button:hover {
+    background-color: #555;
+}
+
+        
+
+        .card img {
+            width: 100%;
+            border-radius: 5px;
+        }
+
+        .card-details {
+            margin-top: 10px;
+            font-size: 12px;
+        }
+
+        .load-more-button {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .navbar-progress {
+            flex: 1;
+            text-align: center;
+            color: white;
+            font-size: 12px;
+            margin: 0 2rem;
+        }
+
+       .progress-bar-container {
+            /* background-color: #e0e0e0;  */
+            /* border-radius: 10px; */
+            /* height: 5px; */
+            /* width: 100%; */
+            position: relative;
+            /* margin-top: 5px; */
+            display: flex;
+            align-items: center;
+            font-size: 12px; /* Adjust text size */
+            gap: 6px; /* Space between the bar and the text */
+        }
+
+        .progressBarDiv{
+            background-color: #ffffff;
+            border:1px solid grey;
+            border-radius: 8px;
+            padding:1% 1%;
+            width:100%;
+            height:auto;
+            margin-bottom:0.5rem;
+        }
+
+        .progressBarDiv p{
+            font-size:12px;
+            /* text-align: right; */
+        }
+          
+          .progress-bar {
+            display: inline-block;
+            height: 6px; /* Adjust height as needed */
+            background-color: #4caf50; /* Adjust color as needed */
+            border-radius: 5px; /* Optional: makes the bar rounded */
+          }
+          
+          .progress-bar-wrapper span:last-child {
+            white-space: nowrap; /* Prevents the text from wrapping */
+          }
+
+        .profile{
+            margin:0px 40px;
+            border:1px solid black;
+            padding:5px;
+        }
+
+        .profile-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+        .profile-left {
+            width: 55%;
+            padding: 20px 20px 0px 20px;
+            border-right: 1px solid #ddd;
+            /* font-size: 14px; */
+        }
+
+        .profile-left p{
+            margin-bottom:15px;
+        }
+
+        .profile-right {
+            width: 45%;
+            text-align: center;
+            padding:10px;
+            margin:0;
+        }
+        .profile-photo {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            margin: 0;
+            padding: 0;
+            border-radius: 10px;
+        }
+        /* .more-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        } */
+         .more-section{
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+         }
+
+        .more-button{
+            padding: 10px 20px;
+            background-color: #006d77;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .options-row {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+        }
+        .option-button {
+            padding: 8px 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            background-color: #ece7e7;
+            color: #333;
+        }
+        .option-button:hover {
+            background-color: #df0101;
+            color: white;
+        }
+
+        .option-button.active {
+            background-color: #df0101;
+            color: white;
+        }
+
+        .details-section {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            /* font-size: 14px; */
+        }
+
+        .details-section p{
+            margin-bottom: 15px;
+        }
+
+        .icon-row {
+            display: flex;
+            justify-content: space-around; /* Adjust spacing between icons */
+            align-items: center; /* Align items vertically */
+            /* margin: 10px 0; */
+            /* background-color: rgb(255, 255, 255); */
+            padding:2px 5px;
+            /* border:1px solid rgb(212, 171, 171); */
+        }
+
+        .icon-row1 {
+            width:100%;
+            border-radius: 8px;
+            border:3px solid grey;
+            background-color: rgb(225, 235, 235);
+        }
+        
+        .icon-item {
+            text-align: center; /* Center-align icon and text */
+            display: flex;
+            flex-direction: column; /* Stack icon and text vertically */
+            align-items: center;
+            cursor: pointer; /* Change cursor on hover */
+        }
+
+        
+        
+        .icon-item i {
+            font-size: 20px; /* Adjust icon size */
+            margin-bottom: 5px; /* Spacing between icon and text */
+            color: #d0afaf; /* Icon color */
+            /* border:1px solid black; */
+        }
+
+        .icon-item:hover {
+            padding:0px 30px;
+            background-color: #de7d7d;
+            border-radius: 8px;
+        }
+        
+        .icon-item span {
+            font-size: 14px; /* Adjust text size */
+            color: #555; /* Text color */
+        }
+
+        .zoom-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .zoom-modal-content {
+            position: relative;
+            max-width: 80%;
+            max-height: 80%;
+        }
+        
+        .zoomed-image {
+            width: 100%;
+            height: auto;
+            cursor: zoom-out;
+            object-fit: contain;
+        }
+        
+        /* Close button for modal */
+        .close-zoom {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            color: white;
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .options-row-dashboard {
+            margin-top: 20px;
+            display: flex;
+            /* justify-content: center; */
+            gap: 25px;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+        .option-button-sub {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #1f4a4e;
+            color: #fcfcfc;
+             /* Add shadow effect */
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+        .option-button-dashboard {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background-color: #1f4a4e;
+            color: #fcfcfc;
+            box-shadow: 2px 4px 6px #ff6b3a; /* Add shadow effect */
+            transition: box-shadow 0.3s ease, transform 0.3s ease; /* Smooth hover effect */
+        }
+
+        .options-row-dashboard a {
+            text-decoration: none; /* Removes the underline */
+            color: white; /* Sets text color to white */
+            /* font-size: 16px;  */
+            font-weight: bold; 
+            /* display: flex;
+            align-items: center;              */
+        }
+
+        .option-button-dashboard:hover {
+            color: #ffffff; /* Changes text color on hover */
+            background-color: #df7b01; /* Adds background color on hover */
+            border-radius: 8px; /* Rounds the corners of the background */
+            box-shadow: 2px 4px 6px #1f4a4e; /* Add shadow effect */
+            transition: box-shadow 0.3s ease, transform 0.3s ease; /* Smooth hover effect */
+        }
+        .option-button-sub:hover {
+             /* Adds background color on hover */
+            border-radius: 8px; /* Rounds the corners of the background */
+            box-shadow: 2px 4px 6px #1f4a4e; /* Add shadow effect */
+            transition: box-shadow 0.3s ease, transform 0.3s ease; /* Smooth hover effect */
+        }
+        .profile-details {
+            text-align: left; /* Align text to the left */
+            margin-top: 10px; /* Add some spacing */
+        }
+    
+        .profile-details p {
+            display: flex;
+            gap: 10px; 
+            font-size: 1rem; 
+            /* margin: 0; */
+        }
+    
+        .labelStar {
+            /* font-weight: bold; */
+            width: 150px; /* Adjust this width for consistent spacing */
+            text-align: left;
+            color:rgb(53, 53, 109);
+        }
+
+       

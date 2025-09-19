@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-72x72.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-96x96.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-128x128.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-144x144.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-152x152.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-167x167.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-180x180.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-192x192.png">
+    <style>
+        .delete-profile-section {
+            text-align: center;
+            margin: 50px auto;
+            padding: 20px;
+            width: 60%;
+            background: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .delete-profile-section h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+        }
+
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            object-fit: cover;
+        }
+
+        .profile-details {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .profile-details span {
+            display: block;
+            font-size: 1.2rem;
+            margin-top: 5px;
+        }
+
+        .reasons-container {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+
+        .reasons-container .reasons {
+            width: 45%;
+        }
+
+        .reasons-container .reasons label {
+            display: block;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .reasons-container input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .remarks {
+            margin-bottom: 20px;
+        }
+
+        .buttons-container {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .buttons-container button {
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+        }
+
+        .buttons-container .delete-btn {
+            background-color: red;
+            color: white;
+        }
+
+        .buttons-container .cancel-btn {
+            background-color: gray;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="navbar-placeholder"></div>
+
+    <!-- Main Layout -->
+    <div class="dashboard-container">
+        <div id="sidebar-placeholder"></div>
+
+        <!-- Main Content Area -->
+        <main id="content" class="content">
+            <div id="waiting-dialog" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center; z-index: 9999;">
+                <div style="background-color: white; padding: 20px; border-radius: 8px;">
+                    <div class="loader" style="border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 50px; height: 50px; animation: spin 2s linear infinite;"></div>
+                    <p style="text-align: center; margin-top: 10px;">Please Wait...</p>
+                </div>
+            </div>
+
+            <!-- Profile Section -->
+            <section class="profile">
+                <div class="delete-profile-section">
+                    <h2>Delete Profile</h2>
+
+                    <!-- Profile Image -->
+                    <img id="profilePictureDelete" class="profile-image" src="" alt="Profile Picture">
+
+                    <!-- Profile Name and Matri ID -->
+                    <div class="profile-details">
+                        <span id="profileForDelete"></span> <!-- Name -->
+                        <span id="profileMatriIdDelete"></span> <!-- Matri ID -->
+                    </div>
+
+                    <!-- Reasons to Delete Profile -->
+                    <div class="reasons-container">
+                        <h4>Reasons:</h4>
+                        <div class="reasons">
+                            <label><input type="checkbox" id="reason1"> Not interested in finding a match</label>
+                            <label><input type="checkbox" id="reason2"> Found a match</label>
+                            <label><input type="checkbox" id="reason3"> Privacy concerns</label>
+                        </div>
+                        <div class="reasons">
+                            <label><input type="checkbox" id="reason4"> Mismatch in interests</label>
+                            <label><input type="checkbox" id="reason5"> Inactive profile</label>
+                            <label><input type="checkbox" id="reason6"> Other</label>
+                        </div>
+                    </div>
+
+                    <!-- Remarks -->
+                    <div class="remarks">
+                        <label for="remarks">Remarks:</label>
+                        <textarea id="remarks" rows="4" style="width: 100%;"></textarea>
+                    </div>
+
+                    <!-- Buttons -->
+                    <div class="buttons-container">
+                        <button class="cancel-btn" onclick="cancelDeletion()">Cancel</button>
+                        <button class="delete-btn" onclick="deleteProfile()">Delete</button>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+
+    <script>
+
+function loadHTMLContent(elementId, url, callback) {
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById(elementId).innerHTML = data;
+                    if (callback) callback(); // Execute callback after content is loaded
+                })
+                .catch(error =>console.error('Error loading HTML:', error));
+        }
+
+        // Load Navbar and Sidebar
+        loadHTMLContent('navbar-placeholder', 'navbar.html');
+        loadHTMLContent('sidebar-placeholder', 'sidebar.html', function () {
+            // Add event listeners after the sidebar content is loaded
+            const menus = document.querySelectorAll('.matches-menu');
+
+            menus.forEach(menu => {
+                menu.addEventListener('click', function (event) {
+                    // Prevent default behavior only for parent menu links
+                    if (!event.target.closest('.submenu a')) {
+                        event.preventDefault();
+                    }
+
+                    // Check if the clicked element has a submenu
+                    const submenu = this.querySelector('.submenu');
+
+                    // If the submenu exists, toggle its visibility
+                    if (submenu) {
+                        const isVisible = submenu.style.display === 'block';
+
+                        // Close all submenus
+                        document.querySelectorAll('.submenu').forEach(s => {
+                            s.style.display = 'none';
+                        });
+
+                        // Toggle only the clicked submenu
+                        submenu.style.display = isVisible ? 'none' : 'block';
+                    }
+                });
+            });
+
+            // Add listeners to submenu links to ensure navigation works
+            const submenuLinks = document.querySelectorAll('.submenu a');
+            submenuLinks.forEach(link => {
+                link.addEventListener('click', function (event) {
+                    // Allow navigation or custom logic for submenu links
+                   //consolelog(`Navigating to ${this.getAttribute('href')}`);
+                });
+            });
+        });
+
+        function toggleProfileDropdown() {
+            const dropdown = document.getElementById('profileDropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        function logout() {
+           //consolelog("User logged out");
+            localStorage.clear();
+            localStorage.setItem("visitedSuccessPage", "true");
+            window.location.href = 'Login.html';
+        }
+
+        function deleteProfile() {
+            // Get the matri ID
+            const matriId = document.getElementById("profileMatriIdDelete").textContent;
+
+            // Collect reasons selected by the user
+            let selectedReasons = [];
+
+            // Check each checkbox and push the reason to the array if it's checked
+            if (document.getElementById("reason1").checked) {
+                selectedReasons.push("Not interested in finding a match");
+            }
+            if (document.getElementById("reason2").checked) {
+                selectedReasons.push("Found a match");
+            }
+            if (document.getElementById("reason3").checked) {
+                selectedReasons.push("Privacy concerns");
+            }
+            if (document.getElementById("reason4").checked) {
+                selectedReasons.push("Mismatch in interests");
+            }
+            if (document.getElementById("reason5").checked) {
+                selectedReasons.push("Inactive profile");
+            }
+            if (document.getElementById("reason6").checked) {
+                selectedReasons.push("Other");
+            }
+
+            // Get the remarks (if any)
+            const remarks = document.getElementById("remarks").value;
+
+            // Log the profile deletion details and selected reasons
+           //consolelog("Profile deleted.");
+           //consolelog("Matri ID:", matriId);
+           //consolelog("Selected reasons:", selectedReasons);
+           //consolelog("Remarks:", remarks);
+        }
+
+
+        function cancelDeletion() {
+            // Logic for canceling the deletion action
+           //consolelog("Profile deletion canceled.");
+            // Optionally, redirect the user to another page or hide the delete section
+        }
+
+        // Fetch user data from the API and populate the profile
+        document.addEventListener('DOMContentLoaded', function () {
+            const waitingDialog = document.getElementById('waiting-dialog');
+            function showWaitingDialog() { waitingDialog.style.display = 'flex'; }
+            function hideWaitingDialog() { waitingDialog.style.display = 'none'; }
+            
+            const data = {
+                id:localStorage.getItem('mId'),
+                matri_id:localStorage.getItem('matriId')
+            };
+           //consolelog(data);
+                 
+            axios.post('https://www.sharutech.com/matrimony/dashboard.php', data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(function(response) {
+               //consolelog('Success:', response.data);
+                if(response.data.message.p_out_mssg_flg === 'Y'){
+                localStorage.setItem("matriId", response.data.my_profile[0].matri_id);
+                // localStorage.setItem("baseURL", response.data.my_profile[0].base_url);
+
+                const image = document.getElementById("profilePicture");
+                image.src = response.data.my_profile[0].base_url+response.data.my_profile[0]["profile_photo"];
+                const profileImg = document.getElementById("profileImg");
+                profileImg.src = response.data.my_profile[0].base_url+response.data.my_profile[0]["profile_photo"];
+                const profileFor = document.getElementById("profileFor");
+                const profileFor1 = document.getElementById("profileFor1");
+                const profileId = document.getElementById("profileId");
+                const profileMatriId = document.getElementById("profileMatriId");
+                const profilePictureDelete = document.getElementById("profilePictureDelete");
+                const profileForDelete = document.getElementById("profileForDelete");
+                const profileMatriIdDelete = document.getElementById("profileMatriIdDelete");
+                profileFor.textContent = response.data.my_profile[0].first_name+" "+response.data.my_profile[0].last_name;
+                profileFor1.textContent = response.data.my_profile[0].first_name+" "+response.data.my_profile[0].last_name;
+                profileId.textContent=response.data.my_profile[0].matri_id;
+                profileMatriId.textContent=response.data.my_profile[0].matri_id;
+                let imgURL='';
+                if(response.data.my_profile[0].gender=="1" && (response.data.my_profile[0].profile_photo===null || response.data.my_profile[0].profile_photo==='')){
+                    imgURL='../img/2.png';
+                }else if(response.data.my_profile[0].gender=="2" && (response.data.my_profile[0].profile_photo===null || response.data.my_profile[0].profile_photo==='')){
+                    imgURL='../img/1.png';
+                }else{  
+                    imgURL=response.data.my_profile[0].base_url+response.data.my_profile[0]["profile_photo"];
+                }
+                profilePictureDelete.src =imgURL;
+                profileForDelete.textContent = response.data.my_profile[0].first_name+" "+response.data.my_profile[0].last_name;
+                profileMatriIdDelete.textContent=response.data.my_profile[0].matri_id;
+                
+                
+                let baseURL=response.data.my_profile[0].base_url;
+                const profileData = JSON.parse(localStorage.getItem("profile"));
+               //consolelog(profileData);
+
+
+                hideWaitingDialog();
+                }else{
+               //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);
+                hideWaitingDialog();
+                }
+            });
+        });
+    </script>
+</body>
+</html>

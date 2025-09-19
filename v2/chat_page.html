@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-72x72.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-96x96.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-128x128.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-144x144.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-152x152.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-167x167.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-180x180.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-192x192.png">
+
+  <link rel="stylesheet" href="chat_page.css"> <!-- Corrected link -->
+  <script src="chat_page.js" defer></script> <!-- Corrected link -->
+</head>
+<body>
+  <div class="chat-container">
+    <div class="chat-header">
+      
+      <i class="fa fa-arrow-left" style="color:orange;border:1px solid black;border-radius: 50%;padding:5px;margin-right: 15px;" onclick="history.back();"></i>
+   
+      <img id="receiverImage" class="profile-photo" src="" alt="Receiver's Photo" />
+      <div style="display: flex; flex-direction: column;">
+      <span id="receiverName">Receiver's Name</span>
+      <span id="receiverMatriId">Matri Id</span>
+      </div>
+    </div>
+    <div id="chatMessages" class="chat-messages"></div>
+    <div class="chat-input">
+      <input type="text" id="messageInput" placeholder="Type a message..." />
+      <button id="sendButton">Send</button>
+    </div>
+  </div>
+</body>
+</html>

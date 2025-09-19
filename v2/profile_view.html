@@ -1,0 +1,1191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile View</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-72x72.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-96x96.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-128x128.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-144x144.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-152x152.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-167x167.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-180x180.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-192x192.png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+
+</head>
+<style>
+    /* Style for the report icon */
+    #likeIdIcon {
+        font-family: "Font Awesome 5 Free";
+        font-weight: 900;
+        /* Required for solid icons */
+    }
+
+    .icon-item {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        gap: 5px;
+    }
+
+    /* Popup card styles */
+    .popup-card {
+        display: none;
+        /* Hidden by default */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+    }
+
+    .popup-content {
+        background: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        max-width: 400px;
+        width: 90%;
+        text-align: center;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .popup-content h3 {
+        margin-bottom: 20px;
+    }
+
+    .popup-content label {
+        display: block;
+        margin-bottom: 10px;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    .popup-content textarea {
+        width: 100%;
+        height: 80px;
+        margin-bottom: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        resize: none;
+    }
+
+    .popup-buttons {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+    }
+
+    .popup-buttons button {
+        padding: 10px 20px;
+        border: none;
+        background: #007bff;
+        color: #fff;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .popup-buttons button:hover {
+        background: #0056b3;
+    }
+
+    .popup-buttons button:nth-child(1) {
+        background: #dc3545;
+    }
+
+    .popup-buttons button:nth-child(1):hover {
+        background: #b3243b;
+    }
+</style>
+
+<body>
+    <div id="navbar-placeholder"></div>
+    <!-- Main Layout -->
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div id="sidebar-placeholder"></div>
+        <!-- Main Content Area -->
+        <main id="content" class="content">
+            <div id="waiting-dialog"
+                style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center; z-index: 9999;">
+                <div style="background-color: white; padding: 20px; border-radius: 8px;">
+                    <div class="loader"
+                        style="border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 50px; height: 50px; animation: spin 2s linear infinite;">
+                    </div>
+                    <p style="text-align: center; margin-top: 10px;">Please Wait...</p>
+                </div>
+            </div>
+            <!-- Default Dashboard Content -->
+            <section class="profile">
+                <div class="profile-container">
+                    <!-- Left Section -->
+                    <div class="profile-left profile-details">
+                        <h2><i class="fa fa-arrow-left"
+                                style="color:orange;border:1px solid black;border-radius: 50%;padding:5px;margin-right: 15px;"
+                                onclick="goBack()"></i>Matri Id&nbsp;:&nbsp;<span id="matriText">TB0000</span></h2>
+                        <p><span class="labelStar"><strong>Name:</strong></span> <span id="profileNameText"></span></p>
+                        <p><span class="labelStar"><strong>Age:</strong></span><span id="profileAge"></span></p>
+                        <p><span class="labelStar"><strong>Height:</strong></span> <span id="profileHeight"></span></p>
+                        <p><span class="labelStar"><strong>Weight:</strong></span> <span id="profileWeight"></span></p>
+                        <div class="more-section">
+                            <button id="moreButton" class="more-button">More</button>
+                            <div id="optionsRow" class="options-row" style="display: none;">
+                                <button class="option-button" data-section="basic" id="basic">Basic</button>
+                                <button class="option-button" data-section="additional"
+                                    id="additional">Additional</button>
+                                <button class="option-button" data-section="education" id="education">Education</button>
+                                <button class="option-button" data-section="horoscope" id="horoscope">Horoscope</button>
+                                <button class="option-button" data-section="family" id="family">Family</button>
+                                <button class="option-button" data-section="photo" id="photo">Photo</button>
+                            </div>
+                        </div>
+                        <div id="detailsSection" class="details-section profile-details">
+                            <!-- Dynamic content will load here -->
+                        </div>
+                    </div>
+
+                    <!-- Right Section -->
+                    <div class="profile-right">
+                        <!-- <hr/> -->
+                        <div class="icon-row1">
+                            <img id="profilePhoto" alt="User Photo" class="profile-photo">
+                            <!-- </div> -->
+                            <div class="icon-row">
+                                <div class="icon-item likedClass" id="likeId" onclick="toggleLike(this)">
+                                    <i class="fas fa-heart" style="color: #d0afaf; font-size: 24px; cursor: pointer;"
+                                        id="likeIdIcon"></i>
+
+                                    <span>Like</span>
+                                </div>
+                                <div class="icon-item shortlist" onclick="shortlistInfoSection(this)">
+                                    <i class="fas fa-bookmark" style="
+                                    font-size: 24px; 
+                                    color: #d0afaf; 
+                                    cursor: pointer; 
+                                    margin: 5px;
+                                "></i>
+
+                                    <span>Short List</span>
+                                </div>
+                                <div class="icon-item" onclick="contactInfoSection()">
+                                    <i class="fa fa-phone"></i>
+                                    <span>Contact Info</span>
+                                </div>
+                                <div class="icon-item" onclick="chatInfoSection()">
+                                    <i class="fa fa-comment"></i>
+                                    <span>Chat Now</span>
+                                </div>
+                                <div class="icon-item" onclick="openPopup()">
+                                    <i class="fas fa-exclamation-circle" style="cursor: pointer;"></i>
+                                    <span>Report</span>
+                                </div>
+                                <!-- Popup Modal -->
+                                <div id="popupCard" class="popup-card">
+                                    <div class="popup-content">
+                                        <h3>Report</h3>
+                                        <form id="reportForm">
+                                            <label>
+                                                <input type="radio" name="action" value="block"> Block
+                                            </label>
+                                            <label>
+                                                <input type="radio" name="action" value="report"> Report
+                                            </label>
+                                            <textarea id="reportText" placeholder="Enter details..."
+                                                required></textarea>
+                                            <div class="popup-buttons">
+                                                <button type="button" onclick="closePopup()">Close</button>
+                                                <button type="submit">Submit</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="zoomModal" class="zoom-modal" style="display: none;">
+                        <div class="zoom-modal-content">
+                            <span id="closeZoom" class="close-zoom">&times;</span>
+                            <img id="zoomedImage" class="zoomed-image" src="" alt="Zoomed Image">
+                        </div>
+                    </div>
+            </section>
+        </main>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
+    <script src="chat_functions.js" defer></script>
+
+    <script>
+        function loadHTMLContent(elementId, url, callback) {
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById(elementId).innerHTML = data;
+                    if (callback) callback(); // Execute callback after content is loaded
+                })
+                .catch(error => console.error('Error loading HTML:', error));
+        }
+
+
+        // loadHTMLContent('navbar-placeholder', 'navbar.html');
+        loadHTMLContent('navbar-placeholder', 'navbar.html', () => {
+            // Mapping elements to their corresponding localStorage keys
+            const elementMap = {
+                profileFor1: 'myprofile_fullname',
+                profileMatriId: 'matriId',
+                profileImg: 'myprofile_photo_url',
+                profilePicture: 'myprofile_photo_url',
+                profileFor: 'myprofile_fullname',
+                profileId: 'matriId',
+            };
+
+            Object.keys(elementMap).forEach((id) => {
+                const element = document.getElementById(id);
+                const value = localStorage.getItem(elementMap[id]);
+
+                if (element) {
+                    // For image elements, set the src attribute
+                    if (id === 'profileImg' || id === 'profilePicture') {
+                        element.src = value || 'https://via.placeholder.com/40'; // Fallback for missing images
+                    } else {
+                        element.textContent = value || ''; // Fallback for text
+                    }
+                }
+            });
+        });
+
+        loadHTMLContent('sidebar-placeholder', 'sidebar.html', function () {
+            const menus = document.querySelectorAll('.matches-menu');
+            menus.forEach(menu => {
+                menu.addEventListener('click', function (event) {
+                    // Prevent default behavior only for parent menu links
+                    if (!event.target.closest('.submenu a')) {
+                        event.preventDefault();
+                    }
+
+                    // Check if the clicked element has a submenu
+                    const submenu = this.querySelector('.submenu');
+
+                    // If the submenu exists, toggle its visibility
+                    if (submenu) {
+                        const isVisible = submenu.style.display === 'block';
+
+                        // Close all submenus
+                        document.querySelectorAll('.submenu').forEach(s => {
+                            s.style.display = 'none';
+                        });
+
+                        // Toggle only the clicked submenu
+                        submenu.style.display = isVisible ? 'none' : 'block';
+                    }
+                });
+            });
+
+
+            const submenuLinks = document.querySelectorAll('.submenu a');
+            submenuLinks.forEach(link => {
+                link.addEventListener('click', function (event) {
+                });
+            });
+        });
+
+        function toggleProfileDropdown() {
+            const dropdown = document.getElementById('profileDropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+
+            if (dropdown.style.display === 'block') {
+                document.addEventListener('click', closeDropdownOnClickOutside);
+            }
+        }
+
+        function closeDropdownOnClickOutside(event) {
+            const dropdown = document.getElementById('profileDropdown');
+            const profileIcon = document.querySelector('.profile-icon');
+            if (!dropdown.contains(event.target) && !profileIcon.contains(event.target)) {
+                dropdown.style.display = 'none';
+                document.removeEventListener('click', closeDropdownOnClickOutside);
+            }
+        }
+
+        function logout() {
+            localStorage.clear();
+            localStorage.setItem("visitedSuccessPage", "true");
+            window.location.href = 'Login.html';
+        }
+        /* function get_msg_entry() {
+             const maxMsgCount = parseInt(localStorage.getItem("max_msg_count"), 10);
+             const viewedMsgCount = parseInt(localStorage.getItem("viewed_msg_count"), 10);
+           
+             if (isNaN(maxMsgCount) || isNaN(viewedMsgCount)) {
+              console.error("One or both values are not set or are invalid in localStorage.");
+               return false; // Default to false if values are invalid or missing
+             }
+           
+             return maxMsgCount > viewedProfileCount;
+           }*/
+
+
+        // "More" Button Functionality
+        const moreButton = document.getElementById("moreButton");
+        const optionsRow = document.getElementById("optionsRow");
+        const detailsSection = document.getElementById("detailsSection");
+
+
+        const planStatus = localStorage.getItem("my_plan_status");
+        console.log("Hiii");
+        moreButton.addEventListener('click', async function () {
+            console.log("Hlo");
+            console.log("plan",planStatus);
+           // console.log("Matching profile result:", matching("profile"));
+           const matchingResult = await matching("profile");
+           console.log("Matching profile result:", matchingResult);
+
+            if (planStatus == "Paid" && localStorage.getItem('max_profile_count') >= localStorage.getItem('viewed_profile_count')) {
+                //optionsRow.style.display = "flex";
+                console.log("Check",planStatus);
+                await loadSectionRow();   
+                moreButton.style.display = "none";
+                   //  loadSectionDetails("basic");
+            }else if(matching("profile") == 'true'){
+                await loadSectionRow();   
+                moreButton.style.display = "none";
+
+            }else if(planStatus == "Paid" && localStorage.getItem('max_profile_count') <= localStorage.getItem('viewed_profile_count')){
+               
+                Swal.fire({
+                    title: "Maximum Profile Limit Reached",
+                    text: "Would you like to upgrade to access more options?",
+                    icon: "info",
+                    showCancelButton: true,
+                    confirmButtonText: "Upgrade",
+                    cancelButtonText: "Cancel",
+                    reverseButtons: true,
+                    customClass: {
+                        popup: 'swal-wide' // Optional: add custom CSS for styling
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Redirect to the upgrade page
+                        window.location.href = "payment.html";
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        // Do nothing, alert will close
+                        //consolelog("User chose to cancel.");
+                    }
+                });   
+
+            }
+            else if (planStatus == "Expired") {
+                Swal.fire({
+                    title: "Your plan is expired",
+                    text: "Would you like to upgrade to access more options?",
+                    icon: "info",
+                    showCancelButton: true,
+                    confirmButtonText: "Upgrade",
+                    cancelButtonText: "Cancel",
+                    reverseButtons: true,
+                    customClass: {
+                        popup: 'swal-wide' // Optional: add custom CSS for styling
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Redirect to the upgrade page
+                        window.location.href = "payment.html";
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        // Do nothing, alert will close
+                        //consolelog("User chose to cancel.");
+                    }
+                });
+            } else {
+
+                Swal.fire({
+                    title: "Your account is currently free",
+                    text: "Would you like to upgrade to access more options?",
+                    icon: "info",
+                    showCancelButton: true,
+                    confirmButtonText: "Upgrade",
+                    cancelButtonText: "Cancel",
+                    reverseButtons: true,
+                    customClass: {
+                        popup: 'swal-wide' // Optional: add custom CSS for styling
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Redirect to the upgrade page
+                        window.location.href = "payment.html";
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        // Do nothing, alert will close
+                        //consolelog("User chose to cancel.");
+                    }
+                });
+            }
+        });
+
+        // Handle option button clicks
+        document.querySelectorAll(".option-button").forEach(button => {
+            button.addEventListener('click', function () {
+                const section = this.getAttribute("data-section");
+                loadSectionDetails(section);
+
+            });
+        });
+
+        function toggleLike(element) {
+            const icon = element.querySelector('i'); // Get the <i> tag
+            let type; // To store the current status
+
+            // Ensure the icon starts with the correct class
+            if (!icon.classList.contains('fa-heart') && !icon.classList.contains('fa-heart-o')) {
+                icon.classList.add('fa-heart');
+            }
+
+            // Toggle the classes for the heart icon
+            // if (icon.classList.contains('fa-heart')) {
+            if (localStorage.getItem("liked") == '1') {
+                // If currently liked, change to disliked
+                // icon.classList.remove('fa-heart');
+                // icon.classList.add('fa-heart-o');
+                icon.style.color = '#d0afaf'; // Change color to gray
+                type = 'disliked';
+                localStorage.setItem("liked", '0'); // Update localStorage to disliked
+            } else {
+                // If currently disliked, change to liked
+                // icon.classList.remove('fa-heart-o');
+                // icon.classList.add('fa-heart');
+                icon.style.color = 'red'; // Change color to red
+                type = 'liked';
+                localStorage.setItem("liked", '1'); // Update localStorage to liked
+            }
+
+            // Prepare the data object for further use
+            const data = {
+                "matri_id_by": localStorage.getItem('matriId'),
+                "matri_id_to": localStorage.getItem("matriIdTo"),
+                "type": type // Either 'liked' or 'disliked'
+            };
+
+            // API call
+            axios.post('https://www.sharutech.com/matrimony/matri_liked.php', data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+                .then(function (response) {
+                    if (response.data.message.p_out_mssg_flg === 'Y') {
+                        console.log('Success:', response.data);
+                    } else {
+                        console.error('Error Message:', response.data.message.p_out_mssg);
+                    }
+                })
+                .catch(function (error) {
+                    console.error('Error:', error);
+                });
+        }
+
+
+
+
+        function shortlistInfoSection(element) {
+            const icon = element.querySelector('i'); // Get the <i> tag
+            let type; // To store the current status
+
+            // Toggle the classes for the shortlist icon
+            if (icon.classList.contains('fa-bookmark')) {
+                // If currently shortlisted, change to not shortlisted
+                icon.classList.remove('fa-bookmark');
+                icon.classList.add('fa-bookmark-o');
+                type = 'disliked'; // Update type to disliked
+            } else {
+                // If currently not shortlisted, change to shortlisted
+                icon.classList.remove('fa-bookmark-o');
+                icon.classList.add('fa-bookmark');
+                type = 'liked'; // Update type to liked
+            }
+
+            // Prepare the data object for further use
+            const data = {
+                "matri_id_by": localStorage.getItem('matriId'),
+                "matri_id_to": localStorage.getItem("matriIdTo"),
+                "type": "shortlisted" // Either 'liked' or 'disliked'
+            };
+
+            // Send the data to the server
+            axios.post('https://www.sharutech.com/matrimony/shortlisted.php', data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+                .then(function (response) {
+                    if (response.data.message.p_out_mssg_flg === 'Y') {
+                        Swal.fire({
+                            title: "Success",
+                            text: "Success",
+                            icon: "success",
+                            confirmButtonText: "OK",
+                        });
+                    } else {
+                        console.error(response.data.message.p_out_mssg_flg, "and", response.data.message.p_out_mssg);
+                    }
+                })
+                .catch(function (error) {
+                    console.error('Error:', error);
+                });
+        }
+
+
+        async function contactInfoSection() {
+
+            const planStatus = localStorage.getItem("my_plan_status");
+            if (planStatus === "Paid") {
+                const data = {
+                    "matri_id_by": localStorage.getItem('matriId'),
+                    "matri_id_to": localStorage.getItem("matriIdTo"),
+                    "type": "contacted"
+                }
+                //consolelog(data);
+                if (await get_contact() == 'true') {
+                    axios.post('https://www.sharutech.com/matrimony/contacted_profile.php', data, {
+                        headers: {
+                            'Content-Type': 'application/json',
+                        }
+
+                    })
+
+                        .then(function (response) {
+                            //consolelog('Success:', response.data);
+                            if (response.data.message.p_out_mssg_flg === 'Y') {
+                                localStorage.setItem("viewed_profile_count", response.data.dataout[0].viewed_count);
+                                localStorage.setItem("viewed_msg_count", response.data.dataout[0].message_count);
+                                localStorage.setItem("viewed_contact_count", response.data.dataout[0].contact_count);
+                            } else {
+                                //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);
+                            }
+                        });
+                } else {
+                    Swal.fire({
+                        title: "Maximum Limit has been reached",
+                        text: "Would you like to upgrade to access more options?",
+                        icon: "info",
+                        showCancelButton: true,
+                        confirmButtonText: "Upgrade",
+                        cancelButtonText: "Cancel",
+                        reverseButtons: true,
+                        customClass: {
+                            popup: 'swal-wide' // Optional: add custom CSS for styling
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Redirect to the upgrade page
+                            window.location.href = "payment.html";
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            // Do nothing, alert will close
+                            //consolelog("User chose to cancel.");
+                        }
+                    });
+                }
+                if (await get_contact() || await matching("contact") === 'true') {
+                    const phoneInfo = candidate_profile_info.phone 
+                        ? `<p><strong>Phone No&nbsp;:</strong>${candidate_profile_info.phone}</p>` 
+                        : '';
+                    const emailInfo = candidate_profile_info.email 
+                        ? `<p><strong>Email Id&nbsp;&nbsp;&nbsp;&nbsp;:</strong>${candidate_profile_info.email}</p>` 
+                        : '';
+                
+                    Swal.fire({
+                        html: `
+                        <h3 style="margin-bottom:10px;">Contact Information</h3>
+                        <div style="text-align: left;">
+                        ${phoneInfo}
+                        ${emailInfo}
+                        </div>
+                        `,
+                        confirmButtonText: 'Close',
+                        confirmButtonColor: '#3085d6',
+                        background: '#f7f7f7',
+                        customClass: {
+                            title: 'swal-title',
+                            htmlContainer: 'swal-html-container',
+                        },
+                    });
+                }
+                
+
+            } else if (planStatus === "Expired") {
+                Swal.fire({
+                    title: "Your plan is expired",
+                    text: "Would you like to upgrade to access more options?",
+                    icon: "info",
+                    showCancelButton: true,
+                    confirmButtonText: "Upgrade",
+                    cancelButtonText: "Cancel",
+                    reverseButtons: true,
+                    customClass: {
+                        popup: 'swal-wide' // Optional: add custom CSS for styling
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Redirect to the upgrade page
+                        window.location.href = "payment.html";
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        // Do nothing, alert will close
+                        //consolelog("User chose to cancel.");
+                    }
+                });
+            } else {
+
+                Swal.fire({
+                    title: "Your account is currently free",
+                    text: "Would you like to upgrade to access more options?",
+                    icon: "info",
+                    showCancelButton: true,
+                    confirmButtonText: "Upgrade",
+                    cancelButtonText: "Cancel",
+                    reverseButtons: true,
+                    customClass: {
+                        popup: 'swal-wide' // Optional: add custom CSS for styling
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Redirect to the upgrade page
+                        window.location.href = "payment.html";
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                        // Do nothing, alert will close
+                        //consolelog("User chose to cancel.");
+                    }
+                });
+            }
+        }
+
+        async function chatInfoSection() {
+            if (await get_entry() == "true" || await matching("message") === 'true') {
+                openChatPage(localStorage.getItem("matriIdTo"), localStorage.getItem('viewedFirstName') + " " + localStorage.getItem('viewedLastName'), localStorage.getItem('imgURL'));
+            }
+            else {
+                Swal.fire({
+                    title: "Maximum Limit has been reached",
+                    text: "Would you like to upgrade to access more options?",
+                    icon: "info",
+                    showCancelButton: true,
+                    confirmButtonText: "Upgrade",
+                    cancelButtonText: "Cancel",
+                    reverseButtons: true,
+                    customClass: {
+                        popup: 'swal-wide' // Optional: add custom CSS for styling
+                    }
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        // Redirect to the upgrade page
+                        window.location.href = "payment.html";
+                    } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    }
+                });
+            }
+        }
+        async function get_entry() {
+
+            const maxMsgCount = parseInt(localStorage.getItem("max_msg_count"));
+            const viewedMsgCount = parseInt(localStorage.getItem("viewed_msg_count"));
+
+            if (isNaN(maxMsgCount) || isNaN(viewedMsgCount)) {
+                console.error("One or both values are not set or are invalid in localStorage.");
+                return "false"; // Default to false if values are invalid or missing
+            }
+            return maxMsgCount > viewedMsgCount ? "true" : "false";
+        }
+
+
+        async function get_contact() {
+            const maxContactCount = parseInt(localStorage.getItem("max_contact_count"));
+            const viewedContactCount = parseInt(localStorage.getItem("viewed_contact_count"));
+
+            if (isNaN(maxContactCount) || isNaN(viewedContactCount)) {
+                console.error("One or both values are not set or are invalid in localStorage.");
+                return "false"; // Default to false if values are invalid or missing
+            }
+            return maxContactCount > viewedContactCount ? "true" : "false";
+        }
+
+        function goBack() {
+            history.back();
+        }
+
+
+
+        function getPhotoHTML(photoArray) {
+            return photoArray.map(photoUrl => {
+                return `
+            <div class="photo-item" style="position: relative; display: inline-block; margin: 10px;">
+                <img class="photo" src="${photoUrl.url}" alt="Photo" style="width: 150px; height: 150px; object-fit: cover; cursor: pointer;">
+               
+            </div>
+        `;
+            }).join('');
+        }
+        // Function to initialize the zoom functionality
+        function initZoom() {
+            const photos = document.querySelectorAll('.photo');
+            const zoomModal = document.getElementById('zoomModal');
+            const zoomedImage = document.getElementById('zoomedImage');
+            const closeZoom = document.getElementById('closeZoom');
+
+            // When any photo is clicked, show the zoomed-in version
+            photos.forEach(photo => {
+                photo.addEventListener('click', () => {
+                    zoomedImage.src = photo.src;  // Set the clicked image as the zoomed image
+                    zoomModal.style.display = 'flex';  // Show the modal
+                });
+            });
+
+            // Close the zoom modal when the close button is clicked
+            closeZoom.addEventListener('click', () => {
+                zoomModal.style.display = 'none';  // Hide the modal
+            });
+
+            // Close the zoom modal when clicking anywhere outside the image
+            window.addEventListener('click', (event) => {
+                if (event.target === zoomModal) {
+                    zoomModal.style.display = 'none';  // Hide the modal if clicked outside
+                }
+            });
+        }
+        let candidate_profile_info = '';
+        // Function to load section details dynamically
+        function loadSectionDetails(section) {
+            let heightInCm = parseFloat(localStorage.getItem("height"));
+
+            // Convert to feet and inches
+            let heightInFeet = heightInCm / 30.48;
+            let feet = Math.floor(heightInFeet);
+            let inches = Math.round((heightInFeet - feet) * 12);
+            const sectionData = {
+                basic: `
+                    <p><span class="labelStar"><strong>Date of Birth:</strong></span> <span id="dob">${moment(candidate_profile_info.dob).format("DD-MMM-YYYY")}</span></p>
+                    <p><span class="labelStar"><strong>Profile Creator:</strong></span> <span id="profileCreator">${candidate_profile_info.creator_name}</span></p>
+                    <p><span class="labelStar"><strong>Profile Creating For:</strong></span> <span id="profileCreatingFor">${candidate_profile_info.profile_for}</span></p>
+                    <p><span class="labelStar"><strong>Marital Status:</strong></span> <span id="maritalStatus">${candidate_profile_info.status}</span></p>
+                    <p><span class="labelStar"><strong>Sub Caste:</strong></span> <span id="subCaste">${candidate_profile_info.sub_caste}</span></p>
+                `,
+                additional: `
+                    <p><span class="labelStar"><strong>Height:</strong></span> <span id="profileHeight">${candidate_profile_info.height}cm</span></p>
+                    <p><span class="labelStar"><strong>Weight:</strong></span> <span id="profileWeight">${candidate_profile_info.weight}kg</span></p>
+                    <p><span class="labelStar"><strong>Complexion:</strong></span> <span id="profileComplexion">${candidate_profile_info.complexion}</span></p>
+                    <p><span class="labelStar"><strong>Blood Group:</strong></span> <span id="profileBloodGroup">${candidate_profile_info.blood_group}</span></p>
+                    <p><span class="labelStar"><strong>Disability</strong></span> <span id="disability">${candidate_profile_info.disability}</span></p>
+                    <p><span class="labelStar"><strong>Country:</strong></span> <span id="profileCountry">${candidate_profile_info.country}</span></p>
+                    <p><span class="labelStar"><strong>State:</strong></span> <span id="profileState">${candidate_profile_info.state}</span></p>
+                    <p><span class="labelStar"><strong>City:</strong></span> <span id="profileCity">${candidate_profile_info.city}</span></p>
+                    <p><span class="labelStar"><strong>Address:</strong></span> <span id="profileAddress">${candidate_profile_info.address}</span></p>
+                    <p><span class="labelStar"><strong>Remarks:</strong></span> <span id="profileRemarks">${candidate_profile_info.remark}</span></p>
+                `,
+                education: `
+                    <p><span class="labelStar"><strong>Qualification:</strong></span> <span id="qualification1">${candidate_profile_info.qualification}</span></p>
+                    <p><span class="labelStar"><strong>Specialization:</strong></span> <span id="specialization">${candidate_profile_info.specialization}</span></p>
+                    <p><span class="labelStar"><strong>Profession:</strong></span> <span id="profession">${candidate_profile_info.occupation}</span></p>
+                    <p><span class="labelStar"><strong>Company:</strong></span> <span id="company">${candidate_profile_info.company}</span></p>
+                    <p><span class="labelStar"><strong>Company City:</strong></span> <span id="companyCity">${candidate_profile_info.company_city}</span></p>
+                    <p><span class="labelStar"><strong>Salary:</strong></span> <span id="salaryRange">${candidate_profile_info.salary}</span></p>
+                `,
+                horoscope: `
+                     <p><span class="labelStar"><strong>Nakshatra:</strong></span> <span id="nakshatra">${candidate_profile_info.nakshatra}</span></p>
+                    <p><span class="labelStar"><strong>Rashi:</strong></span> <span id="rashi">${candidate_profile_info.rashi}</span></p>
+                    <p><span class="labelStar"><strong>Gothra:</strong></span> <span id="gothra">${candidate_profile_info.gothra}</span></p>
+                    <p><span class="labelStar"><strong>Birth Place:</strong></span> <span id="bplace">${candidate_profile_info.birth_place}</span></p>
+                    <p><span class="labelStar"><strong>Birth Time:</strong></span> <span id="bTime">${candidate_profile_info.birth_time}</span></p>
+                    <p><span class="labelStar"><strong>Family Diety:</strong></span> <span id="familyDiety">${candidate_profile_info.family_diety}</span></p>
+                `,
+                family: `
+                    <p><span class="labelStar"><strong>Father's Name:</strong></span> <span id="fatherName">${candidate_profile_info.father_name}</span></p>
+                    <p><span class="labelStar"><strong>Father's Occupation:</strong></span> <span id="fatherOccupation">${candidate_profile_info.father_ocupation}</span></p>
+                    <p><span class="labelStar"><strong>Mother's Name:</strong></span> <span id="motherName">${candidate_profile_info.mother_name}</span></p>
+                    <p><span class="labelStar"><strong>Mother's Occupation:</strong></span> <span id="motherOccupation">${candidate_profile_info.mother_occupation}</span></p>
+                    <p><span class="labelStar"><strong>No of Brother's:</strong></span> <span id="brothers">${candidate_profile_info.number_of_brothers}</span></p>
+                    <p><span class="labelStar"><strong>No of Sister's:</strong></span> <span id="sisters">${candidate_profile_info.number_of_sisters}</span></p>
+                    <p><span class="labelStar"><strong>Permanent Address:</strong></span> <span id="pAddress">${candidate_profile_info.home_town}</span></p>
+                    <p><span class="labelStar"><strong>Mother Tongue:</strong></span> <span id="motherTongue">${candidate_profile_info.mother_tongue}</span></p>
+                    <p><span class="labelStar"><strong>Family Type:</strong></span> <span id="familyType">${candidate_profile_info.family_type}</span></p>
+                    <p><span class="labelStar"><strong>Reference Name:</strong></span> <span id="referenceName">${candidate_profile_info.reference}</span></p>
+                    <p><span class="labelStar"><strong>Reference Number:</strong></span> <span id="referenceNumber">${candidate_profile_info.reference_number}</span></p>
+                `,
+                photo: `
+                   <div class="photo-row">
+                        ${getPhotoHTML(photos_url)}
+                        </div>
+                `,
+            };
+
+            detailsSection.innerHTML = sectionData[section] || "<p>No details available for this section.</p>";
+            // Initialize zoom functionality after the section is loaded
+            if (section === 'photo') {
+                initZoom();
+            }
+        }
+
+        // get candidate profile data      
+
+
+
+
+
+
+        function profileViewed() {
+            const data = {
+                "matri_id_by": localStorage.getItem("matriId"),
+                "matri_id_to": localStorage.getItem("matriIdTo"),
+                "type": "viewed"
+            }
+
+            axios.post('https://www.sharutech.com/matrimony/profile_viewed.php', data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+                .then(function (response) {
+                    if (response.data.message.p_out_mssg_flg === 'Y') {
+                        localStorage.setItem("viewed_profile_count", response.data.dataout[0].viewed_count);
+                        localStorage.setItem("viewed_msg_count", response.data.dataout[0].message_count);
+                        localStorage.setItem("viewed_contact_count", response.data.dataout[0].contact_count);
+                    }
+                });
+        }
+
+
+
+        // let baseURL='';
+        document.addEventListener('DOMContentLoaded', function () {
+            
+            const waitingDialog = document.getElementById('waiting-dialog');
+            if (localStorage.getItem('matriId') == 'NULL' || localStorage.getItem('matriId') == '' || localStorage.getItem('matriId') == null) {
+                logout();
+            }
+            console.log("maxview",localStorage.getItem('max_profile_count'));
+            localStorage.setItem('candidate_phone','ewdwefwf');
+            {
+                if (localStorage.getItem('viewedFirstName') != null) {
+                    // console.log(localStorage.getItem('heigt'));
+                    document.getElementById("profileNameText").textContent = `${(localStorage.getItem('viewedFirstName') == null || localStorage.getItem('viewedFirstName') == 'null') ? '--' : localStorage.getItem('viewedFirstName') + " " + localStorage.getItem('viewedLastName')}`;
+                    document.getElementById("profileAge").textContent = `${(localStorage.getItem('age') == null || localStorage.getItem('age') == 'null') ? '' : localStorage.getItem('age') + "yrs"}`;
+                    document.getElementById("profileHeight").textContent = `${(localStorage.getItem('height') == null || localStorage.getItem('height') == 'null') ? '' : localStorage.getItem('height') + "cm"}`;
+                    document.getElementById("profileWeight").textContent = `${(localStorage.getItem('weight') == null || localStorage.getItem('weight') == 'null') ? '' : localStorage.getItem('weight') + "kg"}`;
+                    let imgURL = '';
+                    if (localStorage.getItem('genderType') === 'Male' && (localStorage.getItem('imgURL') === null || localStorage.getItem('imgURL') === '')) {
+                        imgURL = '../img/2.png';
+                    } else if (localStorage.getItem('genderType') === 'Female' && (localStorage.getItem('imgURL') === null || localStorage.getItem('imgURL') === '')) {
+                        imgURL = '../img/1.png';
+                    } else {
+                        imgURL = localStorage.getItem('imgURL');
+                    }
+                    console.log(imgURL);
+
+                    document.getElementById("profilePhoto").src = imgURL;
+                    //   hideWaitingDialog();
+                } else {
+                    hideWaitingDialog();
+                    //consolelog("No profile data found.");
+                }
+                /*  if(planStatus=="Paid"){
+                  loadSectionRow();      
+                  }*/
+                // hideWaitingDialog();
+            }
+                
+            async function onload_getdata() {
+                if (planStatus != 'Paid' && await matching("profile") == 'true') {
+                    console.log("njednje")
+
+                    /*  await candidateProfile();
+                        document.getElementById("optionsRow").style.display = "flex"; 
+                        moreButton.style.display = "none";
+    
+                        loadSectionDetails('basic');*/
+                    loadSectionRow();
+                }
+                else if (planStatus == 'Paid') {
+                    if (localStorage.getItem('max_profile_count') > localStorage.getItem('viewed_profile_count')) {
+                        console.log("maxp",localStorage.getItem('max_profile_count'));
+                        console.log("first");
+                        loadSectionRow();
+                    }
+                    else if (await matching("profile") == 'true') {
+                        console.log("second");
+                        loadSectionRow();
+                    }else{
+                        hideWaitingDialog();
+                        console.log("matchi",matching("profile"));
+                    }
+                }
+                else {
+                    console.log("njednje else")
+                }
+            }
+            onload_getdata();
+
+          
+                async function loadSectionRow() {
+                    await candidateProfile();
+                    profileViewed();
+                    document.getElementById("optionsRow").style.display = "flex";
+            
+                    try {
+                        await loadSectionDetails("basic");
+                    } catch (error) {
+                        console.error("Error loading section details:", error);
+                    }
+                }
+
+                window.loadSectionRow = loadSectionRow;
+
+            // Example of how loadSectionDetails function might look with async
+            async function loadSectionDetails1(section) {
+                // Simulate an async operation, like fetching data from an API
+                let response = await fetchData(section);
+
+                if (response.success) {
+                    // Process the loaded data and update the DOM
+                    //consolelog(`Section ${section} loaded successfully!`);
+
+                } else {
+                    console.error("Failed to load section data");
+                }
+            }
+
+            // Simulated async data-fetching function
+            async function fetchData(section) {
+                return new Promise((resolve) => {
+                    setTimeout(() => {
+                        resolve({ success: true, data: section });
+                    }, 1000); // Simulate a 1-second delay for fetching data
+                });
+            }
+
+
+
+            async function candidateProfile() {
+                showWaitingDialog();
+                const data = {
+                    matri_id_to: localStorage.getItem("matriIdTo"),
+                    matri_id: localStorage.getItem("matriId"),
+                };
+        
+                try {
+                    const response = await axios.post(
+                        "https://www.sharutech.com/matrimony/z_my_profile2.php",
+                        data,
+                        { headers: { "Content-Type": "application/json" } }
+                    );
+        
+                    if (response.data.message.p_out_mssg_flg === "Y") {
+                        candidate_profile_info = response.data.dataout[0];
+                        moreButton.style.display = "none";
+                        localStorage.setItem("liked", candidate_profile_info.liked);
+                    }
+                } catch (error) {
+                    console.error("Error fetching candidate profile:", error);
+                } finally {
+                    hideWaitingDialog();
+                }
+            }
+
+            window.candidateProfile = candidateProfile;
+
+            // Show the waiting dialog
+            function showWaitingDialog() {
+                waitingDialog.style.display = "flex";
+            }
+
+            // Hide the waiting dialog
+            function hideWaitingDialog() {
+                waitingDialog.style.display = 'none';
+            }
+
+            (async function initializeProfile() {
+                console.log("Initializing profile...");
+                // Hide the "More" button
+                moreButton.style.display = "none";
+        
+                // Load the "basic" section automatically
+                await loadSectionRow();
+            })();
+        
+            // Expose loadSectionRow globally if needed
+            window.loadSectionRow = loadSectionRow;
+            const matriText = document.getElementById("matriText");
+            matriText.textContent = localStorage.getItem("matriIdTo");
+
+            //     else{
+            //    //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);
+            //     hideWaitingDialog();
+            //     }
+            // });
+            //consolelog(localStorage.getItem("liked"));
+
+            function addlike() {
+                const icon = document.getElementById("likeIdIcon");
+                const likedStatus = localStorage.getItem("liked");
+                console.log(likedStatus); // Get liked status from localStorage
+                if (likedStatus == '1') {
+                    // If liked, set to filled heart and red color
+                    // icon.classList.add('fa-heart');
+                    // icon.classList.remove('fa-heart-o');
+                    icon.style.color = 'red';
+                } else {
+                    // If disliked (or not set), set to outline heart and gray color
+                    // icon.classList.add('fa-heart-o');
+                    // icon.classList.remove('fa-heart');
+                    icon.style.color = '#d0afaf';
+                }
+            }
+
+
+
+        });
+        const photo = {
+            //id:localStorage.getItem('mId'),
+            matri_id: localStorage.getItem('matriIdTo'),
+            type: "get_image",
+            //url:localStorage.getItem('url'),
+        };
+        photos_url = [];
+        //consolelog("ch",photo);
+
+        axios.post('https://www.sharutech.com/matrimony/edit_image.php', photo, {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(function (response) {
+                //consolelog('Siiii:', response.data);
+                if (response.data.message.p_out_mssg_flg === 'Y') {
+                    // Access `dataout` properly from `response.data`
+                    const dataout = response.data.dataout; // Ensure this matches the API structure
+                    if (dataout && dataout.length > 0) {
+                        //consolelog("pic", dataout[0].url);
+                        for (i = 0; i < dataout.length; i++) {
+
+                            photos_url[i] = {
+                                url: localStorage.getItem("baseURL") + dataout[i].url,
+                                sl_id: dataout[i].sl_id
+                            }
+                            //consolelog(photos_url[i]);
+                        }
+                    } else {
+                        //consolewarn("No dataout or empty array in response.");
+                    }
+                }
+            })
+
+        /*  async function matching(type) {
+              let mt;
+              const data = {
+                "matri_id": localStorage.getItem('matriId'),
+                "matri_id_to": localStorage.getItem('matriIdTo'),
+                "type": type
+              };
+            
+             //consolelog('Request Data:', data);
+            
+              try {
+                const response = await axios.post('https://www.sharutech.com/matrimony/master_count.php', data, {
+                  headers: {
+                    'Content-Type': 'application/json',
+                  }
+                });
+            
+               //consolelog('Success:', response.data);
+            
+                if (response.data.message.p_out_mssg_flg === 'Y') {
+                 //consolelog('Message:', response.data.message.p_out_mssg);
+            
+                 //consolelog("Viewed this account:", response.data.$type_count[0].used_count);
+                  if (response.data.$type_count[0].used_count == 1) {
+                    mt = 'true';
+                  } else {
+                    mt = 'false';
+                  }
+                } else {
+                 //consolelog('Message flag is not "Y". No further processing.');
+                }
+              } catch (error) {
+               console.error('Error:', error);
+                mt = 'false'; // Default value in case of an error
+              }
+            
+              return mt;
+            }*/
+        // window.onload = generateCards;
+
+
+        //Report Button
+        // Function to open the popup
+        function openPopup() {
+            document.getElementById('popupCard').style.display = 'flex';
+        }
+
+        // Function to close the popup
+        function closePopup() {
+            document.getElementById('popupCard').style.display = 'none';
+        }
+
+        // Handle form submission
+        document.getElementById('reportForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const action = document.querySelector('input[name="action"]:checked')?.value;
+            const details = document.getElementById('reportText').value;
+
+            if (!action) {
+                Swal.fire('Error', 'Please select an action (Block or Report).', 'error');
+                return;
+            }
+
+            if (!details.trim()) {
+                Swal.fire('Error', 'Please enter details in the textbox.', 'error');
+                return;
+            }
+
+            // Prepare the data for the API call
+            const data = {
+                matri_id_by: localStorage.getItem('matriId'), // Assuming current user ID is stored in localStorage
+                matri_id_to: localStorage.getItem("matriIdTo"), // Replace with the target user ID dynamically if needed
+                user_comment: details,
+                type: "block"
+            };
+
+            // Call the API
+            axios
+                .post('https://www.sharutech.com/matrimony/block_user.php', data, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                })
+                .then(function (response) {
+                    // Check API response
+                    if (response.data.message.p_out_mssg_flg === 'Y') {
+                        Swal.fire('Success', response.data.message.p_out_mssg, 'success').then(() => {
+                            closePopup(); // Close the popup
+                        });
+                    } else {
+                        Swal.fire('Error', response.data.message.p_out_mssg || 'Failed to process your request.', 'error');
+                    }
+                })
+                .catch(function (error) {
+                    console.error('Error during API call:', error);
+                    Swal.fire('Error', 'An error occurred while processing your request. Please try again.', 'error');
+                });
+        });
+
+    </script>
+    <script src="maxcount.js"></script>
+</body>
+
+</html>

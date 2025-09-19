@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls",
+      "delegate_permission/common.get_login_creds"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.sirigere.tbm",
+      "sha256_cert_fingerprints":
+        ["1F:1D:45:F1:A5:E9:3D:40:83:F3:0D:BB:66:0F:8E:F3:E1:BC:44:4B:A9:26:C1:69:A7:F7:AC:28:16:32:A6:1F"]
+    }
+  }
+]

@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrimony Sign-Up</title>
+    <link rel="shortcut icon" type="image/png" href="../img/icon-72x72.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-96x96.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-128x128.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-144x144.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-152x152.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-167x167.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-180x180.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-192x192.png">
+    <style>
+       body {
+        font-family: 'Poppins', sans-serif;
+        background-image: url('https://png.pngtree.com/background/20230208/original/pngtree-beautiful-indian-wedding-background-picture-image_2026053.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        /* background: linear-gradient(135deg, #f06, #4a90e2); */
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+       } 
+       .container {
+         background-color: #fff;
+         padding: 30px;
+         border-radius: 5px;
+         box-shadow: 0px 10px 15px rgba(0,0,0,0.2);
+         width: 400px;
+       }
+       h1 {
+         text-align: center;
+         color: #333;
+         margin-bottom: 20px;
+       }
+       .form-group {
+         margin-bottom: 15px;
+         position: relative; /* For the eye icon inside input */
+       }
+       label {
+         display: block;
+         margin-bottom: 5px;
+         color: #444;
+         font-weight: bold;
+       }
+       input, select {
+        width: 100%; 
+        padding: 10px;
+        border: 2px solid #ddd;
+        border-radius: 5px;
+        font-size: 16px;
+        transition: border-color 0.3s ease;
+        box-sizing: border-box; 
+       }
+       input:focus, select:focus {
+        border-color: #4a90e2;
+        outline: none;
+       }
+       .phone-group {
+        display: flex;
+        align-items: stretch; 
+       }
+       .phone-code {
+        width: 30%; 
+        padding: 10px;
+        border: 2px solid #ddd;
+        border-radius: 5px 0 0 5px;
+        border-right: none;
+        font-size: 16px;
+        background-color: #f1f1f1;
+       }
+       .phone-number {
+        width: 70%; 
+        padding-left: 15px;
+        border-radius: 0 5px 5px 0;
+        border: 2px solid #ddd;
+        font-size: 16px;
+        border-left: none;
+       }
+       .error-message {
+         color: red;
+         font-size: 14px;
+         display: none;
+         margin-top: 5px;
+       }
+       .eye-icon {
+         position: absolute;
+         right: 10px;
+         top: 35px;
+         cursor: pointer;
+         font-size: 18px;
+       }
+       button {
+         width: 100%;
+         padding: 12px;
+         background-color: #f06;
+         color: #fff;
+         border: none;
+         border-radius: 5px;
+         font-size: 18px;
+         font-weight: bold;
+         cursor: pointer;
+         transition: background-color 0.3s ease;
+         margin-top: 10px; 
+       }
+       button:hover {
+         background-color: #e94560;
+       }
+       .google-signup {
+         background-color: #4285F4; 
+         color: white;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         border: none;
+         margin-top: 10px;
+         padding: 12px;
+         border-radius: 5px;
+       }
+       .google-signup img {
+         width: 20px; 
+         margin-right: 10px;
+       }
+       .checkbox-group input[type="checkbox"] {
+            margin-right: 10px;
+            width: auto;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .checkbox-group label {
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 1.2;
+        }
+        .checkbox-group a {
+            color: #4a90e2;
+            text-decoration: none;
+        }
+        .checkbox-group a:hover {
+            text-decoration: underline;
+        }
+       .or-signup {
+         text-align: center;
+         margin: 15px 0; 
+         color: #444;
+       }
+       .login-link {
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #444;
+        }
+       .hidden {
+         display: none;
+       }
+       .masked-otp {
+         font-size: 24px;
+         letter-spacing: 10px; /* Space between the dots */
+         color: #000;
+         text-align: center; /* Center the dots */
+         margin-top: 5px; /* Spacing */
+       }
+
+       .loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            z-index: 9999; /* Ensure it appears above other content */
+            display: none; /* Hide by default */
+        }
+
+        /* Loader Text and Dots */
+        .loading-text {
+            font-size: 24px;
+            font-family: Arial, sans-serif;
+            color: white;
+            margin-right: 10px;
+        }
+
+        .dots {
+            display: inline-block;
+        }
+
+        .dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: white;
+            border-radius: 50%;
+            margin-left: 5px;
+            opacity: 0;
+            animation: bounce 1.4s infinite both;
+        }
+
+        .dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        /* Bounce Animation for Dots */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                opacity: 0;
+                transform: translateY(0);
+            }
+            40% {
+                opacity: 1;
+                transform: translateY(-10px);
+            }
+            60% {
+                opacity: 1;
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Button Styles */
+        #loadButton {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        #loadButton:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Sign Up</h1>
+    <form id="signupForm" method="POST">
+        <div class="form-group">
+            <label for="profile-for">Creating profile for:</label>
+            <select id="profile-for" class="form-select" required>
+                <option selected disabled value="">Select an option</option>
+                <option value="1">Self</option>
+                <option value="2">Son</option>
+                <option value="3">Daughter</option>
+                <option value="4">Brother</option>
+                <option value="5">Sister</option>         
+            </select>
+            <span id="create-error" class="error-message">Please select an option.</span>
+
+        </div>
+
+        <div class="form-group">
+            <label for="full-name">Full Name:</label>
+            <input type="text" id="full-name" name="full-name" placeholder="Enter your full name" required pattern="[A-Za-z\s]+" title="Full name should only contain letters.">
+            <span id="name-error" class="error-message">Please enter your name.</span>
+
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Phone Number:</label>
+            <div class="phone-group">
+                <select id="phone-code" class="phone-code" name="phone-code" required>
+                    <option value="+91" selected>India (+91)</option>
+                    <option value="+1">USA (+1)</option>
+                </select>
+                <input type="tel" id="phone" class="phone-number" name="phone" placeholder="Enter your phone number" required pattern="[0-9]{10}" title="Phone number should be 10 digits.">
+            </div>
+            <span id="phone-error" class="error-message">Please enter Phone Number.</span>
+        </div>
+
+        <button type="button" id="get-otp">Get OTP</button>
+        <button type="button" id="resend-otp" class="hidden">Resend OTP</button>
+
+        <div id="otp-section" class="form-group hidden">
+            <label for="otp">Enter OTP:</label>
+            <input type="text" id="otp" placeholder="Enter OTP" required pattern="[0-9]{4}" title="OTP should be 4 digits.">
+            <span id="otp-timer" class="error-message">Time left: 30s</span> <!-- Timer styled as error message -->
+            <span id="otp-error" class="error-message">Please enter a valid OTP.</span>
+        </div>
+        
+
+        <div id="password-section" class="hidden">
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" 
+                       placeholder="Enter your password" required minlength="8"
+                       title="Password must contain letters, numbers, and symbols." />
+                <span class="eye-icon" id="togglePassword">👁</span>
+                <span id="psw-error" class="error-message">Please enter a password.</span>
+            </div>
+
+            <div class="form-group">
+                <label for="confirm-password">Confirm Password:</label>
+                <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm password" required>
+                <span class="eye-icon" id="toggleConfirmPassword">👁</span>
+                <span id="password-error" class="error-message">Passwords do not match.</span> <!-- Error message -->
+            </div>
+        </div>
+
+        <div class="checkbox-group">
+            <input type="checkbox" id="terms" required>
+            <label for="terms">I agree to the <a href="term.html">terms and privacy policy</a>.</label>
+        </div>
+
+        <button type="submit">Next </button>
+        <div id="loader" class="loader-container">
+            <div class="loading-text">Loading</div>
+            <div class="dots">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+        <div class="or-signup"> Or </div>
+
+        <div class="text-centergoogle my-3">
+            <div id="g_id_onload"
+                 data-client_id="691158335150-book60nnl02o5t03eafouio8nofo0rop.apps.googleusercontent.com"
+                 data-context="signup"
+                 data-ux_mode="popup"
+                 data-callback="handleCredentialResponse"
+                 data-auto_prompt="false">
+            </div>
+            <div class="g_id_signin" data-type="standard"></div>
+          </div>
+
+        <div class="login-link">
+            Already have an account? <a href="Login.html">Login</a>
+        </div>
+
+    </form>
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+<!-- <script src="https://accounts.google.com/gsi/client" async defer></script> -->
+
+
+
+
+<script>
+    let generatedOtp = ''; // Store the generated OTP
+    let timerInterval, timeLeft = 30; // Timer variables
+
+    // Handle Get OTP Button Click
+    document.getElementById('get-otp').addEventListener('click', function () {
+        const phoneInput = document.getElementById('phone').value;
+        const phoneError = document.getElementById('phone-error');
+        const otpSection = document.getElementById('otp-section');
+        const otpSectionTimer = document.getElementById('otp-timer')
+        const getOtpButton = document.getElementById('get-otp');
+
+        if (phoneInput && /^\d{10}$/.test(phoneInput)) {
+            phoneError.style.display = 'none';
+
+            // Verify phone number via API
+            checkPhoneNumber(phoneInput)
+                .then(response => {
+                    if (response.data.message.p_out_mssg_flg === 'Y') {
+                        otpSection.classList.remove('hidden'); // Show OTP section
+                        getOtpButton.style.display = 'none'; // Hide Get OTP button
+                        otpSectionTimer.style.display = 'block';
+                        sendOtpSms(phoneInput); // Send OTP
+                    } else {
+                        phoneError.textContent = "Phone Number Already Exists!";
+                        phoneError.style.display = 'block'; // Display error
+                        otpSectionTimer.style.display = 'none';
+                    }
+                })
+                .catch(error => {
+                   console.error('Phone verification failed:', error);
+                    //alert('Error verifying phone number. Please try again.');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Error verifying phone number. Please try again.',
+                        text: 'Please try again.',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        // Reload the page when the alert is closed
+                        if (result.isConfirmed) {
+                            location.reload(); // Reload the page
+                        }
+                    });
+                });
+        } else {
+            phoneError.textContent = "Please enter a valid phone number.";
+            phoneError.style.display = 'block';
+        }
+    });
+
+    // Check if the phone number is already registered (API call to login.php)
+    function checkPhoneNumber(phoneNumber) {
+        const data = { user: phoneNumber, category: 'register' };
+        return axios.post('https://www.sharutech.com/matrimony/login.php', data, {
+            headers: { 'Content-Type': 'application/json' },
+        });
+    }
+
+
+    function handleCredentialResponse(response) {
+      const user = jwt_decode(response.credential); // Decode JWT response
+     //consolelog("Logged in user:", user);
+     //consolelog("Logged in user:", user.name);
+     //consolelog("Logged in user:", user.email);
+     //consolelog("Logged in user:", user.picture);
+     //consolelog("Logged in user:", user.sub);
+        localStorage.setItem('name', user.name);
+        localStorage.setItem('password', user.sub);
+        localStorage.setItem('email', user.email);
+        window.location.href = 'basic_info.html';
+     
+  }
+
+    // Send OTP via API (send_sms.php)
+    function sendOtpSms(phoneNumber) {
+        const data = { type: 'otp', number: phoneNumber };
+
+        axios.post('https://www.sharutech.com/matrimony/send_sms.php', data, {
+            headers: { 'Content-Type': 'application/json' },
+        })
+        .then(response => {
+            if(response.data.message.p_out_mssg_flg == 'Y'){
+            generatedOtp = response.data.data.Otp; // Store OTP
+            // alert('OTP sent to your phone: ' + generatedOtp); 
+            startOtpTimer(); 
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Unable to send OTP at the current moment ',
+                    text: 'please try again after sometime.',
+                    confirmButtonText: 'OK'
+                })
+            }
+                // Start OTP timer
+        })
+        // .catch(error => {
+        //    console.error('Error sending OTP:', error);
+        //     // alert('Error sending OTP. Please try again.');
+        
+        // });
+    
+    }
+
+    // OTP Timer Logic
+    function startOtpTimer() {
+        timeLeft = 30;
+        updateOtpTimerDisplay();
+
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            updateOtpTimerDisplay();
+
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                // alert('OTP expired. Please request a new one.');
+                document.getElementById('get-otp').style.display = 'none'; // Hide Get OTP button
+            document.getElementById('resend-otp').classList.remove('hidden'); // Show Resend OTP button
+                hideOtpSection();
+            }
+        }, 1000);
+    }
+
+    // Resend OTP Button Click
+    document.getElementById('resend-otp').addEventListener('click', function () {
+    const phoneInput = document.getElementById('phone').value;
+    document.getElementById('otp').value = ''; // Clear previous OTP input
+    sendOtpSms(phoneInput); // Send OTP again
+    document.getElementById('resend-otp').classList.add('hidden'); // Hide Resend OTP button
+    document.getElementById('get-otp').style.display = 'none'; // Hide Get OTP button while processing
+    document.getElementById('otp-section').classList.remove('hidden'); // Show OTP section again
+});
+
+    // Update OTP Timer Display
+    function updateOtpTimerDisplay() {
+        document.getElementById('otp-timer').textContent = `Time left: ${timeLeft}s`;
+    }
+
+    // Hide OTP Section
+    function hideOtpSection() {
+        document.getElementById('otp-section').classList.add('hidden');
+        document.getElementById('otp').value = ''; // Clear OTP input
+    }
+
+    // OTP Verification Logic
+    document.getElementById('otp').addEventListener('input', function () {
+        const enteredOtp = this.value;
+
+        if (enteredOtp.length == 4) {
+            if (CryptoJS.MD5(enteredOtp).toString() == generatedOtp) {
+                // alert('OTP Verified Successfully!');
+                clearInterval(timerInterval); // Stop timer
+                document.getElementById('otp-section').classList.add('hidden'); // Hide OTP section
+                document.getElementById('password-section').classList.remove('hidden'); // Show password section
+            } else {
+                document.getElementById('otp-error').style.display = 'block'; // Show incorrect OTP error
+                document.getElementById('otp-error').textContent = 'Incorrect OTP. Please try again.'; // Custom error message
+            }
+        } else {
+            document.getElementById('otp-error').style.display = 'none'; // Hide error if incomplete input
+        }
+    });
+
+    // Password Match Validation
+    function checkPasswordMatch() {
+        const password = document.getElementById('psw-input').value;
+        const confirmPassword = document.getElementById('psw-input-confirm').value;
+        const passwordError = document.getElementById('password-error');
+
+        if (password !== confirmPassword) {
+            passwordError.style.display = 'block'; // Show error message
+        } else {
+            passwordError.style.display = 'none'; // Hide error message if passwords match
+        }
+    }
+
+    // Toggle Password Visibility
+    document.querySelectorAll('.eye-icon').forEach(icon => {
+        icon.addEventListener('click', function () {
+            const input = icon.previousElementSibling;
+            const type = input.type === 'password' ? 'text' : 'password';
+            input.type = type;
+            icon.textContent = type === 'password' ? '👁' : '◡';
+        });
+    });
+
+    // Handle Form Submission
+    document.getElementById('signupForm').addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent form submission
+        document.getElementById("loader").style.display = "flex";
+        let isValid = true;
+
+        // Validate Full Name
+        const nameInput = document.getElementById('full-name').value;
+
+       // Validate profile selection
+       const profileSelect = document.getElementById('profile-for');
+     
+        
+
+        // Validate Password
+        const passwordInput = document.getElementById('password').value;
+        // if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}$/.test(passwordInput)) {
+        //     isValid = false;
+        // }
+
+        // Validate Confirm Password
+        const confirmPasswordInput = document.getElementById('confirm-password').value;
+        if (confirmPasswordInput !== passwordInput) {
+            // alert('Passwords do not match.');
+            isValid = false;
+        }
+
+        // If All Validations Pass, Store Data and Redirect
+        if (isValid) {
+            localStorage.setItem('profileFor', profileSelect.value);
+            localStorage.setItem('name', nameInput);
+            localStorage.setItem('phone', document.getElementById('phone').value);
+            localStorage.setItem('password', confirmPasswordInput);
+            document.getElementById("loader").style.display = "none";
+           //consolelog('Registration Successful');
+            window.location.href = 'Register.html'; // Redirect to next page
+        }
+    });
+</script>
+
+
+</body>
+</html>
+
+

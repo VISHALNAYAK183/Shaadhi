@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liked Information</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-72x72.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-96x96.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-128x128.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-144x144.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-152x152.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-167x167.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-180x180.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-192x192.png">
+</head>
+<style>
+    .card-wrapper .edit-button {
+        position: absolute;
+        top: 8px; /* Adjust the top spacing */
+        right: 8px; /* Adjust the right spacing */
+        background-color: #fff;
+        color: #000;
+        border: 1px solid #ccc; /* Add a border for clarity */
+        border-radius: 50%; /* Make it circular */
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        transition: transform 0.2s, box-shadow 0.2s;
+        position: relative; /* Make it the reference point for the tooltip */
+    }
+    
+    /* Button hover effect */
+    .card-wrapper .edit-button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    }
+    
+    /* Tooltip for the button */
+    .card-wrapper .edit-button::after {
+        content: "Premium Profile"; /* Tooltip text */
+        position: absolute;
+        top: 35px; /* Adjust tooltip position below the button */
+        right: 50%; /* Center it horizontally */
+        transform: translateX(50%);
+        background-color: #333;
+        color: #fff;
+        padding: 5px 10px;
+        font-size: 12px;
+        border-radius: 5px;
+        white-space: nowrap;
+        opacity: 0; /* Hidden by default */
+        visibility: hidden; /* Hidden by default */
+        transition: opacity 0.3s ease, visibility 0.3s ease;
+        z-index: 10;
+    }
+    
+    /* Show tooltip on hover */
+    .card-wrapper .edit-button:hover::after {
+        opacity: 1; /* Make it visible */
+        visibility: visible; /* Make it visible */
+    }
+</style>
+<body>
+
+    <div id="navbar-placeholder"></div>
+
+    <!-- Main Layout -->
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div id="sidebar-placeholder"></div>
+
+
+        <!-- Main Content Area -->
+        <main id="content" class="content">
+            <!-- <div id="waiting-dialog" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center; z-index: 9999;"> -->
+            <div id="waiting-dialog">
+                <!-- <div style="background-color: white; padding: 20px; border-radius: 8px;">
+                    <div class="loader" style="border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 50px; height: 50px; animation: spin 2s linear infinite;"></div>
+                    <p style="text-align: center; margin-top: 10px;">Please Wait...</p>
+                </div> -->
+            </div>
+            <!-- Default Dashboard Content -->
+            <section id="dashboard-content" class="dashboard-content">
+               
+                <h2 class="container-header">
+                    Short lists
+                    <span><i class="fa fa-search"></i><input 
+                        type="text" 
+                        id="searchProfileInput" 
+                        placeholder="Search profile..." 
+                        class="search-input"
+                        oninput="filterProfiles()"
+                    ></span>
+                </h2>
+             
+                
+                <!-- Recently Joined Section -->
+                <section class="profile-section">
+                    <h3 class="recently-joined-header">shortlist(<span id="shortlist_count">0</span>)</h3>
+                    <div class="card-container-wrapper">
+                        <div class="card-container" id="shortlist-container"></div>
+                    </div>
+                </section>
+
+               
+            </section>
+        </main>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        function loadHTMLContent(elementId, url, callback) {
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById(elementId).innerHTML = data;
+                    if (callback) callback(); // Execute callback after content is loaded
+                })
+                .catch(error =>console.error('Error loading HTML:', error));
+        }
+
+        // Load Navbar and Sidebar
+        // loadHTMLContent('navbar-placeholder', 'navbar.html');
+
+        loadHTMLContent('navbar-placeholder', 'navbar.html', () => {
+                const elementMap = {
+                    profileFor1: 'myprofile_fullname',
+                    profileMatriId: 'matriId',
+                    profileImg: 'myprofile_photo_url',
+                    profilePicture: 'myprofile_photo_url',
+                    profileFor: 'myprofile_fullname',
+                    profileId: 'matriId',
+                };
+
+                Object.keys(elementMap).forEach((id) => {
+                    const element = document.getElementById(id);
+                    const value = localStorage.getItem(elementMap[id]);
+
+                    if (element) {
+                    // For image elements, set the src attribute
+                    if (id === 'profileImg' || id === 'profilePicture') {
+                        element.src = value || 'https://via.placeholder.com/40'; // Fallback for missing images
+                    } else {
+                        element.textContent = value || ''; // Fallback for text
+                    }
+                    }
+                });
+            });
+
+        loadHTMLContent('sidebar-placeholder', 'sidebar.html', function () {
+            // Add event listeners after the sidebar content is loaded
+            const menus = document.querySelectorAll('.matches-menu');
+
+            menus.forEach(menu => {
+                menu.addEventListener('click', function (event) {
+                    // Prevent default behavior only for parent menu links
+                    if (!event.target.closest('.submenu a')) {
+                        event.preventDefault();
+                    }
+
+                    // Check if the clicked element has a submenu
+                    const submenu = this.querySelector('.submenu');
+
+                    // If the submenu exists, toggle its visibility
+                    if (submenu) {
+                        const isVisible = submenu.style.display === 'block';
+
+                        // Close all submenus
+                        document.querySelectorAll('.submenu').forEach(s => {
+                            s.style.display = 'none';
+                        });
+
+                        // Toggle only the clicked submenu
+                        submenu.style.display = isVisible ? 'none' : 'block';
+                    }
+                });
+            });
+
+            // Add listeners to submenu links to ensure navigation works
+            const submenuLinks = document.querySelectorAll('.submenu a');
+            submenuLinks.forEach(link => {
+                link.addEventListener('click', function (event) {
+                    // Allow navigation or custom logic for submenu links
+                   //consolelog(`Navigating to ${this.getAttribute('href')}`);
+                });
+            });
+        });
+
+
+
+        function toggleProfileDropdown() {
+            const dropdown = document.getElementById('profileDropdown');
+            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+
+            // Attach a click event listener to close the dropdown when clicking outside
+            if (dropdown.style.display === 'block') {
+                document.addEventListener('click', closeDropdownOnClickOutside);
+            }
+        }
+
+    // Close the dropdown on outside click
+    function closeDropdownOnClickOutside(event) {
+        const dropdown = document.getElementById('profileDropdown');
+        const profileIcon = document.querySelector('.profile-icon');
+
+        // Check if the clicked element is outside the dropdown or profile icon
+        if (!dropdown.contains(event.target) && !profileIcon.contains(event.target)) {
+            dropdown.style.display = 'none';
+            document.removeEventListener('click', closeDropdownOnClickOutside); // Clean up the event listener
+        }
+    }
+
+    function logout() {
+           //consolelog("User logged out");
+            localStorage.clear();
+            localStorage.setItem("visitedSuccessPage", "true");
+            window.location.href = 'Login.html';
+        }
+
+        function scrollLeft() {
+            const container = document.querySelector('.card-container-wrapper');
+            container.scrollBy({
+                left: -200, // Scroll by 200px to the left
+                behavior: 'smooth' // Smooth scrolling
+            });
+        }
+
+        function scrollRight() {
+            const container = document.querySelector('.card-container-wrapper');
+            container.scrollBy({
+                left: 200, // Scroll by 200px to the right
+                behavior: 'smooth' // Smooth scrolling
+            });
+        }
+
+        function get_entry() {
+            const maxProfileCount = parseInt(localStorage.getItem("max_profile_count"), 10);
+            const viewedProfileCount = parseInt(localStorage.getItem("viewed_profile_count"), 10);
+          
+            if (isNaN(maxProfileCount) || isNaN(viewedProfileCount)) {
+             console.error("One or both values are not set or are invalid in localStorage.");
+              return false; // Default to false if values are invalid or missing
+            }
+          
+            return maxProfileCount > viewedProfileCount;
+          }
+        function populateCards(containerId, data) {
+            const container = document.getElementById(containerId);
+            if (!container) return; // Exit if the container is not found
+            container.innerHTML = ''; // Clear previous content if any
+
+            data.forEach(profile => {
+
+                 let imgURL='';
+                if(profile["gender_type"]==='Male' && (profile.url===null || profile.url==='')){
+                    imgURL='../img/2.png';
+                }else if(profile["gender_type"]==='Female' && (profile.url===null || profile.url==='')){
+                    imgURL='../img/1.png';
+                }else{  
+                    imgURL=localStorage.getItem("baseURL")+profile.url;
+                }
+              
+                // Create the card element
+                const card = document.createElement('div');
+                card.className = 'card';
+
+                // Set the card content
+                card.innerHTML = `
+                <div class="card-wrapper" id="profile-${profile.matri_id}">
+                    ${profile.plan_status == 'Paid' ? `
+                    <button class="edit-button" title="Premium Profile">
+                        <div class="veri">
+                            <img src="../img/veri.png" alt="verification" style="width: 30px; height: 30px;">
+                        </div>
+                    </button>` : ""}
+                    
+                    <img src="${imgURL}" alt="${profile.first_name}" class="card-image">
+                    <div class="card-details">
+                        <h4>${profile.first_name}</h4>
+                        <p>Age: ${profile.age}</p>
+                        <p>Matri Id: ${profile.matri_id}</p>
+                        <p>
+                            <a href="#" class="btn-unshortlist" onclick="unshortlistProfile(event, '${profile.matri_id}')">Unshortlist</a>
+                        </p>
+                    </div>
+                </div>
+            `;
+            
+            
+
+                card.onclick =  async function() {
+                    localStorage.setItem("matriIdTo",profile.matri_id);
+                    if (get_entry() == 'true' || await matching("profile") == 'true') 
+    
+                    {
+
+                        localStorage.setItem("viewedFirstName",profile.first_name);
+                        localStorage.setItem("viewedLastName",profile.last_name);
+                        localStorage.setItem("imageViewed",profile.url);
+                        localStorage.setItem("age", profile.age);
+                        localStorage.setItem("genderType",profile["gender_type"]);
+                        localStorage.setItem("imgURL",imgURL);
+                        localStorage.setItem("height", profile.height);
+                        localStorage.setItem("weight",profile.weight);
+                //     localStorage.setItem("matriIdTo",profile.matri_id);
+                //   localStorage.setItem("viewedFirstName",profile.first_name);
+                //   localStorage.setItem("viewedLastName",profile.last_name);
+                //   localStorage.setItem("imageViewed",profile.url);
+                //   localStorage.setItem("age", profile.age);
+                //   localStorage.setItem("mother_tongue",profile.mother_tongue);
+                //   localStorage.setItem("remarks", profile.remark);
+                //   localStorage.setItem("place", profile.home_town);
+                //   localStorage.setItem("height", profile.height);
+                //   localStorage.setItem("nakshtra", profile.nakshatra);
+                //   localStorage.setItem("rashi", profile.rashi);
+                //   localStorage.setItem("gothra", profile.gothra);
+                //   localStorage.setItem("genderType",profile["gender_type"]);
+                //   localStorage.setItem("address",profile.address);
+                //   localStorage.setItem("birthPlace",profile.birth_place);
+                //   localStorage.setItem("birthTime",profile.birth_time);
+                //   localStorage.setItem("bloodGroup", profile.blood_group);
+                //   localStorage.setItem("company", profile.company);
+                //   localStorage.setItem("complexion", profile.complexion);
+                //   localStorage.setItem("createrPhone", profile.creator_phone);
+                //   localStorage.setItem("disability", profile.disability);
+                //   localStorage.setItem("dob", profile.dob);
+                //   localStorage.setItem("email",profile.email);
+                //   localStorage.setItem("familyDiety",profile.family_diety);
+                //   localStorage.setItem("familyType",profile.family_type);
+                //   localStorage.setItem("fatherName",profile.father_name);
+                //   localStorage.setItem("fatherOccupation", profile.father_ocupation);
+                //   localStorage.setItem("motherName",profile.mother_name);
+                //   localStorage.setItem("motherOccupation", profile.mother_occupation);
+                //   localStorage.setItem("brothers",profile.number_of_brothers);
+                //   localStorage.setItem("sisters", profile.number_of_sisters);
+                //   localStorage.setItem("horoscope", profile.horoscope);
+                //   localStorage.setItem("qualification", profile.qualification);
+                //   localStorage.setItem("specialization",profile.specialization);
+                //   localStorage.setItem("profession", profile.occupation);
+                //   localStorage.setItem("company", profile.company);
+                //   localStorage.setItem("companyCity", profile.company_city);
+                //   localStorage.setItem("salary", profile.salary);
+                //   localStorage.setItem("maritalStatus", profile.status);
+                //   localStorage.setItem("subCaste", profile.sub_caste);
+                //   localStorage.setItem("profileFor",profile.profile_for);
+                //   localStorage.setItem("profileCreator",profile.profile_creator);
+                //   localStorage.setItem("creatorPhone",profile.creator_phone);
+                //   localStorage.setItem("phone",profile.phone);
+                //   localStorage.setItem("creatorName",profile.creator_name);
+                //   localStorage.setItem("liked",profile.liked);
+                //   localStorage.setItem("city",profile.city);
+                //   localStorage.setItem("state",profile.state);
+                //   localStorage.setItem("country",profile.country);
+                //   localStorage.setItem("weight",profile.weight);
+                // //   localStorage.setItem("likedProfile",profile.liked);
+                //   localStorage.setItem("imgURL",imgURL);
+                //     localStorage.setItem("profile", JSON.stringify(profile));
+                    window.location.href = "profile_view.html";
+                   //consolelog("Card Clicked");
+                }
+                else{
+                    Swal.fire({
+                        title: "Maximum Limit has been reached",
+                        text: "Would you like to upgrade to access more options?",
+                        icon: "info",
+                        showCancelButton: true,
+                        confirmButtonText: "Upgrade",
+                        cancelButtonText: "Cancel",
+                        reverseButtons: true,
+                        customClass: {
+                            popup: 'swal-wide' // Optional: add custom CSS for styling
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Redirect to the upgrade page
+                            window.location.href = "payment.html";
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            // Do nothing, alert will close
+                           //consolelog("User chose to cancel.");
+                        }
+                    });
+               }
+ 
+               
+            }
+           // container.appendChild(card);
+            
+                    //consolelog("Card Clicked");
+                 
+ 
+                 // Append the card to the container
+                 container.appendChild(card);
+             });
+         }
+
+        let profileshortlist=[];
+        let profileshortlistBy=[];
+        function toggleOptionshortlist(){
+            showWaitingDialog();
+            const data3 = {
+              matri_id:localStorage.getItem('matriId'),
+              type: "listed"  
+          }
+         //consolelog(data3);
+
+          axios.post('https://www.sharutech.com/matrimony/z_shortlisted2.php', data3, {
+              headers: {
+                  'Content-Type': 'application/json',
+              }
+          })
+          .then(function(response) {
+             //consolelog('Success:', response.data);
+              if(response.data.message.p_out_mssg_flg === 'Y'){
+               //consolelog('Success:', response.data.dataout);
+                profileshortlist=response.data.dataout;
+                const shortlistProfiles = profileshortlist.filter(user => user.matri_id);
+                document.getElementById('shortlist_count').innerText=shortlistProfiles.length;
+                populateCards('shortlist-container', shortlistProfiles);
+                hideWaitingDialog();
+              }else{
+                hideWaitingDialog();
+               //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);
+              }
+          });
+       
+      }
+
+      function toggleOptionshortlistBy(){
+        const data1 = {
+          matri_id:localStorage.getItem('matriId'),
+          type: "listed"
+        };
+       //consolelog(data1);
+
+        axios.post('https://www.sharutech.com/matrimony/z_shortlisted2.php', data1, {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(function(response) {
+           //consolelog('Success:', response.data);
+            if(response.data.message.p_out_mssg_flg === 'Y'){
+             //consolelog('Success:', response.data.dataout);
+              profileshortlistBy=response.data.dataout;
+              const shortlistByProfiles = profileshortlistBy.filter(user => user.matri_id);
+              populateCards('shortlistby-container', shortlistByProfiles);
+            }else{
+             //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);
+            }
+        });
+      }
+
+
+  
+        var baseURL='';
+document.addEventListener('DOMContentLoaded', function () {
+   
+    if(localStorage.getItem('matriId')== 'NULL'||localStorage.getItem('matriId')==''||localStorage.getItem('matriId')== null ){
+        logout();
+    }
+    // Show the waiting dialog
+    
+
+
+    //     const data = {
+    //         id:localStorage.getItem('mId'),
+    //         matri_id:localStorage.getItem('matriId')
+    //     };
+    //    //consolelog(data);
+    //     showWaitingDialog();
+        // axios.post('https://www.sharutech.com/matrimony/dashboard.php', data, {
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     }
+        // })
+        // .then(function(response) {
+        //    //consolelog('Success:', response.data);
+        //     if(response.data.message.p_out_mssg_flg === 'Y'){
+        //     localStorage.setItem("matriId", response.data.my_profile[0].matri_id);
+        //     localStorage.setItem("baseURL", response.data.my_profile[0].base_url);
+
+        //     localStorage.setItem("iViewed", response.data.profile_count.i_viewed);
+        //     localStorage.setItem("viewedBy", response.data.profile_count.viewed_by);
+        //     localStorage.setItem("iLiked", response.data.profile_count.i_liked);
+        //     localStorage.setItem("likedBy", response.data.profile_count.liked_by);
+        //     localStorage.setItem("mutualLiked", response.data.profile_count.mutual_liked);
+        //     localStorage.setItem("contactedCount", response.data.profile_count.profile_contacted);
+        //     localStorage.setItem("shortlist", response.data.profile_count.shortlisted);
+
+           
+        //     const profileFor = document.getElementById("profileFor");
+        //     const profileFor1 = document.getElementById("profileFor1");
+        //     const profileId = document.getElementById("profileId");
+        //     const profileMatriId = document.getElementById("profileMatriId");
+        //     profileFor.textContent = response.data.my_profile[0].first_name+" "+response.data.my_profile[0].last_name;
+        //     profileFor1.textContent = response.data.my_profile[0].first_name+" "+response.data.my_profile[0].last_name;
+        //     profileId.textContent=response.data.my_profile[0].matri_id;
+        //     profileMatriId.textContent=response.data.my_profile[0].matri_id;
+        //     // const image1 = document.getElementById("profilePicture1");
+        //     // profileFor1.textContent = response.data.my_profile[0].first_name+" "+response.data.my_profile[0].last_name;
+
+        //     baseURL=response.data.my_profile[0].base_url;
+           
+
+  
+        //     // document.getElementById('iviewed_count').textContent = recentlyJoinedArray.length;
+
+        //     const profile_count = response.data.profile_count;
+        //     const my_profile = response.data.my_profile;
+        //     document.getElementById('shortlist_count').textContent = profile_count.shortlisted;
+        //     document.getElementById('shortlistby_count').textContent = my_profile.matri_id;
+           
+        //     // document.getElementById('i_liked').textContent = profile_count.i_liked;
+        //     // document.getElementById('liked_by').textContent = profile_count.liked_by;
+        //     // document.getElementById('mutual_liked').textContent = profile_count.mutual_liked;
+        //     // document.getElementById('contacted').textContent = profile_count.profile_contacted;
+        //     const profileImg = document.getElementById("profileImg");
+        //     const image = document.getElementById("profilePicture");
+        //     if(response.data.my_profile[0]["profile_photo"]==null || response.data.my_profile[0]["profile_photo"]==''){
+        //         let imgURL='';
+        //         if(response.data.my_profile[0].gender=="1"){
+        //             imgURL='../img/2.png';
+        //         }else if(response.data.my_profile[0].gender=="2"){
+        //             imgURL='../img/1.png';
+        //         }
+        //         profileImg.src =imgURL;
+        //         image.src =imgURL;
+        //     }else{
+        //         profileImg.src = response.data.my_profile[0].base_url+response.data.my_profile[0]["profile_photo"];
+        //         image.src = response.data.my_profile[0].base_url+response.data.my_profile[0]["profile_photo"];
+
+        //     }
+
+        //     hideWaitingDialog();
+        //     }else{
+        //    //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);
+        //     hideWaitingDialog();
+        //     }
+        // });
+        toggleOptionshortlist();
+        // toggleOptionshortlistBy();
+    });
+
+    const waitingDialog = document.getElementById('waiting-dialog');
+    function showWaitingDialog() {
+        waitingDialog.style.display = 'flex';
+    }
+
+    // Hide the waiting dialog
+    function hideWaitingDialog() {
+        waitingDialog.style.display = 'none';
+    }
+
+function filterProfiles() {
+    const searchInput = document.getElementById('searchProfileInput').value.toLowerCase();
+    const cardContainers = document.querySelectorAll('.card-container'); // All profile sections
+
+    cardContainers.forEach(container => {
+        const cards = container.querySelectorAll('.card');
+
+        cards.forEach(card => {
+            const profileName = card.querySelector('h4').textContent.toLowerCase();
+            const profileId = card.querySelector('p:nth-of-type(2)').textContent.toLowerCase(); // For Matri Id
+            if (profileName.includes(searchInput) || profileId.includes(searchInput)) {
+                card.style.display = ''; // Show card
+            } else {
+                card.style.display = 'none'; // Hide card
+            }
+        });
+    });
+}
+function unshortlistProfile(event, matriId) {
+    // Prevent the card click event from triggering
+    event.stopPropagation();
+
+    // Prepare the data for the API call
+    const data = {
+        "matri_id_by": localStorage.getItem('matriId'), // Current user ID
+        "matri_id_to": matriId, // Profile to unshortlist
+        "type": "unlist" // Action type for unshortlist
+    };
+
+    // Make the API call
+    axios.post('https://www.sharutech.com/matrimony/z_shortlisted2.php', data, {
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    })
+    .then(function(response) {
+        // Check if the API call was successful
+        if (response.data.message.p_out_mssg_flg === 'Y') {
+            // Find the profile card and remove it from the UI
+            const profileCard = document.getElementById(`profile-${matriId}`);
+            if (profileCard) {
+                profileCard.remove(); // Remove the card from the DOM
+            }
+
+            // Show Swal success message
+            Swal.fire({
+                title: "Success",
+                text: "The profile has been successfully unshortlisted.",
+                icon: "success",
+                confirmButtonText: "OK",
+            });
+        } else {
+            // Handle failure case with an error message
+            /*Swal.fire({
+                title: "Error",
+                text: response.data.message.p_out_mssg || "Failed to unshortlist the profile. Please try again.",
+                icon: "error",
+                confirmButtonText: "OK",
+            });*/
+        }
+    })
+    .catch(function(error) {
+        // Handle API call errors
+        Swal.fire({
+            title: "Error",
+            text: "An error occurred while unshortlisting the profile. Please try again.",
+            icon: "error",
+            confirmButtonText: "OK",
+        });
+        console.error('Error during unshortlist API call:', error);
+    });
+}
+
+
+
+        // window.onload = generateCards;
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="maxcount.js"></script>
+</body>
+</html>

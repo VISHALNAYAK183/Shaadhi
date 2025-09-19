@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Matrimony Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f06, #4a90e2);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+
+        .container {
+            max-width: 80%;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
+            overflow-y: auto;
+            max-height: 90vh;
+        }
+
+        h2, h3 {
+            text-align: center;
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        
+        input[type="text"],
+        input[type="date"],
+        input[type="number"],
+        input[type="tel"],
+        select,
+        textarea {
+            width: 100%; 
+            padding: 12px; 
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; 
+            margin-top: 5px;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .option-button {
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            background-color: white;
+            color: black;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            border: 1px solid #ccc;
+            flex: 1 1 calc(33.33% - 10px); 
+            box-sizing: border-box;
+            text-align: center;
+        }
+
+        .option-button.selected {
+            background-color: black;
+            color: white;
+        }
+
+        button[type="submit"] {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .result {
+            margin-top: 20px;
+            background-color: #e7f3fe;
+            padding: 15px;
+            border: 1px solid #b9ecfe;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Edit Matrimony Profile</h2>
+        <form action="/submit-profile" method="POST">
+            <h3>Matrimony Registration</h3>
+
+            <div class="form-group">
+                <label for="first-name">First Name:</label>
+                <input type="text" id="first-name" placeholder="Enter Your First Name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="last-name">Last Name:</label>
+                <input type="text" id="last-name" placeholder="Enter Your Last Name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" required>
+            </div>
+
+            <div class="form-group">
+                <label for="gender">Gender:</label>
+                <select id="gender" required>
+                    <option value="" disabled selected>Select Gender</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>                  
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Mobile Number:</label>
+                <input type="tel" id="phone" placeholder="Enter Mobile Number" required>
+            </div>
+
+            <div class="form-group">
+                <label for="subCaste">Sub-Caste:</label>
+                <select id="subCaste" name="subCaste" required>
+                    <option value="">Select Sub-Caste</option>
+                    <option value="caste1">Caste 1</option>
+                    <option value="caste2">Caste 2</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="preferences">Partner Preferences:</label>
+                <textarea id="preferences" rows="4" placeholder="Describe your partner preferences..." required></textarea>
+            </div>
+
+
+            <h3>Education Details</h3>
+
+            <div class="form-group">
+                <label for="qualification">Qualification:</label>
+                <select id="qualification" required>
+                    <option value="" disabled selected>Select Qualification</option>
+                    <option value="highschool">High School</option>
+                    <option value="bachelor">Bachelor's Degree</option>
+                    <option value="master">Master's Degree</option>
+                    <option value="phd">PhD</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="specialization">Specialization:</label>
+                <input type="text" id="specialization" placeholder="Enter Specialization" required>
+            </div>
+
+            <div class="form-group">
+                <label>Profession:</label>
+                <div class="button-group">
+                    <button type="button" class="option-button" onclick="selectProfession('government-psu')">Govt/PSU</button>
+                    <button type="button" class="option-button" onclick="selectProfession('private')">Private</button>
+                    <button type="button" class="option-button" onclick="selectProfession('business')">Business</button>
+                    <button type="button" class="option-button" onclick="selectProfession('defence')">Defence</button>
+                    <button type="button" class="option-button" onclick="selectProfession('self-employed')">Self-employed</button>
+                    <button type="button" class="option-button" onclick="selectProfession('not-working')">Not Working</button>
+                </div>
+                <input type="hidden" id="profession" name="profession" required>
+            </div>
+            
+
+            <div class="form-group">
+                <label for="company">Company Name:</label>
+                <input type="text" id="company" placeholder="Enter Company Name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="work-city">City:</label>
+                <input type="text" id="work-city" placeholder="Enter Work City" required>
+            </div>
+
+            <div class="form-group">
+                <label for="salary-range">Salary Range:</label>
+                <select id="salary-range" required>
+                    <option value="" disabled selected>Select Salary Range</option>
+                    <option value="below-30k">Below 30,000</option>
+                    <option value="30k-50k">30,000 - 50,000</option>
+                    <option value="50k-70k">50,000 - 70,000</option>
+                    <option value="70k-100k">70,000 - 100,000</option>
+                    <option value="above-100k">Above 100,000</option>
+                </select>
+            </div>
+
+
+           
+            <!-- Personal Details -->
+            <h3>Personal Details</h3>
+            <div class="form-group">
+                <label>Marital Status:</label>
+                <div class="button-group" id="marital-status">
+                    <button type="button" class="option-button" onclick="selectMaritalStatus('never-married')">Never Married</button>
+                    <button type="button" class="option-button" onclick="selectMaritalStatus('divorced')">Divorced</button>
+                    <button type="button" class="option-button" onclick="selectMaritalStatus('widowed')">Widowed</button>
+                    <button type="button" class="option-button" onclick="selectMaritalStatus('awaiting-divorce')">Awaiting Divorce</button>
+                </div>
+                <input type="hidden" id="maritalStatus" name="maritalStatus" required>
+            </div>
+
+            <div class="form-group hidden" id="children-group">
+                <label>Number of Children:</label>
+                <div class="button-group" id="number-of-children">
+                    <button type="button" class="option-button" onclick="selectChildren('none')">None</button>
+                    <button type="button" class="option-button" onclick="selectChildren('1')">1</button>
+                    <button type="button" class="option-button" onclick="selectChildren('2')">2</button>
+                    <button type="button" class="option-button" onclick="selectChildren('3')">3</button>
+                    <button type="button" class="option-button" onclick="selectChildren('4')">4 or Above</button>
+                </div>
+                <input type="hidden" id="numberOfChildren" name="numberOfChildren">
+            </div>
+
+            <div class="form-group">
+                <label>Family Status:</label>
+                <div class="button-group" id="family-status">
+                    <button type="button" class="option-button" onclick="selectFamilyStatus('middle-class')">Middle Class</button>
+                    <button type="button" class="option-button" onclick="selectFamilyStatus('upper-middle-class')">Upper Middle Class</button>
+                    <button type="button" class="option-button" onclick="selectFamilyStatus('high-class')">High Class</button>
+                    <button type="button" class="option-button" onclick="selectFamilyStatus('rich-affluent')">Rich/Affluent</button>
+                </div>
+                <input type="hidden" id="familyStatus" name="familyStatus" required>
+            </div>
+
+            <div class="form-group">
+                <label>Family Type:</label>
+                <div class="button-group" id="family-type">
+                    <button type="button" class="option-button" onclick="selectFamilyType('joint')">Joint</button>
+                    <button type="button" class="option-button" onclick="selectFamilyType('nuclear')">Nuclear</button>
+                </div>
+                <input type="hidden" id="familyType" name="familyType" required>
+            </div>
+
+            <div class="form-group">
+                <label>Any Disability:</label>
+                <div class="button-group" id="disability-status">
+                    <button type="button" class="option-button" onclick="selectDisability('none')">None</button>
+                    <button type="button" class="option-button" onclick="selectDisability('physically-challenged')">Physically Challenged</button>
+                </div>
+                <input type="hidden" id="disability" name="disability" required>
+            </div>
+
+            <h3>Family Details</h3>
+
+            <div class="form-group">
+                <label for="fatherName">Father's Name:</label>
+                <input type="text" id="fatherName" placeholder="Enter Father's Name" required>
+            </div>
+            <div class="form-group">
+                <label for="fatherOccupation">Father's Occupation:</label>
+                <input type="text" id="fatherOccupation" placeholder="Enter Father's Occupation" required>
+            </div>
+            <div class="form-group">
+                <label for="motherName">Mother's Name:</label>
+                <input type="text" id="motherName" placeholder="Enter Mother's Name" required>
+            </div>
+            <div class="form-group">
+                <label for="motherOccupation">Mother's Occupation:</label>
+                <input type="text" id="motherOccupation" placeholder="Enter Mother's Occupation" required>
+            </div>
+            <div class="form-group">
+                <label for="brothers">Number of Brothers:</label>
+                <input type="number" id="brothers" placeholder="Enter Number of Brothers" min="0" required>
+            </div>
+            <div class="form-group" id="brotherDetailsGroup" style="display: none;">
+                <label for="brotherDetails">Brother's Details:</label>
+                <textarea id="brotherDetails" placeholder="Enter details about your brothers"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="sisters">Number of Sisters:</label>
+                <input type="number" id="sisters" placeholder="Enter Number of Sisters" min="0" required>
+            </div>
+            <div class="form-group" id="sisterDetailsGroup" style="display: none;">
+                <label for="sisterDetails">Sister's Details:</label>
+                <textarea id="sisterDetails" placeholder="Enter details about your sisters"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="reference">Reference Name:</label>
+                <input type="text" id="reference" placeholder="Enter Reference Name" required>
+            </div>
+            <div class="form-group">
+                <label for="reference">Reference Number:</label>
+                <input type="text" id="reference" placeholder="Enter Reference Number" required>
+            </div>
+
+
+            <!-- Physical Attributes -->
+            <h3>Physical Attributes</h3>
+            <div class="form-group">
+                <label for="height">Height (cm):</label>
+                <input type="number" id="height" placeholder="Enter your height in cm" required>
+            </div>
+            <div class="form-group">
+                <label for="weight">Weight (kg):</label>
+                <input type="number" id="weight" placeholder="Enter your weight in kg" required>
+            </div>
+            <div class="form-group">
+                <label for="bloodGroup">Blood Group:</label>
+                <input type="text" id="bloodGroup" placeholder="Enter your blood group (e.g., A+, O-)" required>
+            </div>
+
+            <!-- Horoscope Details -->
+            <h3>Horoscope Details</h3>
+            <div class="form-group">
+                <label for="nakshatra">Nakshatra:</label>
+                <input type="text" id="nakshatra" placeholder="Enter your Nakshatra" required>
+            </div>
+            <div class="form-group">
+                <label for="rashi">Rashi:</label>
+                <input type="text" id="rashi" placeholder="Enter your Rashi" required>
+            </div>
+            <div class="form-group">
+                <label for="gothra">Gothra:</label>
+                <input type="text" id="gothra" placeholder="Enter your Gothra" required>
+            </div>
+            <div class="form-group">
+                <label for="sunSign">Sun Sign:</label>
+                <input type="text" id="sunSign" placeholder="Enter your Sun Sign" required>
+            </div>
+            <div class="form-group">
+                <label for="familyDeity">Family Deity:</label>
+                <input type="text" id="familyDeity" placeholder="Enter your Family Deity" required>
+            </div>
+
+            <button type="submit">Save Changes</button>
+        </form>
+        <div class="result" id="result" style="display: none;"></div>
+
+    </div>
+
+    <script>
+        function selectMaritalStatus(value) {
+            const buttons = document.querySelectorAll('#marital-status .option-button');
+            buttons.forEach(button => {
+                button.classList.remove('selected');
+            });
+            document.getElementById('maritalStatus').value = value;
+            event.target.classList.add('selected');
+
+            
+            document.getElementById('children-group').classList.toggle('hidden', value === 'never-married');
+        }
+
+        function selectChildren(value) {
+            const buttons = document.querySelectorAll('#number-of-children .option-button');
+            buttons.forEach(button => {
+                button.classList.remove('selected');
+            });
+            document.getElementById('numberOfChildren').value = value;
+            event.target.classList.add('selected');
+        }
+
+        function selectFamilyStatus(value) {
+            const buttons = document.querySelectorAll('#family-status .option-button');
+            buttons.forEach(button => {
+                button.classList.remove('selected');
+            });
+            document.getElementById('familyStatus').value = value;
+            event.target.classList.add('selected');
+        }
+
+        function selectFamilyType(value) {
+            const buttons = document.querySelectorAll('#family-type .option-button');
+            buttons.forEach(button => {
+                button.classList.remove('selected');
+            });
+            document.getElementById('familyType').value = value;
+            event.target.classList.add('selected');
+        }
+
+        function selectDisability(value) {
+            const buttons = document.querySelectorAll('#disability-status .option-button');
+            buttons.forEach(button => {
+                button.classList.remove('selected');
+            });
+            document.getElementById('disability').value = value;
+            event.target.classList.add('selected');
+        }
+
+        function selectProfession(value) {
+            const buttons = document.querySelectorAll('#profession .option-button');
+            buttons.forEach(button => {
+                button.classList.remove('selected');
+            });
+            document.getElementById('profession').value = value;
+            event.target.classList.add('selected');
+        }
+    </script>
+
+</body>
+</html>

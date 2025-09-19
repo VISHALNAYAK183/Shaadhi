@@ -1,0 +1,102 @@
+/* chat_list.css */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.chat-list-container {
+  padding: 20px;
+  text-align: center;
+}
+
+.chat-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.chat-list li {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin: 10px 0;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.chat-list li:hover {
+  background-color: #f0f0f0;
+}
+
+.chat-list img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+ 
+.upgrade-card {
+  width: 100%; /* Full width */
+  max-width: 800px; /* Optional: Limit the card's width */
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  display: flex;
+  flex-direction: row; /* Default: Stacked layout */
+  align-items: center;
+  margin: 0 auto; /* Center the card horizontally */
+}
+
+.upgrade-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px; /* Space between image and text */
+}
+
+.upgrade-card img {
+  width: 300px; /* Adjust image size */
+  height:350px;
+  border-radius: 10px;
+  flex-shrink: 0; /* Prevent the image from shrinking */
+}
+
+.upgrade-text {
+  flex: 1; /* Allow the text to take remaining space */
+  text-align: left;
+}
+
+.upgrade-card h2 {
+  font-size: 20px;
+  color: #333;
+  margin: 15px 0 10px;
+}
+
+.upgrade-card p {
+  font-size: 14px;
+  color: #555;
+  margin: 10px 0;
+}
+
+.upgrade-button {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 20px;
+  background-color: #ff6f61;
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.upgrade-button:hover {
+  background-color: #e65c4f;
+}

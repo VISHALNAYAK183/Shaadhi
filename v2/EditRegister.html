@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrimony Registration</title>
+    <link rel="shortcut icon" type="image/png" href="../img/icon-72x72.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-96x96.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-128x128.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-144x144.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-152x152.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-167x167.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-180x180.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-192x192.png">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
+<!-- <script>
+  window.onload = function() {
+      // Fetch values from local storage
+      const firstName = localStorage.getItem('first_name') || ''; // Default to empty string if not found
+      const lastName = localStorage.getItem('last_name') || '';  // Default to empty string if not found
+
+      // Populate the input fields
+      document.getElementById('first-name').value = firstName;
+      document.getElementById('last-name').value = lastName;
+  };
+  function saveToLocalStorage() {
+    const firstName = document.getElementById('first-name').value.trim();
+    const lastName = document.getElementById('last-name').value.trim();
+
+    localStorage.setItem('firstName', firstName);
+    localStorage.setItem('lastName', lastName);
+}
+    
+
+</script> -->
+<script>
+//   window.addEventListener("DOMContentLoaded", () => {
+//     // Retrieve the gender data (could be from sessionStorage or query parameters)
+//     const myProfileNew = JSON.parse(sessionStorage.getItem("formData")); // Example of data from sessionStorage
+//    //consolelog(sessionStorage.getItem("formData"));
+
+    
+//   });
+  let myProfileNew ;
+  window.addEventListener("DOMContentLoaded", () => {
+    // Retrieve the dynamically stored data
+    const formData = sessionStorage.getItem("formData");
+    if(localStorage.getItem('matriId')== 'NULL'||localStorage.getItem('matriId')==''||localStorage.getItem('matriId')== null ){
+        logout();
+    }
+    if (formData) {
+         myProfileNew = JSON.parse(formData);
+       //consolelog("Received Data:", myProfileNew);
+        
+        // Dynamically populate the form fields if the data exists
+        if (myProfileNew.gender) {
+
+            if (myProfileNew.gender == "1") {
+                document.getElementById("male").checked = true;
+            } else if (genderValue == "2") {
+                document.getElementById("female").checked = true;
+            }
+      }
+        if (myProfileNew.first_name) {
+            document.getElementById("first-name").value = myProfileNew.first_name;
+        }
+        if (myProfileNew.last_name) {
+            document.getElementById("last-name").value = myProfileNew.last_name;
+        }
+        if (myProfileNew.phone) {
+            document.getElementById("phone").value = myProfileNew.phone;
+        }
+        if (myProfileNew.email) {
+            document.getElementById("email").value = myProfileNew.email;
+        }
+        if (myProfileNew.dob) {
+            const [year, month, day] = myProfileNew.dob.split("-");
+            if (year && month && day) {
+                document.getElementById("dob-year").value = year;
+                document.getElementById("dob-month").value = month;
+                document.getElementById("dob-day").value = day;
+            }
+        }
+        if (myProfileNew.status) {
+          const maritalStatusDropdown = document.getElementById("marital-status");
+
+          // Define status mappings (both ways for numeric and text input)
+          const statusMapping = {
+             /* "1": "Unmarried",
+              "2": "Widow/Widower",
+              "3": "Separated",
+              "4": "Married",*/
+              "Unmarried": "1",
+              "Widow/Widower": "2",
+              "Divorcee":"3",
+              "Separated": "4",
+              "Married": "5"
+          };
+
+          // Map status to a numeric value
+          const statusValue =
+              statusMapping[myProfileNew.status.toString()] ||
+              statusMapping[myProfileNew.status];
+
+          if (statusValue) {
+              maritalStatusDropdown.value = statusValue;
+          } else {
+             //consolewarn(`Invalid status value: ${myProfileNew.status}`);
+          }
+      } else {
+         //consolelog("Marital status not found in the received data.");
+      }
+      // Assuming myProfileNew.sub_caste_id contains the ID you want to set as the default value
+      $(document).ready(function() {
+        // Initialize Select2 on the dropdown
+        const subcasteDropdown = $('#search-dropdown').select2({
+            placeholder: "Select your sub-caste",
+            width: '100%'            // Adjust width to fit
+        });
+    
+        // Fetch and load sub-castes dynamically
+        function loadSubCasteOptions() {
+            const data = {
+                "caste_id": "1"  // Adjust caste_id as needed
+            };
+            
+            axios.post("https://www.sharutech.com/matrimony/get_info.php", data, {
+                headers: { 'Content-Type': 'application/json' }
+            })
+            .then(function (response) {
+               //consolelog('API Response:', response.data); // Log the response for debugging
+    
+                const subCastes = response.data.dataout; 
+    
+                for (var i = 0; i < subCastes.length; i++) {
+                        $('#search-dropdown').append('<option value="' +subCastes[i].id + '">' + subCastes[i].sub_caste + '</option>');
+                    }
+    
+    
+                // Refresh Select2 UI
+                subcasteDropdown.trigger('change');
+                set_subcaste();
+            });
+        }
+    
+        // Call function to load options on page load
+        loadSubCasteOptions();
+    });
+    
+      function set_subcaste() {
+        const defaultSubCasteId = myProfileNew.sub_caste_id; 
+          const option = document.getElementById("search-dropdown").querySelector(`option[value="${defaultSubCasteId}"]`);
+      
+          if (option) {
+              option.selected = true;  // Set this option as the selected one
+          } else {
+             //consolelog("Option not found for the given sub-caste ID.");
+              }
+      
+      }
+      
+
+  } else {
+     //consolelog("No data found in sessionStorage.");
+  }
+
+  
+});
+
+
+
+
+
+</script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            /* background: linear-gradient(135deg, #f06, #4a90e2); */
+            background-image: url('https://png.pngtree.com/background/20230208/original/pngtree-beautiful-indian-wedding-background-picture-image_2026053.jpg'); 
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 130vh;
+            box-sizing: border-box;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 5px;
+            box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
+            width: 400px;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+            font-size: x-large;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #444;
+            font-weight: bold;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+        }
+        input:focus, select:focus {
+            border-color: #4a90e2;
+            outline: none;
+        }
+        .phone-group {
+            display: flex;
+            align-items: center;
+            gap: 5px; /* Adds space between phone code and number fields */
+        }
+        .phone-code {
+            width: 30%; /* Smaller size for phone code box */
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            background-color: #f1f1f1;
+        }
+        .phone-number {
+            width: 70%; /* Larger size for phone number input */
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .dob-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 5px;
+        }
+        .dob-group select {
+            width: 32%;
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #f06;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #e94560;
+        }
+        .gender-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .gender-label {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            font-weight: normal;
+            font-size: small;
+            color: #0c0505e4;
+        }
+
+        .gender-group input[type="radio"] {
+            display: none; /* Hide the default radio button */
+        }
+
+        .gender-label img {
+            width: 60px;
+            height: 60px;
+            transition: transform 0.3s ease;
+        }
+
+        .gender-group input[type="radio"]:checked + .gender-label img {
+            transform: scale(1.2); /* Enlarge icon when selected */
+            filter: drop-shadow(0px 2px 5px rgba(0, 0, 0, 0.2));
+        }
+
+        .error-message {
+            color: red;
+            font-size: 12px;
+            display: none; /* Hidden by default */
+        }
+        .select2-container--default .select2-selection--single {
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            height: 38px;
+        }
+
+        .select2-container--default .select2-selection--single .select2-selection__rendered {
+            line-height: 36px; /* Center the text vertically */
+        }
+
+        .loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            z-index: 9999; /* Ensure it appears above other content */
+            display: none; /* Hide by default */
+        }
+
+        /* Loader Text and Dots */
+        .loading-text {
+            font-size: 24px;
+            font-family: Arial, sans-serif;
+            color: white;
+            margin-right: 10px;
+        }
+
+        .dots {
+            display: inline-block;
+        }
+
+        .dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: white;
+            border-radius: 50%;
+            margin-left: 5px;
+            opacity: 0;
+            animation: bounce 1.4s infinite both;
+        }
+
+        .dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        /* Bounce Animation for Dots */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                opacity: 0;
+                transform: translateY(0);
+            }
+            40% {
+                opacity: 1;
+                transform: translateY(-10px);
+            }
+            60% {
+                opacity: 1;
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Button Styles */
+        #loadButton {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        #loadButton:hover {
+            background-color: #0056b3;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Enter Your Personal Details</h1>
+    <form id="registrationForm"  method="POST">
+
+        <div class="form-group">
+            <label>Gender:</label>
+            <div class="gender-group">
+                <input type="radio" id="male" name="gender" value="1" disabled>
+                <label for="male" class="gender-label">
+                    <img src="https://creazilla-store.fra1.digitaloceanspaces.com/icons/7915246/male-icon-md.png" alt="Male Icon">
+                    Male
+                </label>
+        
+                <input type="radio" id="female" name="gender" value="2" disabled>
+                <label for="female" class="gender-label">
+                    <img src="https://creazilla-store.fra1.digitaloceanspaces.com/icons/7914838/woman-icon-md.png" alt="Female Icon">
+                    Female
+                </label>
+            </div>
+            <div class="error-message" id="gender-error">Please select your gender.</div>
+        </div>
+
+        <!-- <div class="form-group">
+            <label for="first-name">First Name:</label>
+            <input type="text" id="first-name" name="first-name" placeholder="Enter your first name" required pattern="^[a-zA-Z\s]+$" title="First name should contain only letters and spaces.">
+            <div class="error-message" id="first-name-error">Invalid first name.</div>
+        </div>
+
+        <div class="form-group">
+            <label for="last-name">Last Name:</label>
+            <input type="text" id="last-name" name="last-name" placeholder="Enter your last name" required pattern="^[a-zA-Z\s]+$" title="Last name should contain only letters and spaces.">
+            <div class="error-message" id="last-name-error">Invalid last name.</div>
+        </div> -->
+        <div class="form-group">
+            
+          <label for="first-name">First Name:</label>
+          <input type="text" 
+          id="first-name" 
+          name="first-name" 
+          placeholder="Enter your first name" 
+          required 
+          pattern="^[a-zA-Z\s]+$" 
+          title="First name should contain only letters and spaces."
+          readonly
+          style="background-color: #f0f0f0; border: 1px solid #ccc; color: #666; cursor: not-allowed;">
+          <div class="error-message" id="first-name-error">Invalid first name.</div>
+      </div>
+      
+      <div class="form-group">
+          <label for="last-name">Last Name:</label>
+          <input type="text" id="last-name" name="last-name" placeholder="Enter your last name" required pattern="^[a-zA-Z\s]+$" title="Last name should contain only letters and spaces." readonly  style="background-color: #f0f0f0; border: 1px solid #ccc; color: #666; cursor: not-allowed;">
+          <div class="error-message" id="last-name-error">Invalid last name.</div>
+      </div>
+
+        <div class="form-group">
+            <label for="dob">Date of Birth:</label>
+            <div class="dob-group">
+                <select id="dob-day" name="dob-day" disabled style="cursor: not-allowed;">
+                    <option value="" disabled selected>Day</option>
+                    <script>
+                        for (let i = 1; i <= 31; i++) {
+                            const value = i.toString().padStart(2, "0"); // Ensure 2-digit format
+                            document.write('<option value="' + value + '">' + value + '</option>');
+                        }
+                    </script>
+                </select>
+                <select id="dob-month" name="dob-month" disabled style="cursor: not-allowed;">
+                    <option value="" disabled selected>Month</option>
+                    <option value="01">January</option>
+                    <option value="02">February</option>
+                    <option value="03">March</option>
+                    <option value="04">April</option>
+                    <option value="05">May</option>
+                    <option value="06">June</option>
+                    <option value="07">July</option>
+                    <option value="08">August</option>
+                    <option value="09">September</option>
+                    <option value="10">October</option>
+                    <option value="11">November</option>
+                    <option value="12">December</option>
+                </select>
+                <select id="dob-year" name="dob-year" disabled style="cursor: not-allowed;">
+                    <option value="" disabled selected>Year</option>
+                    <script>
+                        for (let i = 2004; i >= 1950; i--) {
+                            document.write('<option value="' + i + '">' + i + '</option>');
+                        }
+                    </script>
+                </select>
+            </div>
+            <div class="error-message" id="dob-error">Please select your date of birth.</div>
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Phone Number:</label>
+            <div class="phone-group">
+                <!-- <select id="phone-code" class="phone-code" name="phone-code" readonly>
+                    <option value="+91" selected>India (+91)</option>
+                    <option value="+1">USA (+1)</option>
+                    <option value="+44">UK (+44)</option>
+                    <option value="+61">Australia (+61)</option>
+                    <option value="+971">UAE (+971)</option>
+                    <option value="+81">Japan (+81)</option>
+                    <option value="+86">China (+86)</option>
+                    <option value="+49">Germany (+49)</option>
+                    <option value="+33">France (+33)</option>
+                </select> -->
+                <input type="tel" id="phone" class="phone-number" name="phone" placeholder="Enter your phone number" required pattern="[0-9]{10}" title="Phone number must be 10 digits." readonly style="background-color: #f0f0f0; border: 1px solid #ccc; color: #666; cursor: not-allowed; width: 100%;">
+            </div>
+            <!-- <span id="phone-error" class="error-message" style="display:none; color:red;"></span>
+            <div class="error-message" id="phone-error">Phone number must be 10 digits.</div>
+            <div id="phone-exists-error" class="error-message" style="display:none;">Phone number already exists.</div> -->
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" 
+            readonly
+                title="Email should contain letters, numbers, '@', and a valid domain." style="background-color: #f0f0f0; border: 1px solid #ccc; color: #666; cursor: not-allowed;">
+            <!-- <div class="error-message" id="email-error">Invalid email address.</div>
+            <span id="email-error" class="error-message" style="display:none; color:red;"></span>
+            <div id="email-exists-error" class="error-message" style="display:none;">Email already exists.</div> -->
+        </div>        
+        <div class="form-group">
+          <label for="marital-status">Marital Status:</label>
+          <select id="marital-status" name="marital-status" required>
+              <option value="">Select marital status</option>
+              <option value="1">Unmarried</option>
+              <option value="2">Widow/Widower</option>
+              <option value="3">Divorcee</option>
+              <option value="4">Separated</option>
+              <option value="5">Married</option>
+          </select>
+            <div class="error-message" id="marital-status-error">Please select your marital status.</div>
+        </div>
+
+        <div class="form-group">
+            <label for="subcaste">Sub-caste:</label>
+            <select id="search-dropdown" class="searchable-dropdown" style="width: 100%;" required>
+                <option value="" disabled selected>Select your sub-caste</option>
+            </select>
+            <div class="error-message" id="subcaste-error" style="display:none;">Please select your sub-caste.</div>
+        </div>
+        <button type="submit">Update</button>
+        <script>
+       const  firstName = document.getElementById('first-name').value.trim();
+        const lastName = document.getElementById('last-name').value.trim();
+        const dobDay = document.getElementById('dob-day').value;
+        const dobMonth = document.getElementById('dob-month').value;
+        const dobYear = document.getElementById('dob-year').value;
+        const dob = `${dobDay}/${dobMonth}/${dobYear}`; // Constructing a date string
+        const phoneNumber = document.getElementById('phone').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const maritalStatus = document.getElementById('marital-status').value;
+        // const gender = document.querySelector('input[name="gender"]:checked').value;  // Get selected gender
+        // const selectedSubCaste = $('#search-dropdown').val(); // Get the selected sub-caste
+        let matri_id=localStorage.getItem('matriId');
+       //consolelog("m",matri_id)
+    //     const update = {
+    //       matri_id: matri_id,
+    //      "marital_status":maritalStatus,
+        
+    //    };
+        </script> 
+
+        <!-- <button type="submit">Next</button> -->
+        <div id="loader" class="loader-container">
+            <div class="loading-text">Loading</div>
+            <div class="dots">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+    </form> 
+</div>
+
+
+
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Include Axios -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<!-- Include Select2 -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+
+<script>
+
+
+
+
+    function checkPhoneExistence() {
+        const phone = document.getElementById('phone').value.trim();
+        const phoneExistsError = document.getElementById('phone-exists-error');
+        const phoneError = document.getElementById('phone-error');
+
+        // Clear previous error messages
+        phoneExistsError.style.display = 'none';
+        phoneError.style.display = 'none';
+
+        if (phone) {
+            axios.post('https://www.sharutech.com/matrimony/login.php', {
+                user: phone,
+                category: "phone"
+            })
+            .then(function(response) {
+                if (response.data.message.p_out_mssg_flg === 'N') {
+                    phoneExistsError.style.display = 'block'; // Show phone exists error
+                } else {
+                    phoneExistsError.style.display = 'none';
+                }
+            });
+        }
+    }
+
+    function checkEmailExistence() {
+        const email = document.getElementById('email').value.trim();
+        const emailExistsError = document.getElementById('email-exists-error');
+        const emailError = document.getElementById('email-error');
+
+        // Clear previous error messages
+        emailExistsError.style.display = 'none';
+        emailError.style.display = 'none';
+
+        if (email) {
+            axios.post('https://www.sharutech.com/matrimony/login.php', {
+                user: email,
+                category: "email"
+            })
+            .then(function(response) {
+                if (response.data.message.p_out_mssg_flg === 'N') {
+                    emailExistsError.style.display = 'block'; // Show email exists error
+                } else {
+                    emailExistsError.style.display = 'none';
+                }
+            });
+        }
+    } 
+
+    document.getElementById('phone').addEventListener('input', function () {
+    document.getElementById('phone-exists-error').style.display = 'none';
+    document.getElementById('phone-error').style.display = 'none';
+});
+
+    document.getElementById('email').addEventListener('input', function () {
+    document.getElementById('email-exists-error').style.display = 'none';
+    document.getElementById('email-error').style.display = 'none';
+});
+
+
+    document.getElementById('registrationForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        // Collect form data from inputs
+    const firstName = document.getElementById('first-name').value.trim();
+    const lastName = document.getElementById('last-name').value.trim();
+    const dobDay = document.getElementById('dob-day').value;
+    const dobMonth = document.getElementById('dob-month').value;
+    const dobYear = document.getElementById('dob-year').value;
+    const dob = `${dobDay}/${dobMonth}/${dobYear}`; // Constructing a date string
+    const phoneNumber = document.getElementById('phone').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const maritalStatus = document.getElementById('marital-status').value;
+    const gender = document.querySelector('input[name="gender"]:checked').value;  // Get selected gender
+    const selectedSubCaste = $('#search-dropdown').val(); // Get the selected sub-caste
+   //consolelog("DOB:", dob);
+
+
+        // Call the existence check functions
+        Promise.all([
+            axios.post('https://www.sharutech.com/matrimony/login.php', { user: phoneNumber, category: "phone" }),
+            axios.post('https://www.sharutech.com/matrimony/login.php', { user: email, category: "email" }),
+           
+        ])
+        .then(function (responses) {
+            let phoneExists = responses[0].data.message.p_out_mssg_flg === 'N';
+            let emailExists = responses[1].data.message.p_out_mssg_flg === 'N';
+            
+             
+              const maritalStatus = document.getElementById('marital-status').value;
+             
+              const selectedSubCaste = $('#search-dropdown').val(); // Get the selected sub-caste
+             let matri_id=localStorage.getItem('matriId');
+             const update = {
+             "type":"basic_data",
+              "marital_status":maritalStatus,
+              "matri_id":matri_id,
+               "sub_caste": selectedSubCaste
+       };
+                return axios.post('https://www.sharutech.com/matrimony/update_profile.php', update, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+            //console.log("hello")
+            .then(function(response) {
+                
+                document.getElementById("loader").style.display = "none";
+               //consolelog('Success:', response.data);
+
+                if(response.data.message.p_out_mssg_flg === 'Y'){
+                  Swal.fire({
+                    title: "Success",
+                    text: "Success",
+                    icon: "success",
+                    confirmButtonText: "OK",
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = 'my_profile.html';  
+                }
+            });
+                  
+            
+                }else{
+                   
+                    
+                        Swal.fire({
+                            title: "Error!",
+                            text: "Failed.",
+                            icon: "error",
+                            confirmButtonText: "OK",
+                        });
+                   
+                    document.getElementById("loader").style.display = "none";
+                 //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);
+                }
+            });
+        })
+        })
+        
+        function logout() {
+           //consolelog("User logged out");
+            localStorage.clear();
+            localStorage.setItem("visitedSuccessPage", "true");
+            window.location.href = 'Login.html';
+        }
+        
+</script>
+<script>
+//   window.addEventListener("DOMContentLoaded", () => {
+//     const myProfileNew = { gender: "1" }; // Simulated data (male)
+
+//     sessionStorage.setItem("formData", JSON.stringify(myProfileNew));
+
+//     const storedData = JSON.parse(sessionStorage.getItem("formData"));
+//    //consolelog("Stored Gender Data:", storedData);
+
+//     if (storedData && storedData.gender) {
+//       const genderValue = storedData.gender;
+//      //consolelog("Gender Value:", genderValue);
+
+//       if (genderValue === "1") {
+//         document.getElementById("male").checked = true;
+//       } else if (genderValue === "2") {
+//         document.getElementById("female").checked = true;
+//       }
+//     }
+//    // set_subcaste();
+//   });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+<header class="navbar">
+    <div class="navbar-left">
+        <img src="../img/tARALABALU (3).png" alt="Left Navbar Image" class="left-navbar-image">
+    </div>
+    <div class="navbar-progress">
+        <!-- Profile progress can go here -->
+    </div>
+    <div class="navbar-right">
+        <div style="margin-right: 20px;">
+            <h3>Welcome, <span id="profileFor1"><strong>XYZ</strong></span></h3>
+            <span id="profileMatriId">TB000</span>
+        </div>
+        <div class="profile-icon" tabindex="0" onclick="toggleProfileDropdown()">
+            <img src="https://via.placeholder.com/40" alt="Profile Icon" id="profileImg">
+        </div>
+        <div id="profileDropdown" class="profile-dropdown" style="display: none;">
+            <div class="profileImg">
+                <img src="https://via.placeholder.com/40" alt="Profile Icon" id="profilePicture">
+            </div>
+            <p>Name: <span id="profileFor"><strong>XYZ</strong></span></p>
+            <p>Matri Id: <span id="profileId">TB000</span></p>
+            <button onclick="logout()">Logout</button>
+        </div>
+    </div>
+</header>
+
+<script>
+    /*
+    document.addEventListener('DOMContentLoaded', () => {
+  // Get references to the elements
+  const profileFor1 = document.getElementById("profileFor1");
+  const profileMatriId = document.getElementById("profileMatriId");
+  const profileImg = document.getElementById("profileImg");
+  const profilePicture = document.getElementById("profilePicture");
+  const profileFor = document.getElementById("profileFor");
+  const profileId = document.getElementById("profileId");
+  console.log("localStorage.getItem('myprofile_fullname')" );
+  console.log(localStorage.getItem('myprofile_fullname') + '\n' +localStorage.getItem('myprofile_photo_url'))
+  // Set the values from localStorage
+  if (profileFor1) {
+    profileFor1.textContent = localStorage.getItem('myprofile_fullname') || 'Guest';
+    
+  }
+
+  if (profileMatriId) {
+    profileMatriId.textContent = localStorage.getItem('matriId') || 'N/A';
+  }
+
+  if (profileImg) {
+    profileImg.src = localStorage.getItem('myprofile_photo_url') || '';
+  }
+
+  if (profilePicture) {
+    profilePicture.src = localStorage.getItem('myprofile_photo_url') || '';
+  }
+
+  if (profileFor) {
+    profileFor.textContent = localStorage.getItem('myprofile_fullname') || 'Guest';
+  }
+
+  if (profileId) {
+    profileId.textContent = localStorage.getItem('matriId') || 'N/A';
+  }
+});
+*/
+</script>

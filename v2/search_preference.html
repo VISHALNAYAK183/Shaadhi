@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Preference</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-72x72.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-96x96.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-128x128.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-144x144.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-152x152.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-167x167.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-180x180.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-192x192.png">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+</head>
+<style>
+    .contentBox{
+        padding:0.6rem;
+        border:2px solid grey;
+        border-radius: 8px;
+        font-size: 16px;
+        margin:0.3rem;
+        background-color: rgb(208, 192, 161);
+    }
+
+    .contentBox:hover{
+        background-color: #1f4a4e;
+        color:#ffffff;
+        cursor:pointer;
+    }
+
+    .searchTypeContainer{
+        margin-top: 1rem;
+    }
+
+    .hidden {
+        display: none;
+        }
+
+    #matriIdInput {
+        display: block;
+        margin-top: 2rem;
+        width: 30%;
+        padding: 12px;
+        border: 2px solid #ccc;
+        border-radius: 8px;
+        }
+
+    .container {
+      /* display: flex;
+      align-items: center;
+      justify-content: center; */
+      width: 50%;
+      margin: 0 auto;
+      background-color: #1f4a4e;
+      /* color: #ffffff; */
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .container h2{
+        color: #ffffff;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    label {
+      display: block;
+      /* color: #ffffff; */
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .formLabel{
+        color: #ffffff;
+    }
+
+    .range-slider {
+      position: relative;
+      height: 40px;
+    }
+
+    input[type="range"] {
+      position: absolute;
+      width: 100%;
+      height: 8px;
+      -webkit-appearance: none;
+      appearance: none;
+      background: #f3ebeb;
+      border-radius: 5px;
+      outline: none;
+      pointer-events: none;
+    
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      background-color: #ff9248;
+      border-radius: 50%;
+      cursor: pointer;
+      pointer-events: all;
+      position: relative;
+      z-index: 1; /* Ensures the thumb is on top */
+      top: 2px; 
+    }
+
+    
+
+    .range-values {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 5px;
+    }
+
+    .btn {
+      width: 100%;
+      padding: 10px;
+      background-color: #ff9248;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .btn:hover {
+      background-color: #218838;
+    }
+
+    .dropdown {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+      margin-bottom: 20px; /* Added margin for spacing */
+    }
+
+    .dropdown-selected {
+      background-color: #fff;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .dropdown-list {
+      display: none;
+      position: absolute;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      max-height: 200px;
+      overflow-y: auto;
+      width: 100%;
+      z-index: 1;
+      margin-top: 5px;
+    }
+
+    .dropdown-list label {
+      display: block;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .dropdown-list label:hover {
+      background-color: #f2f2f2;
+    }
+
+    .dropdown-search {
+      width: 100%;
+      padding: 10px;
+      box-sizing: border-box;
+      border: none;
+      border-bottom: 1px solid #ccc;
+    }
+    input#city, select#education {
+        width: 100%; /* Make both elements take full width of their parent */
+        max-width: 500px; /* Optional: Set max-width if needed */
+        padding: 8px;
+        font-size: 16px;
+        box-sizing: border-box; /* Ensure padding doesn't affect total width */
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 160px;
+      max-height: 200px; /* Limit height */
+      overflow-y: auto; /* Enable scrolling */
+      box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+      z-index: 1;
+      }
+    .dropdown-content a {
+      padding: 8px 16px;
+      display: block;
+      cursor: pointer;
+    }
+    .dropdown-content a:hover {
+      background-color: #ddd;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      color: #000000;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .show {
+      display: block;
+    }
+
+    @media only screen and (max-width: 600px) {
+      .dropdown-selected {
+        font-size: 14px;
+      }
+      .dropdown-list label {
+        padding: 8px;
+      }
+    }
+
+    .error-message {
+      color: red;
+      font-size: 14px;
+      display: none;
+    }
+    .age-container, .height-container, .income-container {
+      display: flex; /* Makes the label and input fields align in one line */
+      align-items: center; /* Vertically centers the items */
+      margin-bottom: 10px; /* Add some space below this container */
+    }
+
+    .input-fields {
+      display: flex; /* Keep the input fields in one line */
+      align-items: center; /* Center the inputs vertically */
+      margin-left: 10px; /* Add space between the label and input fields */
+    }
+
+    .separator {
+      margin: 0 10px; /* Space around the separator */
+      font-size: 16px; /* Same font size as inputs */
+      color: #090303; /* Color of the separator */
+    }
+
+    .age-input, .height-input, .income-input {
+      width: 45%; /* Set a fixed width for each input */
+      padding: 10px; /* Increased padding for height */
+      font-size: 16px; /* Font size */
+      border: 1px solid #ccc; /* Border style */
+      border-radius: 5px; /* Rounded corners */
+      margin-right: 0px; /* Space between inputs */
+    }
+
+    .age-input:last-child, .height-input:last-child, .income-input:last-child {
+      margin-right: 0; /* Remove margin from the last input */
+    }
+
+    .age-input:focus, .height-input:focus, .income-input:focus {
+      outline: none; /* Remove default outline */
+      border-color: #0134d4; /* Change border color on focus */
+    }
+
+    .range-slider {
+      width: 90%;
+      margin: 20px 20px;
+      position: relative;
+      height: 30px;
+    }
+
+    .slider-track {
+      position: absolute;
+      width: 100%;
+      height: 4px;
+      background: #ddd;
+      border-radius: 5px;
+    }
+
+    .slider-range {
+      position: absolute;
+      height: 4px;
+      background: #aee1df;
+      border-radius: 5px;
+    }
+
+    .slider-thumb {
+      position: absolute;
+      top: -8px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      cursor: pointer;
+      background-color: #08ca4fb4; /* Default color for both */
+      box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Consistent shadow */
+      border: 2px solid #fff; /* Optional: Adds a white border for clarity */
+    }
+
+    /* Specific styles for the min thumb */
+    .slider-thumb.min {
+      left: 0%; /* Positioned at the start */
+    }
+
+    /* Specific styles for the max thumb */
+    .slider-thumb.max {
+      left: 100%; /* Positioned at the end */
+    }
+    /* Hover and focus effects to ensure consistency */
+    .slider-thumb:hover,
+    .slider-thumb:focus {
+      transform: scale(1.2); /* Slight zoom effect */
+      background-color: #314e3d; /* Consistent color on interaction */
+      outline: none; /* Removes the default focus outline */
+    }
+
+    /* input[type="range"]:focus {
+      background: #dbaaaa;
+    } */
+
+    input[type="range"]:focus::-webkit-slider-thumb {
+      transform: scale(1.6);
+      position: relative; /* Allows adjustment */
+      background: #b3591c;
+        z-index: 1; /* Ensures the thumb is on top */
+        top: 2px; /* Adjust this value to align the thumb with the track */
+    }
+
+    .input-fields {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    .input-fields input {
+      width: 48%;
+      padding: 5px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .input-fields input:focus {
+      outline: none;
+      border-color: #0134d4;
+    }
+
+    .card-wrapper .edit-button {
+      position: absolute;
+      top: 8px; /* Adjust the top spacing */
+      right: 8px; /* Adjust the right spacing */
+      background-color: #fff;
+      color: #000;
+      border: 1px solid #ccc; /* Add a border for clarity */
+      border-radius: 50%; /* Make it circular */
+      width: 30px;
+      height: 30px;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s, box-shadow 0.2s;
+      position: relative; /* Make it the reference point for the tooltip */
+  }
+  
+  /* Button hover effect */
+  .card-wrapper .edit-button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  }
+  
+  /* Tooltip for the button */
+  .card-wrapper .edit-button::after {
+      content: "Premium Profile"; /* Tooltip text */
+      position: absolute;
+      top: 35px; /* Adjust tooltip position below the button */
+      right: 50%; /* Center it horizontally */
+      transform: translateX(50%);
+      background-color: #333;
+      color: #fff;
+      padding: 5px 10px;
+      font-size: 12px;
+      border-radius: 5px;
+      white-space: nowrap;
+      opacity: 0; /* Hidden by default */
+      visibility: hidden; /* Hidden by default */
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+      z-index: 10;
+  }
+  
+  /* Show tooltip on hover */
+  .card-wrapper .edit-button:hover::after {
+      opacity: 1; /* Make it visible */
+      visibility: visible; /* Make it visible */
+  }
+  
+
+/* .card1 {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 10px;
+  margin: 10px 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+} */
+</style>
+<body>
+
+    <div id="navbar-placeholder"></div>
+
+    <!-- Main Layout -->
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div id="sidebar-placeholder"></div>
+
+
+        <!-- Main Content Area -->
+        <main id="content" class="content">
+            <div id="waiting-dialog" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center; z-index: 9999;">
+                <div style="background-color: white; padding: 20px; border-radius: 8px;">
+                    <div class="loader" style="border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 50px; height: 50px; animation: spin 2s linear infinite;"></div>
+                    <p style="text-align: center; margin-top: 10px;">Please Wait...</p>
+                </div>
+            </div>
+            <!-- Default Dashboard Content -->
+            <section id="dashboard-content" class="dashboard-content">
+               
+                <h2 class="container-header">
+                    <span>Search Preference(<span id="search_count">0</span>)</span>
+                    <span><input 
+                        type="text" 
+                        id="searchProfileInput" 
+                        placeholder="Search profile..." 
+                        class="search-input"
+                        oninput="filterProfiles()"
+                    ></span>
+                    <!-- <i class="fa fa-search" id="searchIcon"></i> -->
+                </h2>
+                <div class="searchTypeContainer">
+                    <span><strong>Search By:</strong></span>
+                    <span><button class="contentBox matriIdSearch" id="triggerSearch">Matri Id</button></span>
+                    <span><button class="contentBox categorySearch" id="categorySearch">Category</button></span>
+                    <span><input 
+                        type="text" 
+                        id="matriIdInput" 
+                        class="hidden" 
+                        style="display:none;"
+                        placeholder="Enter Matri ID" 
+                        oninput="showCards()"
+                    /></span>
+                </div>
+                <div class="container" id="categoryContainer" style="display:none;">
+                    <h2>Partner Search Preferences</h2>
+
+                    <form id="partnerForm">
+                       <!-- Dual Thumb Slider for Age Range -->
+                       <div class="form-group">
+                        <label style="color:white;">Age: </label>
+                        <div class="age-container">
+                          <span style="color:white;">Min:&nbsp;</span><input type="number" id="minAgeInput" class="age-input" value="18" placeholder="18" min="18" max="100" 
+                                onfocus="clearPlaceholder('minAgeInput', 'Min')" onblur="setPlaceholder('minAgeInput', 'Min')" 
+                                oninput="minAge.value = this.value;updateAgeLabels();">
+                                <span class="separator" style="color:white;">-</span>
+                                <span style="color:white;">Max:&nbsp;</span><input type="number" id="maxAgeInput" class="age-input" value="100" placeholder="100" min="18" max="100" 
+                                onfocus="clearPlaceholder('maxAgeInput', 'Max')" onblur="setPlaceholder('maxAgeInput', 'Max')" 
+                                oninput="maxAge.value = this.value;updateAgeLabels();">
+                            </div>
+                            <div class="range-slider">
+                                <input type="range" id="minAge" min="18" max="100" value="18" oninput="updateAgeSliderLabels()">
+                                <input type="range" id="maxAge" min="18" max="100" value="100" oninput="updateAgeSliderLabels()">
+                            </div>
+                    </div>
+                  
+                    <div class="form-group">
+                      <label style="color:white;">Height(In cm): </label>
+                      <div class="height-container">
+                        <span style="color:white;">Min:&nbsp;</span><input type="number" id="minHeightInput" class="height-input" placeholder="0" value="0" min="0" max="250" 
+                              onfocus="clearPlaceholder('minHeightInput', 'Min')" onblur="setPlaceholder('minHeightInput', 'Min')" 
+                              oninput="minHeight.value = this.value;updateHeightLabels()">
+                          <span class="separator" style="color:white;">-</span>
+                          <span style="color:white;">Max:&nbsp;</span><input type="number" id="maxHeightInput" class="height-input" placeholder="in cm" value="250" min="0" max="250" 
+                          onfocus="clearPlaceholder('maxHeightInput', 'Max')" onblur="setPlaceholder('maxHeightInput', 'Max')" 
+                              oninput="maxHeight.value = this.value;updateHeightLabels();">
+                      </div>
+                      <div class="range-slider">
+                          <input type="range" id="minHeight" min="0" max="250" value="0" oninput="updateHeightSliderLabels()">
+                          <input type="range" id="maxHeight" min="0" max="250" value="250" oninput="updateHeightSliderLabels()">
+                      </div>
+                  </div>
+                  
+                    
+                  
+                      <!-- Sub Caste Dropdown -->
+                      <div class="form-group">
+                        <label class="formLabel">Sub Caste</label>
+                        <select id="subCasteDropdown" multiple="multiple" style="width: 100%;">
+                            <option value="" disabled selected>Select Sub Caste</option>
+                          </select>
+                        </div>
+
+                          <!-- Sub Caste Dropdown -->
+                        <div class="form-group">
+                        <label class="formLabel">Marital Status</label>
+                        <select id="maritalStatus" multiple="multiple" style="width: 100%;">
+                            <!-- <option value="" disabled selected>Select Marital Status</option> -->
+                              <option value="1">Unmarried</option>
+                              <option value="2">Widow/Widower</option>
+                              <option value="3">Divorcee</option>
+                              <option value="4">Separated</option>
+                              <option value="5">Married</option>
+                          </select>
+                        </div>
+                  
+                  
+                        <!-- Country Dropdown -->
+                        <div class="form-group">
+                            <label class="formLabel">Country</label>
+                            <select id="country" multiple="multiple" style="width: 100%;">
+                                <option value="" disabled selected>Select Country</option>
+                              </select>
+                          <span id="country-error" class="error-message">Please select a country.</span>
+                        </div>
+                  
+                      <!-- State Dropdown -->
+                      <div class="form-group">
+                        <label class="formLabel">State</label>
+                        <select id="state" multiple="multiple" style="width: 100%;">
+                            <option value="" disabled selected>Select State</option>
+                          </select>
+                          <span id="state-error" class="error-message">Please select a state.</span>
+                      </div>
+                  
+                      <!-- City Dropdown -->
+                      <div class="form-group">
+                        <label class="formLabel">City</label>
+                        <select id="city" multiple="multiple" style="width: 100%;">
+                            <option value="" disabled selected>Select City</option>
+                          </select>
+                          <span id="city-error" class="error-message">Please select a city.</span>
+                      </div>
+                  
+                  
+                      <!-- Education Dropdown -->
+                      <div class="form-group">
+                        <label class="formLabel">Education</label>
+                        <select id="educationDropdown" multiple="multiple" style="width: 100%;">
+                            <option value="" disabled selected>Select Education</option>
+                          </select>
+                    </div>
+                  
+                      <!-- Income Range Inputs -->
+                      <div class="form-group">
+                        <label style="color:white;">Income(In Lakhs): </label>
+                        <div class="income-container">
+                          <span style="color:white;">Min:&nbsp;</span><input type="number" id="minIncomeInput" class="income-input" placeholder="0" value="0" min="0" max="500" 
+                                onfocus="clearPlaceholder('minIncomeInput', 'Min')" onblur="setPlaceholder('minIncomeInput', 'Min')" 
+                                oninput="minIncome.value = this.value;updateIncomeLabels();">
+                            <span class="separator" style="color:white;">-</span>
+                            <span style="color:white;">Max:&nbsp;</span><input type="number" id="maxIncomeInput" class="income-input" placeholder="500" value="500" min="0" max="500" 
+                                onfocus="clearPlaceholder('maxIncomeInput', 'Max')" onblur="setPlaceholder('maxIncomeInput', 'Max')" 
+                                oninput="maxIncome.value = this.value;updateIncomeLabels();">
+                        </div>
+                        <div class="range-slider">
+                            <input type="range" id="minIncome" min="0" max="500" value="0" oninput="updateIncomeSliderLabels()">
+                            <input type="range" id="maxIncome" min="0" max="500" value="500" oninput="updateIncomeSliderLabels()">
+                        </div>
+                    </div>
+                    
+                    
+                  
+                      <button type="button" class="btn" onclick="submitForm()">Search</button>
+                    </form>
+                
+                </div>
+                <div id="cardsContainer" class="hidden"></div>
+                
+                <!-- Recently Joined Section -->
+                <section class="profile-section" id="profileSection">
+                    <!-- <h3 class="recently-joined-header">I Liked(<span id="iliked_count">0</span>)</h3> -->
+                    <div class="card-container-wrapper">
+                        <div class="card-container" id="searchBy-container"></div>
+                    </div>
+                </section>
+
+
+              
+            </section>
+        </main>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+
+        function loadHTMLContent(elementId, url, callback) {
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById(elementId).innerHTML = data;
+                    if (callback) callback(); // Execute callback after content is loaded
+                })
+                .catch(error =>console.error('Error loading HTML:', error));
+        }
+
+        // Load Navbar and Sidebar
+        // loadHTMLContent('navbar-placeholder', 'navbar.html');
+        loadHTMLContent('navbar-placeholder', 'navbar.html', () => {
+                const elementMap = {
+                    profileFor1: 'myprofile_fullname',
+                    profileMatriId: 'matriId',
+                    profileImg: 'myprofile_photo_url',
+                    profilePicture: 'myprofile_photo_url',
+                    profileFor: 'myprofile_fullname',
+                    profileId: 'matriId',
+                };
+
+                Object.keys(elementMap).forEach((id) => {
+                    const element = document.getElementById(id);
+                    const value = localStorage.getItem(elementMap[id]);
+
+                    if (element) {
+                    // For image elements, set the src attribute
+                    if (id === 'profileImg' || id === 'profilePicture') {
+                        element.src = value || 'https://via.placeholder.com/40'; // Fallback for missing images
+                    } else {
+                        element.textContent = value || ''; // Fallback for text
+                    }
+                    }
+                });
+            });
+
+        loadHTMLContent('sidebar-placeholder', 'sidebar.html', function () {
+            // Add event listeners after the sidebar content is loaded
+            const menus = document.querySelectorAll('.matches-menu');
+
+            menus.forEach(menu => {
+                menu.addEventListener('click', function (event) {
+                    // Prevent default behavior only for parent menu links
+                    if (!event.target.closest('.submenu a')) {
+                        event.preventDefault();
+                    }
+
+                    // Check if the clicked element has a submenu
+                    const submenu = this.querySelector('.submenu');
+
+                    // If the submenu exists, toggle its visibility
+                    if (submenu) {
+                        const isVisible = submenu.style.display === 'block';
+
+                        // Close all submenus
+                        document.querySelectorAll('.submenu').forEach(s => {
+                            s.style.display = 'none';
+                        });
+
+                        // Toggle only the clicked submenu
+                        submenu.style.display = isVisible ? 'none' : 'block';
+                    }
+                });
+            });
+
+            // Add listeners to submenu links to ensure navigation works
+            const submenuLinks = document.querySelectorAll('.submenu a');
+            submenuLinks.forEach(link => {
+                link.addEventListener('click', function (event) {
+                    // Allow navigation or custom logic for submenu links
+                   //consolelog(`Navigating to ${this.getAttribute('href')}`);
+                });
+            });
+        });
+
+
+function toggleDropdown(dropdownId) {
+    document.getElementById(dropdownId).classList.toggle('show');
+}
+
+function clearDropdown(type) {
+    document.getElementById(`${type}Options`).innerHTML = '';
+    document.getElementById(type).value = '';
+}
+
+  // Function to close the dropdown when focusout occurs
+  function closeDropdown() {
+            const dropdown = document.getElementById('profileDropdown');
+            dropdown.style.display = 'none';
+        }
+
+$(document).ready(function () {
+    // Initialize Select2 for both dropdowns
+    $('#subCasteDropdown').select2({
+        placeholder: 'Select Sub Caste',
+        allowClear: true,
+    });
+
+    $('#maritalStatus').select2({
+        placeholder: 'Select Marital Status',
+        allowClear: true,
+    });
+
+
+    $('#educationDropdown').select2({
+        placeholder: 'Select Education',
+        allowClear: true,
+    });
+
+    $('#country').select2({
+        placeholder: 'Select Country',
+        allowClear: true,
+    });
+
+    $('#state').select2({
+        placeholder: 'Select State',
+        allowClear: true,
+    });
+
+    $('#city').select2({
+        placeholder: 'Select City',
+        allowClear: true,
+    });
+    
+});
+
+// function validateForm() {
+//     const state = document.getElementById('state').value;
+//     const city = document.getElementById('city').value;
+
+//     if (!state || !city) {
+//         //alert('Please select both state and city.');
+//         Swal.fire({
+//           icon: 'error',
+//           title: 'Please select both state and city',
+//           text: 'Please try again.',
+//           confirmButtonText: 'OK'
+//       }).then((result) => {
+//           // Reload the page when the alert is closed
+//           if (result.isConfirmed) {
+//               location.reload(); // Reload the page
+//           }
+//       });
+//     }
+// }
+
+
+const minAgeInput = document.getElementById("minAgeInput");
+    const maxAgeInput = document.getElementById("maxAgeInput");
+    const minAge = document.getElementById("minAge");
+    const maxAge = document.getElementById("maxAge");
+
+    function updateAgeLabels() {
+    // Sync inputs with sliders
+    minAge.value = minAgeInput.value;
+    maxAge.value = maxAgeInput.value;
+
+    // Validation logic
+    if (minAgeInput.value === "" || isNaN(minAgeInput.value)) {
+      minAge.value = 18;
+    }
+    if (maxAgeInput.value === "" || isNaN(maxAgeInput.value)) {
+      maxAge.value = 100;
+    }
+
+  }
+
+  function updateAgeSliderLabels() {
+    
+    if( parseInt(maxAge.value) <= parseInt(minAge.value))
+  {
+    maxAge.value = (parseInt(minAgeInput.value) + 2);
+   //consolelog( maxAge.value);
+    if(parseInt(minAge.value)>= 98){
+      minAge.value = 98;
+    }
+  }
+    
+    minAgeInput.value = minAge.value;
+    maxAgeInput.value = maxAge.value;
+  }
+
+
+    const minHeightInput = document.getElementById('minHeightInput');
+    const maxHeightInput = document.getElementById('maxHeightInput');
+    const minHeightSlider = document.getElementById('minHeight');
+    const maxHeightSlider = document.getElementById('maxHeight');
+
+    function updateHeightLabels() {
+    // Sync inputs with sliders
+    if(minHeightInput.value < maxHeightInput.value){
+      minHeightSlider.value = minHeightInput.value;
+      maxHeightSlider.value = maxHeightInput.value;
+    }
+    // Validation logic
+    if (minHeightInput.value === "" || isNaN(minHeightInput.value)) {
+      minHeightSlider.value = 0;
+    }
+    if (maxHeightInput.value === "" || isNaN(maxHeightInput.value)) {
+      maxHeightSlider.value = 250;
+    }
+
+  }
+
+    function updateHeightSliderLabels() {
+      if( parseInt(minHeightSlider.value) >= parseInt(maxHeightSlider.value))
+  {
+    maxHeightSlider.value = (parseInt(minHeightSlider.value) + 10);
+   //consolelog( maxHeightSlider.value);
+    
+  }
+
+  if(parseInt(minHeightSlider.value)>= 240){
+      minHeightSlider.value = 240;
+    }
+      
+          minHeightInput.value = minHeightSlider.value;
+          maxHeightInput.value = maxHeightSlider.value;  
+
+    }
+
+
+    const minIncomeInput = document.getElementById('minIncomeInput');
+    const maxIncomeInput = document.getElementById('maxIncomeInput');
+    const minIncomeSlider = document.getElementById('minIncome');
+    const maxIncomeSlider = document.getElementById('maxIncome');
+
+    function updateIncomeLabels() {
+    // Sync inputs with sliders
+    minIncomeSlider.value = minIncomeInput.value;
+    maxIncomeSlider.value = maxIncomeInput.value;
+
+    // Validation logic
+    if (minIncomeInput.value === "" || isNaN(minIncomeInput.value)) {
+      minIncomeSlider.value = 0;
+    }
+    if (maxIncomeInput.value === "" || isNaN(maxIncomeInput.value)) {
+      maxIncomeSlider.value = 500;
+    }
+
+  }
+
+    function updateIncomeSliderLabels() {
+        // Update the age input fields based on the slider values
+        minIncomeInput.value = minIncomeSlider.value;
+        maxIncomeInput.value = maxIncomeSlider.value;
+
+    }
+
+    function clearPlaceholder(id, placeholder) {
+    const input = document.getElementById(id);
+    if (input.placeholder === placeholder) {
+      input.placeholder = "";
+    }
+  }
+
+  function setPlaceholder(id, placeholder) {
+    const input = document.getElementById(id);
+    if (input.placeholder === "") {
+      input.placeholder = placeholder;
+    }
+  }
+
+        // Close dropdowns if clicked outside
+  window.onclick = function(event) {
+    if (!event.target.matches('input')) {
+      const dropdowns = document.getElementsByClassName('dropdown-content');
+      Array.from(dropdowns).forEach(dropdown => {
+        if (dropdown.classList.contains('show')) {
+          dropdown.classList.remove('show');
+        }
+      });
+    }
+  };
+    
+
+
+        function fetchSubCaste(){
+            // Clear the dropdown
+            $('#subCasteDropdown').empty();
+
+            // Add default placeholder option
+            // $('#subCasteDropdown').append('<option value="" disabled selected>Select Sub Caste</option>');
+
+            // Fetch sub-caste data
+            axios.post('https://www.sharutech.com/matrimony/get_info.php', {
+                type: "sub_caste",
+                caste_id: "1"
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+                .then(function (response) {
+                   //consolelog('Success:', response.data);
+
+                    // Check if the API response is successful
+                    if (response.data.message.p_out_mssg_flg === 'Y') {
+                        const subCastes = response.data.dataout;
+
+                        // Append new options dynamically
+                        subCastes.forEach(function (subCaste) {
+                            $('#subCasteDropdown').append('<option value="' + subCaste.id + '">' + subCaste.sub_caste + '</option>');
+                        });
+                    } else {
+                       console.error('API Error:', response.data.message.p_out_mssg_flg, response.data.message.p_out_mssg);
+                    }
+                });
+                
+
+
+        }
+
+        function fetchEducation() {
+            $('#educationDropdown').empty();
+
+            // Add default placeholder option
+            // $('#educationDropdown').append('<option value="" disabled selected>Select Education</option>');
+
+            // Fetch sub-caste data
+            axios.post('https://www.sharutech.com/matrimony/get_data.php', {
+               type: "education"
+            }, {
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            })
+                .then(function (response) {
+                   //consolelog('Success:', response.data);
+
+                    // Check if the API response is successful
+                    if (response.data.message.p_out_mssg_flg === 'Y') {
+                        const educations = response.data.dataout;
+
+                        // Append new options dynamically
+                        educations.forEach(function (education) {
+                            $('#educationDropdown').append('<option value="' + education.id + '">' + education.name + '</option>');
+                        });
+                    } else {
+                       console.error('API Error:', response.data.message.p_out_mssg_flg, response.data.message.p_out_mssg);
+                    }
+                });
+
+        }
+
+     
+    // -------------------------------------------------******-------------------------------------//
+
+    
+
+       function fetchCountry() {
+            $('#country').empty();
+
+                // Add default placeholder option
+                // $('#country').append('<option value="" disabled selected>Select Country</option>');
+
+                // Fetch sub-caste data
+                axios.post('https://www.sharutech.com/matrimony/country_state_city.php', {
+                type: "country"
+                }, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                    .then(function (response) {
+                       //consolelog('Success:', response.data);
+
+                        // Check if the API response is successful
+                        if (response.data.message.p_out_mssg_flg === 'Y') {
+                            const countries = response.data.data;
+
+                            // Append new options dynamically
+                            countries.forEach(function (country) {
+                                $('#country').append('<option value="' + country.country_id + '">' + country.country_name + '</option>');
+                            });
+                        } else {
+                           console.error('API Error:', response.data.message.p_out_mssg_flg, response.data.message.p_out_mssg);
+                        }
+                    });
+
+        }
+
+    // -----------------------------------*-------------------------------------------- //
+
+     // State Script -----------------------------*----------------------- //
+
+     $(document).on('change',"#country",function(){
+        $('#state').empty();
+
+            // Add default placeholder option
+            // $('#state').append('<option value="" disabled selected>Select State</option>');
+         const country_ids=$(this).val();
+         const data={
+                type: "state",
+                country:country_ids, 
+                id:"28"
+            }
+
+            axios.post('https://www.sharutech.com/matrimony/country_state_city.php',data, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                    .then(function (response) {
+                       //consolelog('Success:', response.data);
+
+                        // Check if the API response is successful
+                        if (response.data.message.p_out_mssg_flg === 'Y') {
+                            const states = response.data.data;
+
+                            // Append new options dynamically
+                            states.forEach(function (state) {
+                                $('#state').append('<option value="' + state.state_id + '">' + state.state_name + '</option>');
+                            });
+                        } else {
+                           console.error('API Error:', response.data.message.p_out_mssg_flg, response.data.message.p_out_mssg);
+                        }
+                    });
+     });
+
+     // City Script -----------------------------*----------------------- //
+     $(document).on('change',"#state",function(){
+        $('#city').empty();
+
+        // Add default placeholder option
+        // $('#city').append('<option value="" disabled selected>Select City</option>');
+        const countryIds=$("#country").val();
+         const stateIds=$(this).val();
+         const data={
+                type:"city",
+                country:countryIds,
+                state:stateIds,
+                id:"30"
+            }
+
+            axios.post('https://www.sharutech.com/matrimony/country_state_city.php',data, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                    .then(function (response) {
+                       //consolelog('Success:', response.data);
+
+                        // Check if the API response is successful
+                        if (response.data.message.p_out_mssg_flg === 'Y') {
+                            const cities = response.data.data;
+
+                            // Append new options dynamically
+                            cities.forEach(function (city) {
+                                $('#city').append('<option value="' + city.city_id + '">' + city.city_name + '</option>');
+                            });
+                        } else {
+                           console.error('API Error:', response.data.message.p_out_mssg_flg, response.data.message.p_out_mssg);
+                        }
+                    });
+     });
+        
+    // -----------------------------------*-------------------------------------------- //
+
+      
+
+        document.getElementById('triggerSearch').addEventListener('click', function () {
+            const inputField = document.getElementById('matriIdInput');
+            inputField.classList.remove('hidden'); // Show the input field
+            inputField.focus(); // Focus on the input field
+            document.getElementById('matriIdInput').style.display='block';
+            document.getElementById('searchProfileInput').style.display='none';
+            // document.getElementById('searchIcon').style.display='none';
+            document.getElementById('categoryContainer').style.display='none';
+            document.getElementById('profileSection').style.display='block';
+        });
+
+        document.getElementById('categorySearch').addEventListener('click', function () {
+            const inputField = document.getElementById('matriIdInput');
+            inputField.focus(); // Focus on the input field
+            document.getElementById('matriIdInput').style.display='none';
+            document.getElementById('searchProfileInput').style.display='none';
+            // document.getElementById('searchIcon').style.display='none';
+            document.getElementById('categoryContainer').style.display='block';
+            document.getElementById('profileSection').style.display='none';
+            });
+
+            // Function to handle showing cards
+            function showCards() {
+                let inputField = document.getElementById('matriIdInput');
+                const inputValue = inputField.value.trim(); // Get the input value
+                const cardsContainer = document.getElementById('cardsContainer');
+                const data = {
+                        matri_id:localStorage.getItem('matriId'),
+                        type: "matri_id",
+                        matri_id_of:inputValue
+                    };
+                   //consolelog(data);
+
+                axios.post('https://www.sharutech.com/matrimony/z_search_preference2.php', data, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    }
+                })
+                .then(function(response) {
+                   //consolelog('Success:', response.data);
+                    if(response.data.message.p_out_mssg_flg === 'Y'){
+                    // document.getElementById("profileMatchedContainer").style.display = 'flex';
+                        profileSearchBy=response.data.dataout;
+                        const searchByProfiles = profileSearchBy.filter(user => user.matri_id);
+                        document.getElementById('search_count').innerText=searchByProfiles.length;
+                        populateCards('searchBy-container', searchByProfiles);
+                    }else{
+                   //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);
+                    }
+                });
+            }
+
+            function toggleProfileDropdown() {
+                const dropdown = document.getElementById('profileDropdown');
+                dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+    
+                // Attach a click event listener to close the dropdown when clicking outside
+                if (dropdown.style.display === 'block') {
+                    document.addEventListener('click', closeDropdownOnClickOutside);
+                }
+            }
+    
+        // Close the dropdown on outside click
+        function closeDropdownOnClickOutside(event) {
+            const dropdown = document.getElementById('profileDropdown');
+            const profileIcon = document.querySelector('.profile-icon');
+    
+            // Check if the clicked element is outside the dropdown or profile icon
+            if (!dropdown.contains(event.target) && !profileIcon.contains(event.target)) {
+                dropdown.style.display = 'none';
+                document.removeEventListener('click', closeDropdownOnClickOutside); // Clean up the event listener
+            }
+        }
+
+        function logout() {
+           //consolelog("User logged out");
+            localStorage.clear();
+            localStorage.setItem("visitedSuccessPage", "true");
+            window.location.href = 'Login.html';
+        }
+
+        function scrollLeft() {
+            const container = document.querySelector('.card-container-wrapper');
+            container.scrollBy({
+                left: -200, // Scroll by 200px to the left
+                behavior: 'smooth' // Smooth scrolling
+            });
+        }
+
+        function scrollRight() {
+            const container = document.querySelector('.card-container-wrapper');
+            container.scrollBy({
+                left: 200, // Scroll by 200px to the right
+                behavior: 'smooth' // Smooth scrolling
+            });
+        }
+
+
+        function populateCards(containerId, data) {
+            const container = document.getElementById(containerId);
+            if (!container) return; // Exit if the container is not found
+            container.innerHTML = ''; // Clear previous content if any
+
+            data.forEach(profile => {
+
+                 let imgURL='';
+                if(profile["gender_type"]=='Male' && (profile.url==null || profile.url=='')){
+                    imgURL='../img/2.png';
+                }else if(profile["gender_type"]=='Female' && (profile.url==null || profile.url=='')){
+                    imgURL='../img/1.png';
+                }else{  
+                    imgURL=localStorage.getItem("baseURL")+profile.url;
+                }
+              
+                // Create the card element
+                const card = document.createElement('div');
+                card.className = 'card';
+
+                // Set the card content
+                card.innerHTML = `
+                   <div class="card-wrapper">
+
+                   ${ profile.plan_status=='Paid'?card.innerHTML= card.innerHTML+` <button class="edit-button" title="Premium Profile"><img src="../img/veri.png" alt="verification" style="width: 30px; height: 30px;"></button>` :""}
+                    
+                        <img src="${imgURL}" alt="${profile.first_name}" class="card-image">
+                        <div class="card-details">
+                            <h4>${profile.first_name}</h4>
+                            <p>Age: ${profile.age}</p>
+                             <p>Matri Id: ${profile.matri_id}</p>
+                        </div>
+                    </div>
+                `;
+
+                card.onclick =  async function() {
+                    localStorage.setItem("matriIdTo",profile.matri_id);
+                    let planDetail=localStorage.getItem("planStatus");
+                    if(planDetail== 'Expired' && await matching("profile") == 'false'){
+                        console.log("Expired");
+                        Swal.fire({
+                            title: "Your Plan has Expired",
+                            text: "Would you like to upgrade to access more options?",
+                            icon: "info",
+                            showCancelButton: true,
+                            confirmButtonText: "Upgrade",
+                            cancelButtonText: "Cancel",
+                            reverseButtons: true,
+                            customClass: {
+                                popup: 'swal-wide' // Optional: add custom CSS for styling
+                            }
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Redirect to the upgrade page
+                                window.location.href = "payment.html";
+                            } else if (result.dismiss === Swal.DismissReason.cancel) {
+                                // Do nothing, alert will close
+                               //consolelog("User chose to cancel.");
+                            }
+                        });;
+                    }
+                    else if (await get_entry() === true || await matching("profile") == 'true') 
+    
+                    {
+
+                        localStorage.setItem("viewedFirstName",profile.first_name);
+                        localStorage.setItem("viewedLastName",profile.last_name);
+                        localStorage.setItem("age", profile.age);
+                        localStorage.setItem("genderType",profile["gender_type"]);
+                        localStorage.setItem("imgURL",imgURL);
+                        localStorage.setItem("height", profile.height);
+                        localStorage.setItem("weight",profile.weight);
+                //   localStorage.setItem("matriIdTo",profile.matri_id);
+                //   localStorage.setItem("viewedFirstName",profile.first_name);
+                //   localStorage.setItem("viewedLastName",profile.last_name);
+                //   localStorage.setItem("imageViewed",profile.url);
+                //   localStorage.setItem("age", profile.age);
+                //   localStorage.setItem("place", profile.home_town);
+                //   localStorage.setItem("remarks", profile.remark);
+                //   localStorage.setItem("mother_tongue",profile.mother_tongue);
+                //   localStorage.setItem("height", profile.height);
+                //   localStorage.setItem("nakshtra", profile.nakshatra);
+                //   localStorage.setItem("rashi", profile.rashi);
+                //   localStorage.setItem("gothra", profile.gothra);
+                //   localStorage.setItem("genderType",profile["gender_type"]);
+                //   localStorage.setItem("address",profile.address);
+                //   localStorage.setItem("birthPlace",profile.birth_place);
+                //   localStorage.setItem("birthTime",profile.birth_time);
+                //   localStorage.setItem("bloodGroup", profile.blood_group);
+                //   localStorage.setItem("company", profile.company);
+                //   localStorage.setItem("complexion", profile.complexion);
+                //   localStorage.setItem("createrPhone", profile.creator_phone);
+                //   localStorage.setItem("disability", profile.disability);
+                //   localStorage.setItem("dob", profile.dob);
+                //   localStorage.setItem("email",profile.email);
+                //   localStorage.setItem("familyDiety",profile.family_diety);
+                //   localStorage.setItem("familyType",profile.family_type);
+                //   localStorage.setItem("fatherName",profile.father_name);
+                //   localStorage.setItem("fatherOccupation", profile.father_ocupation);
+                //   localStorage.setItem("motherName",profile.mother_name);
+                //   localStorage.setItem("motherOccupation", profile.mother_occupation);
+                //   localStorage.setItem("brothers",profile.number_of_brothers);
+                //   localStorage.setItem("sisters", profile.number_of_sisters);
+                //   localStorage.setItem("qualification", profile.qualification);
+                //   localStorage.setItem("specialization",profile.specialization);
+                //   localStorage.setItem("profession", profile.occupation);
+                //   localStorage.setItem("company", profile.company);
+                //   localStorage.setItem("companyCity", profile.company_city);
+                //   localStorage.setItem("salary", profile.salary);
+                //   localStorage.setItem("maritalStatus", profile.status);
+                //   localStorage.setItem("subCaste", profile.sub_caste);
+                //   localStorage.setItem("profileFor",profile.profile_for);
+                //   localStorage.setItem("profileCreator",profile.profile_creator);
+                //   localStorage.setItem("creatorPhone",profile.creator_phone);
+                //   localStorage.setItem("phone",profile.phone);
+                //   localStorage.setItem("creatorName",profile.creator_name);
+                //   localStorage.setItem("liked",profile.liked);
+                //   localStorage.setItem("city",profile.city);
+                //   localStorage.setItem("state",profile.state);
+                //   localStorage.setItem("country",profile.country);
+                //   localStorage.setItem("weight",profile.weight);
+                // //   localStorage.setItem("likedProfile",profile.liked);
+                //   localStorage.setItem("imgURL",imgURL);
+                //     localStorage.setItem("profile", JSON.stringify(profile));
+                    window.location.href = "profile_view.html";
+                   //consolelog("Card Clicked");
+                }
+                else{
+                    Swal.fire({
+                        title: "Maximum Limit has been reached",
+                        text: "Would you like to upgrade to access more options?",
+                        icon: "info",
+                        showCancelButton: true,
+                        confirmButtonText: "Upgrade",
+                        cancelButtonText: "Cancel",
+                        reverseButtons: true,
+                        customClass: {
+                            popup: 'swal-wide' // Optional: add custom CSS for styling
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Redirect to the upgrade page
+                            window.location.href = "payment.html";
+                        } else if (result.dismiss === Swal.DismissReason.cancel) {
+                            // Do nothing, alert will close
+                           //consolelog("User chose to cancel.");
+                        }
+                    });
+               }
+    
+               
+            }
+           // container.appendChild(card);
+            
+                   // //consolelog("Card Clicked");
+                 
+    
+                 // Append the card to the container
+                 container.appendChild(card);
+             });
+         }
+        let profileSearchBy=[];
+      function toggleOptionSearchBy(){
+        const data1 = {
+          matri_id:localStorage.getItem('matriId'),
+          type: "search"
+        };
+       //consolelog(data1);
+        showWaitingDialog();
+        axios.post('https://www.sharutech.com/matrimony/z_search_preference2.php', data1, {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(function(response) {
+           //consolelog('Success:', response.data);
+            if(response.data.message.p_out_mssg_flg === 'Y'){
+             //consolelog('Success:', response.data.dataout);
+              profileSearchBy=response.data.dataout;
+              const searchByProfiles = profileSearchBy.filter(user => user.matri_id);
+                document.getElementById('search_count').innerText=searchByProfiles.length;
+              populateCards('searchBy-container', searchByProfiles);
+                document.getElementById('matriIdInput').style.display='none';
+                document.getElementById('searchProfileInput').style.display='inline-block';
+                // document.getElementById('searchIcon').style.display='inline-block';
+                document.getElementById('categoryContainer').style.display='none';
+                document.getElementById('profileSection').style.display='block';
+              hideWaitingDialog();
+            }else{
+             //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);
+              hideWaitingDialog();
+            }
+        });
+      }
+
+
+
+function submitForm() {
+    const min_age = parseInt(document.getElementById('minAge').value);
+    const max_age = parseInt(document.getElementById('maxAge').value);
+    const height_min = parseInt(document.getElementById('minHeight').value);
+    const height_max = parseInt(document.getElementById('maxHeight').value);
+    const income_from = parseInt(document.getElementById('minIncome').value);
+    const income_to = parseInt(document.getElementById('maxIncome').value);
+
+
+          showWaitingDialog();
+    // Age validation
+    if (minAge < 18 || maxAge > 100) {
+        //alert('Please ensure that the minimum age is at least 18 and the maximum age does not exceed 100.');
+        Swal.fire({
+          icon: 'error',
+      title: 'Please ensure that the minimum age is atleast 18 and the maximum  age doesnot exceed 100',
+          text: 'Please try again.',
+          confirmButtonText: 'OK'
+      }).then((result) => {
+          // Reload the page when the alert is closed
+          if (result.isConfirmed) {
+              location.reload(); // Reload the page
+          }
+      });
+        return; // Prevent form submission
+    }
+
+    if (minAge > maxAge) {
+        //alert('Minimum age cannot be greater than maximum age.');
+        Swal.fire({
+          icon: 'error',
+          title: 'Minimum age cannot be graeter than maximum age.',
+          text: 'Please try again.',
+          confirmButtonText: 'OK'
+      }).then((result) => {
+          // Reload the page when the alert is closed
+          if (result.isConfirmed) {
+              location.reload(); // Reload the page
+          }
+      });
+        return; // Prevent form submission
+    }
+
+      // let matri_id=localStorage.getItem('matriId');
+      // let id=localStorage.getItem('mId');
+      // let maritalStatus=localStorage.getItem('maritalStatus');
+
+      let stateSelected1="";
+          let citySelected1="";
+          let countrySelected1="";
+          let educationSelected1="";
+
+
+        //   if(educationChoiced==="Select Education"){
+        //     educationSelected1="";
+        //   }else{
+        //     educationSelected1=educationChoiced;
+        //   }
+
+      // if (isValid) {
+       const data = {     
+          matri_id:localStorage.getItem('matriId'),
+          marital_status: ($("#maritalStatus").val()).join(","),
+          height_min: height_min,
+          height_max:height_max,
+          sub_caste:($("#subCasteDropdown").val()).join(","),
+          blood_group: "A+,A-,B+,B-,AB+,AB-,O+,O-",
+          city:($("#city").val()).join(","),
+          country:($("#country").val()).join(","),
+          state:($("#state").val()).join(","),
+          education:($("#educationDropdown").val()).join(","),
+          income_from:income_from,
+          income_to:income_to,    
+          min_age: min_age,
+          max_age: max_age
+
+    };
+
+   //consolelog(data);
+        
+        axios.post('https://www.sharutech.com/matrimony/z_search_preference2.php', data, {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(function(response) {
+           //consolelog('Success:', response.data);
+            
+
+                if(response.data.message.p_out_mssg_flg === 'Y'){
+                  //consolelog('Success:', response.data.dataout);
+              profileSearchBy=response.data.dataout;
+              const searchByProfiles = profileSearchBy.filter(user => user.matri_id);
+                document.getElementById('search_count').innerText=searchByProfiles.length;
+              populateCards('searchBy-container', searchByProfiles);
+                document.getElementById('matriIdInput').style.display='none';
+                document.getElementById('searchProfileInput').style.display='inline-block';
+                // document.getElementById('searchIcon').style.display='inline-block';
+                document.getElementById('categoryContainer').style.display='none';
+                document.getElementById('profileSection').style.display='block';
+                    
+                   //     toggleOptionSearchBy();
+                        hideWaitingDialog();
+                    //window.location.href = 'EducationDetails.html';
+                }else{
+                   //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);
+                    hideWaitingDialog();
+                    Swal.fire({
+                        icon: 'error',
+                        title: '',
+                        text: 'Please try again.',
+                        confirmButtonText: 'OK'
+                        });
+                }
+            })
+            .catch(function(error) {
+                   console.error('Error:', error);
+                    // Optionally display an error message to the user
+                });
+       // }  
+    }
+
+   
+    const waitingDialog = document.getElementById('waiting-dialog');
+    
+    // Show the waiting dialog
+    function showWaitingDialog() {
+        waitingDialog.style.display = 'flex';
+    }
+
+    // Hide the waiting dialog
+    function hideWaitingDialog() {
+        waitingDialog.style.display = 'none';
+    }
+
+
+    var baseURL='';
+    document.addEventListener('DOMContentLoaded', function () {
+    const waitingDialog = document.getElementById('waiting-dialog');
+    if(localStorage.getItem('matriId')== 'NULL'||localStorage.getItem('matriId')==''||localStorage.getItem('matriId')== null ){
+        logout();
+    }
+    // Show the waiting dialog
+    function showWaitingDialog() {
+        waitingDialog.style.display = 'flex';
+    }
+
+    // Hide the waiting dialog
+    function hideWaitingDialog() {
+        waitingDialog.style.display = 'none';
+    }
+
+
+        // const data = {
+        //   id:localStorage.getItem('mId'),
+        //   matri_id:localStorage.getItem('matriId')
+        // };
+       //consolelog(data);
+        showWaitingDialog();
+        // axios.post('https://www.sharutech.com/matrimony/my_profile.php', data, {
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //     }
+        // })
+        // .then(function(response) {
+           //consolelog('Success:', response.data);
+            // if(response.data.message.p_out_mssg_flg === 'Y')
+            {
+              // const data=response.data.dataout[0];
+            
+            // localStorage.setItem("baseURL", data.base_url);
+
+            // const image = document.getElementById("profilePicture");
+            // image.src = localStorage.getItem('baseURL')+data.url;
+            // const profileImg = document.getElementById("profileImg");
+            // profileImg.src = image.src  ;//response.data.my_profile[0].base_url+response.data.my_profile[0]["profile_photo"];
+            // const profileFor = document.getElementById("profileFor");
+            // const profileFor1 = document.getElementById("profileFor1");
+            // const profileId = document.getElementById("profileId");
+            // const profileMatriId = document.getElementById("profileMatriId");
+            // profileFor.textContent = data.first_name+" "+data.last_name;
+            // profileFor1.textContent = data.first_name+" "+data.last_name;
+            // profileId.textContent=data.matri_id;
+            // profileMatriId.textContent=data.matri_id;
+           
+
+            updateAgeLabels();
+            updateHeightLabels();
+            updateIncomeLabels();
+            fetchCountry();
+            fetchSubCaste();
+            // fetchMaritalStatus();
+            fetchEducation();
+            // document.getElementById('iviewed_count').textContent = recentlyJoinedArray.length;
+
+            // const profile_count = response.data.profile_count;
+            // document.getElementById('contacted_count').textContent = profile_count.profile_contacted;
+  
+
+            hideWaitingDialog();
+            }
+          // else{
+          //  //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);
+          //   hideWaitingDialog();
+          //   }
+        // });
+        toggleOptionSearchBy();
+    });
+
+    function logout() {
+       //consolelog("User logged out");
+        localStorage.clear();
+        localStorage.setItem("visitedSuccessPage", "true");
+        window.location.href = 'Login.html';
+    }
+function filterProfiles() {
+    const searchInput = document.getElementById('searchProfileInput').value.toLowerCase();
+    const cardContainers = document.querySelectorAll('.card-container'); // All profile sections
+
+    cardContainers.forEach(container => {
+        const cards = container.querySelectorAll('.card');
+
+        cards.forEach(card => {
+            const profileName = card.querySelector('h4').textContent.toLowerCase();
+            const profileId = card.querySelector('p:nth-of-type(2)').textContent.toLowerCase(); // For Matri Id
+            if (profileName.includes(searchInput) || profileId.includes(searchInput)) {
+                card.style.display = ''; // Show card
+            } else {
+                card.style.display = 'none'; // Hide card
+            }
+        });
+    });
+}
+async function get_entry() {
+    const maxProfileCount = parseInt(localStorage.getItem("max_profile_count"), 10);
+    const viewedProfileCount = parseInt(localStorage.getItem("viewed_profile_count"), 10);
+  
+    if (isNaN(maxProfileCount) || isNaN(viewedProfileCount)) {
+     console.error("One or both values are not set or are invalid in localStorage.");
+      return false; // Default to false if values are invalid or missing
+    }
+  
+    return maxProfileCount > viewedProfileCount;
+  }
+        // window.onload = generateCards;
+    </script>
+    <script src="maxcount.js"></script>
+</body>
+</html>

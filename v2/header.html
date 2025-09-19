@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matrimony Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+</head>
+
+<body>
+
+    <div id="navbar-placeholder"></div>
+
+    <!-- Main Layout -->
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <div id="sidebar-placeholder"></div>
+
+
+        <!-- Main Content Area -->
+        <main id="content" class="content">
+            <!-- Default Dashboard Content -->
+            <section id="dashboard-content" class="dashboard-content">
+                <h2 class="container-header">Dashboard</h2>
+
+                 <!-- Recently Joined Section -->
+                 <section class="profile-section">
+                    <h3 class="recently-login-header">Recently Login Members(<span id="recently_login_count">0</span>)</h3>
+                    <div class="card-container-wrapper">
+                        <div class="card-container" id="recently-login-container"></div>
+                    </div>
+                </section>
+                
+                <!-- Recently Joined Section -->
+                <section class="profile-section">
+                    <h3 class="recently-joined-header">Recently Joined(<span id="recently_count">0</span>)</h3>
+                    <div class="card-container-wrapper">
+                        <div class="card-container" id="recently-joined-container"></div>
+                    </div>
+                </section>
+
+                <!-- Profile Matched Section -->
+                <section class="profile-section">
+                    <h3 class="profile-matched-header">Profile Matched(<span id="matched_count">0</span>)</h3>
+                    <div class="card-container-wrapper">
+                        <div class="card-container" id="profile-matched-container"></div>
+                    </div>
+                </section>
+            </section>
+        </main>
+    </div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+
+    function loadHTMLContent(elementId, url) {
+            fetch(url)
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById(elementId).innerHTML = data;
+                })
+                .catch(error =>console.error('Error loading HTML:', error));
+        }
+
+        // Load Navbar and Sidebar
+        loadHTMLContent('navbar-placeholder', 'navbar.html');
+        loadHTMLContent('sidebar-placeholder', 'sidebar.html');
+
+
+        function toggleProfileDropdown() {
+            const dropdown = document.getElementById('profileDropdown');
+            dropdown.classList.toggle('active');
+        }
+
+        function logout() {
+           //consolelog("User logged out");
+            window.location.href = 'login.html';
+        }
+
+        function scrollLeft() {
+            const container = document.querySelector('.card-container-wrapper');
+            container.scrollBy({
+                left: -200, // Scroll by 200px to the left
+                behavior: 'smooth' // Smooth scrolling
+            });
+        }
+
+        function scrollRight() {
+            const container = document.querySelector('.card-container-wrapper');
+            container.scrollBy({
+                left: 200, // Scroll by 200px to the right
+                behavior: 'smooth' // Smooth scrolling
+            });
+        }
+
+
+        function populateCards(containerId, data) {
+            const container = document.getElementById(containerId);
+            if (!container) return; // Exit if the container is not found
+            container.innerHTML = ''; // Clear previous content if any
+
+            data.forEach(profile => {
+
+                 let imgURL='';
+                if(profile["gender_type"]==='Male' && (profile.url===null || profile.url==='')){
+                    imgURL='../img/2.png';
+                }else if(profile["gender_type"]==='Female' && (profile.url===null || profile.url==='')){
+                    imgURL='../img/1.png';
+                }else{  
+                    imgURL="https://www.sharutech.com/matrimony//"+profile.url;
+                }
+              
+                // Create the card element
+                const card = document.createElement('div');
+                card.className = 'card';
+
+                // Set the card content
+                card.innerHTML = `
+                    <img src="${imgURL}" alt="${profile.first_name}">
+                    <div class="card-details">
+                        <h4>${profile.first_name}</h4>
+                        <p>Age: ${profile.age}</p>
+                        <p>Matri Id: ${profile.matri_id}</p>
+                    </div>
+                `;
+
+                card.onclick = function() {
+                    localStorage.setItem("profile", JSON.stringify(profile));
+                    window.location.href = "profile_view.html";
+                   //consolelog("Card Clicked");
+                }
+
+                // Append the card to the container
+                container.appendChild(card);
+            });
+        }
+
+    // Function to update progress bar
+    function updateProgressBar(percent) {
+         const progressBar = document.getElementById('progressBar');
+        const profilePercent = document.getElementById('profilePercent');
+        const colors = [
+            "#FF0000", // 0-10%: Red
+            "#FF4500", // 11-20%: OrangeRed
+            "#FFA500", // 21-30%: Orange
+            "#FFD700", // 31-40%: Gold
+            "#ADFF2F", // 41-50%: GreenYellow
+            "#32CD32", // 51-60%: LimeGreen
+            "#4B0082", // 61-70%: Indigo
+            "#00CED1", // 71-80%: DarkTurquoise
+            "#1E90FF", // 81-90%: DodgerBlue
+            "#008000"  // 91-100%: Green
+        ];
+
+        // Update progress bar width and color
+            progressBar.style.width = `${percent}%`;
+            progressBar.style.backgroundColor = colors[Math.floor(percent / 10)];
+
+            // Update percentage display
+            profilePercent.textContent = `${percent}%`;
+        }
+
+document.addEventListener('DOMContentLoaded', function () {
+        const data = {
+            id: localStorage.getItem('mId'),
+            matri_id: localStorage.getItem('matriId')
+           
+        };
+       //consolelog(data);
+
+        axios.post('https://www.sharutech.com/matrimony/dashboard.php', data, {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(function(response) {
+           //consolelog('Success:', response.data);
+            if(response.data.message.p_out_mssg_flg === 'Y'){
+            localStorage.setItem("matriId", response.data.my_profile[0].matri_id);
+            localStorage.setItem("baseURL", response.data.my_profile[0].base_url);
+
+            localStorage.setItem("iViewed", response.data.profile_count.i_viewed);
+            localStorage.setItem("viewedBy", response.data.profile_count.viewed_by);
+            localStorage.setItem("iLiked", response.data.profile_count.i_liked);
+            localStorage.setItem("likedBy", response.data.profile_count.liked_by);
+            localStorage.setItem("mutualLiked", response.data.profile_count.mutual_liked);
+            localStorage.setItem("contactedCount", response.data.profile_count.profile_contacted);
+
+            // const image = document.getElementById("profilePicture");
+            // image.src = response.data.my_profile[0].base_url+response.data.my_profile[0]["profile_photo"];
+            // const profileFor = document.getElementById("profileFor");
+            // profileFor.textContent = response.data.my_profile[0].first_name+" "+response.data.my_profile[0].last_name;
+            // const image1 = document.getElementById("profilePicture1");
+            // profileFor1.textContent = response.data.my_profile[0].first_name+" "+response.data.my_profile[0].last_name;
+            const percent=response.data.my_profile[0]["percent"];
+            updateProgressBar(percent)
+            const recentlyJoinedArray = response.data.recently_joined;
+            localStorage.setItem("recentlyJoined", JSON.stringify(recentlyJoinedArray));
+            const matchedArray = response.data.matched;
+            localStorage.setItem("matchedProfiles", JSON.stringify(matchedArray));
+           
+            populateCards('recently-login-container', recentlyJoinedArray);
+            populateCards('recently-joined-container', recentlyJoinedArray);
+            populateCards('profile-matched-container', matchedArray);
+
+            document.getElementById('recently_login_count').textContent = recentlyJoinedArray.length;
+            document.getElementById('matched_count').textContent = matchedArray.length;
+            document.getElementById('recently_count').textContent = recentlyJoinedArray.length;
+            }else{
+           //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);
+            }
+        });
+    });
+
+        // window.onload = generateCards;
+    </script>
+</body>
+</html>

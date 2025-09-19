@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" type="image/png" href="../img/icon-72x72.png">
+  <link rel="shortcut icon" type="image/png" href="../img/icon-96x96.png">
+  <link rel="shortcut icon" type="image/png" href="../img/icon-128x128.png">
+  <link rel="shortcut icon" type="image/png" href="../img/icon-144x144.png">
+  <link rel="shortcut icon" type="image/png" href="../img/icon-152x152.png">
+  <link rel="shortcut icon" type="image/png" href="../img/icon-167x167.png">
+  <link rel="shortcut icon" type="image/png" href="../img/icon-180x180.png">
+  <link rel="shortcut icon" type="image/png" href="../img/icon-192x192.png">
+  <title>Contact Form</title>
+  <link rel="stylesheet" href="support.css">
+  <!-- Include Axios library -->
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+
+   <div class="container">
+    <!-- Contact Form Card -->
+
+    <div class="card form-card">
+      <h2>Contact Us</h2>
+      <form id="contact-form" onsubmit="submitForm(event)">
+        <label for="name">Name *</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="phone">Phone Number *</label>
+        <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required placeholder="9876543210">
+
+        <label for="tb_id">Matrimony Id (Optional)</label>
+        <input type="text" id="tb_id" name="tb_id" placeholder="TB0001">
+
+        <label for="issues">Issues * (Required minimum 10 characters)</label>
+        <textarea id="issues" name="issues" required minlength="10"></textarea>
+
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <!-- Support/Contact Info Card -->
+    <div class="card contact-card">
+      <h2>Support / Contact</h2>
+      <h3>Taralabalu Kendra</h3>
+      <ul>
+        <li>Phone: 83101 26288</li>
+        
+        <li>Phone: 95356 06101</li>
+        <li>Address: 2nd Block, 3rd Main Rd, Near B D A Complex,<br> RT Nagar, Bengaluru, Karnataka 560032</li>
+
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    // JavaScript function to handle form submission
+    function submitForm(event) {
+      event.preventDefault(); // Prevent the default form submission
+
+      // Collect form data
+      const formData = {
+        name: document.getElementById('name').value,
+        phone: document.getElementById('phone').value,
+        matri_id: document.getElementById('tb_id').value,
+        issues: document.getElementById('issues').value,
+        type : "add_ticket"
+      };
+
+      // Optional: Validate data here (if needed)
+
+      // Send data to the API using Axios
+      axios.post('https://www.sharutech.com/matrimony/master_ticket.php', formData)
+        .then(response => {
+          // Handle successful response
+          console.log('Form submitted successfully', response.data);
+          if(response.data.message.p_out_mssg_flg == 'Y'){
+
+            Swal.fire({
+                    icon: 'success',
+                    title: 'Ticket Successfully Added',
+                    text: "We'll do our best to solve this for you right away! If not, we'll reach out shortly",
+                });
+            }
+        })
+        .catch(error => {
+          // Handle error
+          console.error('Error submitting form', error);
+          Swal.fire({
+                    icon: 'error',
+                    text: "There was an error submitting your request. Please try again",
+                });
+        });
+    }
+  </script>
+</body>
+</html>

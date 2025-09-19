@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Education Details</title>
+    <link rel="shortcut icon" type="image/png" href="../img/icon-72x72.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-96x96.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-128x128.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-144x144.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-152x152.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-167x167.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-180x180.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-192x192.png">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-image: url('https://png.pngtree.com/background/20230208/original/pngtree-beautiful-indian-wedding-background-picture-image_2026053.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            /* background: linear-gradient(135deg, #f06, #4a90e2); */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 110vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
+            width: 400px;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #444;
+            font-weight: bold;
+        }
+        input[type="text"], select {
+            padding: 10px;
+            width: 100%;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+            box-sizing: border-box;
+        }
+        input[type="text"]:focus, select:focus {
+            border-color: #4a90e2;
+            outline: none;
+        }
+        .button-group {
+            display: flex;
+            justify-content: space-between; /* Space out the buttons */
+            flex-wrap: wrap;
+        }
+        .profession-button {
+            color: black; /* Initial text color */
+            background-color: white; /* Initial background color */
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            padding: 8px 10px; /* Smaller padding for smaller buttons */
+            font-size: 14px; /* Smaller font size */
+            margin: 5px;
+            cursor: pointer;
+            flex: 1 0 30%; /* Adjust width to fit buttons side by side */
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .profession-button.selected {
+            background-color: rgb(0, 0, 0); /* Background color when selected */
+            color: white; /* Text color when selected */
+        }
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #f06;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #e94560;
+        }
+        a{
+            text-decoration: none;
+            color: white;
+        }
+
+        .loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            z-index: 9999; /* Ensure it appears above other content */
+            display: none; /* Hide by default */
+        }
+
+        /* Loader Text and Dots */
+        .loading-text {
+            font-size: 24px;
+            font-family: Arial, sans-serif;
+            color: white;
+            margin-right: 10px;
+        }
+
+        .dots {
+            display: inline-block;
+        }
+
+        .dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: white;
+            border-radius: 50%;
+            margin-left: 5px;
+            opacity: 0;
+            animation: bounce 1.4s infinite both;
+        }
+
+        .dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        /* Bounce Animation for Dots */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                opacity: 0;
+                transform: translateY(0);
+            }
+            40% {
+                opacity: 1;
+                transform: translateY(-10px);
+            }
+            60% {
+                opacity: 1;
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Button Styles */
+        #loadButton {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        #loadButton:hover {
+            background-color: #0056b3;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Education Details</h2>
+    <form id="educationForm" method="POST" novalidate>
+    <div class="form-group">
+        <label for="qualification">Qualification:</label>
+        <select id="qualification" name="qualification[]" multiple="multiple" required>
+            <!-- <option value="" disabled selected>Select Qualification</option> -->
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="specialization">Specialization:</label>
+        <select id="specialization" name="specialization" required>
+            <option value="" disabled selected>Select Specialization</option>
+            <!-- <option value="engineering">Engineering</option>
+            <option value="medicine">Medicine</option>
+            <option value="business">Business</option>
+            <option value="arts">Arts</option>
+            <option value="science">Science</option>
+            <option value="Teacher">Teacher</option>
+            <option value="others">Others</option> -->
+        </select>
+    </div>
+
+    <div class="form-group">
+        <label>Profession:</label>
+        <!-- <div class="button-group">
+            <button type="button" class="profession-button" onclick="selectProfession('government-psu', event)">Govt/PSU</button>
+            <button type="button" class="profession-button" onclick="selectProfession('private', event)">Private</button>
+            <button type="button" class="profession-button" onclick="selectProfession('business', event)">Business</button>
+            <button type="button" class="profession-button" onclick="selectProfession('defence', event)">Defence</button>
+            <button type="button" class="profession-button" onclick="selectProfession('self-employed', event)">Self-employed</button>
+            <button type="button" class="profession-button" onclick="selectProfession('not-working', event)">Not Working</button>
+        </div> -->
+        <select id="profession" name="profession" required>
+            <option value="" disabled selected>Select Profession</option>
+            <!-- <option value="engineering">Engineering</option>
+            <option value="medicine">Medicine</option>
+            <option value="business">Business</option>
+            <option value="arts">Arts</option>
+            <option value="science">Science</option>
+            <option value="Teacher">Teacher</option>
+            <option value="others">Others</option> -->
+        </select>
+        <input type="hidden" id="profession" name="profession" required>
+    </div>
+    
+    <div class="form-group">
+        <label for="company">Company Name:</label>
+        <input type="text" id="company" name="company" placeholder="Enter Your Company Name" required>
+    </div>
+    <div class="form-group">
+        <label for="city">Company City:</label>
+        <input type="text" id="city" name="city" placeholder="Enter Your Company's City" required>
+    </div>
+    <div class="form-group">
+        <label for="salary-range">Salary Range:</label>
+        <select id="salary-range" name="salary-range" required>
+            <option value="" disabled selected>Select Salary Range</option>
+            <option value="0-1 Lakh">0-1 Lakh</option>
+            <option value="1-2 Lakh">1-2 Lakh</option>
+            <option value="2-3 Lakh">2-3 Lakh</option>
+            <option value="3-5 Lakh">3-5 Lakh</option>
+            <option value="5-7 Lakh">5-7 Lakh</option>
+            <option value="7-9 Lakh">7-9 Lakh</option>
+            <option value="9-11 Lakh">9-11 Lakh</option>
+            <option value="11-13 Lakh">11-13 Lakh</option>
+            <option value="13-15 Lakh">13-15 Lakh</option>
+            <option value="15-20 Lakh">15-20 Lakh</option>
+            <option value="20-25 Lakh">20-25 Lakh</option>
+            <option value="25-30 Lakh">25-30 Lakh</option>
+            <option value="30-35 Lakh">30-35 Lakh</option>
+            <option value="35-40 Lakh">35-40 Lakh</option>
+            <option value="40-45 Lakh">40-45 Lakh</option>
+            <option value="45-50 Lakh">45-50 Lakh</option>
+            <option value="50 Lakh and Above">50 Lakh and Above</option>
+        </select>
+    </div>
+   
+    <div>
+        <button type="submit">Next</button>
+        <div id="loader" class="loader-container">
+            <div class="loading-text">Loading</div>
+            <div class="dots">
+                <div class="dot"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+        <div style="margin-top: 2px;text-align: center;">
+            <p style="color:#000000"><a href="Horoscope.html" style="color:#000000">Skip and Continue</a></p>
+        </div>
+    </div>
+        
+
+       
+  
+</form>
+
+</div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- <script src="path/to/jquery.validate.js"></script> -->
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+
+    $(document).ready(function() {
+        $('#qualification').select2({
+            placeholder: "Select Qualifications",
+            // allowClear: true
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        fetchEducation();
+        fetchOccupation(); 
+    });
+//    function selectProfession(value, event) {
+//     const buttons = document.querySelectorAll('.profession-button');
+//     buttons.forEach(button => {
+//         button.classList.remove('selected'); 
+//     });
+//     document.getElementById('profession').value = value; 
+//     event.target.classList.add('selected'); 
+// }
+async function fetchOccupation() {
+            const response = await axios.post('https://www.sharutech.com/matrimony/get_data.php', {
+                    type: "occupation"
+                });
+
+               //consolelog(response.data); // Log for debugging purposes
+
+
+
+                const profession = response.data.dataout;
+                   const professionSelect = document.getElementById('profession');
+
+        // Clear all options except the first one (the default "Qualification" option)
+        professionSelect.innerHTML = '<option value="0" disabled selected hidden>Select Profession</option>';
+
+        // Add each fetched education option to the dropdown
+        profession.forEach(status => {
+            const option = document.createElement('option');
+            option.value = status.id; // Set the option value to the education id
+            option.textContent = status.name; // Display the education name
+            professionSelect.appendChild(option); // Append the option to the select element
+        });
+        }  
+        async function fetchEducation() {
+            const response = await axios.post('https://www.sharutech.com/matrimony/get_data.php', {
+                    type: "education"
+                });
+
+               //consolelog(response.data); // Log for debugging purposes
+
+
+
+                const educations = response.data.dataout;
+                   const qualificationSelect = document.getElementById('qualification');
+
+                //    qualificationSelect.innerHTML ='';
+
+        // Clear all options except the first one (the default "Qualification" option)
+        // qualificationSelect.innerHTML = '<option value="0" disabled selected hidden>Qualification</option>';
+
+        // Add each fetched education option to the dropdown
+        educations.forEach(status => {
+            const option = document.createElement('option');
+            option.value = status.id; // Set the option value to the education id
+            option.textContent = status.name; // Display the education name
+            qualificationSelect.appendChild(option); // Append the option to the select element
+        });
+		
+		
+		  const specializationSelect = document.getElementById('specialization');
+
+        // Clear all options except the first one (the default "Qualification" option)
+        specializationSelect.innerHTML = '<option value="0" disabled selected hidden>Select Specialization</option>';
+
+        // Add each fetched education option to the dropdown
+        educations.forEach(status => {
+            const option = document.createElement('option');
+            option.value = status.id; // Set the option value to the education id
+            option.textContent = status.name; // Display the education name
+            specializationSelect.appendChild(option); // Append the option to the select element
+        });
+    }
+
+document.getElementById('educationForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form submission
+
+    const qualificationSelect = document.getElementById('qualification');
+    const selectedQualifications = Array.from(qualificationSelect.selectedOptions).map(option => parseInt(option.value, 10));
+
+    const qualification = document.getElementById('qualification').value;
+    const specialization = document.getElementById('specialization').value;
+    const profession = document.getElementById('profession').value;
+    const  company_name = document.getElementById('company').value;
+    const company_city = document.getElementById('city').value;
+    const salary_range = document.getElementById('salary-range').value;
+
+    let matri_id=localStorage.getItem('matriId');
+    let id=localStorage.getItem('mId');
+    let maritalStatus=localStorage.getItem('maritalStatus');
+    document.getElementById("loader").style.display = "flex";
+    const formData = {
+        procedure:"sign_in",
+        type:"education",
+        matri_id:matri_id,
+        id:id,
+        qualification:selectedQualifications,
+        profession: profession,
+        company_name: company_name,
+        specialization: specialization,
+        company_city: company_city,
+        salary_range :salary_range    
+    };
+
+   //consolelog(formData);
+
+    fetch('https://www.sharutech.com/matrimony/sign_in.php', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+        return response.json();
+    })
+    .then(data => {
+       //consolelog('Success:', data);
+        // alert('Education Details retrieved!');
+        // alert(data.message);
+        if(data.message.p_out_mssg_flg === 'Y'){
+                window.location.href = 'Horoscope.html';
+                localStorage.setItem('maritalStatus', maritalStatus);
+                localStorage.setItem('matriId', data.data[0].matri_id);
+                localStorage.setItem('mId', data.data[0].id);
+               //consolelog(response.data.data[0].id);
+                document.getElementById("loader").style.display = "none";
+            }else{
+                document.getElementById("loader").style.display = "none";
+                 //consolelog(data.message.p_out_mssg_flg,"and",data.message.p_out_mssg);
+            }
+
+        //  window.location.href = 'Horoscope.html';
+    })
+    .catch(error => {
+       console.error('There was a problem with the fetch operation:', error);
+        Swal.fire({
+            title: "Error!",
+            text: "Please try after some time.",
+            icon: "error",
+            confirmButtonText: "OK",
+        });
+    });
+});
+
+</script>
+
+</body>
+</html>

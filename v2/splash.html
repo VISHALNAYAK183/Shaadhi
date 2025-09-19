@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign Up Success</title>
+
+  <style>
+    /* Full-page background */
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end; /* Position items at the bottom */
+      align-items: center; /* Center horizontally */
+      background-image: url('https://www.sharutech.com/matrimony/logo/splach.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+    }
+
+    /* Button styling */
+    .login-button {
+      padding: 12px 24px;
+      font-size: 18px;
+      font-weight: bold;
+      color: white;
+      background-color: #163b12;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      cursor: pointer;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+      transition: background-color 0.3s ease;
+      margin-bottom: 20px; /* Add some spacing above the bottom */
+    }
+
+    /* Button hover effect */
+    .login-button:hover {
+      background-color: #e79333;
+    }
+  </style>
+</head>
+<script>
+    if (localStorage.getItem("visitedSuccessPage")) {
+        // If matriId is not set, redirect to login.html
+        if (localStorage.getItem("matriId") === null) {
+          window.location.href = "Login.html";
+        } else {
+          // Otherwise, redirect to Dashboard.html
+          window.location.href = "dashboard.html";
+        }
+      } else {
+        // If first time visiting, mark as visited for next time
+        localStorage.setItem("visitedSuccessPage", "true");
+      }
+  </script>
+<body>
+  <!-- Next Button Positioned at Bottom Center -->
+  <a href="login.html" class="login-button">Next</a>
+</body>
+
+</html>

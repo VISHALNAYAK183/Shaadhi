@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Taralabalu Matrimony Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-72x72.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-96x96.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-128x128.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-144x144.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-152x152.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-167x167.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-180x180.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-192x192.png">
+    <style>
+        .error {
+          color: red;
+          font-size: 14px;
+          margin-top: 5px;
+          display: block;
+        }
+
+      img {
+        width: 80%;
+        align-items: center;
+        justify-content: center;
+      }
+      body {
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+  background-image: url('../img/ikyamantapa.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* padding: 40px 20px;         Prevents it from touching edges on smaller screens */
+  box-sizing: border-box;
+  position: relative;
+  overflow-x: hidden;         /* Allow scroll if content overflows vertically */
+  overflow-y: auto;
+}
+
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: inherit;
+  filter: blur(3px);
+  z-index: -1;
+  background-size: cover;
+  background-position: center;
+}
+
+.login-container {
+  width: 100%;
+  /* max-width: 400px;*/
+  
+  /* border: 2px solid #b33e3e; 
+  border-radius: 8px; */
+  /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); */
+  /* padding: 30px 20px; */
+  text-align: center;
+  /* box-sizing: border-box; */
+}
+
+      
+      .input-group {
+        margin-bottom: 15px;
+        text-align: left;
+      }
+      .input-group label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      .input-group input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+      .btn {
+        background-color: #b33e3e;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+      }
+      .btn:hover {
+        background-color: #9c3535;
+      }
+      .login-section,
+      .otp-section {
+         background-color: rgba(255 255 255 / 70%);
+        border: 1px solid #b33e3e;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 4px;
+        width: 25%;
+      }
+      .otp-section {
+        padding-bottom: 98px;
+      }
+      .flexContainer {
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 50px;
+        padding-top: 5px;
+      }
+      .imageLogo {
+        width: 8%;
+      }
+      .extra-section {
+        margin-top: 2px;
+        text-align: center;
+        /*color: #e7e3e3;*/
+        color: #000;
+      }
+      .or-divider {
+        margin: 20px 0;
+        position: relative;
+      }
+      .or-divider span {
+        background-color: #fff;
+        padding: 0 10px;
+        position: relative;
+        z-index: 1;
+      }
+      .or-divider::before {
+        content: "";
+        width: 100%;
+        height: 1px;
+        background-color: #ccc;
+        position: absolute;
+        top: 50%;
+        left: 0;
+        z-index: 0;
+      }
+      .google-login-btn {
+        background-color: #b33e3e;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 25%;
+        margin: 0 auto;
+        display: block;
+      }
+      .google-login-btn:hover {
+        background-color: #357ae8;
+      }
+      .otp-section .btn {
+        margin-bottom: 5px;
+      }
+      #otp-input-container {
+        display: none;
+      }
+      #resend-otp {
+        color: #b33e3e;
+        margin-left: 5px;
+        cursor: pointer;
+        text-decoration: underline;
+      }
+      .flexEnd {
+        display: flex;
+        justify-content: flex-end;
+      }
+      .flexEnd a {
+        font-size: 14px;
+        text-decoration: none;
+        margin: 10px 0 0 0;
+      }
+
+      /* pop up */
+      .popup {
+        position: absolute;
+        top: 40px;
+        right: 50px;
+        background: rgb(255, 255, 255);
+        width: auto;
+        border: 2px solid forestgreen;
+        border-left: 4px solid forestgreen;
+        padding: 0px 20px;
+        border-top-left-radius: 10px;
+        border-bottom-left-radius: 10px;
+        animation: popup .1s linear;
+      }
+      @keyframes popup{
+        from{
+          transform: translateX(100px);
+          opacity: 0;
+        }to{
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+      .popup p {
+        color: #000;
+        text-transform: capitalize;
+      }
+
+      .loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+            z-index: 9999; /* Ensure it appears above other content */
+            display: none; /* Hide by default */
+        }
+
+        /* Loader Text and Dots */
+        .loading-text {
+            font-size: 24px;
+            font-family: Arial, sans-serif;
+            color: white;
+            margin-right: 10px;
+        }
+
+        .dots {
+            display: inline-block;
+        }
+
+        .dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background-color: white;
+            border-radius: 50%;
+            margin-left: 5px;
+            opacity: 0;
+            animation: bounce 1.4s infinite both;
+        }
+
+        .dot:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        /* Bounce Animation for Dots */
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                opacity: 0;
+                transform: translateY(0);
+            }
+            40% {
+                opacity: 1;
+                transform: translateY(-10px);
+            }
+            60% {
+                opacity: 1;
+                transform: translateY(-5px);
+            }
+        }
+
+        /* Button Styles */
+        #loadButton {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        #loadButton:hover {
+            background-color: #0056b3;
+        }
+
+        .captcha-box {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+        #captchaValue {
+            font-size: 20px;
+            font-weight: bold;
+            color: #333;
+            padding: 10px 20px;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+        }
+        .refresh-btn {
+            cursor: pointer;
+            background-color: transparent;
+            border: none;
+            font-size: 20px;
+            color: #b33e3e;
+            margin-left: 1px;
+        }
+        .refresh-btn:hover {
+            color: #0056b3;
+        }
+        .error {
+            color: red;
+            margin: 10px 0;
+        }
+        .checkbox-group input[type="checkbox"] {
+            margin-right: 10px;
+            width: auto;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .checkbox-group label {
+            display: inline-block;
+            vertical-align: middle;
+            line-height: 1.2;
+        }
+        .checkbox-group a {
+            color: #4a90e2;
+            text-decoration: none;
+        }
+        .checkbox-group a:hover {
+            text-decoration: underline;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <div id="popupmsg"></div>
+      <div style="text-align: center;">
+        <img
+          src="../img/swamijy.jpg"
+          alt="Taralabalu Matrimony"
+          style="width: 80px; height: 80px; border-radius: 50%; vertical-align: middle;"
+        />
+        <h2 style="display: inline-block;background-color: rgba(255, 255, 255, 0.8); vertical-align: middle; margin: 0 10px; color: #b33e3e; font-size: 24px;">
+          Taralabalu Matrimony
+        </h2>
+      </div>
+    
+    
+      <div class="flexContainer">
+        <div class="login-section">
+          <h2>Login with Password</h2>
+          <div class="input-group">
+            <label for="phone-email">Phone or Email or Matri Id</label>
+            <input type="text" id="phone-email" placeholder="Phone or Email or Matri Id" />
+            <div id="phoneErrorMessage" class="error"></div>
+          </div>
+          <div class="input-group">
+            <label for="password">Enter Password</label>
+            <input type="password" id="password" placeholder="Enter Password" />
+            <div id="passwordErrorMessage" class="error"></div>
+            <p><a href="forgot_password.html" style="color:#b33e3e;">Forgot Password?</a></p>
+          </div>
+          <div class="input-group">
+            <div class="captcha-box">
+                <div id="captchaValue"></div>
+                <button type="button" class="refresh-btn" onclick="generateCaptcha()">
+                    <i class="fa fa-refresh"></i>
+                </button>
+                <input type="text" id="captchaInput" placeholder="Enter CAPTCHA" required>
+            </div>
+            <div class="error" id="errorMessage"></div>
+        </div>
+          <button class="btn" onclick="loginWithPassword()">LOGIN</button>
+        </div>
+
+        <div class="otp-section" id="otpContainer">
+          <h2>Login with OTP</h2>
+          <div class="input-group">
+            <label for="otp-phone-email">Phone Number</label>
+            <input
+              type="text"
+              id="otp-phone-email"
+              placeholder="Phone Number"
+            />
+            <div id="phoneOTPErrorMessage" class="error"></div>
+          </div>
+          <button class="btn" id="generate-otp" onclick="generateOtp()">
+            Generate OTP
+          </button>
+
+          <div id="otp-input-container">
+            <div class="input-group">
+              <label for="otp">Enter OTP</label>
+              <input type="text" id="otp" placeholder="Enter OTP" />
+              <div class="flexEnd">
+                <a
+                  href="#"
+                  id="resend-otp"
+                  style="display: none; text-decoration: none"
+                  onclick="resendOtp()"
+                  >Resend OTP</a
+                >
+              </div>
+            </div>
+            <button class="btn" onclick="loginWithOtp()">Login with OTP</button>
+          
+            <p id="otp-timer"></p>
+          </div>
+        </div>
+      </div>
+      <div id="loader" class="loader-container">
+        <div class="loading-text">Loading</div>
+        <div class="dots">
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+    </div>
+    <div style="display: flex; justify-content: center; align-items: center; ">
+    <div class="login-section">
+      <div class="extra-section">
+          <div class="checkbox-group">
+          
+            <input type="checkbox" id="terms" checked>
+            <label for="terms" >I agree to the <a href="term.html">terms and privacy policy</a>.</label>
+          
+        </div>
+      </div>
+      <div class="extra-section">
+       
+        Don't have an account? <a href="Signup.html" style="color: red; text-shadow: 5px 4px 5px rgba(4, 0, 2, 0.3);">Register</a>
+     
+      </div>
+
+      <div class="extra-section">
+       
+        For any Query / Support <a href="support.html" style="color: red;">Click here</a>
+        
+      </div>
+    </div>
+  </div>
+  </div>
+    
+    <!-- <script src="screen-check.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert2 library -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <!-- <script src="https://accounts.google.com/gsi/client" async defer></script> -->
+     <script>"js/cache.js"</script>
+    <script>
+      const OTP_TIMEOUT_DURATION = 30;
+      let otpTimeout;
+      let correctOtp ='0000';
+
+      let currentCaptcha = "";
+
+      // Function to generate a 6-digit random CAPTCHA
+      function generateCaptcha() {
+      // const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+      const characters = '0123456789';
+      const fontStyles = ['Arial', 'Verdana', 'Tahoma', 'Georgia', 'Comic Sans MS', 'Courier New'];
+      const colors = ['#FF5733', '#33FF57', '#3357FF', '#FF33A6', '#FF8C33', '#7D33FF'];
+
+      let captcha = '';
+      for (let i = 0; i < 6; i++) {
+          captcha += characters.charAt(Math.floor(Math.random() * characters.length));
+      }
+
+      // Store the captcha globally for validation
+      currentCaptcha = captcha;
+
+      // Style and display the captcha
+      const captchaElement = document.getElementById("captchaValue");
+      captchaElement.textContent = captcha;
+
+      // Apply random font style, size, and color
+      captchaElement.style.fontFamily = fontStyles[Math.floor(Math.random() * fontStyles.length)];
+      captchaElement.style.color = colors[Math.floor(Math.random() * colors.length)];
+      captchaElement.style.fontSize = `${Math.floor(Math.random() * 10) + 20}px`; // Font size between 20px and 30px
+      captchaElement.style.transform = `rotate(${Math.floor(Math.random() * 15) - 7}deg)`; // Slight rotation for distortion
+  }
+
+      // Generate a CAPTCHA when the page loads
+      window.onload = generateCaptcha;
+
+      function isValidEmail(email) {
+        const emailRegex = /^[^\\s@]+@[^\s@]+\\.[^\\s@]+$/;
+        return emailRegex.test(email);
+      }
+
+      function isValidPhone(phone) {
+        const phoneRegex = /^(\+?\d{1,3})?(\d{10})$/;
+        return phoneRegex.test(phone);
+      }
+
+    function handleLoginSuccess() {
+    var checkbox = document.getElementById('terms');
+    if (!checkbox.checked) {
+        Swal.fire({
+            icon: 'info',
+            title: 'Terms and Privacy Policy',
+            text: 'Agree to the policy before login',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, I Agree',
+            cancelButtonText: 'No'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('terms').checked = true;
+                document.getElementById("loader").style.display = "flex";
+                handleLoginSuccess();
+            }
+        });
+    } else {
+        const payload = {
+            matri_id: localStorage.getItem('matriId'),
+            category: "login_details",
+            device: "WEB"
+        };
+
+        axios.post('https://www.sharutech.com/matrimony/login.php', payload)
+            .then(response => {
+                if (response.data.dataout[0].p_out_mssg_flg === 'Y') {
+                    console.log("Login details saved");
+                }
+            });
+
+        const popup = document.getElementById("popupmsg");
+        popup.innerHTML = `<div class="popup"><p>Login successful</p></div>`;
+        popup.style.display = "block";
+        setTimeout(() => {
+            popup.style.display = "none";
+            window.location.href = "dashboard.html";
+        }, 2000);
+    }
+}
+     function loginWithPassword() {
+    const emailOrPhone = document.getElementById("phone-email").value;
+    const password = document.getElementById("password").value;
+    const passwordErrorMessage = document.getElementById('passwordErrorMessage');
+    const phoneErrorMessage = document.getElementById('phoneErrorMessage');
+    document.getElementById("loader").style.display = "flex";
+
+    passwordErrorMessage.textContent = '';
+    phoneErrorMessage.textContent = '';
+
+    const userCaptchaInput = document.getElementById("captchaInput").value;
+
+    if (!password) {
+        passwordErrorMessage.textContent = 'Please enter a valid password.';
+        document.getElementById("loader").style.display = "none";
+        return;
+    }
+
+    if (!(emailOrPhone)) {
+        phoneErrorMessage.textContent = 'Please enter a 10 digits valid Phone Number/Email/Matri Id';
+        document.getElementById("loader").style.display = "none";
+        return;
+    }
+
+    const data = { user: emailOrPhone, password: password };
+
+    if (userCaptchaInput !== currentCaptcha) {
+        document.getElementById("errorMessage").textContent = "Invalid CAPTCHA. Please try again.";
+        document.getElementById("loader").style.display = "none";
+        generateCaptcha();
+    } else {
+        document.getElementById("errorMessage").textContent = "";
+
+        fetch("https://www.sharutech.com/matrimony/login.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.dataout[0].p_out_mssg_flg === "Y") {
+                // ✅ Decode JWT
+                let token = data.dataout[0].token;
+                localStorage.setItem("jwtToken", token);
+
+                let decoded = jwt_decode(token);
+                console.log("Decoded JWT:", decoded);
+
+                // Save values from JWT payload
+                localStorage.setItem('matriId', decoded.data.matri_id);
+                localStorage.setItem('mId', decoded.data.id);
+                localStorage.setItem('phone', decoded.data.phone);
+
+                document.getElementById("loader").style.display = "none";
+
+                handleLoginSuccess();
+            } else {
+                document.getElementById("loader").style.display = "none";
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Login Failed',
+                    text: data.dataout[0].p_out_mssg,
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload();
+                    }
+                });
+            }
+        })
+        .catch((error) => {
+            document.getElementById("loader").style.display = "none";
+            console.error("Error:", error);
+            Swal.fire({
+                icon: 'error',
+                title: 'Server Error',
+                text: 'Please try again later.'
+            });
+        });
+    }
+}
+
+
+      function generateOtp() {
+        const emailOrPhone = document.getElementById("otp-phone-email").value;
+        const pad = document.getElementById("otpContainer");
+        const phoneOTPErrorMessage = document.getElementById('phoneOTPErrorMessage');
+        if (!isValidPhone(emailOrPhone) && !isValidEmail(emailOrPhone)) {
+          phoneOTPErrorMessage.textContent = 'Please enter a valid Phone Number.';
+          return;
+        }
+
+        const phoneRegex = /^\d{10}$/;
+        if (!phoneRegex.test(emailOrPhone)) {
+          phoneOTPErrorMessage.textContent = 'Please enter a 10 digits valid Phone Number';
+          document.getElementById("loader").style.display = "none";
+          return;
+        }
+        const data = {
+            "user": emailOrPhone,
+        };
+
+        // Call OTP API
+        axios.post('https://www.sharutech.com/matrimony/login.php', data, {
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(response => {
+           console.log('phone number sent:', response);
+    
+        // Check if the number already exists
+        if (response.data.message.p_out_mssg_flg === 'Y') {
+       
+          
+                sendSMS();
+        } else{
+          Swal.fire({
+                    icon: 'error',
+                    title: 'Credential Not Found',
+                    text: 'Please try again.',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    // Reload the page when the alert is closed
+                    if (result.isConfirmed) {
+                        location.reload(); // Reload the page
+                    }
+                }); 
+        
+        }
+          });
+      }
+
+      function handleCredentialResponse(response) {
+      const user = jwt_decode(response.credential); // Decode JWT response
+     console.log("Logged in user:", user);
+     console.log("Logged in user:", user.name);
+     console.log("Logged in user:", user.email);
+     console.log("Logged in user:", user.picture);
+     console.log("Logged in user:", user.sub);
+      google_sign_in(user.email, user.sub);
+  }
+      
+
+  function google_sign_in(user , sub){
+
+     if ((user != null && sub != null) && (user !== "" && sub !== "")) {
+        const payload = {
+            user: user,
+            password: sub
+        };
+
+        document.getElementById("loader").style.display = "flex";
+
+        axios.post('https://www.sharutech.com/matrimony/login.php', payload)
+            .then(response => {
+                let data = response.data;
+
+                if (data.dataout[0].p_out_mssg_flg === 'Y') {
+                    console.log('Login Successful');
+
+                    // ✅ Decode JWT
+                    let token = data.dataout[0].token;
+                    localStorage.setItem("jwtToken", token);
+
+                    let decoded = jwt_decode(token);
+                    console.log("Decoded JWT:", decoded);
+
+                    // Save values from JWT payload
+                    localStorage.setItem('matriId', decoded.data.matri_id);
+                    localStorage.setItem('mId', decoded.data.id);
+                    localStorage.setItem('phone', decoded.data.phone);
+
+                    document.getElementById("loader").style.display = "none";
+
+                    handleLoginSuccess();
+                } else {
+                    document.getElementById("loader").style.display = "none";
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Login Failed',
+                        text: data.dataout[0].p_out_mssg,
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    });
+                }
+            })
+            .catch(error => {
+                document.getElementById("loader").style.display = "none";
+                console.error("Error:", error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Server Error',
+                    text: 'Please try again later.'
+                });
+            });
+    }
+
+    
+  }
+
+
+    function sendSMS(){
+      const emailOrPhone = document.getElementById("otp-phone-email").value;
+        const pad = document.getElementById("otpContainer");
+        const data = { number: emailOrPhone,type: "otp"};
+        fetch("https://www.sharutech.com/matrimony/send_sms.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((data) => { 
+           console.log(data);
+            if(data.message.p_out_mssg_flg === 'Y'){
+            if (data.data.Otp != "") {
+              // sendOtpSms(emailOrPhone);
+              
+              correctOtp = data.data.Otp;
+              const popup = document.getElementById("popupmsg");
+              popup.innerHTML = ` <div class="popup">
+                        <p>successfully send OTP via SMS</p>
+                                </div>`;
+
+              setInterval(() => {
+                popup.style.display = "none";
+              }, 3000);
+              document.getElementById("otp-input-container").style.display =
+                "block";
+              startOtpTimer();
+              document.getElementById("generate-otp").style.display = "none";
+            } else{
+              Swal.fire({
+                    icon: 'error',
+                    title: 'OTP Not Matched',
+                    text: 'Please try again.',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    // Reload the page when the alert is closed
+                    if (result.isConfirmed) {
+                        location.reload(); // Reload the page
+                    }
+                });
+            };
+          }else{
+            Swal.fire({
+              icon: 'error',
+              title: 'Unable to send OTP at the current moment ',
+              text: 'please try again after sometime.',
+              confirmButtonText: 'OK'
+          })
+          }
+          });
+        
+    }
+
+      function startOtpTimer() {
+        let timeLeft = OTP_TIMEOUT_DURATION;
+        document.getElementById(
+          "otp-timer"
+        ).innerText = `You can request a new OTP in ${timeLeft} seconds.`;
+        otpTimeout = setInterval(() => {
+          timeLeft--;
+          document.getElementById(
+            "otp-timer"
+          ).innerText = `You can request a new OTP in ${timeLeft} seconds.`;
+          if (timeLeft <= 0) {
+            clearInterval(otpTimeout);
+            document.getElementById("otp-timer").innerText = "";
+            document.getElementById("resend-otp").style.display = "inline";
+          }
+        }, 1000);
+      }
+
+      function resendOtp() {
+        clearInterval(otpTimeout);
+        document.getElementById("resend-otp").style.display = "none";
+        generateOtp();
+      }
+
+      function loginWithOtp() {
+        const emailOrPhone = document.getElementById("otp-phone-email").value;
+        const otp = document.getElementById("otp").value;
+        document.getElementById("loader").style.display = "flex";
+        if (otp.length == 4) {
+          if (CryptoJS.MD5(otp).toString() == correctOtp) {
+            
+            const data = { user: emailOrPhone ,otp: otp };
+            fetch("https://www.sharutech.com/matrimony/login.php", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(data),
+            })
+              .then((response) => response.json())
+              .then((data) => {
+               console.log(data);
+                if (data.message.p_out_mssg_flg == 'Y'){
+                  localStorage.setItem('matriId', data.dataout[0].matri_id);
+                        localStorage.setItem('mId', data.dataout[0].id);
+                        localStorage.setItem('phone', data.dataout[0].phone);
+                        document.getElementById("loader").style.display = "none";
+                        clearInterval(otpTimeout);
+                  handleLoginSuccess();
+                }else{
+                  Swal.fire({
+                    icon: 'error',
+                    title: 'OTP verification failed',
+                    text: 'Please try again.',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    // Reload the page when the alert is closed
+                    if (result.isConfirmed) {
+                        location.reload(); // Reload the page
+                    }
+                });
+                  document.getElementById("loader").style.display = "none";
+                };
+              })
+              .catch(() => //alert("An error occurred. Please try again.")
+              Swal.fire({
+                icon: 'error',
+                title: 'An error occurred. Please try again.',
+                text: 'Please try again.',
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                // Reload the page when the alert is closed
+                if (result.isConfirmed) {
+                    location.reload(); // Reload the page
+                }
+            }));
+          }else{
+          document.getElementById("loader").style.display = "none";
+          Swal.fire({
+                    icon: 'error',
+                    title: 'Incorrect OTP',
+                    text: 'Enter valid otp.',
+                    confirmButtonText: 'OK'
+                })
+        }
+        }else{
+          document.getElementById("loader").style.display = "none";
+          Swal.fire({
+                    icon: 'error',
+                    title: 'Enter 4 digit otp',
+                    text: 'Please try again.',
+                    confirmButtonText: 'OK'
+                }).then((result) => {
+                    // Reload the page when the alert is closed
+                    if (result.isConfirmed) {
+                        location.reload(); // Reload the page
+                    }
+                });
+        }
+        
+      }
+
+      function googleLogin() {
+        //alert("Google Login not yet implemented");
+        Swal.fire({
+          icon: 'error',
+          title: 'Google Login not yet implemented',
+          text: 'Please try again.',
+          confirmButtonText: 'OK'
+      }).then((result) => {
+          // Reload the page when the alert is closed
+          if (result.isConfirmed) {
+              location.reload(); // Reload the page
+          }
+      });
+      }
+    </script>
+  </body>
+</html>
