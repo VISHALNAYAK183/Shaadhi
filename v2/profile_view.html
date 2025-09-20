@@ -226,7 +226,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
     <script src="chat_functions.js" defer></script>
-
+<script src="baseurl.js"></script>
     <script>
         function loadHTMLContent(elementId, url, callback) {
             fetch(url)
@@ -985,7 +985,8 @@
                     const response = await axios.post(
                         "https://www.sharutech.com/matrimony/z_my_profile2.php",
                         data,
-                        { headers: { "Content-Type": "application/json",       "Authorization": "Bearer " + localStorage.getItem("jwtToken") } }
+                        { headers: { "Content-Type": "application/json",    
+                           "Authorization": "Bearer " + localStorage.getItem("jwtToken") } }
                     );
         
                     if (response.data.message.p_out_mssg_flg === "Y") {
