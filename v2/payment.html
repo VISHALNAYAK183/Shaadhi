@@ -260,7 +260,7 @@
       };
 
       // Axios POST request to get subscription plans
-      axios.post('https://www.sharutech.com/matrimony/get_data.php', data1, {
+      axios.post('${BASE_URL}/get_data.php', data1, {
           headers: {
               'Content-Type': 'application/json',
           }
@@ -272,7 +272,7 @@
           if(response.data.message.p_out_mssg_flg === 'Y'){
               const subscription_plan = response.data.dataout;
               const container = document.getElementById('payment-buttons-container');
-              const base_url = "https://www.sharutech.com/matrimony//"
+              const base_url = "${BASE_URL}//"
               // Clear the container before adding new buttons
               container.innerHTML = '';
 
@@ -350,7 +350,7 @@
           };
 
       // Axios POST request to get subscription plans
-      axios.post('https://www.sharutech.com/matrimony/token_cashfree.php', data, {
+      axios.post('${BASE_URL}/token_cashfree.php', data, {
           headers: {
               'Content-Type': 'application/json',
                     "Authorization": "Bearer " + localStorage.getItem("jwtToken")
@@ -374,7 +374,7 @@
                       "currency": "INR",
                       "name": "Taralabalu Matrimony",
                       "description": "Payment for Taralabalu Matrimony", // Fixed description as example
-                      "image": "https://www.sharutech.com/matrimony/logo/logo.png",
+                      "image": "${BASE_URL}/logo/logo.png",
                       "order_id": rz_order_id, // Use the dynamic or static order ID
                       "handler": function(response) {
                           // Successful payment handler
@@ -438,7 +438,7 @@
     //     };
     //    //consolelog(data);
 
-    //     axios.post('https://www.sharutech.com/matrimony/dashboard.php', data, {
+    //     axios.post('${BASE_URL}/dashboard.php', data, {
     //         headers: {
     //             'Content-Type': 'application/json',
     //         }

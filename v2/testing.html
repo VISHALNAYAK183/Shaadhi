@@ -194,7 +194,7 @@
         };
 
         // Call OTP API
-        axios.post('https://www.sharutech.com/matrimony/login.php', data, {
+        axios.post('${BASE_URL}/login.php', data, {
             headers: {
                 'Content-Type': 'application/json',
             }
@@ -216,7 +216,7 @@
                 "number": phoneInput
             };
 
-            axios.post('https://www.sharutech.com/matrimony/send_sms.php', data1, {
+            axios.post('${BASE_URL}/send_sms.php', data1, {
                 headers: {
                     'Content-Type': 'application/json',
                 }
@@ -290,7 +290,7 @@
             "number": phoneInput
         };
 
-              axios.post('https://www.sharutech.com/matrimony/send_sms.php', data1, {
+              axios.post('${BASE_URL}/send_sms.php', data1, {
                   headers: {
                       'Content-Type': 'application/json',
                   }

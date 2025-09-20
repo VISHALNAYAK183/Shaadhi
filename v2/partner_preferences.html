@@ -747,7 +747,7 @@ function updateAgeLabels() {
             // $('#subCasteDropdown').append('<option value="" disabled selected>Select Sub Caste</option>');
 
             // Fetch sub-caste data
-            axios.post('https://www.sharutech.com/matrimony/get_info.php', {
+            axios.post('${BASE_URL}/get_info.php', {
                 type: "sub_caste",
                 caste_id: "1"
             }, {
@@ -782,7 +782,7 @@ function updateAgeLabels() {
             // $('#educationDropdown').append('<option value="" disabled selected>Select Education</option>');
 
             // Fetch sub-caste data
-            axios.post('https://www.sharutech.com/matrimony/get_data.php', {
+            axios.post('${BASE_URL}/get_data.php', {
                type: "education"
             }, {
                 headers: {
@@ -819,7 +819,7 @@ function updateAgeLabels() {
                 // $('#country').append('<option value="" disabled selected>Select Country</option>');
 
                 // Fetch sub-caste data
-                axios.post('https://www.sharutech.com/matrimony/country_state_city.php', {
+                axios.post('${BASE_URL}/country_state_city.php', {
                 type: "country"
                 }, {
                     headers: {
@@ -860,7 +860,7 @@ function updateAgeLabels() {
                 id:"28"
             }
 
-            axios.post('https://www.sharutech.com/matrimony/country_state_city.php',data, {
+            axios.post('${BASE_URL}/country_state_city.php',data, {
                     headers: {
                         'Content-Type': 'application/json',
                     }
@@ -897,7 +897,7 @@ function updateAgeLabels() {
                 id:"30"
             }
 
-            axios.post('https://www.sharutech.com/matrimony/country_state_city.php',data, {
+            axios.post('${BASE_URL}/country_state_city.php',data, {
                     headers: {
                         'Content-Type': 'application/json',
                     }
@@ -997,7 +997,7 @@ function submitForm() {
 
    //consolelog(data);
         
-        axios.post('https://www.sharutech.com/matrimony/search_preference.php', data, {
+        axios.post('${BASE_URL}/search_preference.php', data, {
             headers: {
                 'Content-Type': 'application/json',
             }

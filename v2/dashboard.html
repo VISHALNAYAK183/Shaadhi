@@ -912,7 +912,7 @@ document.addEventListener('DOMContentLoaded', function () {
        //consolelog(data);
         showWaitingDialog();
         
-        axios.post('https://www.sharutech.com/matrimony/z_dashboard2.php', data, {
+        axios.post('${BASE_URL}/z_dashboard2.php', data, {
             headers: {
                 'Content-Type': 'application/json',
                 "Authorization": "Bearer " + localStorage.getItem("jwtToken")

@@ -73,7 +73,7 @@
       // Optional: Validate data here (if needed)
 
       // Send data to the API using Axios
-      axios.post('https://www.sharutech.com/matrimony/master_ticket.php', formData)
+      axios.post('${BASE_URL}/master_ticket.php', formData)
         .then(response => {
           // Handle successful response
           console.log('Form submitted successfully', response.data);

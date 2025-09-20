@@ -410,7 +410,7 @@
           }
          //consolelog(data3);
 
-          axios.post('https://www.sharutech.com/matrimony/z_shortlisted2.php', data3, {
+          axios.post('${BASE_URL}/z_shortlisted2.php', data3, {
               headers: {
                   'Content-Type': 'application/json',
                         "Authorization": "Bearer " + localStorage.getItem("jwtToken")
@@ -440,7 +440,7 @@
         };
        //consolelog(data1);
 
-        axios.post('https://www.sharutech.com/matrimony/z_shortlisted2.php', data1, {
+        axios.post('${BASE_URL}/z_shortlisted2.php', data1, {
             headers: {
                 'Content-Type': 'application/json',
                       "Authorization": "Bearer " + localStorage.getItem("jwtToken")
@@ -477,7 +477,7 @@ document.addEventListener('DOMContentLoaded', function () {
     //     };
     //    //consolelog(data);
     //     showWaitingDialog();
-        // axios.post('https://www.sharutech.com/matrimony/dashboard.php', data, {
+        // axios.post('${BASE_URL}/dashboard.php', data, {
         //     headers: {
         //         'Content-Type': 'application/json',
         //     }
@@ -590,7 +590,7 @@ function unshortlistProfile(event, matriId) {
     };
 
     // Make the API call
-    axios.post('https://www.sharutech.com/matrimony/z_shortlisted2.php', data, {
+    axios.post('${BASE_URL}/z_shortlisted2.php', data, {
         headers: {
             'Content-Type': 'application/json',
                   "Authorization": "Bearer " + localStorage.getItem("jwtToken")

@@ -31,7 +31,7 @@
 
    async function get_list_js(){
     try {
-      const response = await fetch('https://www.sharutech.com/matrimony/message.php', {
+      const response = await fetch('${BASE_URL}/message.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

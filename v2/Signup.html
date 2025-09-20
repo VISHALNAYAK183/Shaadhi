@@ -412,7 +412,7 @@
     // Check if the phone number is already registered (API call to login.php)
     function checkPhoneNumber(phoneNumber) {
         const data = { user: phoneNumber, category: 'register' };
-        return axios.post('https://www.sharutech.com/matrimony/login.php', data, {
+        return axios.post('${BASE_URL}/login.php', data, {
             headers: { 'Content-Type': 'application/json' },
         });
     }
@@ -436,7 +436,7 @@
     function sendOtpSms(phoneNumber) {
         const data = { type: 'otp', number: phoneNumber };
 
-        axios.post('https://www.sharutech.com/matrimony/send_sms.php', data, {
+        axios.post('${BASE_URL}/send_sms.php', data, {
             headers: { 'Content-Type': 'application/json' },
         })
         .then(response => {

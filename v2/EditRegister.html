@@ -125,7 +125,7 @@
                 "caste_id": "1"  // Adjust caste_id as needed
             };
             
-            axios.post("https://www.sharutech.com/matrimony/get_info.php", data, {
+            axios.post("${BASE_URL}/get_info.php", data, {
                 headers: { 'Content-Type': 'application/json' }
             })
             .then(function (response) {
@@ -602,7 +602,7 @@
         phoneError.style.display = 'none';
 
         if (phone) {
-            axios.post('https://www.sharutech.com/matrimony/login.php', {
+            axios.post('${BASE_URL}/login.php', {
                 user: phone,
                 category: "phone"
             })
@@ -626,7 +626,7 @@
         emailError.style.display = 'none';
 
         if (email) {
-            axios.post('https://www.sharutech.com/matrimony/login.php', {
+            axios.post('${BASE_URL}/login.php', {
                 user: email,
                 category: "email"
             })
@@ -671,8 +671,8 @@
 
         // Call the existence check functions
         Promise.all([
-            axios.post('https://www.sharutech.com/matrimony/login.php', { user: phoneNumber, category: "phone" }),
-            axios.post('https://www.sharutech.com/matrimony/login.php', { user: email, category: "email" }),
+            axios.post('${BASE_URL}/login.php', { user: phoneNumber, category: "phone" }),
+            axios.post('${BASE_URL}/login.php', { user: email, category: "email" }),
            
         ])
         .then(function (responses) {
@@ -690,7 +690,7 @@
               "matri_id":matri_id,
                "sub_caste": selectedSubCaste
        };
-                return axios.post('https://www.sharutech.com/matrimony/update_profile.php', update, {
+                return axios.post('${BASE_URL}/update_profile.php', update, {
                 headers: {
                     'Content-Type': 'application/json',
                 }

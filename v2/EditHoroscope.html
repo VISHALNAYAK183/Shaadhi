@@ -478,7 +478,7 @@
 
         //consolelog(data); // For debugging
 
-        // fetch('https://www.sharutech.com/matrimony/sign_in.php', {
+        // fetch('${BASE_URL}/sign_in.php', {
         //     method: 'POST',
         //     headers: {
         //         'Content-Type': 'application/json'
@@ -523,7 +523,7 @@
     "gothra": gothra,
     "family_diety": familyDeity,
 };
-return axios.post('https://www.sharutech.com/matrimony/update_profile.php', update, {
+return axios.post('${BASE_URL}/update_profile.php', update, {
   headers: {
       'Content-Type': 'application/json',
           "Authorization": "Bearer " + localStorage.getItem("jwtToken")

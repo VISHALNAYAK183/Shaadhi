@@ -272,7 +272,7 @@
           return;
         }
         const data = { user: emailOrPhone, password: password };
-        fetch("https://www.sharutech.com/matrimony/login.php", {
+        fetch("${BASE_URL}/login.php", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
@@ -299,7 +299,7 @@
           return;
         }
         const data = { user: emailOrPhone };
-        fetch("https://www.sharutech.com/matrimony/login.php", {
+        fetch("${BASE_URL}/login.php", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
@@ -316,7 +316,7 @@
 
       function sendOtpSms(emailOrPhone) {
         const smsData = { type: "otp", number: emailOrPhone };
-        fetch("https://www.sharutech.com/matrimony/send_sms.php", {
+        fetch("${BASE_URL}/send_sms.php", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(smsData),
@@ -371,7 +371,7 @@
         const emailOrPhone = document.getElementById("otp-phone-email").value;
         const otp = document.getElementById("otp").value;
         const data = { user: emailOrPhone ,otp: otp };
-        fetch("https://www.sharutech.com/matrimony/login.php", {
+        fetch("${BASE_URL}/login.php", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),

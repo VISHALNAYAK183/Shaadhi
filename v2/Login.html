@@ -531,7 +531,7 @@ body::before {
             device: "WEB"
         };
 
-        axios.post('https://www.sharutech.com/matrimony/login.php', payload)
+        axios.post('${BASE_URL}/login.php', payload)
             .then(response => {
                 if (response.data.dataout[0].p_out_mssg_flg === 'Y') {
                     console.log("Login details saved");
@@ -580,7 +580,7 @@ body::before {
     } else {
         document.getElementById("errorMessage").textContent = "";
 
-        fetch("https://www.sharutech.com/matrimony/login.php", {
+        fetch("${BASE_URL}/login.php", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
@@ -650,7 +650,7 @@ body::before {
         };
 
         // Call OTP API
-        axios.post('https://www.sharutech.com/matrimony/login.php', data, {
+        axios.post('${BASE_URL}/login.php', data, {
             headers: {
                 'Content-Type': 'application/json',
             }
@@ -701,7 +701,7 @@ body::before {
 
         document.getElementById("loader").style.display = "flex";
 
-        axios.post('https://www.sharutech.com/matrimony/login.php', payload)
+        axios.post('${BASE_URL}/login.php', payload)
             .then(response => {
                 let data = response.data;
 
@@ -756,7 +756,7 @@ body::before {
       const emailOrPhone = document.getElementById("otp-phone-email").value;
         const pad = document.getElementById("otpContainer");
         const data = { number: emailOrPhone,type: "otp"};
-        fetch("https://www.sharutech.com/matrimony/send_sms.php", {
+        fetch("${BASE_URL}/send_sms.php", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
@@ -838,7 +838,7 @@ body::before {
           if (CryptoJS.MD5(otp).toString() == correctOtp) {
             
             const data = { user: emailOrPhone ,otp: otp };
-            fetch("https://www.sharutech.com/matrimony/login.php", {
+            fetch("${BASE_URL}/login.php", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify(data),

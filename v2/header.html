@@ -108,7 +108,7 @@
                 }else if(profile["gender_type"]==='Female' && (profile.url===null || profile.url==='')){
                     imgURL='../img/1.png';
                 }else{  
-                    imgURL="https://www.sharutech.com/matrimony//"+profile.url;
+                    imgURL="${BASE_URL}//"+profile.url;
                 }
               
                 // Create the card element
@@ -169,7 +169,7 @@ document.addEventListener('DOMContentLoaded', function () {
         };
        //consolelog(data);
 
-        axios.post('https://www.sharutech.com/matrimony/dashboard.php', data, {
+        axios.post('${BASE_URL}/dashboard.php', data, {
             headers: {
                 'Content-Type': 'application/json',
             }

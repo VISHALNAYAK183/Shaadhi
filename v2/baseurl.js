@@ -1,1 +1,1 @@
-const BASE_URL = "https://www.sharutech.com/matrimony";
+const BASE_URL = "${BASE_URL}";

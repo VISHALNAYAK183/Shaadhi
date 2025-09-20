@@ -442,7 +442,7 @@
           type: "iviewed"
         };
 
-        await axios.post('https://www.sharutech.com/matrimony/z_profile_viewed2.php', data, {
+        await axios.post('${BASE_URL}/z_profile_viewed2.php', data, {
             headers: {
                 'Content-Type': 'application/json',
             }
@@ -476,7 +476,7 @@
         };
        //consolelog(data1);
 
-        await axios.post('https://www.sharutech.com/matrimony/z_profile_viewed2.php', data1, {
+        await axios.post('${BASE_URL}/z_profile_viewed2.php', data1, {
             headers: {
                 'Content-Type': 'application/json',
             }
