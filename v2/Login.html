@@ -3,396 +3,643 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Taralabalu Matrimony Login</title>
+    <title>BUNTS MATRIMONY - Login</title>
+    <meta name="description" content="BUNTS MATRIMONY - ಹೃದಯಗಳಿಗೆ ಸೇತುವೆ - Premium matrimonial services for the Bunt community" />
+    <meta name="keywords" content="bunts matrimony, marriage, wedding, bunt community, matrimonial" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="shortcut icon" type="image/png" href="../img/icon-72x72.png">
-    <link rel="shortcut icon" type="image/png" href="../img/icon-96x96.png">
-    <link rel="shortcut icon" type="image/png" href="../img/icon-128x128.png">
-    <link rel="shortcut icon" type="image/png" href="../img/icon-144x144.png">
-    <link rel="shortcut icon" type="image/png" href="../img/icon-152x152.png">
-    <link rel="shortcut icon" type="image/png" href="../img/icon-167x167.png">
-    <link rel="shortcut icon" type="image/png" href="../img/icon-180x180.png">
-    <link rel="shortcut icon" type="image/png" href="../img/icon-192x192.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        .error {
-          color: red;
-          font-size: 14px;
-          margin-top: 5px;
-          display: block;
-        }
-
-      img {
-        width: 80%;
-        align-items: center;
-        justify-content: center;
+      :root {
+        --primary-color: #990000;
+        --primary-light: #A0522D;
+        --primary-dark: #654321;
+        --secondary-color: #D4AF37;
+        --accent-gold: #FFD700;
+        --background-overlay: rgba(139, 69, 19, 0.1);
+        --card-background: rgba(255, 255, 255, 0.95);
+        --card-shadow: 0 8px 32px rgba(139, 69, 19, 0.2);
+        --text-primary: #2C1810;
+        --text-secondary: #6B4423;
+        --text-muted: #8B7355;
+        --border-color: rgba(139, 69, 19, 0.2);
+        --error-color: #DC3545;
+        --success-color: #28A745;
+        --gradient-primary: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+        --gradient-gold: linear-gradient(135deg, var(--secondary-color), var(--accent-gold));
       }
-      body {
-  font-family: Arial, sans-serif;
-  background-color: #f2f2f2;
-  background-image: url('../img/ikyamantapa.png');
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  margin: 0;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* padding: 40px 20px;         Prevents it from touching edges on smaller screens */
-  box-sizing: border-box;
-  position: relative;
-  overflow-x: hidden;         /* Allow scroll if content overflows vertically */
-  overflow-y: auto;
-}
 
-body::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: inherit;
-  filter: blur(3px);
-  z-index: -1;
-  background-size: cover;
-  background-position: center;
-}
-
-.login-container {
-  width: 100%;
-  /* max-width: 400px;*/
-  
-  /* border: 2px solid #b33e3e; 
-  border-radius: 8px; */
-  /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); */
-  /* padding: 30px 20px; */
-  text-align: center;
-  /* box-sizing: border-box; */
-}
-
-      
-      .input-group {
-        margin-bottom: 15px;
-        text-align: left;
-      }
-      .input-group label {
-        display: block;
-        margin-bottom: 5px;
-        font-weight: bold;
-      }
-      .input-group input {
-        width: 100%;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
+      * {
         box-sizing: border-box;
+        margin: 0;
+        padding: 0;
       }
-      .btn {
-        background-color: #b33e3e;
-        color: #fff;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        width: 100%;
-      }
-      .btn:hover {
-        background-color: #9c3535;
-      }
-      .login-section,
-      .otp-section {
-         background-color: rgba(255 255 255 / 70%);
-        border: 1px solid #b33e3e;
-        padding: 15px;
-        margin-bottom: 15px;
-        border-radius: 4px;
-        width: 25%;
-      }
-      .otp-section {
-        padding-bottom: 98px;
-      }
-      .flexContainer {
+
+      body {
+        font-family: 'Inter', sans-serif;
+        background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(139, 69, 19, 0.3)), 
+                    url('../img/matrimony-background.JPEG');
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-attachment: fixed;
+        min-height: 100vh;
         display: flex;
         justify-content: center;
-        align-items: flex-start;
-        gap: 50px;
-        padding-top: 5px;
-      }
-      .imageLogo {
-        width: 8%;
-      }
-      .extra-section {
-        margin-top: 2px;
-        text-align: center;
-        /*color: #e7e3e3;*/
-        color: #000;
-      }
-      .or-divider {
-        margin: 20px 0;
+        align-items: center;
         position: relative;
+        color: var(--text-primary);
       }
-      .or-divider span {
-        background-color: #fff;
-        padding: 0 10px;
-        position: relative;
-        z-index: 1;
-      }
-      .or-divider::before {
-        content: "";
+
+      .main-container {
         width: 100%;
-        height: 1px;
-        background-color: #ccc;
-        position: absolute;
-        top: 50%;
-        left: 0;
-        z-index: 0;
+        max-width: 1200px;
+        padding: 20px;
+        position: relative;
+        z-index: 2;
       }
-      .google-login-btn {
-        background-color: #b33e3e;
-        color: #fff;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        width: 25%;
+
+      .header-section {
+        text-align: center;
+        margin-bottom: 40px;
+        background: var(--card-background);
+        padding: 30px;
+        border-radius: 20px;
+        box-shadow: var(--card-shadow);
+        backdrop-filter: blur(10px);
+        border: 1px solid var(--border-color);
+      }
+
+      .logo-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .logo-image {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        border: 3px solid var(--secondary-color);
+        box-shadow: 0 4px 15px rgba(218, 165, 32, 0.3);
+        object-fit: cover;
+      }
+
+      .brand-text {
+        text-align: center;
+      }
+
+      .brand-title {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.5rem;
+        font-weight: 700;
+        background: var(--gradient-gold);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 8px;
+        letter-spacing: 2px;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .brand-subtitle {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.2rem;
+        color: var(--text-secondary);
+        font-weight: 500;
+        font-style: italic;
+        letter-spacing: 1px;
+      }
+
+      .tagline {
+        margin-top: 15px;
+        font-size: 0.95rem;
+        color: var(--text-muted);
+        font-weight: 400;
+      }
+
+      .login-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 30px;
+        max-width: 900px;
         margin: 0 auto;
-        display: block;
       }
-      .google-login-btn:hover {
-        background-color: #357ae8;
+
+      .login-selector {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 30px;
+        border-radius: 15px;
+        overflow: hidden;
+        background: var(--card-background);
+        box-shadow: var(--card-shadow);
+        border: 1px solid var(--border-color);
       }
-      .otp-section .btn {
-        margin-bottom: 5px;
-      }
-      #otp-input-container {
+
+      .login-selector input[type="radio"] {
         display: none;
       }
-      #resend-otp {
-        color: #b33e3e;
-        margin-left: 5px;
+
+      .radio-btn {
+        flex: 1;
+        text-align: center;
+        padding: 15px 30px;
         cursor: pointer;
-        text-decoration: underline;
-      }
-      .flexEnd {
-        display: flex;
-        justify-content: flex-end;
-      }
-      .flexEnd a {
-        font-size: 14px;
-        text-decoration: none;
-        margin: 10px 0 0 0;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        background: transparent;
+        color: var(--text-secondary);
+        position: relative;
       }
 
-      /* pop up */
-      .popup {
+      .radio-btn span {
+        display: block;
+        pointer-events: none;
+        font-size: 1rem;
+      }
+
+      .login-selector input[type="radio"]:checked + span {
+        background: var(--gradient-primary);
+        color: white;
+        border-radius: 10px;
+        padding: 15px 30px;
+        margin: -15px -30px;
+        box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);
+      }
+
+      .radio-btn:hover span {
+        background: var(--background-overlay);
+        border-radius: 10px;
+        padding: 15px 30px;
+        margin: -15px -30px;
+      }
+
+      .login-section,
+      .otp-section {
+        background: var(--card-background);
+        border: 1px solid var(--border-color);
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: var(--card-shadow);
+        backdrop-filter: blur(10px);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .login-section:hover,
+      .otp-section:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 40px rgba(139, 69, 19, 0.25);
+      }
+
+      .section-title {
+        font-family: 'Playfair Display', serif;
+        color: var(--primary-color);
+        margin-bottom: 30px;
+        font-size: 1.8rem;
+        font-weight: 600;
+        text-align: center;
+        position: relative;
+      }
+
+      .section-title::after {
+        content: '';
         position: absolute;
-        top: 40px;
-        right: 50px;
-        background: rgb(255, 255, 255);
-        width: auto;
-        border: 2px solid forestgreen;
-        border-left: 4px solid forestgreen;
-        padding: 0px 20px;
-        border-top-left-radius: 10px;
-        border-bottom-left-radius: 10px;
-        animation: popup .1s linear;
+        bottom: -10px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 3px;
+        background: var(--gradient-gold);
+        border-radius: 2px;
       }
-      @keyframes popup{
-        from{
-          transform: translateX(100px);
-          opacity: 0;
-        }to{
-          transform: translateX(0);
-          opacity: 1;
-        }
+
+      .input-group {
+        margin-bottom: 25px;
       }
-      .popup p {
-        color: #000;
-        text-transform: capitalize;
+
+      .input-group label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+      }
+
+      .input-group input {
+        width: 100%;
+        padding: 15px 18px;
+        border: 2px solid var(--border-color);
+        border-radius: 12px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: rgba(255, 255, 255, 0.8);
+        color: var(--text-primary);
+      }
+
+      .input-group input:focus {
+        outline: none;
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 3px rgba(139, 69, 19, 0.1);
+        background: white;
+      }
+
+      .input-group input::placeholder {
+        color: var(--text-muted);
+      }
+
+      .captcha-box {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      #captchaValue {
+        flex: 1;
+        font-size: 1.5rem;
+        font-weight: bold;
+        padding: 15px;
+        background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+        border: 2px solid var(--border-color);
+        border-radius: 12px;
+        text-align: center;
+        user-select: none;
+        letter-spacing: 3px;
+        font-family: 'Courier New', monospace;
+      }
+
+      .refresh-btn {
+        background: var(--gradient-primary);
+        border: none;
+        color: white;
+        cursor: pointer;
+        font-size: 1.2rem;
+        padding: 15px;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);
+      }
+
+      .refresh-btn:hover {
+        transform: rotate(90deg) scale(1.1);
+        box-shadow: 0 6px 20px rgba(139, 69, 19, 0.4);
+      }
+
+      #captchaInput {
+        flex: 1;
+      }
+
+      .btn {
+        background: var(--gradient-primary);
+        color: white;
+        padding: 16px 32px;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 1.1rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(139, 69, 19, 0.3);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(139, 69, 19, 0.4);
+        background: var(--gradient-gold);
+      }
+
+      .btn:active {
+        transform: translateY(0);
+      }
+
+      .forgot-password {
+        text-align: right;
+        margin-top: 10px;
+      }
+
+      .forgot-password a,
+      .resend-otp a {
+        color: var(--primary-color);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+        transition: color 0.3s ease;
+      }
+
+      .forgot-password a:hover,
+      .resend-otp a:hover {
+        color: var(--secondary-color);
+        text-decoration: underline;
+      }
+
+      .extra-section-container {
+        margin-top: 40px;
+        text-align: center;
+      }
+
+      .extra-section {
+        margin: 15px 0;
+        color: var(--text-secondary);
+        font-size: 0.95rem;
+      }
+
+      .extra-section a {
+        color: var(--primary-color);
+        font-weight: 600;
+        text-decoration: none;
+        transition: color 0.3s ease;
+      }
+
+      .extra-section a:hover {
+        color: var(--secondary-color);
+        text-decoration: underline;
+      }
+
+      .checkbox-group {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+        gap: 10px;
+      }
+
+      .checkbox-group input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        accent-color: var(--primary-color);
+      }
+
+      .checkbox-group label {
+        margin: 0;
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+      }
+
+      .error {
+        color: var(--error-color);
+        font-size: 0.85rem;
+        margin-top: 8px;
+        font-weight: 500;
       }
 
       .loader-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-            z-index: 9999; /* Ensure it appears above other content */
-            display: none; /* Hide by default */
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: rgba(0, 0, 0, 0.7);
+        z-index: 9999;
+        display: none;
+        backdrop-filter: blur(5px);
+      }
+
+      .loading-text {
+        font-size: 1.5rem;
+        color: white;
+        margin-right: 15px;
+        font-weight: 500;
+      }
+
+      .dots {
+        display: inline-block;
+      }
+
+      .dot {
+        display: inline-block;
+        width: 12px;
+        height: 12px;
+        background: var(--gradient-gold);
+        border-radius: 50%;
+        margin-left: 8px;
+        opacity: 0;
+        animation: bounce 1.4s infinite both;
+      }
+
+      .dot:nth-child(1) { animation-delay: 0s; }
+      .dot:nth-child(2) { animation-delay: 0.2s; }
+      .dot:nth-child(3) { animation-delay: 0.4s; }
+
+      @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% { 
+          transform: translateY(0); 
+          opacity: 0; 
+        }
+        40% { 
+          transform: translateY(-15px); 
+          opacity: 1; 
+        }
+        60% { 
+          transform: translateY(-8px); 
+          opacity: 1; 
+        }
+      }
+
+      .popup {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: white;
+        padding: 20px 30px;
+        border: 2px solid var(--success-color);
+        border-left: 6px solid var(--success-color);
+        border-radius: 12px;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+        animation: popup-slide 0.5s ease-out;
+        z-index: 10000;
+      }
+
+      @keyframes popup-slide {
+        from { 
+          transform: translateX(100%); 
+          opacity: 0; 
+        }
+        to { 
+          transform: translateX(0); 
+          opacity: 1; 
+        }
+      }
+
+      .popup p {
+        color: var(--text-primary);
+        margin: 0;
+        font-weight: 500;
+      }
+
+      #otp-input-container {
+        display: none;
+      }
+
+      #otp-timer {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+        margin-top: 15px;
+        text-align: center;
+        font-style: italic;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .main-container {
+          padding: 15px;
         }
 
-        /* Loader Text and Dots */
-        .loading-text {
-            font-size: 24px;
-            font-family: Arial, sans-serif;
-            color: white;
-            margin-right: 10px;
+        .brand-title {
+          font-size: 2rem;
         }
 
-        .dots {
-            display: inline-block;
+        .brand-subtitle {
+          font-size: 1rem;
         }
 
-        .dot {
-            display: inline-block;
-            width: 10px;
-            height: 10px;
-            background-color: white;
-            border-radius: 50%;
-            margin-left: 5px;
-            opacity: 0;
-            animation: bounce 1.4s infinite both;
+        .login-section,
+        .otp-section {
+          padding: 30px 25px;
         }
 
-        .dot:nth-child(1) {
-            animation-delay: 0s;
-        }
-
-        .dot:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .dot:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-
-        /* Bounce Animation for Dots */
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                opacity: 0;
-                transform: translateY(0);
-            }
-            40% {
-                opacity: 1;
-                transform: translateY(-10px);
-            }
-            60% {
-                opacity: 1;
-                transform: translateY(-5px);
-            }
-        }
-
-        /* Button Styles */
-        #loadButton {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
-        }
-
-        #loadButton:hover {
-            background-color: #0056b3;
+        .logo-container {
+          flex-direction: column;
+          gap: 15px;
         }
 
         .captcha-box {
-            display: flex;
-            align-items: center;
-            margin: 10px 0;
+          flex-direction: column;
+          gap: 10px;
         }
+
         #captchaValue {
-            font-size: 20px;
-            font-weight: bold;
-            color: #333;
-            padding: 10px 20px;
-            background-color: #f0f0f0;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-right: 10px;
+          font-size: 1.2rem;
         }
-        .refresh-btn {
-            cursor: pointer;
-            background-color: transparent;
-            border: none;
-            font-size: 20px;
-            color: #b33e3e;
-            margin-left: 1px;
+      }
+
+      @media (max-width: 480px) {
+        .brand-title {
+          font-size: 1.8rem;
         }
-        .refresh-btn:hover {
-            color: #0056b3;
+
+        .login-section,
+        .otp-section {
+          padding: 25px 20px;
         }
-        .error {
-            color: red;
-            margin: 10px 0;
+
+        .radio-btn span {
+          font-size: 0.9rem;
         }
-        .checkbox-group input[type="checkbox"] {
-            margin-right: 10px;
-            width: auto;
-            display: inline-block;
-            vertical-align: middle;
-        }
-        .checkbox-group label {
-            display: inline-block;
-            vertical-align: middle;
-            line-height: 1.2;
-        }
-        .checkbox-group a {
-            color: #4a90e2;
-            text-decoration: none;
-        }
-        .checkbox-group a:hover {
-            text-decoration: underline;
-        }
+      }
+
+      /* Enhanced visual effects */
+      .login-section::before,
+      .otp-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: var(--gradient-gold);
+        border-radius: 20px 20px 0 0;
+      }
+
+      .login-section,
+      .otp-section {
+        position: relative;
+      }
+
+      /* Floating animation for the header */
+      .header-section {
+        animation: float 6s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
+
+      /* Subtle glow effect */
+      .btn:hover {
+        box-shadow: 0 8px 25px rgba(139, 69, 19, 0.4), 0 0 20px rgba(218, 165, 32, 0.3);
+      }
     </style>
   </head>
   <body>
-    <div class="login-container">
+    <div class="main-container">
       <div id="popupmsg"></div>
-      <div style="text-align: center;">
-        <img
-          src="../img/swamijy.jpg"
-          alt="Taralabalu Matrimony"
-          style="width: 80px; height: 80px; border-radius: 50%; vertical-align: middle;"
-        />
-        <h2 style="display: inline-block;background-color: rgba(255, 255, 255, 0.8); vertical-align: middle; margin: 0 10px; color: #b33e3e; font-size: 24px;">
-          Taralabalu Matrimony
-        </h2>
-      </div>
-    
-    
-      <div class="flexContainer">
-        <div class="login-section">
-          <h2>Login with Password</h2>
+      
+      <header class="header-section">
+        <div class="logo-container">
+          <img
+            src="../img/swamijy.jpg"
+            alt="BUNTS MATRIMONY Logo"
+            class="logo-image"
+          />
+          <div class="brand-text">
+            <h1 class="brand-title">BUNTS MATRIMONY</h1>
+            <p class="brand-subtitle">ಹೃದಯಗಳಿಗೆ ಸೇತುವೆ</p>
+            <p class="tagline">Connecting Hearts, Creating Forever</p>
+          </div>
+        </div>
+      </header>
+
+      <main class="login-container">
+        <!-- Login Type Selection -->
+        <div class="login-selector">
+          <label class="radio-btn">
+            <input type="radio" name="loginType" value="password" checked>
+            <span>Login with Password</span>
+          </label>
+          <label class="radio-btn">
+            <input type="radio" name="loginType" value="otp">
+            <span>Login with OTP</span>
+          </label>
+        </div>
+
+        <section class="login-section" id="password-login">
+          <h2 class="section-title">Login with Password</h2>
           <div class="input-group">
-            <label for="phone-email">Phone or Email or Matri Id</label>
-            <input type="text" id="phone-email" placeholder="Phone or Email or Matri Id" />
+            <label for="phone-email">Phone, Email or Matri ID</label>
+            <input type="text" id="phone-email" placeholder="Enter your ID" />
             <div id="phoneErrorMessage" class="error"></div>
           </div>
           <div class="input-group">
             <label for="password">Enter Password</label>
-            <input type="password" id="password" placeholder="Enter Password" />
+            <input type="password" id="password" placeholder="Enter your password" />
             <div id="passwordErrorMessage" class="error"></div>
-            <p><a href="forgot_password.html" style="color:#b33e3e;">Forgot Password?</a></p>
+            <div class="forgot-password">
+              <a href="forgot_password.html">Forgot Password?</a>
+            </div>
           </div>
           <div class="input-group">
             <div class="captcha-box">
-                <div id="captchaValue"></div>
-                <button type="button" class="refresh-btn" onclick="generateCaptcha()">
-                    <i class="fa fa-refresh"></i>
-                </button>
-                <input type="text" id="captchaInput" placeholder="Enter CAPTCHA" required>
+              <div id="captchaValue"></div>
+              <button type="button" class="refresh-btn" onclick="generateCaptcha()">
+                <i class="fa fa-refresh"></i>
+              </button>
+              <input type="text" id="captchaInput" placeholder="Enter CAPTCHA" required>
             </div>
             <div class="error" id="errorMessage"></div>
-        </div>
+          </div>
           <button class="btn" onclick="loginWithPassword()">LOGIN</button>
-        </div>
+        </section>
 
-        <div class="otp-section" id="otpContainer">
-          <h2>Login with OTP</h2>
+        <section class="otp-section" id="otpContainer" style="display: none;">
+          <h2 class="section-title">Login with OTP</h2>
           <div class="input-group">
             <label for="otp-phone-email">Phone Number</label>
             <input
               type="text"
               id="otp-phone-email"
-              placeholder="Phone Number"
+              placeholder="Enter your phone number"
             />
             <div id="phoneOTPErrorMessage" class="error"></div>
           </div>
@@ -403,8 +650,8 @@ body::before {
           <div id="otp-input-container">
             <div class="input-group">
               <label for="otp">Enter OTP</label>
-              <input type="text" id="otp" placeholder="Enter OTP" />
-              <div class="flexEnd">
+              <input type="text" id="otp" placeholder="Enter 4-digit OTP" />
+              <div class="resend-otp">
                 <a
                   href="#"
                   id="resend-otp"
@@ -415,52 +662,42 @@ body::before {
               </div>
             </div>
             <button class="btn" onclick="loginWithOtp()">Login with OTP</button>
-          
             <p id="otp-timer"></p>
           </div>
-        </div>
-      </div>
+        </section>
+      </main>
+      
       <div id="loader" class="loader-container">
         <div class="loading-text">Loading</div>
         <div class="dots">
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
+          <div class="dot"></div>
         </div>
-    </div>
-    <div style="display: flex; justify-content: center; align-items: center; ">
-    <div class="login-section">
-      <div class="extra-section">
-          <div class="checkbox-group">
-          
-            <input type="checkbox" id="terms" checked>
-            <label for="terms" >I agree to the <a href="term.html">terms and privacy policy</a>.</label>
-          
-        </div>
-      </div>
-      <div class="extra-section">
-       
-        Don't have an account? <a href="Signup.html" style="color: red; text-shadow: 5px 4px 5px rgba(4, 0, 2, 0.3);">Register</a>
-     
       </div>
 
-      <div class="extra-section">
-       
-        For any Query / Support <a href="support.html" style="color: red;">Click here</a>
-        
-      </div>
+      <footer class="extra-section-container">
+        <div class="extra-section">
+          <div class="checkbox-group">
+            <input type="checkbox" id="terms" checked>
+            <label for="terms">I agree to the <a href="term.html">terms and privacy policy</a>.</label>
+          </div>
+        </div>
+        <div class="extra-section">
+          Don't have an account? <a href="Signup.html">Register</a>
+        </div>
+        <div class="extra-section">
+          For any Query / Support <a href="support.html">Click here</a>
+        </div>
+      </footer>
     </div>
-  </div>
-  </div>
     
-    <!-- <script src="screen-check.js"></script> -->
-     <script src="baseurl.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> <!-- SweetAlert2 library -->
+    <script src="baseurl.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-    <!-- <script src="https://accounts.google.com/gsi/client" async defer></script> -->
-     <script>"js/cache.js"</script>
+    <script>"js/cache.js"</script>
     <script>
       const OTP_TIMEOUT_DURATION = 30;
       let otpTimeout;
@@ -492,13 +729,13 @@ body::before {
       captchaElement.style.color = colors[Math.floor(Math.random() * colors.length)];
       captchaElement.style.fontSize = `${Math.floor(Math.random() * 10) + 20}px`; // Font size between 20px and 30px
       captchaElement.style.transform = `rotate(${Math.floor(Math.random() * 15) - 7}deg)`; // Slight rotation for distortion
-  }
+    }
 
       // Generate a CAPTCHA when the page loads
       window.onload = generateCaptcha;
 
       function isValidEmail(email) {
-        const emailRegex = /^[^\\s@]+@[^\s@]+\\.[^\\s@]+$/;
+        const emailRegex = /^[^\\s@]+@[^\\s@]+\.[^\\s@]+$/;
         return emailRegex.test(email);
       }
 
@@ -547,7 +784,7 @@ body::before {
         }, 2000);
     }
 }
-     function loginWithPassword() {
+      function loginWithPassword() {
     const emailOrPhone = document.getElementById("phone-email").value;
     const password = document.getElementById("password").value;
     const passwordErrorMessage = document.getElementById('passwordErrorMessage');
@@ -588,7 +825,7 @@ body::before {
         .then((response) => response.json())
         .then((data) => {
             if (data.dataout[0].p_out_mssg_flg === "Y") {
-             
+              
                 let token = data.dataout[0].token;
                 localStorage.setItem("jwtToken", token);
 
@@ -657,25 +894,25 @@ body::before {
         })
         .then(response => {
            console.log('phone number sent:', response);
-    
+      
         // Check if the number already exists
         if (response.data.message.p_out_mssg_flg === 'Y') {
-       
+        
           
                 sendSMS();
         } else{
           Swal.fire({
-                    icon: 'error',
-                    title: 'Credential Not Found',
-                    text: 'Please try again.',
-                    confirmButtonText: 'OK'
-                }).then((result) => {
-                    // Reload the page when the alert is closed
-                    if (result.isConfirmed) {
-                        location.reload(); // Reload the page
-                    }
-                }); 
-        
+                icon: 'error',
+                title: 'Credential Not Found',
+                text: 'Please try again.',
+                confirmButtonText: 'OK'
+            }).then((result) => {
+                // Reload the page when the alert is closed
+                if (result.isConfirmed) {
+                    location.reload(); // Reload the page
+                }
+            }); 
+      
         }
           });
       }
@@ -687,13 +924,13 @@ body::before {
      console.log("Logged in user:", user.email);
      console.log("Logged in user:", user.picture);
      console.log("Logged in user:", user.sub);
-      google_sign_in(user.email, user.sub);
-  }
+       google_sign_in(user.email, user.sub);
+    }
       
 
-  function google_sign_in(user , sub){
+    function google_sign_in(user , sub){
 
-     if ((user != null && sub != null) && (user !== "" && sub !== "")) {
+      if ((user != null && sub != null) && (user !== "" && sub !== "")) {
         const payload = {
             user: user,
             password: sub
@@ -748,12 +985,12 @@ body::before {
             });
     }
 
-    
-  }
+      
+    }
 
 
-    function sendSMS(){
-      const emailOrPhone = document.getElementById("otp-phone-email").value;
+      function sendSMS(){
+        const emailOrPhone = document.getElementById("otp-phone-email").value;
         const pad = document.getElementById("otpContainer");
         const data = { number: emailOrPhone,type: "otp"};
         fetch("${BASE_URL}/send_sms.php", {
@@ -771,8 +1008,8 @@ body::before {
               correctOtp = data.data.Otp;
               const popup = document.getElementById("popupmsg");
               popup.innerHTML = ` <div class="popup">
-                        <p>successfully send OTP via SMS</p>
-                                </div>`;
+                    <p>successfully send OTP via SMS</p>
+                            </div>`;
 
               setInterval(() => {
                 popup.style.display = "none";
@@ -800,11 +1037,11 @@ body::before {
               title: 'Unable to send OTP at the current moment ',
               text: 'please try again after sometime.',
               confirmButtonText: 'OK'
-          })
+            })
           }
           });
         
-    }
+      }
 
       function startOtpTimer() {
         let timeLeft = OTP_TIMEOUT_DURATION;
@@ -852,7 +1089,7 @@ body::before {
                         localStorage.setItem('phone', data.dataout[0].phone);
                         document.getElementById("loader").style.display = "none";
                         clearInterval(otpTimeout);
-                  handleLoginSuccess();
+                    handleLoginSuccess();
                 }else{
                   Swal.fire({
                     icon: 'error',
@@ -874,34 +1111,34 @@ body::before {
                 title: 'An error occurred. Please try again.',
                 text: 'Please try again.',
                 confirmButtonText: 'OK'
+              }).then((result) => {
+                // Reload the page when the alert is closed
+                if (result.isConfirmed) {
+                    location.reload(); // Reload the page
+                }
+              }));
+          }else{
+          document.getElementById("loader").style.display = "none";
+          Swal.fire({
+                icon: 'error',
+                title: 'Incorrect OTP',
+                text: 'Enter valid otp.',
+                confirmButtonText: 'OK'
+            })
+        }
+        }else{
+          document.getElementById("loader").style.display = "none";
+          Swal.fire({
+                icon: 'error',
+                title: 'Enter 4 digit otp',
+                text: 'Please try again.',
+                confirmButtonText: 'OK'
             }).then((result) => {
                 // Reload the page when the alert is closed
                 if (result.isConfirmed) {
                     location.reload(); // Reload the page
                 }
-            }));
-          }else{
-          document.getElementById("loader").style.display = "none";
-          Swal.fire({
-                    icon: 'error',
-                    title: 'Incorrect OTP',
-                    text: 'Enter valid otp.',
-                    confirmButtonText: 'OK'
-                })
-        }
-        }else{
-          document.getElementById("loader").style.display = "none";
-          Swal.fire({
-                    icon: 'error',
-                    title: 'Enter 4 digit otp',
-                    text: 'Please try again.',
-                    confirmButtonText: 'OK'
-                }).then((result) => {
-                    // Reload the page when the alert is closed
-                    if (result.isConfirmed) {
-                        location.reload(); // Reload the page
-                    }
-                });
+            });
         }
         
       }
@@ -913,13 +1150,29 @@ body::before {
           title: 'Google Login not yet implemented',
           text: 'Please try again.',
           confirmButtonText: 'OK'
-      }).then((result) => {
-          // Reload the page when the alert is closed
-          if (result.isConfirmed) {
-              location.reload(); // Reload the page
-          }
-      });
+        }).then((result) => {
+            // Reload the page when the alert is closed
+            if (result.isConfirmed) {
+                location.reload(); // Reload the page
+            }
+        });
       }
+
+      const passwordLogin = document.getElementById("password-login");
+const otpLogin = document.getElementById("otpContainer");
+
+document.querySelectorAll('input[name="loginType"]').forEach(radio => {
+  radio.addEventListener("change", function() {
+    if (this.value === "password") {
+      passwordLogin.style.display = "block";
+      otpLogin.style.display = "none";
+    } else {
+      passwordLogin.style.display = "none";
+      otpLogin.style.display = "block";
+    }
+  });
+});
+
     </script>
   </body>
 </html>
