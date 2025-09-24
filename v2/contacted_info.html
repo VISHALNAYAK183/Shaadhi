@@ -392,7 +392,7 @@
         };
        //consolelog(data1);
 
-        axios.post('${BASE_URL}/z_contacted_profile2.php', data1, {
+        axios.post(`${BASE_URL}/z_contacted_profile2.php`, data1, {
             headers: {
                 'Content-Type': 'application/json',
                 "Authorization": "Bearer " + localStorage.getItem("jwtToken")
@@ -434,7 +434,7 @@ document.addEventListener('DOMContentLoaded', function () {
     //     };
     //    //consolelog(data);
     //     showWaitingDialog();
-    //     axios.post('${BASE_URL}/dashboard.php', data, {
+    //     axios.post(`${BASE_URL}/dashboard.php`, data, {
     //         headers: {
     //             'Content-Type': 'application/json',
     //         }

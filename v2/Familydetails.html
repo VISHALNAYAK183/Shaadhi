@@ -303,7 +303,7 @@
       const data={
           type: "mother_tongue"
       }
-      axios.post('${BASE_URL}/get_data.php', data, {
+      axios.post(`${BASE_URL}/get_data.php`, data, {
             headers: {
                 'Content-Type': 'application/json',
             }
@@ -372,7 +372,7 @@
             id: id
         };
        //consolelog(data);
-        axios.post('${BASE_URL}/sign_in.php', data, {
+        axios.post(`${BASE_URL}/sign_in.php`, data, {
             headers: {
                 'Content-Type': 'application/json',
             }

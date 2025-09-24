@@ -260,7 +260,7 @@
       };
 
       // Axios POST request to get subscription plans
-      axios.post('${BASE_URL}/get_data.php', data1, {
+      axios.post(`${BASE_URL}/get_data.php`, data1, {
           headers: {
               'Content-Type': 'application/json',
           }
@@ -350,7 +350,7 @@
           };
 
       // Axios POST request to get subscription plans
-      axios.post('${BASE_URL}/token_cashfree.php', data, {
+      axios.post(`${BASE_URL}/token_cashfree.php`, data, {
           headers: {
               'Content-Type': 'application/json',
                     "Authorization": "Bearer " + localStorage.getItem("jwtToken")
@@ -438,7 +438,7 @@
     //     };
     //    //consolelog(data);
 
-    //     axios.post('${BASE_URL}/dashboard.php', data, {
+    //     axios.post(`${BASE_URL}/dashboard.php`, data, {
     //         headers: {
     //             'Content-Type': 'application/json',
     //         }

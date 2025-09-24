@@ -440,7 +440,7 @@
 //     event.target.classList.add('selected'); 
 // }
 async function fetchOccupation() {
-            const response = await axios.post('${BASE_URL}/get_data.php', {
+            const response = await axios.post(`${BASE_URL}/get_data.php`, {
                     type: "occupation"
                 });
 
@@ -464,7 +464,7 @@ async function fetchOccupation() {
         set_profession();
         }  
         async function fetchEducation() {
-            const response = await axios.post('${BASE_URL}/get_data.php', {
+            const response = await axios.post(`${BASE_URL}/get_data.php`, {
                     type: "education"
                 });
 
@@ -534,7 +534,7 @@ document.getElementById('educationForm').addEventListener('submit', function(eve
     //     salary_range :salary_range    
     // };
 
-    // fetch('${BASE_URL}/sign_in.php', {
+    // fetch(`${BASE_URL}/sign_in.php`, {
     //     method: 'POST',
     //     headers: {
     //         'Content-Type': 'application/json'
@@ -587,7 +587,7 @@ document.getElementById('educationForm').addEventListener('submit', function(eve
        "company_city": company_city,
        "salary_range" :salary_range        
   };
-  return axios.post('${BASE_URL}/update_profile.php', update, {
+  return axios.post(`${BASE_URL}/update_profile.php`, update, {
    headers: {
        'Content-Type': 'application/json',
         "Authorization": "Bearer " + localStorage.getItem("jwtToken")

@@ -284,7 +284,7 @@ function loadHTMLContent(elementId, url, callback) {
             };
            //consolelog(data);
                  
-            axios.post('${BASE_URL}/dashboard.php', data, {
+            axios.post(`${BASE_URL}/dashboard.php`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                     "Authorization": "Bearer " + localStorage.getItem("jwtToken")

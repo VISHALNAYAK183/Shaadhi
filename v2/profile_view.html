@@ -476,7 +476,7 @@
             };
 
             // API call
-            axios.post('${BASE_URL}/matri_liked.php', data, {
+            axios.post(`${BASE_URL}/matri_liked.php`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                           "Authorization": "Bearer " + localStorage.getItem("jwtToken")
@@ -522,7 +522,7 @@
             };
 
             // Send the data to the server
-            axios.post('${BASE_URL}/shortlisted.php', data, {
+            axios.post(`${BASE_URL}/shortlisted.php`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                           "Authorization": "Bearer " + localStorage.getItem("jwtToken")
@@ -557,7 +557,7 @@
                 }
                 //consolelog(data);
                 if (await get_contact() == 'true') {
-                    axios.post('${BASE_URL}/contacted_profile.php', data, {
+                    axios.post(`${BASE_URL}/contacted_profile.php`, data, {
                         headers: {
                             'Content-Type': 'application/json',
                                   "Authorization": "Bearer " + localStorage.getItem("jwtToken")
@@ -848,7 +848,7 @@
                 "type": "viewed"
             }
 
-            axios.post('${BASE_URL}/profile_viewed.php', data, {
+            axios.post(`${BASE_URL}/profile_viewed.php`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                           "Authorization": "Bearer " + localStorage.getItem("jwtToken")
@@ -1063,7 +1063,7 @@
         photos_url = [];
         //consolelog("ch",photo);
 
-        axios.post('${BASE_URL}/edit_image.php', photo, {
+        axios.post(`${BASE_URL}/edit_image.php`, photo, {
             headers: {
                 'Content-Type': 'application/json',
                       "Authorization": "Bearer " + localStorage.getItem("jwtToken")
@@ -1101,7 +1101,7 @@
              //consolelog('Request Data:', data);
             
               try {
-                const response = await axios.post('${BASE_URL}/master_count.php', data, {
+                const response = await axios.post(`${BASE_URL}/master_count.php`, data, {
                   headers: {
                     'Content-Type': 'application/json',
                   }
@@ -1169,7 +1169,7 @@
 
             // Call the API
             axios
-                .post('${BASE_URL}/block_user.php', data, {
+                .post(`${BASE_URL}/block_user.php`, data, {
                     headers: {
                         'Content-Type': 'application/json',
                         "Authorization": "Bearer " + localStorage.getItem("jwtToken")

@@ -316,7 +316,7 @@
 //     event.target.classList.add('selected'); 
 // }
 async function fetchOccupation() {
-            const response = await axios.post('${BASE_URL}/get_data.php', {
+            const response = await axios.post(`${BASE_URL}/get_data.php`, {
                     type: "occupation"
                 });
 
@@ -339,7 +339,7 @@ async function fetchOccupation() {
         });
         }  
         async function fetchEducation() {
-            const response = await axios.post('${BASE_URL}/get_data.php', {
+            const response = await axios.post(`${BASE_URL}/get_data.php`, {
                     type: "education"
                 });
 
@@ -410,7 +410,7 @@ document.getElementById('educationForm').addEventListener('submit', function(eve
 
    //consolelog(formData);
 
-    fetch('${BASE_URL}/sign_in.php', {
+    fetch(`${BASE_URL}/sign_in.php`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

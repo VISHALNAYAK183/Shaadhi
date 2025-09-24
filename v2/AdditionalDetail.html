@@ -309,7 +309,7 @@ function fetchCity(countryId, stateId) {
    //consolelog("Request Data:", data1);
 
     // Correctly format the POST request with JSON data
-    axios.post('${BASE_URL}/country_state_city.php', data1, {
+    axios.post(`${BASE_URL}/country_state_city.php`, data1, {
         headers: {
             'Content-Type': 'application/json',
         }
@@ -385,7 +385,7 @@ async function fetchStates(countryId) {
     };
 
     try {
-        const response1 = await axios.post('${BASE_URL}/country_state_city.php', data1, {
+        const response1 = await axios.post(`${BASE_URL}/country_state_city.php`, data1, {
             headers: {
                 'Content-Type': 'application/json',
             }
@@ -487,7 +487,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     try {
         // Make the POST request
-        const response1 = await axios.post('${BASE_URL}/country_state_city.php', data1, {
+        const response1 = await axios.post(`${BASE_URL}/country_state_city.php`, data1, {
             headers: {
                 'Content-Type': 'application/json',
             }
@@ -604,7 +604,7 @@ document.addEventListener("DOMContentLoaded", function () {
         };
        //consolelog(data);
         
-        axios.post('${BASE_URL}/sign_in.php', data, {
+        axios.post(`${BASE_URL}/sign_in.php`, data, {
             headers: {
                 'Content-Type': 'application/json',
             }

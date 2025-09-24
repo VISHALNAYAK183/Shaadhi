@@ -378,7 +378,7 @@
           "type": type
       }
      //consolelog(data);
-      axios.post('${BASE_URL}/matri_liked.php', data, {
+      axios.post(`${BASE_URL}/matri_liked.php`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                           "Authorization": "Bearer " + localStorage.getItem("jwtToken")
@@ -503,7 +503,7 @@
     }
 
     function call_api(data){
-        axios.post('${BASE_URL}/edit_image.php', data, {
+        axios.post(`${BASE_URL}/edit_image.php`, data, {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -545,7 +545,7 @@
     }
     
     function call_delete_api(data) {
-        axios.post('${BASE_URL}/edit_image.php', data, {
+        axios.post(`${BASE_URL}/edit_image.php`, data, {
             headers: {
                 'Content-Type': 'application/json'
             }
@@ -623,7 +623,7 @@ function myProfile(){
         };
        //consolelog(data);
 
-        axios.post('${BASE_URL}/my_profile.php', data, {
+        axios.post(`${BASE_URL}/my_profile.php`, data, {
             headers: {
                 'Content-Type': 'application/json',
                       "Authorization": "Bearer " + localStorage.getItem("jwtToken")
@@ -690,7 +690,7 @@ function displayRadioButton() {
    //consolelog(val);
     
         
-    axios.post('${BASE_URL}/profile_status.php', val, {
+    axios.post(`${BASE_URL}/profile_status.php`, val, {
         headers: {
             'Content-Type': 'application/json',
                   "Authorization": "Bearer " + localStorage.getItem("jwtToken")
@@ -1134,7 +1134,7 @@ function setDefaultRadioButton() {
         };
        //consolelog(data);
 
-        axios.post('${BASE_URL}/my_profile.php', data, {
+        axios.post(`${BASE_URL}/my_profile.php`, data, {
             headers: {
                 'Content-Type': 'application/json',
                       "Authorization": "Bearer " + localStorage.getItem("jwtToken")
@@ -1211,7 +1211,7 @@ function setDefaultRadioButton() {
     photos_url=[];
    //consolelog("ch",photo);
 
-    axios.post('${BASE_URL}/edit_image.php', photo, {
+    axios.post(`${BASE_URL}/edit_image.php`, photo, {
         headers: {
             'Content-Type': 'application/json',
                   "Authorization": "Bearer " + localStorage.getItem("jwtToken")

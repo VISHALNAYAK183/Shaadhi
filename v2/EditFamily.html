@@ -423,7 +423,7 @@ function set_motherTongue() {
       const data={
           type: "mother_tongue"
       }
-      axios.post('${BASE_URL}/get_data.php', data, {
+      axios.post(`${BASE_URL}/get_data.php`, data, {
             headers: {
                 'Content-Type': 'application/json',
             }
@@ -492,7 +492,7 @@ function set_motherTongue() {
     "place":place,
     "family_type": family_type
 };
-return axios.post('${BASE_URL}/update_profile.php', update, {
+return axios.post(`${BASE_URL}/update_profile.php`, update, {
   headers: {
       'Content-Type': 'application/json',
     "Authorization": "Bearer " + localStorage.getItem("jwtToken")

@@ -531,7 +531,7 @@ body::before {
             device: "WEB"
         };
 
-        axios.post('${BASE_URL}/login.php', payload)
+        axios.post(`${BASE_URL}/login.php`, payload)
             .then(response => {
                 if (response.data.dataout[0].p_out_mssg_flg === 'Y') {
                     console.log("Login details saved");
@@ -580,7 +580,7 @@ body::before {
     } else {
         document.getElementById("errorMessage").textContent = "";
 
-        fetch("${BASE_URL}/login.php", {
+        fetch(`${BASE_URL}/login.php`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
@@ -650,7 +650,7 @@ body::before {
         };
 
         // Call OTP API
-        axios.post('${BASE_URL}/login.php', data, {
+        axios.post(`${BASE_URL}/login.php`, data, {
             headers: {
                 'Content-Type': 'application/json',
             }
@@ -701,7 +701,7 @@ body::before {
 
         document.getElementById("loader").style.display = "flex";
 
-        axios.post('${BASE_URL}/login.php', payload)
+        axios.post(`${BASE_URL}/login.php`, payload)
             .then(response => {
                 let data = response.data;
 

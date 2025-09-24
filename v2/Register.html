@@ -458,7 +458,7 @@ $(document).ready(function() {
         phoneError.style.display = 'none';
 
         if (phone) {
-            axios.post('${BASE_URL}/login.php', {
+            axios.post(`${BASE_URL}/login.php`, {
                 user: phone,
                 category: "phone"
             })
@@ -482,7 +482,7 @@ $(document).ready(function() {
         emailError.style.display = 'none';
 
         if (email) {
-            axios.post('${BASE_URL}/login.php', {
+            axios.post(`${BASE_URL}/login.php`, {
                 user: email,
                 category: "email"
             })
@@ -527,8 +527,8 @@ $(document).ready(function() {
 
         // Call the existence check functions
         Promise.all([
-            axios.post('${BASE_URL}/login.php', { user: phoneNumber, category: "phone" }),
-            axios.post('${BASE_URL}/login.php', { user: email, category: "email" }),
+            axios.post(`${BASE_URL}/login.php`, { user: phoneNumber, category: "phone" }),
+            axios.post(`${BASE_URL}/login.php`, { user: email, category: "email" }),
            
         ])
         .then(function (responses) {
@@ -576,7 +576,7 @@ $(document).ready(function() {
                 
                //consolelog("cggg")
                //consolelog("cgh",data);
-                return axios.post('${BASE_URL}/sign_in.php', data, {
+                return axios.post(`${BASE_URL}/sign_in.php`, data, {
                 headers: {
                     'Content-Type': 'application/json',
                 }
