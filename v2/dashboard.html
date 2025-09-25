@@ -1170,21 +1170,18 @@
                 card.className = 'card';
 
                 // Set the card content
-                card.innerHTML = `
-                <div class="card-wrapper">
-
-                   ${ profile.plan_status=='Paid'?card.innerHTML= card.innerHTML+` <button class="edit-button" title="Premium Profile"><div class="veri"><img src="../img/veri.png" alt="verification" style="width: 30px; height: 30px;"></div>
-                        </button>` :""}
-                    
-                        <img src="${imgURL}" alt="${profile.first_name}" class="card-image">
-                        <div class="card-details">
-                            <h4>${profile.first_name}</h4>
-                            <p>Age: ${profile.age}</p>
-                             <p>Matri Id: ${profile.matri_id}</p>
-                            
-                        </div>
-                    </div>
-                `;
+               card.innerHTML = `
+<div class="card-wrapper">
+   ${ profile.plan_status=='Paid'?`<button class="edit-button" title="Premium Profile">
+        <div class="veri"><img src="../img/veri.png" alt="verification" style="width:30px;height:30px;"></div>
+        </button>` :""}
+   <img src="${imgURL}" alt="${profile.first_name}" class="card-image" loading="lazy">
+   <div class="card-details">
+       <h4>${profile.first_name}</h4>
+       <p>Age: ${profile.age}</p>
+       <p>Matri Id: ${profile.matri_id}</p>
+   </div>
+</div>`;
                 
            //consolelog(card.innerHTML);
 
@@ -1441,51 +1438,53 @@ document.addEventListener('DOMContentLoaded', function () {
             }   
         })
         .then(function(response) {
-           //consolelog('Success:', response.data);
-            if(response.data.message.p_out_mssg_flg === 'Y'){
-            localStorage.setItem("planStatus", response.data.my_profile[0].plan_status);
-            localStorage.setItem("matriId", response.data.my_profile[0].matri_id);
-            localStorage.setItem("baseURL", response.data.my_profile[0].base_url);
-            localStorage.setItem("my_plan_status", response.data.my_profile[0].plan_status);
-            localStorage.setItem("score", response.data.my_profile[0].score);
+           console.log('Success:', response.data);
+             console.log("Matri", response.data.my_profile.matri_id);
+            if(response.data.message.p_out_mssg === 'Y'){
+                console.log("Matri", response.data.my_profile.matri_id);
+            localStorage.setItem("planStatus", response.data.my_profile.plan_status);
+            localStorage.setItem("matriId", response.data.my_profile.matri_id);
+            localStorage.setItem("baseURL", response.data.my_profile.base_url);
+            localStorage.setItem("my_plan_status", response.data.my_profile.plan_status);
+            localStorage.setItem("score", response.data.my_profile.score);
 
             localStorage.setItem("iViewed", response.data.profile_count.i_viewed);
             localStorage.setItem("viewedBy", response.data.profile_count.viewed_by);
             localStorage.setItem("iLiked", response.data.profile_count.i_liked);
             localStorage.setItem("shortlist", response.data.profile_count.shortlisted);
             //Max
-            localStorage.setItem("max_profile_count", response.data.my_profile[0].max_viewed);
-            localStorage.setItem("max_msg_count", response.data.my_profile[0].max_message);
-            localStorage.setItem("max_contact_count", response.data.my_profile[0].max_contact);
-            localStorage.setItem("viewed_profile_count", response.data.my_profile[0].viewed_count);
-            localStorage.setItem("viewed_msg_count", response.data.my_profile[0].message_count);
-            localStorage.setItem("viewed_contact_count", response.data.my_profile[0].contact_count);  
+            localStorage.setItem("max_profile_count", response.data.my_profile.max_viewed);
+            localStorage.setItem("max_msg_count", response.data.my_profile.max_message);
+            localStorage.setItem("max_contact_count", response.data.my_profile.max_contact);
+            localStorage.setItem("viewed_profile_count", response.data.my_profile.viewed_count);
+            localStorage.setItem("viewed_msg_count", response.data.my_profile.message_count);
+            localStorage.setItem("viewed_contact_count", response.data.my_profile.contact_count);  
             
             localStorage.setItem("likedBy", response.data.profile_count.liked_by);
 
             localStorage.setItem("mutualLiked", response.data.profile_count.mutual_liked);
             localStorage.setItem("contactedCount", response.data.profile_count.profile_contacted);
-            localStorage.setItem("profile_status", response.data.my_profile[0].profile_status);
+            localStorage.setItem("profile_status", response.data.my_profile.profile_status);
             
            
             // const profileFor = document.getElementById("profileFor");
             // const profileFor1 = document.getElementById("profileFor1");
             // const profileId = document.getElementById("profileId");
             // const profileMatriId = document.getElementById("profileMatriId");
-            // profileFor.textContent = response.data.my_profile[0].first_name+" "+response.data.my_profile[0].last_name;
-            // profileFor1.textContent = response.data.my_profile[0].first_name+" "+response.data.my_profile[0].last_name;
-            localStorage.setItem('myprofile_fullname',response.data.my_profile[0].first_name+" "+response.data.my_profile[0].last_name);
-            // profileId.textContent=response.data.my_profile[0].matri_id;
-            // profileMatriId.textContent=response.data.my_profile[0].matri_id;
-            // localStorage.setItem("profileFor",(response.data.my_profile[0].first_name+" "+response.data.my_profile[0].last_name));
-            // localStorage.setItem("profileFor1",(response.data.my_profile[0].first_name+" "+response.data.my_profile[0].last_name));
-            localStorage.setItem("profileId",response.data.my_profile[0].matri_id);
-            localStorage.setItem("profileImg",response.data.my_profile[0].base_url+response.data.my_profile[0]["profile_photo"]);
+            // profileFor.textContent = response.data.my_profile.first_name+" "+response.data.my_profile.last_name;
+            // profileFor1.textContent = response.data.my_profile.first_name+" "+response.data.my_profile.last_name;
+            localStorage.setItem('myprofile_fullname',response.data.my_profile.first_name+" "+response.data.my_profile.last_name);
+            // profileId.textContent=response.data.my_profile.matri_id;
+            // profileMatriId.textContent=response.data.my_profile.matri_id;
+            // localStorage.setItem("profileFor",(response.data.my_profile.first_name+" "+response.data.my_profile.last_name));
+            // localStorage.setItem("profileFor1",(response.data.my_profile.first_name+" "+response.data.my_profile.last_name));
+            localStorage.setItem("profileId",response.data.my_profile.matri_id);
+            localStorage.setItem("profileImg",response.data.my_profile.base_url+response.data.my_profile["profile_photo"]);
 
             // const image1 = document.getElementById("profilePicture1");
-            // profileFor1.textContent = response.data.my_profile[0].first_name+" "+response.data.my_profile[0].last_name;
-            const percent=response.data.my_profile[0]["percent"];
-            localStorage.setItem("percent",response.data.my_profile[0]["percent"]);
+            // profileFor1.textContent = response.data.my_profile.first_name+" "+response.data.my_profile.last_name;
+            const percent=response.data.my_profile["percent"];
+            localStorage.setItem("percent",response.data.my_profile["percent"]);
             localStorage.setItem("myProfile",response.data.my_profile);
             updateProgressBar(percent);
             const recentlyLoginArray = response.data.recently_logedin;
@@ -1495,7 +1494,7 @@ document.addEventListener('DOMContentLoaded', function () {
             const matchedArray = response.data.matched;
             checkMatchedCount(matchedArray.length);
             localStorage.setItem("matchedProfiles", JSON.stringify(matchedArray));
-            baseURL=response.data.my_profile[0].base_url;
+            baseURL=response.data.my_profile.base_url;
            
             populateCards('recently-login-container', recentlyLoginArray);
             populateCards('recently-joined-container', recentlyJoinedArray);
@@ -1513,18 +1512,18 @@ document.addEventListener('DOMContentLoaded', function () {
             document.getElementById('mutual_liked').textContent = profile_count.mutual_liked;
             document.getElementById('contacted').textContent = profile_count.profile_contacted;
 
-            document.getElementById('profile_name').textContent = response.data.my_profile[0].first_name+" "+response.data.my_profile[0].last_name;
-            document.getElementById('profile_id').textContent = response.data.my_profile[0].matri_id;
-            document.getElementById('profile_phone').textContent = response.data.my_profile[0].creator_phone;
-            document.getElementById('profile_end_date').textContent = moment(response.data.my_profile[0].subscription_date).format("DD-MMM-YYYY");
+            document.getElementById('profile_name').textContent = response.data.my_profile.first_name+" "+response.data.my_profile.last_name;
+            document.getElementById('profile_id').textContent = response.data.my_profile.matri_id;
+            document.getElementById('profile_phone').textContent = response.data.my_profile.creator_phone;
+            document.getElementById('profile_end_date').textContent = moment(response.data.my_profile.subscription_date).format("DD-MMM-YYYY");
             document.getElementById('viewCount').textContent = profile_count.viewed_by;
 
-            if(response.data.my_profile[0].plan_status=="Paid"){
+            if(response.data.my_profile.plan_status=="Paid"){
                 document.getElementById('subs_date').style.display="block";
                 document.getElementById('profileButton').style.display="none";
                 document.getElementById('plan_flag').style.display="block";
                 document.getElementById('viewPlan').textContent="Paid";
-            }else if(response.data.my_profile[0].plan_status=="Expired"){
+            }else if(response.data.my_profile.plan_status=="Expired"){
                 document.getElementById('subs_date').style.display="block";
                 document.getElementById('profileButton').style.display="block";
                 document.getElementById('plan_flag').style.display="block";
@@ -1540,11 +1539,12 @@ document.addEventListener('DOMContentLoaded', function () {
             const profileImg = document.getElementById("profileImg");
             const profileImgDashboard = document.getElementById("profileImgDashboard");
             const image = document.getElementById("profilePicture");
-            if(response.data.my_profile[0]["profile_photo"]==null || response.data.my_profile[0]["profile_photo"]==''){
+            console.log("base prfolr",response.data.my_profile["profile_photo"]);
+            if(response.data.my_profile["profile_photo"]==null || response.data.my_profile["profile_photo"]==''){
                 let imgURL='';
-                if(response.data.my_profile[0].gender=="1"){
+                if(response.data.my_profile.gender=="1"){
                     imgURL='../img/2.png';
-                }else if(response.data.my_profile[0].gender=="2"){
+                }else if(response.data.my_profile.gender=="2"){
                     imgURL='../img/1.png';
                 }
                 profileImgDashboard.src =imgURL;
@@ -1554,12 +1554,12 @@ document.addEventListener('DOMContentLoaded', function () {
                 setInterval(showPopup, 6000); 
                 
             }else{
-                let src_value = response.data.my_profile[0].base_url+response.data.my_profile[0]["profile_photo"];
-                console.log(src_value);
-                profileImgDashboard.src = src_value;//response.data.my_profile[0].base_url+response.data.my_profile[0]["profile_photo"];
-                // profileImg.src = src_value; //response.data.my_profile[0].base_url+response.data.my_profile[0]["profile_photo"];
-                // image.src = src_value ;//response.data.my_profile[0].base_url+response.data.my_profile[0]["profile_photo"];
-                localStorage.setItem('myprofile_photo_url',response.data.my_profile[0].base_url+response.data.my_profile[0]["profile_photo"]);
+                let src_value = response.data.my_profile.base_url+response.data.my_profile["profile_photo"];
+                console.log("profile",src_value);
+                profileImgDashboard.src = src_value;//response.data.my_profile.base_url+response.data.my_profile["profile_photo"];
+                // profileImg.src = src_value; //response.data.my_profile.base_url+response.data.my_profile["profile_photo"];
+                // image.src = src_value ;//response.data.my_profile.base_url+response.data.my_profile["profile_photo"];
+                localStorage.setItem('myprofile_photo_url',response.data.my_profile.base_url+response.data.my_profile["profile_photo"]);
             }
             
             hideWaitingDialog();
