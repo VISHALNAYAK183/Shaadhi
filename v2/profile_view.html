@@ -983,7 +983,7 @@
         
                 try {
                     const response = await axios.post(
-                        "${BASE_URL}/z_my_profile2.php",
+                        `${BASE_URL}/z_my_profile2.php`,
                         data,
                         { headers: { "Content-Type": "application/json",    
                            "Authorization": "Bearer " + localStorage.getItem("jwtToken") } }
