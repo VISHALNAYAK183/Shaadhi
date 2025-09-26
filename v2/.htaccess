@@ -1,0 +1,9 @@
+# Enable RewriteEngine
+RewriteEngine On
+
+# If file or directory exists, serve it directly
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Rewrite /something → /something.html
+RewriteRule ^([^/]+)$ $1.html [L]
