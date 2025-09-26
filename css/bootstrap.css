@@ -50,6 +50,13 @@ html {
   -webkit-tap-highlight-color: transparent;
 }
 
+.content {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+            background: linear-gradient(135deg, #F7E5DA 0%, #f8fbff 100%);
+        }
+
 @-ms-viewport {
   width: device-width;
 }
@@ -3949,6 +3956,8 @@ tbody.collapse.show {
   padding: 0.5rem 1rem;
 }
 
+
+
 .navbar > .container,
 .navbar > .container-fluid {
   display: -webkit-box;
@@ -6781,6 +6790,7 @@ button.bg-dark:focus {
     -ms-flex-line-pack: start !important;
     align-content: flex-start !important;
   }
+  
   .align-content-sm-end {
     -ms-flex-line-pack: end !important;
     align-content: flex-end !important;
