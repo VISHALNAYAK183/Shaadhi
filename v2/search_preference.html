@@ -420,6 +420,95 @@
   margin: 10px 0;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 } */
+
+
+/* Default (Desktop / Large screens) is already defined above */
+
+/* Tablet screens */
+@media (max-width: 1024px) {
+  .container {
+    width: 70%;   /* expand container */
+    padding: 15px;
+  }
+
+  #matriIdInput {
+    width: 60%;   /* allow more space */
+  }
+
+  .age-input, .height-input, .income-input {
+    width: 48%;   /* fit side by side */
+  }
+}
+
+/* Mobile screens */
+@media (max-width: 768px) {
+  .container {
+    width: 90%;
+    padding: 15px;
+  }
+
+  #matriIdInput {
+    width: 90%;   /* full width on small screens */
+  }
+
+  .age-container,
+  .height-container,
+  .income-container {
+    flex-direction: column;  /* stack label + inputs */
+    align-items: flex-start;
+  }
+
+  .input-fields {
+    flex-direction: column;  /* stack inputs */
+    width: 100%;
+  }
+
+  .age-input,
+  .height-input,
+  .income-input {
+    width: 100%; 
+    margin-bottom: 10px;
+  }
+
+  .btn {
+    font-size: 14px;
+    padding: 12px;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+}
+
+/* Very small mobile screens */
+@media (max-width: 480px) {
+  .container {
+    width: 95%;
+    padding: 10px;
+  }
+
+  .dropdown-selected,
+  .dropdown-list label {
+    font-size: 13px;
+  }
+
+  input[type="text"],
+  input#city,
+  select#education {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .btn {
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  h2 {
+    font-size: 18px;
+  }
+}
+
 </style>
 <body>
 

@@ -100,6 +100,110 @@
             margin-right: 15px;
             font-weight: 500;
         } */
+
+        /* Default styles (for desktops & larger screens) */
+.profile-basic {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 5px;
+  background: #f9f9f9;
+  font-family: Arial, sans-serif;
+}
+
+.profile-item1 {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.profile-label1 {
+  flex: 2;
+  font-weight: bold;
+  color: #333;
+}
+
+.profile-item1 span {
+  flex: 2;
+  color: #555;
+  text-align: left;
+  margin-left: 20px;
+}
+
+.option-button {
+  margin-bottom: 20px;
+}
+
+p {
+  display: flex;
+  align-items: center;
+}
+
+#dob {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
+}
+
+.option-button {
+  display: flex;
+  flex: 2;
+  margin-left: auto;
+}
+
+/* ✅ Responsive Adjustments */
+@media (max-width: 768px) {
+  .profile-basic {
+    max-width: 90%;  /* shrink container */
+    padding: 10px;
+  }
+
+  .profile-item1 {
+    flex-direction: column;  /* stack label + value */
+    align-items: flex-start;
+  }
+
+  .profile-item1 span {
+    margin-left: 0;   /* reset margin */
+    margin-top: 5px;  /* add small spacing below label */
+    text-align: left;
+    width: 100%;
+  }
+
+  #dob {
+    flex-direction: column; /* stack elements */
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .option-button {
+    justify-content: center;  /* center buttons */
+    margin-left: 0;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-basic {
+    max-width: 100%;  /* use full width */
+    padding: 8px;
+  }
+
+  .profile-label1 {
+    font-size: 14px;
+  }
+
+  .profile-item1 span {
+    font-size: 14px;
+  }
+
+  .option-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
     </style>   
 </head>
 <script>
