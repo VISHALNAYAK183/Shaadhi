@@ -18,6 +18,52 @@
      <style>
        /* Default styles (for larger screens like desktops) */
 
+       .option-button {
+    padding: 8px 10px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    background-color: #F7E5DA;
+    color:grey;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+       .icon-row {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 8px 10px;
+}
+
+.icon-row1 {
+    width: 100%;
+    border-radius: 12px;
+    border: 2px solid #F7E5DA;
+    background: linear-gradient(135deg, #F7E5DA 0%, #F7E5DA 100%);
+}
+
+       .profile h2 {
+    font-size: 1.8rem;
+    color: #832B00;
+    margin-bottom: 1rem;
+    font-family: 'Playfair Display', serif;
+}
+
+       #sidebar-placeholder {
+            background: linear-gradient(180deg, #F7E5DA 0%, #F7E5DA 100%);
+            color: #2c3e50;
+            border-right: 1px solid #e3f2fd;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: linear-gradient(180deg, #F7E5DA 0%, #F7E5DA 100%);
+            padding: 1.5rem;
+            border-right: 1px solid #e3f2fd;
+            box-shadow: 4px 0 15px rgba(33, 150, 243, 0.1);
+        }
+
        .profile-basic {
         max-width: 600px;
         margin: 20px auto;
@@ -298,7 +344,7 @@ p {
         <main id="content" class="content">
             <div id="waiting-dialog" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center; z-index: 9999;">
                 <div style="background-color: #F7E5DA; padding: 20px; border-radius: 8px;">
-                    <div class="loader" style="border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 50px; height: 50px; animation: spin 2s linear infinite;"></div>
+                    <div class="loader" style="border: 4px solid #f3f3f3; border-top: 4px solid #832B00; border-radius: 50%; width: 50px; height: 50px; animation: spin 2s linear infinite;"></div>
                     <p style="text-align: center; margin-top: 10px;">Please Wait...</p>
                 </div>
             </div>
@@ -308,7 +354,7 @@ p {
                 <div class="profile-container">
                     <!-- Left Section -->
                     <div class="profile-left profile-details">
-                        <h2><i class="fa fa-arrow-left" style="color:orange;border:1px solid black;border-radius: 50%;padding:5px;margin-right: 15px;" onclick="goBack()"></i>My Profile</h2>
+                        <h2><i class="fa fa-arrow-left" style="color:#832B00;border:1px solid black;border-radius: 50%;padding:5px;margin-right: 15px;" onclick="goBack()"></i>My Profile</h2>
                         <p><span class="labelStar"><strong>Name:</strong></span> <span id="profileNameText"></span></p>
                         <p><span class="labelStar"><strong>Age:</strong></span><span id="profileAge"></span></p>
                         <p><span class="labelStar"><strong>Height:</strong></span> <span id="profileHeight"></span></p>
