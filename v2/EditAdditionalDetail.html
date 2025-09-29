@@ -16,18 +16,18 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         body {
-            /* background: linear-gradient(135deg, #f06, #4a90e2); */
-            background-image: url('https://png.pngtree.com/background/20230208/original/pngtree-beautiful-indian-wedding-background-picture-image_2026053.jpg'); 
+            background-image: url('../img/bg-edit.jpg'); 
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             font-family: 'Poppins', sans-serif;
             display: flex;
             justify-content: center;
-            align-items: center;
-            height: 160vh;
+            align-items: flex-start; /* change from center */
+            min-height: 100vh; /* ensures full viewport height */
             margin: 0;
-            padding: 0;
+            padding: 20px 0; /* add top/bottom spacing */
+            overflow-y: auto; /* allows scrolling if content overflows */
         }
         .form-container {
             background: white;
@@ -36,6 +36,7 @@
             box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
             width: 90%;
             max-width: 400px;
+            box-sizing: border-box;
         }
         h2 {
             text-align: center;
@@ -67,7 +68,7 @@
         button {
             width: 100%;
             padding: 12px;
-            background-color: #f06;
+            background-color: #832B00;
             color: white;
             border: none;
             border-radius: 5px;
@@ -175,8 +176,46 @@
             background-color: #0056b3;
         }
 
+        .form-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.back-btn, .update-btn {
+    flex: 1;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.3s;
+}
+
+.back-btn {
+    background-color: #e94560; /* Back button color */
+    color: white;
+    margin-right: 10px;
+}
+
+.back-btn:hover {
+    background-color: #c92b3a;
+}
+
+.update-btn {
+    background-color: #832B00; /* Your existing update button color */
+    color: white;
+}
+
+.update-btn:hover {
+    background-color: #a63900;
+}
+
+
     </style>
     <script>
+
       let myProfileNew ;
       window.addEventListener("DOMContentLoaded", () => {
         if(localStorage.getItem('matriId')== 'NULL'||localStorage.getItem('matriId')==''||localStorage.getItem('matriId')== null ){
@@ -353,7 +392,9 @@ if (myProfileNew.remark) {
 
 <div class="form-container">
     
+    
     <h2>Additional Details</h2>
+    
     <form id="additionalDetailsForm">
         <div class="form-group">
             <label for="height">Height (cm):</label>
@@ -448,7 +489,10 @@ if (myProfileNew.remark) {
             <label for="remarks">Remarks (Optional):</label>
             <textarea id="remarks" rows="3" placeholder="Any additional remarks"></textarea>
         </div>
-        <button type="submit">UPDATE</button>
+        <div class="form-buttons">
+        <button type="button" class="back-btn" onclick="goBack()">← Back</button>
+        <button type="submit" class="update-btn">UPDATE</button>
+        </div>
         <div id="loader" class="loader-container">
             <div class="loading-text">Loading</div>
             <div class="dots">
@@ -882,6 +926,10 @@ return axios.post(`${BASE_URL}/update_profile.php`, data, {
          }
     
     }
+
+    function goBack() {
+    window.history.back();
+}
 </script>
 
 </body>
