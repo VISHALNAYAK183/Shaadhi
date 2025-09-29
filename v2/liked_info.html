@@ -89,6 +89,81 @@
         opacity: 1; /* Make it visible */
         visibility: visible; /* Make it visible */
     }
+
+    /* shetty */
+
+    /* Responsive Dashboard Layout */
+.dashboard-container {
+    display: flex;
+    flex-wrap: wrap; /* allow sidebar to move on small screens */
+    min-height: 100vh;
+}
+
+/* Sidebar styling */
+.sidebar, #sidebar-placeholder {
+    width: 280px;
+    min-height: 100vh;
+    flex-shrink: 0;
+}
+
+/* Main content area */
+.content {
+    flex: 1;
+    padding: 1rem;
+    min-width: 0; /* prevent overflow */
+}
+
+/* Cards layout */
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+}
+
+/* Search bar styling */
+.search-input {
+    padding: 6px 10px;
+    font-size: 14px;
+    margin-left: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* 📱 Mobile View */
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column; /* stack sidebar above */
+    }
+
+    .sidebar, #sidebar-placeholder {
+        width: 100%;
+        min-height: auto;
+        box-shadow: none;
+        border-right: none;
+        border-bottom: 1px solid #e3f2fd;
+    }
+
+    .content {
+        width: 100%;
+        padding: 0.8rem;
+    }
+
+    .card-container {
+        grid-template-columns: 1fr; /* single column on mobile */
+    }
+
+    .recently-joined-header,
+    .recently-login-header,
+    .profile-matched-header {
+        font-size: 1.1rem;
+    }
+
+    .search-input {
+        width: 60%;
+        font-size: 13px;
+    }
+}
+
 </style>
 <body>
 
@@ -473,93 +548,7 @@ document.addEventListener('DOMContentLoaded', function () {
         };
        //consolelog(data);
         showWaitingDialog();
-            
-
-            //    console.log(localStorage.getItem('myprofile_fullname') + '\n' +localStorage.getItem('myprofile_photo_url'))
-            //     const profileFor1 = document.getElementById("profileFor1");
-            //     const profileMatriId = document.getElementById("profileMatriId");
-            //     const image = document.getElementById("profilePicture");
-
-            //     // image.src = localStorage.getItem('myprofile_photo_url');
-
-            //     profileFor1.textContent = !localStorage.getItem('myprofile_fullname') 
-            //                     ? localStorage.getItem('myprofile_fullname') 
-            //                     : '';
-            //     profileMatriId.textContent = localStorage.getItem('matriId') || '';
-            //     profileMatriId.textContent=localStorage.getItem('matriId');
-            //     profileImg.src = localStorage.getItem('myprofile_photo_url');
-
-        // axios.post(`${BASE_URL}/dashboard.php`, data, {
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     }
-        // })
-        // .then(function(response) {
-        //    //consolelog('Success:', response.data);
-        //     if(response.data.message.p_out_mssg_flg === 'Y')
-            // {
-            // localStorage.setItem("matriId", response.data.my_profile[0].matri_id);
-            // localStorage.setItem("baseURL", response.data.my_profile[0].base_url);
-
-            // localStorage.setItem("iViewed", response.data.profile_count.i_viewed);
-            // localStorage.setItem("viewedBy", response.data.profile_count.viewed_by);
-            // localStorage.setItem("iLiked", response.data.profile_count.i_liked);
-            // localStorage.setItem("likedBy", response.data.profile_count.liked_by);
-            // localStorage.setItem("mutualLiked", response.data.profile_count.mutual_liked);
-            // localStorage.setItem("contactedCount", response.data.profile_count.profile_contacted);
-
-           
-            // const profileFor = document.getElementById("profileFor");
-            // const profileFor1 = document.getElementById("profileFor1");
-            // const profileId = document.getElementById("profileId");
-            // const profileMatriId = document.getElementById("profileMatriId");
-            // image.src = localStorage.getItem('myprofile_photo_url');
-
-            // profileFor.textContent = response.data.my_profile[0].first_name+" "+response.data.my_profile[0].last_name;
-            // profileFor1.textContent = response.data.my_profile[0].first_name+" "+response.data.my_profile[0].last_name;
-            // profileId.textContent=response.data.my_profile[0].matri_id;
-            // profileMatriId.textContent=response.data.my_profile[0].matri_id;
-            // // const image1 = document.getElementById("profilePicture1");
-            // // profileFor1.textContent = response.data.my_profile[0].first_name+" "+response.data.my_profile[0].last_name;
-
-            // baseURL=response.data.my_profile[0].base_url;
-           
-
-  
-            // // document.getElementById('iviewed_count').textContent = recentlyJoinedArray.length;
-
-            // const profile_count = response.data.profile_count;
-            // document.getElementById('iliked_count').textContent = profile_count.i_liked;
-            // document.getElementById('likedby_count').textContent = profile_count.liked_by;
-           
-            // // document.getElementById('i_liked').textContent = profile_count.i_liked;
-            // // document.getElementById('liked_by').textContent = profile_count.liked_by;
-            // // document.getElementById('mutual_liked').textContent = profile_count.mutual_liked;
-            // // document.getElementById('contacted').textContent = profile_count.profile_contacted;
-            // const profileImg = document.getElementById("profileImg");
-            // const image = document.getElementById("profilePicture");
-            // if(response.data.my_profile[0]["profile_photo"]==null || response.data.my_profile[0]["profile_photo"]==''){
-            //     let imgURL='';
-            //     if(response.data.my_profile[0].gender=="1"){
-            //         imgURL='../img/2.png';
-            //     }else if(response.data.my_profile[0].gender=="2"){
-            //         imgURL='../img/1.png';
-            //     }
-            //     profileImg.src =imgURL;
-            //     image.src =imgURL;
-            // }else{
-            //     profileImg.src = response.data.my_profile[0].base_url+response.data.my_profile[0]["profile_photo"];
-            //     image.src = response.data.my_profile[0].base_url+response.data.my_profile[0]["profile_photo"];
-
-            // }
-
-            // hideWaitingDialog();
-        //     }
-        //     else{
-        //    //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);
-        //     hideWaitingDialog();
-        //     }
-        // });
+      
         hideWaitingDialog();
         toggleOptionILiked();
         toggleOptionLikedBy();
