@@ -78,6 +78,97 @@
         opacity: 1; /* Make it visible */
         visibility: visible; /* Make it visible */
     }
+
+    /* Shetty */
+    /* ========== Responsive Layout Fix ========== */
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+    flex-wrap: wrap; /* allow wrapping on smaller screens */
+}
+
+/* Sidebar default */
+.sidebar, 
+#sidebar-placeholder {
+    width: 280px;
+    flex-shrink: 0;
+}
+
+/* Content */
+.content {
+    flex: 1;
+    padding: 1rem;
+    min-width: 0;
+}
+
+/* Card grid */
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1rem;
+}
+
+/* 📱 Tablets and small laptops */
+@media (max-width: 992px) {
+    .dashboard-container {
+        flex-direction: row;
+    }
+
+    .sidebar,
+    #sidebar-placeholder {
+        width: 220px;
+    }
+
+    .card-container {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    }
+}
+
+/* 📱 Mobile phones */
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column; /* stack sidebar above content */
+    }
+
+    .sidebar,
+    #sidebar-placeholder {
+        width: 100%;  /* take full width */
+        min-height: auto;
+        border-right: none;
+        border-bottom: 1px solid #e3f2fd;
+        box-shadow: none;
+    }
+
+    .content {
+        width: 100%;
+        padding: 0.8rem;
+    }
+
+    .card-container {
+        grid-template-columns: 1fr; /* one card per row */
+    }
+
+    .search-input {
+        width: 100%;
+        margin-top: 0.5rem;
+        font-size: 14px;
+    }
+}
+
+/* 📱 Very small screens */
+@media (max-width: 480px) {
+    .container-header {
+        font-size: 1rem;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .search-input {
+        width: 100%;
+        font-size: 13px;
+    }
+}
+
 </style>
 <body>
 
@@ -308,61 +399,9 @@
                         localStorage.setItem("imgURL",imgURL);
                         localStorage.setItem("height", profile.height);
                         localStorage.setItem("weight",profile.weight);
-                //     localStorage.setItem("matriIdTo",profile.matri_id);
-                //   localStorage.setItem("viewedFirstName",profile.first_name);
-                //   localStorage.setItem("viewedLastName",profile.last_name);
-                //   localStorage.setItem("imageViewed",profile.url);
-                //   localStorage.setItem("age", profile.age);
-                //   localStorage.setItem("place", profile.home_town);
-                //   localStorage.setItem("remarks", profile.remark);
-                //   localStorage.setItem("mother_tongue",profile.mother_tongue);
-                //   localStorage.setItem("height", profile.height);
-                //   localStorage.setItem("nakshtra", profile.nakshatra);
-                //   localStorage.setItem("rashi", profile.rashi);
-                //   localStorage.setItem("gothra", profile.gothra);
-                //   localStorage.setItem("genderType",profile["gender_type"]);
-                //   localStorage.setItem("address",profile.address);
-                //   localStorage.setItem("birthPlace",profile.birth_place);
-                //   localStorage.setItem("birthTime",profile.birth_time);
-                //   localStorage.setItem("bloodGroup", profile.blood_group);
-                //   localStorage.setItem("company", profile.company);
-                //   localStorage.setItem("complexion", profile.complexion);
-                //   localStorage.setItem("createrPhone", profile.creator_phone);
-                //   localStorage.setItem("disability", profile.disability);
-                //   localStorage.setItem("dob", profile.dob);
-                //   localStorage.setItem("email",profile.email);
-                //   localStorage.setItem("familyDiety",profile.family_diety);
-                //   localStorage.setItem("familyType",profile.family_type);
-                //   localStorage.setItem("fatherName",profile.father_name);
-                //   localStorage.setItem("fatherOccupation", profile.father_ocupation);
-                //   localStorage.setItem("motherName",profile.mother_name);
-                //   localStorage.setItem("motherOccupation", profile.mother_occupation);
-                //   localStorage.setItem("brothers",profile.number_of_brothers);
-                //   localStorage.setItem("sisters", profile.number_of_sisters);
-                //   localStorage.setItem("horoscope", profile.horoscope);
-                //   localStorage.setItem("qualification", profile.qualification);
-                //   localStorage.setItem("specialization",profile.specialization);
-                //   localStorage.setItem("profession", profile.occupation);
-                //   localStorage.setItem("company", profile.company);
-                //   localStorage.setItem("companyCity", profile.company_city);
-                //   localStorage.setItem("salary", profile.salary);
-                //   localStorage.setItem("maritalStatus", profile.status);
-                //   localStorage.setItem("subCaste", profile.sub_caste);
-                //   localStorage.setItem("profileFor",profile.profile_for);
-                //   localStorage.setItem("profileCreator",profile.profile_creator);
-                //   localStorage.setItem("creatorPhone",profile.creator_phone);
-                //   localStorage.setItem("phone",profile.phone);
-                //   localStorage.setItem("creatorName",profile.creator_name);
-                //   localStorage.setItem("liked",profile.liked);
-                //   localStorage.setItem("city",profile.city);
-                //   localStorage.setItem("state",profile.state);
-                //   localStorage.setItem("country",profile.country);
-                //   localStorage.setItem("weight",profile.weight);
-                //   localStorage.setItem("likedProfile",profile.liked);
                   localStorage.setItem("imgURL",imgURL);
                     localStorage.setItem("profile", JSON.stringify(profile));
                     window.location.href = "profile_view.html";
-                   //consolelog("Card Clicked");
                 }
                 else{
                     Swal.fire({
@@ -385,16 +424,8 @@
                            //consolelog("User chose to cancel.");
                         }
                     });
-               }
- 
-               
+               }            
             }
-           // container.appendChild(card);
-            
-                    //consolelog("Card Clicked");
-                 
- 
-                 // Append the card to the container
                  container.appendChild(card);
              });
          }
@@ -405,8 +436,7 @@
               matri_id:localStorage.getItem('matriId'),
               type: "mutual"  
           }
-         //consolelog(data3);
-
+        
           axios.post(`${BASE_URL}/matri_liked.php`, data3, {
               headers: {
                   'Content-Type': 'application/json',
@@ -440,75 +470,6 @@ document.addEventListener('DOMContentLoaded', function () {
         logout();
     }
     showWaitingDialog();
-   
-
-
-    //     const data = {
-    //         id: localStorage.getItem('mId'),
-    //         matri_id: localStorage.getItem('matriId')
-    //     };
-    //    //consolelog(data);
-    //     showWaitingDialog();
-    //     axios.post(`${BASE_URL}/dashboard.php`, data, {
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //         }
-    //     })
-    //     .then(function(response) {
-    //        //consolelog('Success:', response.data);
-    //         if(response.data.message.p_out_mssg_flg === 'Y'){
-    //         localStorage.setItem("matriId", response.data.my_profile[0].matri_id);
-    //         localStorage.setItem("baseURL", response.data.my_profile[0].base_url);
-
-
-          
-    //         const profileFor = document.getElementById("profileFor");
-    //         const profileFor1 = document.getElementById("profileFor1");
-    //         const profileId = document.getElementById("profileId");
-    //         const profileMatriId = document.getElementById("profileMatriId");
-    //         profileFor.textContent = response.data.my_profile[0].first_name+" "+response.data.my_profile[0].last_name;
-    //         profileFor1.textContent = response.data.my_profile[0].first_name+" "+response.data.my_profile[0].last_name;
-    //         profileId.textContent=response.data.my_profile[0].matri_id;
-    //         profileMatriId.textContent=response.data.my_profile[0].matri_id;
-    //         // const image1 = document.getElementById("profilePicture1");
-    //         // profileFor1.textContent = response.data.my_profile[0].first_name+" "+response.data.my_profile[0].last_name;
-  
-    //         baseURL=response.data.my_profile[0].base_url;
-           
-
-  
-    //         // document.getElementById('iviewed_count').textContent = recentlyJoinedArray.length;
-
-    //         const profile_count = response.data.profile_count;
-    //         document.getElementById('mutualliked_count').textContent = profile_count.mutual_liked;
-           
-    //         // document.getElementById('i_liked').textContent = profile_count.i_liked;
-    //         // document.getElementById('liked_by').textContent = profile_count.liked_by;
-    //         // document.getElementById('mutual_liked').textContent = profile_count.mutual_liked;
-    //         // document.getElementById('contacted').textContent = profile_count.profile_contacted;
-    //         const profileImg = document.getElementById("profileImg");
-    //         const image = document.getElementById("profilePicture");
-    //         if(response.data.my_profile[0]["profile_photo"]==null || response.data.my_profile[0]["profile_photo"]==''){
-    //             let imgURL='';
-    //             if(response.data.my_profile[0].gender=="1"){
-    //                 imgURL='../img/2.png';
-    //             }else if(response.data.my_profile[0].gender=="2"){
-    //                 imgURL='../img/1.png';
-    //             }
-    //             profileImg.src =imgURL;
-    //             image.src =imgURL;
-    //         }else{
-    //             profileImg.src = response.data.my_profile[0].base_url+response.data.my_profile[0]["profile_photo"];
-    //             image.src = response.data.my_profile[0].base_url+response.data.my_profile[0]["profile_photo"];
-
-    //         }
-
-    //         hideWaitingDialog();
-    //         }else{
-    //        //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);
-    //         hideWaitingDialog();
-    //         }
-    //     });
         toggleOptionMutualLiked();
       
     });

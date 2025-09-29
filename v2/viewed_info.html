@@ -91,6 +91,110 @@
         visibility: visible; /* Make it visible */
     }
     
+    /*shetty */
+    /* General responsive rules */
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+/* Dashboard container layout */
+.dashboard-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* Sidebar default (desktop) */
+.sidebar {
+    width: 280px;
+    flex-shrink: 0;
+}
+
+/* Main content takes rest */
+.content {
+    flex: 1;
+    padding: 1rem;
+    overflow-x: hidden;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    /* Sidebar collapses into top bar */
+    .sidebar {
+        width: 100%;
+        padding: 1rem;
+        border-right: none;
+        border-bottom: 1px solid #e3f2fd;
+        box-shadow: none;
+    }
+
+    /* Sidebar items stack better */
+    .sidebar ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .sidebar li {
+        flex: 1 1 45%; /* two per row */
+    }
+
+    /* Content padding reduced */
+    .content {
+        padding: 0.5rem;
+    }
+
+    /* Card responsiveness */
+    .card-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 10px;
+    }
+
+    .card {
+        width: 100%;
+    }
+
+    /* Search input full width */
+    .search-input {
+        width: 100%;
+        margin-top: 10px;
+        display: block;
+    }
+}
+
+@media (max-width: 480px) {
+    .sidebar {
+        width: 100%;   /* take full width on mobile */
+        padding: 1rem;
+        border-right: none;
+        border-bottom: 1px solid #e3f2fd;
+        box-shadow: none;
+        display: block;  /* ✅ force it visible */
+    }
+
+    /* Add space for a menu button */
+    .menu-toggle {
+        display: block;
+        background: #f7d6e0;
+        border: none;
+        padding: 10px;
+        font-size: 18px;
+        width: 100%;
+        text-align: left;
+        cursor: pointer;
+    }
+
+    /* Cards single column */
+    .card-container {
+        grid-template-columns: 1fr;
+    }
+}
+
 </style>
 <body>
 
@@ -362,62 +466,9 @@
                         localStorage.setItem("height", profile.height);
                         localStorage.setItem("weight",profile.weight);
 
-                //     localStorage.setItem("matriIdTo",profile.matri_id);
-                //   localStorage.setItem("viewedFirstName",profile.first_name);
-                //   localStorage.setItem("viewedLastName",profile.last_name);
-                //   localStorage.setItem("imageViewed",profile.url);
-                //   localStorage.setItem("age", profile.age);
-                //   localStorage.setItem("place", profile.home_town);
-                //   localStorage.setItem("height", profile.height);
-                //   localStorage.setItem("remarks", profile.remark);
-                //   localStorage.setItem("mother_tongue",profile.mother_tongue);
-                //   localStorage.setItem("nakshtra", profile.nakshatra);
-                //   localStorage.setItem("rashi", profile.rashi);
-                //   localStorage.setItem("gothra", profile.gothra);
-                //   localStorage.setItem("genderType",profile["gender_type"]);
-                //   localStorage.setItem("address",profile.address);
-                //   localStorage.setItem("birthPlace",profile.birth_place);
-                //   localStorage.setItem("birthTime",profile.birth_time);
-                //   localStorage.setItem("bloodGroup", profile.blood_group);
-                //   localStorage.setItem("company", profile.company);
-                //   localStorage.setItem("complexion", profile.complexion);
-                //   localStorage.setItem("createrPhone", profile.creator_phone);
-                //   localStorage.setItem("disability", profile.disability);
-                //   localStorage.setItem("dob", profile.dob);
-                //   localStorage.setItem("email",profile.email);
-                //   localStorage.setItem("familyDiety",profile.family_diety);
-                //   localStorage.setItem("familyType",profile.family_type);
-                //   localStorage.setItem("fatherName",profile.father_name);
-                //   localStorage.setItem("fatherOccupation", profile.father_ocupation);
-                //   localStorage.setItem("motherName",profile.mother_name);
-                //   localStorage.setItem("motherOccupation", profile.mother_occupation);
-                //   localStorage.setItem("brothers",profile.number_of_brothers);
-                //   localStorage.setItem("sisters", profile.number_of_sisters);
-                //   localStorage.setItem("horoscope", profile.horoscope);
-                //   localStorage.setItem("qualification", profile.qualification);
-                //   localStorage.setItem("specialization",profile.specialization);
-                //   localStorage.setItem("profession", profile.occupation);
-                //   localStorage.setItem("company", profile.company);
-                //   localStorage.setItem("companyCity", profile.company_city);
-                //   localStorage.setItem("salary", profile.salary);
-                //   localStorage.setItem("maritalStatus", profile.status);
-                //   localStorage.setItem("subCaste", profile.sub_caste);
-                //   localStorage.setItem("profileFor",profile.profile_for);
-                //   localStorage.setItem("profileCreator",profile.profile_creator);
-                //   localStorage.setItem("creatorPhone",profile.creator_phone);
-                //   localStorage.setItem("phone",profile.phone);
-                //   localStorage.setItem("creatorName",profile.creator_name);
-                //   localStorage.setItem("liked",profile.liked);
-                //   localStorage.setItem("city",profile.city);
-                //   localStorage.setItem("state",profile.state);
-                //   localStorage.setItem("country",profile.country);
-                //   localStorage.setItem("weight",profile.weight);
-                // //   localStorage.setItem("likedProfile",profile.liked);
-                //   localStorage.setItem("imgURL",imgURL);
-                //     localStorage.setItem("profile", JSON.stringify(profile));
+             
                     window.location.href = "profile_view.html";
-                   //consolelog("Card Clicked");
-                   //consolelog("You can see");
+                  
                 }
                 else{
                     Swal.fire({
@@ -436,20 +487,13 @@
                             // Redirect to the upgrade page
                             window.location.href = "payment.html";
                         } else if (result.dismiss === Swal.DismissReason.cancel) {
-                            // Do nothing, alert will close
-                           //consolelog("User chose to cancel.");
+                           
                         }
                     });
                }
  
                
             }
-           // container.appendChild(card);
-            
-                    //consolelog("Card Clicked");
-                 
- 
-                 // Append the card to the container
                  container.appendChild(card);
              });
          }
@@ -559,8 +603,6 @@ function filterProfiles() {
         });
     });
 }
-
-        // window.onload = generateCards;
     </script>
     <script src="maxcount.js"></script>
 </body>
