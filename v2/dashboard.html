@@ -657,7 +657,9 @@
             border-radius: 15px;
         }
 
-        /* Responsive Design */
+        /* Enhanced Responsive Design */
+        
+        /* Large tablets and small desktops */
         @media (max-width: 1200px) {
             .main-container {
                 flex-direction: column;
@@ -670,11 +672,79 @@
             .options-row-dashboard {
                 justify-content: center;
             }
+            
+            .card {
+                width: 180px;
+            }
         }
 
+        /* Tablets */
+        @media (max-width: 992px) {
+            .dashboard-container {
+                flex-direction: column;
+            }
+            
+            #sidebar-placeholder, .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #e3f2fd;
+                padding: 1rem;
+            }
+            
+            .content {
+                padding: 1.5rem;
+            }
+            
+            .profile_container {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+            
+            .profile_image {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .profile_details {
+                width: 100%;
+            }
+            
+            .search-input {
+                width: 100%;
+                max-width: 300px;
+                margin-right: 0;
+                margin-top: 10px;
+            }
+            
+            .container-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+            
+            .options-row-dashboard {
+                justify-content: center;
+            }
+            
+            .option-button-dashboard {
+                flex: 1 1 45%;
+                min-width: 140px;
+            }
+        }
+
+        /* Small tablets and large phones */
         @media (max-width: 768px) {
+            html, body {
+                overflow-y: auto;
+            }
+            
+            .dashboard-container {
+                height: auto;
+            }
+            
             .sidebar {
-                width: 220px;
+                width: 100%;
             }
             
             .content {
@@ -683,10 +753,221 @@
             
             .navbar {
                 padding: 0.8rem 1rem;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .navbar-left h1 {
+                font-size: 1.4rem;
+            }
+            
+            .navbar-right {
+                flex-direction: column;
+                width: 100%;
             }
             
             .search-input {
-                width: 200px;
+                width: 100%;
+                max-width: 100%;
+            }
+            
+            .profile_image {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .profile_details h4 {
+                font-size: 1.2rem;
+            }
+            
+            .profile_details p {
+                font-size: 13px;
+            }
+            
+            .recently-joined-header, .recently-login-header, .profile-matched-header {
+                font-size: 1.2rem;
+            }
+            
+            .card {
+                width: 160px;
+            }
+            
+            .card img {
+                height: 160px;
+            }
+        }
+
+        /* Mobile phones */
+        @media (max-width: 600px) {
+            .content {
+                padding: 10px;
+            }
+            
+            .main-container {
+                gap: 15px;
+                margin-bottom: 1.5rem;
+            }
+            
+            .profile_section, .notify {
+                padding: 1rem;
+            }
+            
+            .profile_image {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .profile_image img {
+                width: 100%;
+                height: 100%;
+            }
+            
+            .profile_details h4 {
+                font-size: 1rem;
+                margin-bottom: 0.5rem;
+            }
+            
+            .profile_details p {
+                font-size: 12px;
+                margin-bottom: 0.5rem;
+            }
+            
+            .profile_button {
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+            
+            .progress-bar-container {
+                height: 8px;
+                font-size: 12px;
+            }
+            
+            .progressBarDiv p {
+                font-size: 12px;
+            }
+            
+            #profilePercent {
+                font-size: 12px;
+            }
+            
+            .options-row-dashboard {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .option-button-dashboard {
+                width: 100%;
+                font-size: 12px;
+                padding: 10px;
+                min-width: auto;
+            }
+            
+            .search-input {
+                width: 100%;
+                font-size: 13px;
+                padding: 10px 15px;
+                margin-top: 10px;
+            }
+            
+            .container-header {
+                font-size: 1rem;
+            }
+            
+            .container-header span {
+                font-size: 1.2rem !important;
+            }
+            
+            .recently-joined-header, .recently-login-header, .profile-matched-header {
+                font-size: 1rem;
+                margin-top: 0.5rem;
+                margin-bottom: 0.8rem;
+            }
+            
+            .card-container-wrapper {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            
+            .card-container {
+                display: flex;
+                gap: 10px;
+                padding-bottom: 10px;
+            }
+            
+            .card {
+                width: 150px;
+                flex-shrink: 0;
+            }
+            
+            .card img {
+                height: 150px;
+            }
+            
+            .card-details {
+                padding: 10px;
+                font-size: 12px;
+            }
+            
+            .card-details h4 {
+                font-size: 14px;
+                margin-bottom: 5px;
+            }
+            
+            .carousel-container {
+                margin: 0 -5px;
+            }
+            
+            .carousel-controls button {
+                padding: 6px 10px;
+                font-size: 14px;
+            }
+            
+            .notify h4 {
+                font-size: 1rem;
+            }
+            
+            .logout-button {
+                padding: 0.5rem 1rem;
+                font-size: 14px;
+                margin-left: 0;
+                margin-top: 10px;
+                width: 100%;
+            }
+            
+            .profile-dropdown {
+                width: 100%;
+                right: 0;
+                left: 0;
+                top: 70px;
+            }
+        }
+
+        /* Extra small phones */
+        @media (max-width: 400px) {
+            .navbar-left h1 {
+                font-size: 1.2rem;
+            }
+            
+            .profile_image {
+                width: 90px;
+                height: 90px;
+            }
+            
+            .profile_details h4 {
+                font-size: 0.9rem;
+            }
+            
+            .card {
+                width: 140px;
+            }
+            
+            .card img {
+                height: 140px;
+            }
+            
+            .option-button-dashboard {
+                font-size: 11px;
+                padding: 8px;
             }
         }
 
@@ -710,157 +991,7 @@
             background: linear-gradient(135deg, #832B00 0%, #832B00 100%);
         }
 
-    /* ===== Dashboard Base (desktop-first) ===== */
-.dashboard-container {
-  display: flex;
-  min-height: 100vh;
-}
-
-.content {
-  flex: 1;
-  padding: 20px;
-}
-
-.profile_container {
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-}
-
-.profile_image img {
-  width: 120px;
-  height: 120px;
-  border-radius: 10px;
-  object-fit: cover;
-}
-
-.profile_details h4 {
-  margin: 0 0 10px;
-  font-size: 1.2rem;
-}
-
-.progress-bar-container {
-  position: relative;
-  height: 10px;
-  background: #eee;
-  border-radius: 5px;
-}
-
-.progress-bar {
-  display: block;
-  height: 100%;
-  background: #4caf50;
-  border-radius: 5px;
-}
-
-.options-row-dashboard {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin: 15px 0;
-}
-
-.option-button-dashboard {
-  flex: 1;
-  min-width: 150px;
-  padding: 10px;
-  font-size: 14px;
-  background: #832B00;
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-/* ===== Responsive Breakpoints ===== */
-
-/*  Tablets & Small Screens */
-@media (max-width: 992px) {
-  .dashboard-container {
-    flex-direction: column;
-  }
-
-  #sidebar-placeholder {
-    width: 100%; /* Sidebar goes on top */
-    margin-bottom: 20px;
-  }
-
-  .profile_container {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .profile_details {
-    margin-top: 10px;
-  }
-
-  .progress-bar-container span#profilePercent {
-    right: 5px;
-    top: -25px;
-    font-size: 14px;
-  }
-
-  .options-row-dashboard {
-    justify-content: center;
-  }
-
-  .option-button-dashboard {
-    flex: unset;
-    width: 45%;
-  }
-}
-
-/* 📱 Mobile Screens */
-@media (max-width: 600px) {
-  .content {
-    padding: 10px;
-  }
-
-  .profile_image img {
-    width: 90px;
-    height: 90px;
-  }
-
-  .profile_details h4 {
-    font-size: 1rem;
-  }
-
-  .profile_details p {
-    font-size: 14px;
-  }
-
-  .progress-bar-container {
-    height: 8px;
-  }
-
-  .options-row-dashboard {
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .option-button-dashboard {
-    width: 100%;
-    font-size: 13px;
-    padding: 8px;
-  }
-
-  .search-input {
-    width: 100%;
-    font-size: 14px;
-    margin-top: 10px;
-  }
-
-  .card-container-wrapper {
-    overflow-x: auto;
-  }
-
-  .card-container {
-    display: flex;
-    gap: 10px;
-    min-width: 250px;
-  }
-}
+        /* Additional responsive utilities handled above */
 
     </style>
 </head>

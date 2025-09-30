@@ -16,125 +16,292 @@
     <link rel="shortcut icon" type="image/png" href="../img/icon-192x192.png">
 </head>
 <style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        background-color: #f5f5f5;
+    }
+
     #sidebar-placeholder {
-            background: linear-gradient(180deg, #F7E5DA 0%, #F7E5DA 100%);
-            color: #2c3e50;
-            border-right: 1px solid #e3f2fd;
+        background: linear-gradient(180deg, #F7E5DA 0%, #F7E5DA 100%);
+        color: #2c3e50;
+        border-right: 1px solid #e3f2fd;
+    }
+
+    .sidebar {
+        width: 280px;
+        background: linear-gradient(180deg, #F7E5DA 0%, #F7E5DA 100%);
+        padding: 1.5rem;
+        border-right: 1px solid #e3f2fd;
+        box-shadow: 4px 0 15px rgba(33, 150, 243, 0.1);
+    }
+
+    .payment-header {
+        margin: 20px 0 30px 0;
+        color: #832B00;
+        font-size: 28px;
+        font-weight: 600;
+    }
+
+    .pay-button-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 10px;
+    }
+
+    .subscription-card {
+        background: #ffffff;
+        border-radius: 12px;
+        padding: 18px 20px;
+        margin-bottom: 14px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        position: relative;
+        overflow: visible;
+        border: 1px solid #e8e8e8;
+        
+    }
+
+    .subscription-card.recommended {
+        background: linear-gradient(to bottom, #fffbf5 0%, #ffffff 100%);
+        border: 1px solid #f0e5d8;
+
+    }
+
+    .subscription-card:hover {
+    transform: translate(10px, -5px); /* 10px right + 5px up */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
 
 
+    .card-top-section {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 14px;
+    }
+
+    .plan-title-section {
+        flex: 1;
+    }
+
+    .plan-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: #1a1a1a;
+        margin-bottom: 2px;
+    }
+
+    .plan-duration-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 4px;
+    }
+
+    .plan-duration {
+        font-size: 13px;
+        color: #666;
+        font-weight: 400;
+    }
+
+    .recommended-badge {
+        display: inline-block;
+        background: #D4AF37;
+        color: #ffffff;
+        padding: 2px 10px;
+        border-radius: 3px;
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        text-transform: uppercase;
+    }
+
+    .price-section {
+        text-align: right;
+        flex-shrink: 0;
+    }
+
+    .discount-badge {
+        display: inline-block;
+        color: #10B981;
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 2px;
+    }
+
+    .price-display {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+        margin-top: 2px;
+    }
+
+    .original-price {
+        font-size: 13px;
+        color:black;
+        text-decoration: line-through;
+        font-weight: 400;
+    }
+
+    .current-price {
+        font-size: 22px;
+        font-weight: 700;
+        color: #1a1a1a;
+    }
+
+    .features-list {
+        list-style: none;
+        margin-bottom: 14px;
+        padding-left: 0;
+    }
+
+    .features-list li {
+        display: flex;
+        align-items: center;
+        padding: 5px 0;
+        font-size: 13px;
+        color: #4a4a4a;
+        line-height: 1.4;
+    }
+
+    .features-list li::before {
+        content: "✓";
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 16px;
+        height: 16px;
+        background: #10B981;
+        color: white;
+        border-radius: 50%;
+        margin-right: 10px;
+        font-size: 10px;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+
+    .card-bottom-section {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+
+    .continue-btn {
+        background: linear-gradient(to bottom, #E8B44A 0%, #D4A137 100%);
+        color: #ffffff;
+        border: none;
+        border-radius: 6px;
+        padding: 10px 32px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        box-shadow: 0 2px 4px rgba(212, 161, 55, 0.3);
+        text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    }
+
+    .continue-btn:hover {
+        background: linear-gradient(to bottom, #D4A137 0%, #C89020 100%);
+        box-shadow: 0 3px 6px rgba(212, 161, 55, 0.4);
+        transform: translateY(-1px);
+    }
+
+    .continue-btn:active {
+        transform: translateY(0);
+    }
+
+    .promo-banner {
+        background: linear-gradient(to right, #C17A2E 0%, #A86420 100%);
+        color: white;
+        border-radius: 6px;
+        padding: 10px 16px;
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 12px;
+        font-weight: 500;
+        box-shadow: 0 2px 6px rgba(193, 122, 46, 0.4);
+    }
+
+    .promo-content {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex: 1;
+    }
+
+    .promo-icon-left {
+        font-size: 16px;
+    }
+
+    .promo-text {
+        flex: 1;
+        line-height: 1.3;
+    }
+
+    .promo-highlight {
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    .promo-icon-info {
+        background: rgba(255, 255, 255, 0.2);
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: 700;
+        flex-shrink: 0;
+    }
+
+    @media (max-width: 768px) {
+        .pay-button-container {
+            max-width: 100%;
+            padding: 10px;
         }
 
-
-        .sidebar {
-            width: 280px;
-            background: linear-gradient(180deg, #F7E5DA 0%, #F7E5DA 100%);
-            padding: 1.5rem;
-            border-right: 1px solid #e3f2fd;
-            box-shadow: 4px 0 15px rgba(33, 150, 243, 0.1);
+        .subscription-card {
+            padding: 16px 18px;
         }
-  .container {
-    display: flex;
-    align-items: center;
-    justify-content: center; /* Center the card1 */
-    padding: 10px;
-}
 
+        .plan-title {
+            font-size: 17px;
+        }
 
-.card1 {
-    display: flex; 
-    align-items: center;
-    justify-content: center;
-    width: 90%; /* Full width */
-    border-radius: 15px;
-    background-color: #1f4a4e;
-    box-shadow: 2px 6px 10px rgba(11, 1, 1, 0.1);
-    overflow: hidden; /* Prevent content overflow */
-    margin-bottom: 2rem;
-}
+        .current-price {
+            font-size: 20px;
+        }
 
-.card1-body {
-    display: flex;
-    width: 100%;
-    align-items: center; /* Center the image and content vertically */
-    padding: 10px;
-}
+        .continue-btn {
+            padding: 9px 28px;
+            font-size: 14px;
+        }
+    }
 
-.payment-header{
-    margin:10px;
-}
+    @media (max-width: 480px) {
+        .card-top-section {
+            flex-direction: column;
+            gap: 10px;
+        }
 
-.card1-img-wrap {
-    flex: 1 1 30%; /* Image section takes 30% of the card1 width */
-    text-align: center;
-    padding: 5px;
-}
+        .price-section {
+            text-align: left;
+        }
 
-.card1-img-wrap img {
-    width: 100%; /* Full width image */
-    height: auto;
-    object-fit: cover;
-}
-
-.card1-content {
-    flex: 1 1 100%; /* Content section takes 70% of the card1 width */
-    padding: 10px;
-    display: flex; /* Horizontal layout for child elements */
-    flex-direction: row; /* Arrange child divs in a row */
-    align-items: center; 
-    justify-content: center;
-    gap:3rem;
-}
-
-
-.card1-body-content {
-    display: flex;
-    align-items: center; /* Center child elements vertically */
-    gap: 2rem; /* Add spacing between items */
-}
-
-.card1-header {
-    display: flex;
-    flex-direction: column; /* Stack items vertically */
-    margin-left: 2rem;
-    gap: 8px; /* Add spacing between items */
-}
-
-.card1-header h1{
-    color: #ffeeee!important;
-}
-
-.card1-header .plan-name,
-.card1-header .plan-duration {
-    font-size: 20px;
-    color: #333;
-}
-
-.card1-header a {
-    font-size: 20px;
-    padding: 10px 14px;
-    background-color: #ff9248;
-    color: white;
-    border-radius: 5px;
-    text-decoration: none;
-}
-
-.card1-body-content .profile-info,
-.card1-body-content .contact-info,
-.card1-body-content .message-info {
-    display: flex;
-    flex-direction: column;
-    text-align: center; /* Center text horizontally */
-}
-
-.card1-body-content .label {
-    /* font-size: 20px; */
-    color: #ffeeee;
-}
-
-.card1-body-content .value {
-    /* font-size: 20px; */
-    color: #ffeeee;
-}
+        .price-display {
+            justify-content: flex-start;
+        }
+    }
 </style>
 <body>
 
@@ -145,19 +312,153 @@
         <!-- Sidebar -->
         <div id="sidebar-placeholder"></div>
 
-
         <!-- Main Content Area -->
         <main id="content" class="content">
             <div id="waiting-dialog" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center; z-index: 9999;">
                 <div style="background-color: white; padding: 20px; border-radius: 8px;">
-                    <div class="loader" style="border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 50px; height: 50px; animation: spin 2s linear infinite;"></div>
+                    <div class="loader" style="border: 4px solid #f3f3f3; border-top: 4px solid #832B00; border-radius: 50%; width: 50px; height: 50px; animation: spin 2s linear infinite;"></div>
                     <p style="text-align: center; margin-top: 10px;">Please Wait...</p>
                 </div>
             </div>
             <!-- Default Dashboard Content -->
             <section class="profile">
-                <h1 class="payment-header">Subscription :</h1>
-                <div id="payment-buttons-container" class="pay-button-container"></div>
+                <h1 class="payment-header">Subscription Plans</h1>
+                <div id="payment-buttons-container" class="pay-button-container">
+                    
+                    <!-- Plan 1: Unlimited Contacts (12 months) - RECOMMENDED -->
+                    <div class="subscription-card recommended" data-plan-id="1">
+                        <div class="card-top-section">
+                            <div class="plan-title-section">
+                                <h3 class="plan-title">Unlimited Contacts</h3>
+                                <div class="plan-duration-badge">
+                                    <span class="plan-duration">12 months</span>
+                                    <span class="recommended-badge">RECOMMENDED</span>
+                                </div>
+                            </div>
+                            <div class="price-section">
+                                <div class="discount-badge">58% off</div>
+                                <div class="price-display">
+                                    <span class="original-price">₹4,449</span>
+                                    <span class="current-price">₹ 1,864</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ul class="features-list">
+                            <li>Chat with ID Verified Matches</li>
+                            <li>View Verified Phone Numbers</li>
+                            <li>Priority Assistance</li>
+                        </ul>
+
+                        <div class="card-bottom-section">
+                            <button class="continue-btn" onclick="paymentPage(1, 1864, 'Unlimited Contacts', 365)">
+                                Continue
+                            </button>
+                        </div>
+
+                        <div class="promo-banner">
+                            <div class="promo-content">
+                                <span class="promo-icon-left">⭐</span>
+                                <div class="promo-text">
+                                    Promote your Profile for 3 months @<span class="original-price">₹1,999</span><span class="promo-highlight">FREE</span>
+                                </div>
+                            </div>
+                            <div class="promo-icon-info">ⓘ</div>
+                        </div>
+                    </div>
+
+                    <!-- Plan 2: 400 Contacts (6 months) -->
+                    <div class="subscription-card" data-plan-id="2">
+                        <div class="card-top-section">
+                            <div class="plan-title-section">
+                                <h3 class="plan-title">400 Contacts</h3>
+                                <div class="plan-duration-badge">
+                                    <span class="plan-duration">6 months</span>
+                                </div>
+                            </div>
+                            <div class="price-section">
+                                <div class="discount-badge">47% off</div>
+                                <div class="price-display">
+                                    <span class="original-price">₹2,749</span>
+                                    <span class="current-price">₹ 1,440</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ul class="features-list">
+                            <li>Chat with ID Verified Matches</li>
+                            <li>View Verified Phone Numbers</li>
+                            <li>Priority Assistance</li>
+                        </ul>
+
+                        <div class="card-bottom-section">
+                            <button class="continue-btn" onclick="paymentPage(2, 1440, '400 Contacts', 180)">
+                                Continue
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Plan 3: 100 Contacts (3 months) -->
+                    <div class="subscription-card" data-plan-id="3">
+                        <div class="card-top-section">
+                            <div class="plan-title-section">
+                                <h3 class="plan-title">100 Contacts</h3>
+                                <div class="plan-duration-badge">
+                                    <span class="plan-duration">3 months</span>
+                                </div>
+                            </div>
+                            <div class="price-section">
+                                <div class="discount-badge">42% off</div>
+                                <div class="price-display">
+                                    <span class="original-price">₹1,549</span>
+                                    <span class="current-price">₹ 889</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ul class="features-list">
+                            <li>Chat with ID Verified Matches</li>
+                            <li>View Verified Phone Numbers</li>
+                        </ul>
+
+                        <div class="card-bottom-section">
+                            <button class="continue-btn" onclick="paymentPage(3, 889, '100 Contacts', 90)">
+                                Continue
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Plan 4: 50 Contacts (1 month) -->
+                    <div class="subscription-card" data-plan-id="4">
+                        <div class="card-top-section">
+                            <div class="plan-title-section">
+                                <h3 class="plan-title">50 Contacts</h3>
+                                <div class="plan-duration-badge">
+                                    <span class="plan-duration">1 month</span>
+                                </div>
+                            </div>
+                            <div class="price-section">
+                                <div class="discount-badge">28% off</div>
+                                <div class="price-display">
+                                    <span class="original-price">₹949</span>
+                                    <span class="current-price">₹ 677</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <ul class="features-list">
+                            <li>Chat with ID Verified Matches</li>
+                            <li>View Verified Phone Numbers</li>
+                        </ul>
+
+                        <div class="card-bottom-section">
+                            <button class="continue-btn" onclick="paymentPage(4, 677, '50 Contacts', 30)">
+                                Continue
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
             </section>
         </main>
     </div>
@@ -290,52 +591,67 @@
               const container = document.getElementById('payment-buttons-container');
               const base_url = "${BASE_URL}//"
               // Clear the container before adding new buttons
-              container.innerHTML = '';
+            //   container.innerHTML = '';
 
               // Loop through the subscription plans and create a button for each
               subscription_plan.forEach((plan) => {
-                const card1HTML = `
-                     <div class="container" style="padding: 5px 0;">
-    <div class="card1 card1-round">
-        <div class="card1-body">
-            <!-- Image on the left -->
-            <div class="card1-img-wrap">
-                <img src="${base_url}${plan.image}" alt="">
-            </div>
+                // Calculate discount percentage
+                const originalPrice = plan.original_price || plan.amount * 2; // Fallback if no original price
+                const discountPercent = Math.round(((originalPrice - plan.amount) / originalPrice) * 100);
+                
+                // Check if this is a recommended plan (12 months = 365+ days)
+                const isRecommended = plan.duration >= 365;
+                
+                // Create features array based on plan
+                let features = [
+                    'Chat with ID Verified Matches',
+                    'View Verified Phone Numbers'
+                ];
+                
+                // Add Priority Assistance for longer plans
+                if (plan.duration >= 180) {
+                    features.push('Priority Assistance');
+                }
 
-            <!-- Content on the right -->
-            <div class="card1-content">
-                <div class="card1-header">
-                    <h1 class="plan-name">${plan.plan_name}</h1>
-                    <h1 class="plan-duration" style="margin-bottom:1rem;">${plan.duration} Days</h1>
-                    <h1>Pay: <a class="btn btn-info rounded-pill" href="#" onclick="paymentPage(${plan.id}, ${plan.amount}, '${plan.plan_name}', ${plan.duration})">₹${plan.amount}</a></h1>
-                </div>
+                const cardHTML = `
+                    <div class="subscription-card ${isRecommended ? 'recommended' : ''}">
+                        ${isRecommended ? '<div class="recommended-badge">RECOMMENDED</div>' : ''}
+                        
+                        <div class="card-header">
+                            <div class="plan-info">
+                                <h3>${plan.plan_name}</h3>
+                                <p class="plan-duration">${plan.duration >= 30 ? Math.floor(plan.duration / 30) : 1} ${plan.duration >= 60 ? 'months' : 'month'}</p>
+                            </div>
+                            <div class="price-section">
+                                <div class="discount-badge">${discountPercent}% off</div>
+                                <div class="price-wrapper">
+                                    <span class="original-price">₹${originalPrice.toLocaleString('en-IN')}</span>
+                                    <span class="current-price">₹${plan.amount.toLocaleString('en-IN')}</span>
+                                </div>
+                            </div>
+                        </div>
 
-                <div class="card1-body-content">
-                    <div class="profile-info">
-                        <h1 class="label">Profile</h1>
-                        <h1 class="value">${plan.max_profile}</h1>
+                        <ul class="features-list">
+                            ${features.map(feature => `<li>${feature}</li>`).join('')}
+                        </ul>
+
+                        <button class="continue-btn" onclick="paymentPage(${plan.id}, ${plan.amount}, '${plan.plan_name}', ${plan.duration})">
+                            Continue
+                        </button>
+
+                        ${isRecommended ? `
+                            <div class="promo-banner">
+                                <div class="promo-text">
+                                    Promote your Profile for 3 months @<span class="promo-highlight">₹1,999 FREE</span>
+                                </div>
+                                <span class="promo-icon">ⓘ</span>
+                            </div>
+                        ` : ''}
                     </div>
-
-                    <div class="contact-info">
-                        <h1 class="label">Contact</h1>
-                        <h1 class="value">${plan.max_contact}</h1>
-                    </div>
-
-                    <div class="message-info">
-                        <h1 class="label">Message</h1>
-                        <h1 class="value">${plan.max_message}</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-                    `;
-                    // Insert the entire card1 structure into the container
-                    container.insertAdjacentHTML('beforeend', card1HTML);
-                });
+                `;
+                
+                container.insertAdjacentHTML('beforeend', cardHTML);
+              });
                 hideWaitingDialog();
           } else {
             hideWaitingDialog();
