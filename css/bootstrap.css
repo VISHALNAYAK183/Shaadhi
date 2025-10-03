@@ -54,7 +54,7 @@ html {
             flex: 1;
             padding: 2rem;
             overflow-y: auto;
-            background: linear-gradient(135deg, #F7E5DA 0%, #f8fbff 100%);
+            background: linear-gradient(135deg, #E8D6CF 0%, #f8fbff 100%);
         }
 
 @-ms-viewport {

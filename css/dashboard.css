@@ -51,7 +51,7 @@ html, body {
 .recently-joined-header, .recently-login-header, .profile-matched-header {
     margin-top: 0.8rem;
     font-family: 'Playfair Display', serif;
-    color: #832B00;
+    color: #8A4A36;
     font-weight: 600;
     font-size: 1.4rem;
     border-bottom: 3px solid #e3f2fd;
@@ -64,7 +64,7 @@ html, body {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: linear-gradient(135deg, #832B00 0%, #832B00 50%, #832B00 100%);
+            background: linear-gradient(135deg, #8A4A36 0%, #8A4A36 50%, #8A4A36 100%);
             color: white;
             padding: 1rem 2rem;
             position: sticky;
@@ -115,14 +115,14 @@ html, body {
 }
 
 #sidebar-placeholder {
-            background: linear-gradient(180deg, #F7E5DA 0%, #F7E5DA 100%);
+            background: linear-gradient(180deg, #E8D6CF 0%, #E8D6CF 100%);
             color: #2c3e50;
             border-right: 1px solid #e3f2fd;
         }
 
 
 /* #sidebar-placeholder:hover {
-    background: linear-gradient(135deg, #832B00, #832B00 100%);
+    background: linear-gradient(135deg, #8A4A36, #8A4A36 100%);
     color: #FDEEF4;
     transform: translatey(5px);
     box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
@@ -130,7 +130,7 @@ html, body {
 
 .sidebar {
             width: 280px;
-            background: linear-gradient(180deg, #F7E5DA 0%, #F7E5DA 100%);
+            background: linear-gradient(180deg, #E8D6CF 0%, #E8D6CF 100%);
             padding: 1.5rem;
             border-right: 1px solid #e3f2fd;
             box-shadow: 4px 0 15px rgba(33, 150, 243, 0.1);
@@ -138,7 +138,7 @@ html, body {
 
         .sidebar h3 {
             font-family: 'Playfair Display', serif;
-            color: #832B00;
+            color: #8A4A36;
             font-size: 1.3rem;
             font-weight: 600;
             text-align: center;
@@ -148,7 +148,7 @@ html, body {
         .sidebar hr {
             border: none;
             height: 2px;
-            background: linear-gradient(90deg, #832B00, #e3f2fd);
+            background: linear-gradient(90deg, #8A4A36, #e3f2fd);
             margin-bottom: 1.5rem;
         }
 
@@ -184,7 +184,7 @@ html, body {
         }
 
         .sidebar ul li a:hover {
-            background: linear-gradient(135deg, #832B00 0%, #832B00 100%);
+            background: linear-gradient(135deg, #8A4A36 0%, #8A4A36 100%);
             color: white;
             transform: translateX(5px);
             box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
@@ -213,7 +213,7 @@ html, body {
     flex: 1;
     padding: 2rem;
     overflow-y: auto;
-    background: linear-gradient(135deg, #F7E5DA 0%, #F7E5DA 100%);
+    background: linear-gradient(135deg, #E8D6CF 0%, #E8D6CF 100%);
 }
 
 /* Profile Section */
@@ -473,7 +473,7 @@ html, body {
 }
 
 .card:hover {
-    background: linear-gradient(135deg, #832B00 0%, #832B00 100%);
+    background: linear-gradient(135deg, #8A4A36 0%, #8A4A36 100%);
     cursor: pointer;
     color: white;
     box-shadow: 0 12px 35px rgba(33, 150, 243, 0.3);
@@ -541,7 +541,7 @@ html, body {
     top: 40px;
     right: 50%;
     transform: translateX(50%);
-    background: #832B00;
+    background: #8A4A36;
     color: #fff;
     padding: 6px 12px;
     font-size: 11px;
@@ -568,7 +568,7 @@ html, body {
     position: absolute;
     top: 50%;
     z-index: 100;
-    background: linear-gradient(135deg, #832B00 0%, #832B00 100%);
+    background: linear-gradient(135deg, #8A4A36 0%, #8A4A36 100%);
     color: white;
     border: none;
     padding: 10px;
@@ -580,7 +580,7 @@ html, body {
 }
 
 .arrow-button:hover {
-    background: linear-gradient(135deg, #832B00 0%, #832B00 100%);
+    background: linear-gradient(135deg, #8A4A36 0%, #8A4A36 100%);
     transform: scale(1.1);
 }
 
@@ -624,7 +624,7 @@ html, body {
 }
 
 .carousel-controls button {
-    background: linear-gradient(135deg, #832B00 0%, #832B00 100%);
+    background: linear-gradient(135deg, #8A4A36 0%, #8A4A36 100%);
     color: #fff;
     border: none;
     padding: 8px 12px;
@@ -657,7 +657,7 @@ html, body {
 }
 
 .carousel-dots .dot.active {
-    background: #832B00;
+    background: #8A4A36;
     transform: scale(1.2);
 }
 
@@ -673,7 +673,7 @@ html, body {
 
 .profile h2 {
     font-size: 1.8rem;
-    color: #832B00;
+    color: #8A4A36;
     margin-bottom: 1rem;
     font-family: 'Playfair Display', serif;
 }
@@ -693,7 +693,7 @@ html, body {
 /* Matches Section */
 .matches h2 {
     font-size: 1.8rem;
-    color: #832B00;
+    color: #8A4A36;
     margin-bottom: 1rem;
     font-family: 'Playfair Display', serif;
 }
@@ -730,7 +730,7 @@ html, body {
 }
 
 .view-profile-button {
-    background: linear-gradient(135deg, #832B00 0%, #832B00 100%);
+    background: linear-gradient(135deg, #8A4A36 0%, #8A4A36 100%);
     color: white;
     border: none;
     width: 100%;
@@ -742,7 +742,7 @@ html, body {
 }
 
 .view-profile-button:hover {
-    background: linear-gradient(135deg, #832B00 0%, #832B00 100%);
+    background: linear-gradient(135deg, #8A4A36 0%, #8A4A36 100%);
 }
 
 /* Profile dropdown */
@@ -915,12 +915,12 @@ html, body {
             flex: 1;
             padding: 2rem;
             overflow-y: auto;
-            background: linear-gradient(135deg, #F7E5DA 0%, #f8fbff 100%);
+            background: linear-gradient(135deg, #E8D6CF 0%, #f8fbff 100%);
         }
 
 .more-button {
     padding: 12px 24px;
-    background: linear-gradient(135deg, #832B00 0%, #832B00 100%);
+    background: linear-gradient(135deg, #8A4A36 0%, #8A4A36 100%);
     color: white;
     border: none;
     border-radius: 25px;
@@ -953,13 +953,13 @@ html, body {
 }
 
 .option-button:hover {
-    background: linear-gradient(135deg, #832B00 0%, #832B00 100%);
+    background: linear-gradient(135deg, #8A4A36 0%, #8A4A36 100%);
     color: white;
     transform: translateY(-2px);
 }
 
 .option-button.active {
-    background: linear-gradient(135deg, #832B00 0%, #832B00 100%);
+    background: linear-gradient(135deg, #8A4A36 0%, #8A4A36 100%);
     color: white;
 }
 
@@ -986,8 +986,8 @@ html, body {
 .icon-row1 {
     width: 100%;
     border-radius: 12px;
-    border: 2px solid #F7E5DA;
-    background: linear-gradient(135deg, #F7E5DA 0%, #F7E5DA 100%);
+    border: 2px solid #E8D6CF;
+    background: linear-gradient(135deg, #E8D6CF 0%, #E8D6CF 100%);
 }
 
 .icon-item {
@@ -1004,11 +1004,11 @@ html, body {
 .icon-item i {
     font-size: 20px;
     margin-bottom: 5px;
-    color: #F7E5DA;
+    color: #E8D6CF;
 }
 
 .icon-item:hover {
-    background: linear-gradient(135deg, #832B00 0%, #832B00 100%);
+    background: linear-gradient(135deg, #8A4A36 0%, #8A4A36 100%);
     color: white;
     transform: translateY(-2px);
 }
@@ -1082,7 +1082,7 @@ html, body {
 .labelStar {
     width: 150px;
     text-align: left;
-    color: #832B00;
+    color: #8A4A36;
     font-weight: 500;
 }
 
@@ -1097,7 +1097,7 @@ html, body {
 .small-title {
     font-size: 16px;
     font-weight: normal;
-    color: #832B00;
+    color: #8A4A36;
 }
 
 /* Loading dialog */
@@ -1199,10 +1199,10 @@ html, body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, #832B00 0%, #832B00 100%);
+    background: linear-gradient(135deg, #8A4A36 0%, #8A4A36 100%);
     border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(135deg, #832B00 0%, #832B00 100%);
+    background: linear-gradient(135deg, #8A4A36 0%, #8A4A36 100%);
 }
