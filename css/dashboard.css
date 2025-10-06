@@ -115,7 +115,7 @@ html, body {
 }
 
 #sidebar-placeholder {
-            background: linear-gradient(180deg, #E8D6CF 0%, #E8D6CF 100%);
+            background: linear-gradient(180deg, #f5e7df 0%, #f5e7df 100%);
             color: #2c3e50;
             border-right: 1px solid #e3f2fd;
         }
@@ -130,7 +130,7 @@ html, body {
 
 .sidebar {
             width: 280px;
-            background: linear-gradient(180deg, #E8D6CF 0%, #E8D6CF 100%);
+            background: linear-gradient(180deg, #f5e7df 0%, #f5e7df 100%);
             padding: 1.5rem;
             border-right: 1px solid #e3f2fd;
             box-shadow: 4px 0 15px rgba(33, 150, 243, 0.1);
@@ -184,7 +184,7 @@ html, body {
         }
 
         .sidebar ul li a:hover {
-            background: linear-gradient(135deg, #5c0c23 0%, #5c0c23 100%);
+            background: linear-gradient(135deg, #5c0c23 0%, #7B0F2E 50%, #a51445 100%);
             color: white;
             transform: translateX(5px);
             box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
@@ -213,7 +213,7 @@ html, body {
     flex: 1;
     padding: 2rem;
     overflow-y: auto;
-    background: linear-gradient(135deg, #E8D6CF 0%, #E8D6CF 100%);
+    background: linear-gradient(135deg, #f5e7df 0%, #f5e7df 100%);
 }
 
 /* Profile Section */
@@ -473,7 +473,7 @@ html, body {
 }
 
 .card:hover {
-    background: linear-gradient(135deg, #5c0c23 0%, #5c0c23 100%);
+    background: linear-gradient(135deg, #5c0c23 0%, #7B0F2E 50%, #a51445 100%);
     cursor: pointer;
     color: white;
     box-shadow: 0 12px 35px rgba(33, 150, 243, 0.3);
@@ -915,7 +915,7 @@ html, body {
             flex: 1;
             padding: 2rem;
             overflow-y: auto;
-            background: linear-gradient(135deg, #E8D6CF 0%, #f8fbff 100%);
+            background: linear-gradient(135deg, #f5e7df 0%, #f8fbff 100%);
         }
 
 .more-button {
@@ -986,8 +986,8 @@ html, body {
 .icon-row1 {
     width: 100%;
     border-radius: 12px;
-    border: 2px solid #E8D6CF;
-    background: linear-gradient(135deg, #E8D6CF 0%, #E8D6CF 100%);
+    border: 2px solid #f5e7df;
+    background: linear-gradient(135deg, #f5e7df 0%, #f5e7df 100%);
 }
 
 .icon-item {
@@ -1004,7 +1004,7 @@ html, body {
 .icon-item i {
     font-size: 20px;
     margin-bottom: 5px;
-    color: #E8D6CF;
+    color: #f5e7df;
 }
 
 .icon-item:hover {
