@@ -64,7 +64,7 @@ html, body {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: linear-gradient(135deg, #5c0c23 0%, #5c0c23 50%, #5c0c23 100%);
+            background: linear-gradient(135deg, #5c0c23 0%, #7B0F2E 50%, #a51445 100%);
             color: white;
             padding: 1rem 2rem;
             position: sticky;
