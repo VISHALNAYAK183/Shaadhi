@@ -992,7 +992,25 @@
         }
 
         /* Additional responsive utilities handled above */
+.dashboard-container {
+  max-width: 1600px;
+  width: 100%;
+  margin: 0 auto;
+}
+@media screen and (max-width: 1024px) {
+  .sidebar {
+    width: 200px;
+  }
+}
 
+@media screen and (max-width: 768px) {
+  .sidebar {
+    display: none; /* or collapse */
+  }
+  .main-content {
+    width: 100%;
+  }
+}
     </style>
 </head>
 <body>
