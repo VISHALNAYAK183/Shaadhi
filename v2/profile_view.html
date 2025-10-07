@@ -107,6 +107,11 @@
     .popup-buttons button:nth-child(1):hover {
         background: #b3243b;
     }
+    .profile-photo {
+        height: 70vh; /* 40% of viewport height */
+         /*Keeps aspect ratio*/
+        object-fit: cover; /* Optional: crops instead of stretching */
+    }
 </style>
 
 <body>
@@ -179,15 +184,30 @@
                                     <span>Short List</span>
                                 </div>
                                 <div class="icon-item" onclick="contactInfoSection()">
-                                    <i class="fa fa-phone"></i>
+                                    <i class="fa fa-phone"style="
+                                    font-size: 24px; 
+                                    color: #d0afaf; 
+                                    cursor: pointer; 
+                                    margin: 5px;
+                                "></i>
                                     <span>Contact Info</span>
                                 </div>
                                 <div class="icon-item" onclick="chatInfoSection()">
-                                    <i class="fa fa-comment"></i>
+                                    <i class="fa fa-comment"style="
+                                    font-size: 24px; 
+                                    color: #d0afaf; 
+                                    cursor: pointer; 
+                                    margin: 5px;
+                                "></i>
                                     <span>Chat Now</span>
                                 </div>
                                 <div class="icon-item" onclick="openPopup()">
-                                    <i class="fas fa-exclamation-circle" style="cursor: pointer;"></i>
+                                    <i class="fas fa-exclamation-circle" style="
+                                    font-size: 24px; 
+                                    color: #d0afaf; 
+                                    cursor: pointer; 
+                                    margin: 5px;
+                                "></i>
                                     <span>Report</span>
                                 </div>
                                 <!-- Popup Modal -->
@@ -531,7 +551,7 @@
                 .then(function (response) {
                     if (response.data.message.p_out_mssg_flg === 'Y') {
                         Swal.fire({
-                            title: "Success",
+                            title: "Short Listed",
                             text: "Success",
                             icon: "success",
                             confirmButtonText: "OK",
