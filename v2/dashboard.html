@@ -32,6 +32,10 @@
             color: #5c0c23;
         }
 
+        .toggle-btn {
+  display: none;
+}
+
         
 
         .container-header {
@@ -152,7 +156,7 @@
             flex: 1;
             padding: 2rem;
             overflow-y: auto;
-            background: linear-gradient(135deg, #f5e7df 0%, #f5e7df 100%);
+            background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
         }
 
         /* Profile Section */
@@ -1005,21 +1009,74 @@
 
 @media screen and (max-width: 768px) {
   .sidebar {
-    display: none; /* or collapse */
+    position: fixed;
+    top: 0;
+    left: -220px; /* hidden by default */
+    width: 220px;
+    height: 100vh;
+    background: #f5e7df;; /* adjust to your color */
+    color: inherit;
+     transition: transform 0.3s ease;
+    transform: translateX(-5px);
+    z-index: 1000;
+    padding: 1rem;
   }
+
+  /* When sidebar is open */
+  .sidebar.open {
+    left: 0;
+  }
+
+  /* Show toggle button only on small screens */
+  .toggle-btn {
+    display: block;
+    position: fixed;
+    top: 2px;
+    left: 10px;
+    z-index: 1100;
+    background: #5c0c23;
+    color: white;
+    border: none;
+    padding: 5px 5px;
+    font-size: 20px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .sidebar.open h3.container-header1 {
+    display: none;
+  }
+
+  .sidebar.open hr.container-header1 {
+    display: none;
+  }
+
+  .sidebar.open ul {
+    margin-top: 25px;
+  }
+
+  /* Optional – prevent content shift */
   .main-content {
-    width: 100%;
+    margin-left: 0;
   }
 }
+
+
+
+
     </style>
 </head>
 <body>
 
+   
+
     <div id="navbar-placeholder"></div>
+    
 
     <!-- Main Layout -->
     <div class="dashboard-container">
         <!-- Sidebar -->
+          <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
         <div id="sidebar-placeholder"></div>
 
         <!-- Main Content Area -->
@@ -1912,6 +1969,11 @@ function createDots(sc) {
 }*/
 
         // window.onload = generateCards;
+
+      function toggleSidebar() {
+    document.querySelector('.sidebar').classList.toggle('open');
+  }
+
     </script>
     <script src="maxcount.js"></script>
 </body>

@@ -19,6 +19,10 @@
   <script src="chat_list.js" defer></script> <!-- Ensure JS is loaded after the DOM -->
   <script src="chat_functions.js" defer></script>
   <style>
+
+     .toggle-btn {
+  display: none;
+}
      #sidebar-placeholder {
             background: linear-gradient(180deg, #f5e7df 0%, #f5e7df 100%);
             color: #2c3e50;
@@ -95,11 +99,68 @@
             text-align: center;
         }
 
+        @media screen and (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -220px; /* hidden by default */
+    width: 220px;
+    height: 100vh;
+    background: #f5e7df;; /* adjust to your color */
+    color: inherit;
+     transition: transform 0.3s ease;
+    transform: translateX(-5px);
+    z-index: 1000;
+    padding: 1rem;
+  }
+
+  /* When sidebar is open */
+  .sidebar.open {
+    left: 0;
+  }
+
+  /* Show toggle button only on small screens */
+  .toggle-btn {
+    display: block;
+    position: fixed;
+    top: 2px;
+    left: 10px;
+    z-index: 1100;
+    background: #5c0c23;
+    color: white;
+    border: none;
+    padding: 5px 5px;
+    font-size: 20px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .sidebar.open h3.container-header1 {
+    display: none;
+  }
+
+  .sidebar.open hr.container-header1 {
+    display: none;
+  }
+
+  .sidebar.open ul {
+    margin-top: 25px;
+  }
+
+  /* Optional – prevent content shift */
+  .main-content {
+    margin-left: 0;
+  }
+}
+
+
   </style>
 </head>
 <body>
   <div id="navbar-placeholder"></div>
     <div class="dashboard-container">
+        <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+
       <div id="sidebar-placeholder"></div>
       <main id="content" class="content">
         <div id="waiting-dialog" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center; z-index: 9999;">
@@ -334,6 +395,9 @@ function loadHTMLContent(elementId, url, callback) {
 
 
 
+function toggleSidebar() {
+    document.querySelector('.sidebar').classList.toggle('open');
+  }
 
 
 

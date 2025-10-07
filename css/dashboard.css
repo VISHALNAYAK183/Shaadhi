@@ -213,7 +213,7 @@ html, body {
     flex: 1;
     padding: 2rem;
     overflow-y: auto;
-    background: linear-gradient(135deg, #f5e7df 0%, #f5e7df 100%);
+    background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
 }
 
 /* Profile Section */
@@ -915,7 +915,7 @@ html, body {
             flex: 1;
             padding: 2rem;
             overflow-y: auto;
-            background: linear-gradient(135deg, #f5e7df 0%, #f8fbff 100%);
+            background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
         }
 
 .more-button {
