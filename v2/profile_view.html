@@ -522,16 +522,18 @@
             let type; // To store the current status
 
             // Toggle the classes for the shortlist icon
-            if (icon.classList.contains('fa-bookmark')) {
-                // If currently shortlisted, change to not shortlisted
-                icon.classList.remove('fa-bookmark');
-                icon.classList.add('fa-bookmark-o');
-                type = 'disliked'; // Update type to disliked
-            } else {
-                // If currently not shortlisted, change to shortlisted
-                icon.classList.remove('fa-bookmark-o');
-                icon.classList.add('fa-bookmark');
-                type = 'liked'; // Update type to liked
+            if (icon.classList.contains('fas')) {
+                    // Currently solid → change to outlined
+                    icon.classList.remove('fas');
+                    icon.classList.add('far');
+                    icon.style.color = '#d0afaf';
+                    type = 'disliked';
+                } else {
+                    // Currently outlined → change to solid
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                    icon.style.color = 'GREEN';
+                    type = 'liked'; // Update type to liked
             }
 
             // Prepare the data object for further use

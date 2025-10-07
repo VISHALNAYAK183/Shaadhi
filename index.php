@@ -19,7 +19,7 @@ function isMobileDevice() {
 // Redirect based on device type
 if (isMobileDevice()) {
     // Redirect to the mobile-blocked page if the user is on a mobile device
-    header("Location: ../taralabalu");
+    // header("Location: ../Bunts");
     exit;
 } else
  {
