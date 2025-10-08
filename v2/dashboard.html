@@ -1,89 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>BUNTS Matrimony - Dashboard</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="shortcut icon" type="image/png" href="../img/icon-72x72.png">
-    <link rel="shortcut icon" type="image/png" href="../img/icon-96x96.png">
-    <link rel="shortcut icon" type="image/png" href="../img/icon-128x128.png">
-    <link rel="shortcut icon" type="image/png" href="../img/icon-144x144.png">
-    <link rel="shortcut icon" type="image/png" href="../img/icon-152x152.png">
-    <link rel="shortcut icon" type="image/png" href="../img/icon-167x167.png">
-    <link rel="shortcut icon" type="image/png" href="../img/icon-180x180.png">
-    <link rel="shortcut icon" type="image/png" href="../img/icon-192x192.png">
-    <link rel="stylesheet" href="../css/dashboard.css">
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
+    <link rel="shortcut icon" type="image/png" href="../img/icon-72x72.png" />
+    <link rel="shortcut icon" type="image/png" href="../img/icon-96x96.png" />
+    <link rel="shortcut icon" type="image/png" href="../img/icon-128x128.png" />
+    <link rel="shortcut icon" type="image/png" href="../img/icon-144x144.png" />
+    <link rel="shortcut icon" type="image/png" href="../img/icon-152x152.png" />
+    <link rel="shortcut icon" type="image/png" href="../img/icon-167x167.png" />
+    <link rel="shortcut icon" type="image/png" href="../img/icon-180x180.png" />
+    <link rel="shortcut icon" type="image/png" href="../img/icon-192x192.png" />
+    <link rel="stylesheet" href="../css/dashboard.css" />
     <style>
-        /* Import Google Fonts for elegant typography */
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+      /* Import Google Fonts for elegant typography */
+      @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600;700&display=swap");
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+        font-family: "Inter", sans-serif;
+        background: linear-gradient(135deg, #f8fbff 0%, #e3f2fd 100%);
+        overflow-y: hidden;
+        color: #c3a38c;
+      }
+
+      .toggle-btn {
+        display: none;
+      }
+
+      .container-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .container-header1,
+      .container-header {
+        margin-bottom: 1.5rem;
+      }
+
+      .search-input {
+        margin-right: 15px;
+        padding: 12px 20px;
+        font-size: 14px;
+        border: 2px solid #e3f2fd;
+        border-radius: 25px;
+        width: 280px;
+        background: white;
+        box-shadow: 0 2px 10px rgba(33, 150, 243, 0.1);
+        transition: all 0.3s ease;
+      }
+
+      .search-input:focus {
+        outline: none;
+        border-color: #c3a38c;
+        box-shadow: 0 4px 15px rgba(33, 150, 243, 0.2);
+      }
+
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
         }
-
-        html, body {
-            height: 100%;
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #f8fbff 0%, #e3f2fd 100%);
-            overflow-y: hidden;
-            color: #c3a38c;
+        100% {
+          transform: rotate(360deg);
         }
+      }
 
-        .toggle-btn {
-  display: none;
-}
+      .recently-joined-header,
+      .recently-login-header,
+      .profile-matched-header {
+        margin-top: 0.8rem;
+        font-family: "Playfair Display", serif;
+        color: #000000;
+        font-weight: 600;
+        font-size: 1.4rem;
+        border-bottom: 3px solid #e3f2fd;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1rem;
+      }
 
-        
-
-        .container-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .container-header1, .container-header {
-            margin-bottom: 1.5rem;
-        }
-
-        .search-input {
-            margin-right: 15px;
-            padding: 12px 20px;
-            font-size: 14px;
-            border: 2px solid #e3f2fd;
-            border-radius: 25px;
-            width: 280px;
-            background: white;
-            box-shadow: 0 2px 10px rgba(33, 150, 243, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: #c3a38c;
-            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.2);
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .recently-joined-header, .recently-login-header, .profile-matched-header {
-            margin-top: 0.8rem;
-            font-family: 'Playfair Display', serif;
-            color: #c3a38c;
-            font-weight: 600;
-            font-size: 1.4rem;
-            border-bottom: 3px solid #e3f2fd;
-            padding-bottom: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        /* Navbar Styling */
-        /* .navbar {
+      /* Navbar Styling */
+      /* .navbar {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -114,1148 +123,1265 @@
             font-weight: 500;
         } */
 
-        .logout-button {
-            background: linear-gradient(135deg, #f44336 0%, #e53935 100%);
-            color: white;
-            border: none;
-            padding: 0.6rem 1.2rem;
-            cursor: pointer;
-            border-radius: 25px;
-            margin-left: 1rem;
-            font-weight: 500;
-            box-shadow: 0 2px 10px rgba(244, 67, 54, 0.3);
-            transition: all 0.3s ease;
-        }
+      .logout-button {
+        background: linear-gradient(135deg, #f44336 0%, #e53935 100%);
+        color: white;
+        border: none;
+        padding: 0.6rem 1.2rem;
+        cursor: pointer;
+        border-radius: 25px;
+        margin-left: 1rem;
+        font-weight: 500;
+        box-shadow: 0 2px 10px rgba(244, 67, 54, 0.3);
+        transition: all 0.3s ease;
+      }
 
-        .logout-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(244, 67, 54, 0.4);
-        }
+      .logout-button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(244, 67, 54, 0.4);
+      }
 
-        /* Full Page Layout */
-        .dashboard-container {
-            display: flex;
-            height: calc(100vh - 80px);
-        }
+      /* Full Page Layout */
+      .dashboard-container {
+        display: flex;
+        height: calc(100vh - 80px);
+      }
 
-       #sidebar-placeholder {
-            background: linear-gradient(180deg, #f5e7df 0%, #f5e7df 100%);
-            color: #2c3e50;
-            border-right: 1px solid #e3f2fd;
-        }
-        .sidebar {
-            width: 280px;
-            background: linear-gradient(180deg, #f5e7df 0%, #f5e7df 100%);
-            padding: 1.5rem;
-            border-right: 1px solid #e3f2fd;
-            box-shadow: 4px 0 15px rgba(33, 150, 243, 0.1);
-        }
+      #sidebar-placeholder {
+        background: linear-gradient(180deg, #f5e7df 0%, #f5e7df 100%);
+        color: #2c3e50;
+        border-right: 1px solid #e3f2fd;
+      }
+      .sidebar {
+        width: 280px;
+        background: linear-gradient(180deg, #f5e7df 0%, #f5e7df 100%);
+        padding: 1.5rem;
+        border-right: 1px solid #e3f2fd;
+        box-shadow: 4px 0 15px rgba(33, 150, 243, 0.1);
+      }
 
-       
-        .content {
-            flex: 1;
-            padding: 2rem;
-            overflow-y: auto;
-            background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
-        }
+      .content {
+        flex: 1;
+        padding: 2rem;
+        overflow-y: auto;
+        background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
+      }
 
-        /* Profile Section */
+      /* Profile Section */
+      .main-container {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        margin-bottom: 2rem;
+      }
+
+      .profile_section {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+        padding: 1.5rem;
+        border: 1px solid #e3f2fd;
+        border-radius: 15px;
+        width: 60%;
+        background: white;
+        box-shadow: 0 8px 25px rgba(33, 150, 243, 0.1);
+        flex-direction: column;
+      }
+
+      .notify {
+        width: 38%;
+        padding: 1.5rem;
+        background: white;
+        border-radius: 15px;
+        border: 1px solid #e3f2fd;
+        box-shadow: 0 8px 25px rgba(33, 150, 243, 0.1);
+      }
+
+      .notify h4 {
+        font-family: "Playfair Display", serif;
+        color: #c3a38c;
+        margin-bottom: 1rem;
+        text-align: center;
+        font-size: 1.2rem;
+      }
+
+      .my_profile_info {
+        display: flex;
+        align-items: flex-start;
+        width: 100%;
+      }
+
+      .profile_container {
+        display: flex;
+        align-items: center;
+        background: white;
+        width: 100%;
+      }
+
+      .profile_image {
+        position: relative;
+        width: 150px;
+        height: 150px;
+        margin-right: 20px;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 8px 25px rgba(33, 150, 243, 0.2);
+      }
+
+      .profile_image img {
+        width: 100%;
+        height: 100%;
+        border-radius: 15px;
+        object-fit: cover;
+      }
+
+      .profile_button {
+        padding: 8px 16px;
+        border-radius: 25px;
+        background: linear-gradient(
+          135deg,
+          #c3a38c 0%,
+          #c3a38c 50%,
+          #c3a38c 100%
+        );
+        color: #ffffff;
+        border: none;
+        cursor: pointer;
+        font-weight: 500;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
+      }
+
+      .profile_button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(255, 152, 0, 0.4);
+      }
+
+      .plan_flag {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+        color: white;
+        padding: 4px 10px;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 12px;
+        font-weight: 600;
+        box-shadow: 0 2px 8px rgba(76, 175, 80, 0.4);
+      }
+
+      .view_count {
+        position: absolute;
+        bottom: 8px;
+        left: 8px;
+        background: rgba(44, 62, 80, 0.8);
+        color: white;
+        padding: 4px 10px;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 12px;
+        font-weight: 500;
+        backdrop-filter: blur(10px);
+      }
+
+      .profile_details {
+        flex: 1;
+      }
+
+      .profile_details h4 {
+        font-family: "Playfair Display", serif;
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: #c3a38c;
+      }
+
+      .profile_details p {
+        margin-bottom: 0.8rem;
+        font-size: 14px;
+        color: #546e7a;
+        font-weight: 500;
+      }
+
+      /* Progress Bar */
+      .progressBarDiv {
+        background: white;
+        border: 1px solid #e3f2fd;
+        border-radius: 12px;
+        padding: 1rem;
+        width: 100%;
+        margin-top: 1rem;
+        box-shadow: 0 4px 15px rgba(33, 150, 243, 0.1);
+      }
+
+      .progressBarDiv p {
+        font-size: 14px;
+        color: #c3a38c;
+        font-weight: 600;
+        margin-bottom: 0.8rem;
+      }
+
+      .progress-bar-container {
+        position: relative;
+        display: flex;
+        align-items: center;
+        font-size: 14px;
+        gap: 10px;
+      }
+
+      .progress-bar {
+        display: inline-block;
+        height: 8px;
+        background: linear-gradient(90deg, #f8c0d4 0%, #f8c0d4 100%);
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+      }
+
+      #profilePercent {
+        font-weight: 600;
+        color: #c3a38c;
+      }
+
+      /* Statistics Buttons */
+      .options-row-dashboard {
+        margin: 2rem 0;
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .option-button-dashboard {
+        padding: 12px 18px;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        background: linear-gradient(
+          135deg,
+          #c3a38c 0%,
+          #c3a38c 50%,
+          #c3a38c 100%
+        );
+        color: #ffffff;
+        box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+        transition: all 0.3s ease;
+        font-weight: 500;
+        font-size: 13px;
+      }
+
+      .option-button-dashboard:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
+        background: linear-gradient(
+          135deg,
+          #c3a38c 0%,
+          #c3a38c 50%,
+          #c3a38c 100%
+        );
+      }
+
+      .options-row-dashboard a {
+        text-decoration: none;
+        color: white;
+      }
+
+      /* Card Styling */
+.card-container-wrapper {
+  position: relative;
+  overflow-x: auto;
+  display: flex;
+  padding-bottom: 15px;
+  scroll-behavior: smooth;
+  width: 100%;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 15px;
+  justify-content: flex-start;
+  white-space: nowrap;
+}
+
+.card {
+  width: 200px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  text-align: left;
+  position: relative;
+  cursor: default;
+  transition: none !important;
+}
+
+.card:hover {
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+  cursor: default;
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 15px;
+  display: block;
+  transition: none !important;
+}
+
+.card img:hover {
+  transform: none;
+  filter: none;
+}
+
+.card-details {
+  padding-top: 8px;
+ 
+  color: #000;
+  line-height: 1.5;
+}
+
+.card-details h4 {
+  font-family: "Poppins", sans-serif;
+
+  margin-bottom: 4px;
+   font-size: 18px;
+  font-weight: 600;
+  color: #000;
+}
+
+.card-details p {
+  margin: 2px 0;
+   font-size: 12px;
+  color: #0e0101;
+}
+
+/* Premium badge */
+.card-wrapper .edit-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: linear-gradient(135deg, #ffd700 0%, #ffb300 100%);
+  border: none;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: none;
+  cursor: default;
+  transition: none !important;
+}
+
+.card-wrapper .edit-button:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* Tooltip */
+.card-wrapper .edit-button::after {
+  content: "Premium Profile";
+  position: absolute;
+  top: 40px;
+  right: 50%;
+  transform: translateX(50%);
+  background: #1565c0;
+  color: #fff;
+  padding: 6px 12px;
+  font-size: 11px;
+  border-radius: 6px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: none !important;
+  z-index: 10;
+}
+
+.card-wrapper .edit-button:hover::after {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Responsive — horizontal on desktop, vertical on mobile */
+@media (max-width: 768px) {
+  .card-container {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .card {
+    width: 90%;
+    margin-bottom: 20px;
+  }
+}
+
+      .veri {
+        display: flex;
+        flex: 3;
+      }
+
+      /* Carousel Styling */
+      .carousel-container {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        border-radius: 12px;
+      }
+
+      .carousel-inner {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+        width: 100%;
+      }
+
+      .carousel-item {
+        min-width: 100%;
+        box-sizing: border-box;
+        padding: 10px;
+        background: white;
+        border-radius: 12px;
+        text-align: center;
+      }
+
+      .carousel-item img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+      }
+
+      .carousel-controls {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        pointer-events: none;
+      }
+
+      .carousel-controls button {
+        background: linear-gradient(
+          135deg,
+          #c3a38c 0%,
+          #c3a38c 50%,
+          #c3a38c 100%
+        );
+        color: #fff;
+        border: none;
+        padding: 8px 12px;
+        border-radius: 50%;
+        cursor: pointer;
+        pointer-events: all;
+        box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .carousel-controls button:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
+      }
+
+      .carousel-dots {
+        display: flex;
+        justify-content: center;
+        margin-top: 15px;
+        gap: 8px;
+      }
+
+      .carousel-dots .dot {
+        width: 12px;
+        height: 12px;
+        background: #e3f2fd;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .carousel-dots .dot.active {
+        background: #c3a38c;
+        transform: scale(1.2);
+      }
+
+      /* Profile dropdown */
+      .profile-icon {
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
+        transition: all 0.3s ease;
+      }
+
+      .profile-icon:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
+      }
+
+      .profile-icon img {
+        width: 45px;
+        height: 45px;
+        object-fit: cover;
+      }
+
+      .profile-dropdown {
+        display: none;
+        position: absolute;
+        top: 80px;
+        right: 0;
+        background: white;
+        color: #2c3e50;
+        border: 1px solid #e3f2fd;
+        border-radius: 12px;
+        padding: 1rem;
+        width: 220px;
+        box-shadow: 0 8px 25px rgba(33, 150, 243, 0.2);
+      }
+
+      .profile-dropdown.active {
+        display: block;
+      }
+
+      .profile-dropdown p {
+        margin: 8px 0;
+        font-size: 14px;
+      }
+
+      .profileImg {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 15px;
+      }
+
+      .profileImg img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid #e3f2fd;
+      }
+
+      .profile-dropdown button {
+        margin-top: 15px;
+        width: 100%;
+        padding: 10px;
+        background: linear-gradient(135deg, #f44336 0%, #e53935 100%);
+        color: white;
+        border: none;
+        cursor: pointer;
+        border-radius: 25px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .profile-dropdown button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
+      }
+
+      /* Loading dialog */
+      .loader {
+        border: 4px solid #e3f2fd;
+        border-top: 4px solid #2196f3;
+        border-radius: 50%;
+        width: 50px;
+        height: 50px;
+        animation: spin 2s linear infinite;
+      }
+
+      /* No profiles image */
+      #no-profile-matched {
+        display: block;
+        margin: 2rem auto;
+        max-width: 200px;
+        opacity: 0.6;
+        border-radius: 15px;
+      }
+
+      /* Enhanced Responsive Design */
+
+      /* Large tablets and small desktops */
+      @media (max-width: 1200px) {
         .main-container {
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
-            margin-bottom: 2rem;
+          flex-direction: column;
         }
 
-        .profile_section {
-            display: flex;
-            gap: 20px;
-            align-items: flex-start;
-            padding: 1.5rem;
-            border: 1px solid #e3f2fd;
-            border-radius: 15px;
-            width: 60%;
-            background: white;
-            box-shadow: 0 8px 25px rgba(33, 150, 243, 0.1);
-            flex-direction: column;
-        }
-
+        .profile_section,
         .notify {
-            width: 38%;
-            padding: 1.5rem;
-            background: white;
-            border-radius: 15px;
-            border: 1px solid #e3f2fd;
-            box-shadow: 0 8px 25px rgba(33, 150, 243, 0.1);
+          width: 100%;
         }
 
-        .notify h4 {
-            font-family: 'Playfair Display', serif;
-            color: #c3a38c;
-            margin-bottom: 1rem;
-            text-align: center;
-            font-size: 1.2rem;
-        }
-
-        .my_profile_info {
-            display: flex;
-            align-items: flex-start;
-            width: 100%;
-        }
-
-        .profile_container {
-            display: flex;
-            align-items: center;
-            background: white;
-            width: 100%;
-        }
-
-        .profile_image {
-            position: relative;
-            width: 150px;
-            height: 150px;
-            margin-right: 20px;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 8px 25px rgba(33, 150, 243, 0.2);
-        }
-
-        .profile_image img {
-            width: 100%;
-            height: 100%;
-            border-radius: 15px;
-            object-fit: cover;
-        }
-
-        .profile_button {
-            padding: 8px 16px;
-            border-radius: 25px;
-            background: linear-gradient(135deg, #c3a38c 0%, #c3a38c 50%, #c3a38c 100%);
-            color: #ffffff;
-            border: none;
-            cursor: pointer;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.3);
-        }
-
-        .profile_button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 152, 0, 0.4);
-        }
-
-        .plan_flag {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 12px;
-            font-weight: 600;
-            box-shadow: 0 2px 8px rgba(76, 175, 80, 0.4);
-        }
-
-        .view_count {
-            position: absolute;
-            bottom: 8px;
-            left: 8px;
-            background: rgba(44, 62, 80, 0.8);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-size: 12px;
-            font-weight: 500;
-            backdrop-filter: blur(10px);
-        }
-
-        .profile_details {
-            flex: 1;
-        }
-
-        .profile_details h4 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: #c3a38c;
-        }
-
-        .profile_details p {
-            margin-bottom: 0.8rem;
-            font-size: 14px;
-            color: #546e7a;
-            font-weight: 500;
-        }
-
-        /* Progress Bar */
-        .progressBarDiv {
-            background: white;
-            border: 1px solid #e3f2fd;
-            border-radius: 12px;
-            padding: 1rem;
-            width: 100%;
-            margin-top: 1rem;
-            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.1);
-        }
-
-        .progressBarDiv p {
-            font-size: 14px;
-            color: #c3a38c;
-            font-weight: 600;
-            margin-bottom: 0.8rem;
-        }
-
-        .progress-bar-container {
-            position: relative;
-            display: flex;
-            align-items: center;
-            font-size: 14px;
-            gap: 10px;
-        }
-
-        .progress-bar {
-            display: inline-block;
-            height: 8px;
-            background: linear-gradient(90deg, #f8c0d4 0%, #f8c0d4 100%);
-            border-radius: 10px;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
-        }
-
-        #profilePercent {
-            font-weight: 600;
-            color: #c3a38c;
-        }
-
-        /* Statistics Buttons */
         .options-row-dashboard {
-            margin: 2rem 0;
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .option-button-dashboard {
-            padding: 12px 18px;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            background: linear-gradient(135deg, #c3a38c 0%, #c3a38c 50%, #c3a38c 100%);
-            color: #ffffff;
-            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
-            transition: all 0.3s ease;
-            font-weight: 500;
-            font-size: 13px;
-        }
-
-        .option-button-dashboard:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
-            background: linear-gradient(135deg, #c3a38c 0%, #c3a38c 50%, #c3a38c 100%);
-        }
-
-        .options-row-dashboard a {
-            text-decoration: none;
-            color: white;
-        }
-
-        /* Card Styling */
-        .card-container-wrapper {
-            position: relative;
-            overflow-x: auto;
-            display: flex;
-            padding-bottom: 15px;
-            scroll-behavior: smooth;
-            width: 100%;
-        }
-
-        .card-container {
-            display: flex;
-            flex-wrap: nowrap;
-            gap: 15px;
-            justify-content: flex-start;
-            white-space: nowrap;
+          justify-content: center;
         }
 
         .card {
-            width: 200px;
-            margin: 0;
-            padding: 0;
-            border: 1px solid #e3f2fd;
-            border-radius: 15px;
-            text-align: center;
-            background: white;
-            box-shadow: 0 8px 25px rgba(33, 150, 243, 0.1);
-            transition: all 0.3s ease;
-            overflow: hidden;
-            position: relative;
+          width: 180px;
+        }
+      }
+
+      /* Tablets */
+      @media (max-width: 992px) {
+        .dashboard-container {
+          flex-direction: column;
         }
 
-        .card:hover {
-            background: linear-gradient(135deg, #c3a38c 0%, #c3a38c 50%, #c3a38c 100%);
-            cursor: pointer;
-            color: white;
-            box-shadow: 0 12px 35px rgba(33, 150, 243, 0.3);
-            transform: translateY(-8px);
+        #sidebar-placeholder,
+        .sidebar {
+          width: 100%;
+          border-right: none;
+          border-bottom: 1px solid #e3f2fd;
+          padding: 1rem;
+        }
+
+        .content {
+          padding: 1.5rem;
+        }
+
+        .profile_container {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        }
+
+        .profile_image {
+          margin-right: 0;
+          margin-bottom: 15px;
+        }
+
+        .profile_details {
+          width: 100%;
+        }
+
+        .search-input {
+          width: 100%;
+          max-width: 300px;
+          margin-right: 0;
+          margin-top: 10px;
+        }
+
+        .container-header {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
+        }
+
+        .options-row-dashboard {
+          justify-content: center;
+        }
+
+        .option-button-dashboard {
+          flex: 1 1 45%;
+          min-width: 140px;
+        }
+      }
+
+      /* Small tablets and large phones */
+      @media (max-width: 768px) {
+        html,
+        body {
+          overflow-y: auto;
+        }
+
+        .dashboard-container {
+          height: auto;
+        }
+
+        .sidebar {
+          width: 100%;
+        }
+
+        .content {
+          padding: 1rem;
+        }
+
+        .navbar {
+          padding: 0.8rem 1rem;
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .navbar-left h1 {
+          font-size: 1.4rem;
+        }
+
+        .navbar-right {
+          flex-direction: column;
+          width: 100%;
+        }
+
+        .search-input {
+          width: 100%;
+          max-width: 100%;
+        }
+
+        .profile_image {
+          width: 120px;
+          height: 120px;
+        }
+
+        .profile_details h4 {
+          font-size: 1.2rem;
+        }
+
+        .profile_details p {
+          font-size: 13px;
+        }
+
+        .recently-joined-header,
+        .recently-login-header,
+        .profile-matched-header {
+          font-size: 1.2rem;
+        }
+
+        .card {
+          width: 160px;
         }
 
         .card img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 15px 15px 0 0;
+          height: 160px;
+        }
+      }
+
+      /* Mobile phones */
+      @media (max-width: 600px) {
+        .content {
+          padding: 10px;
+        }
+
+        .main-container {
+          gap: 15px;
+          margin-bottom: 1.5rem;
+        }
+
+        .profile_section,
+        .notify {
+          padding: 1rem;
+        }
+
+        .profile_image {
+          width: 100px;
+          height: 100px;
+        }
+
+        .profile_image img {
+          width: 100%;
+          height: 100%;
+        }
+
+        .profile_details h4 {
+          font-size: 1rem;
+          margin-bottom: 0.5rem;
+        }
+
+        .profile_details p {
+          font-size: 12px;
+          margin-bottom: 0.5rem;
+        }
+
+        .profile_button {
+          padding: 6px 12px;
+          font-size: 12px;
+        }
+
+        .progress-bar-container {
+          height: 8px;
+          font-size: 12px;
+        }
+
+        .progressBarDiv p {
+          font-size: 12px;
+        }
+
+        #profilePercent {
+          font-size: 12px;
+        }
+
+        .options-row-dashboard {
+          flex-direction: column;
+          gap: 8px;
+        }
+
+        .option-button-dashboard {
+          width: 100%;
+          font-size: 12px;
+          padding: 10px;
+          min-width: auto;
+        }
+
+        .search-input {
+          width: 100%;
+          font-size: 13px;
+          padding: 10px 15px;
+          margin-top: 10px;
+        }
+
+        .container-header {
+          font-size: 1rem;
+        }
+
+        .container-header span {
+          font-size: 1.2rem !important;
+        }
+
+        .recently-joined-header,
+        .recently-login-header,
+        .profile-matched-header {
+          font-size: 1rem;
+          margin-top: 0.5rem;
+          margin-bottom: 0.8rem;
+        }
+
+        .card-container-wrapper {
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+
+        .card-container {
+          display: flex;
+          gap: 10px;
+          padding-bottom: 10px;
+        }
+
+        .card {
+          width: 150px;
+          flex-shrink: 0;
+        }
+
+        .card img {
+          height: 150px;
         }
 
         .card-details {
-            padding: 15px;
-            font-size: 13px;
+          padding: 10px;
+          font-size: 12px;
         }
 
         .card-details h4 {
-            font-family: 'Playfair Display', serif;
-            margin-bottom: 8px;
-            font-weight: 600;
+          font-size: 14px;
+          margin-bottom: 5px;
         }
 
-        .card-details p {
-            margin: 4px 0;
-            opacity: 0.8;
-        }
-
-        /* Premium verification badge */
-        .card-wrapper .edit-button {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: linear-gradient(135deg, #ffd700 0%, #ffb300 100%);
-            color: #1565c0;
-            border: none;
-            border-radius: 50%;
-            width: 35px;
-            height: 35px;
-            font-size: 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
-            transition: all 0.3s ease;
-        }
-
-        .card-wrapper .edit-button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(255, 215, 0, 0.5);
-        }
-
-        .card-wrapper .edit-button::after {
-            content: "Premium Profile";
-            position: absolute;
-            top: 40px;
-            right: 50%;
-            transform: translateX(50%);
-            background: #1565c0;
-            color: #fff;
-            padding: 6px 12px;
-            font-size: 11px;
-            border-radius: 6px;
-            white-space: nowrap;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 10;
-        }
-
-        .card-wrapper .edit-button:hover::after {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .veri {
-            display: flex;
-            flex: 3;
-        }
-
-        /* Carousel Styling */
         .carousel-container {
-            position: relative;
-            width: 100%;
-            overflow: hidden;
-            border-radius: 12px;
-        }
-
-        .carousel-inner {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-            width: 100%;
-        }
-
-        .carousel-item {
-            min-width: 100%;
-            box-sizing: border-box;
-            padding: 10px;
-            background: white;
-            border-radius: 12px;
-            text-align: center;
-        }
-
-        .carousel-item img {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-        }
-
-        .carousel-controls {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            pointer-events: none;
+          margin: 0 -5px;
         }
 
         .carousel-controls button {
-            background: linear-gradient(135deg, #c3a38c 0%, #c3a38c 50%, #c3a38c 100%);
-            color: #fff;
-            border: none;
-            padding: 8px 12px;
-            border-radius: 50%;
-            cursor: pointer;
-            pointer-events: all;
-            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
-            transition: all 0.3s ease;
+          padding: 6px 10px;
+          font-size: 14px;
         }
 
-        .carousel-controls button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
+        .notify h4 {
+          font-size: 1rem;
         }
 
-        .carousel-dots {
-            display: flex;
-            justify-content: center;
-            margin-top: 15px;
-            gap: 8px;
-        }
-
-        .carousel-dots .dot {
-            width: 12px;
-            height: 12px;
-            background: #e3f2fd;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .carousel-dots .dot.active {
-            background: #c3a38c;
-            transform: scale(1.2);
-        }
-
-        /* Profile dropdown */
-        .profile-icon {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            cursor: pointer;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .profile-icon:hover {
-            transform: scale(1.1);
-            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
-        }
-
-        .profile-icon img {
-            width: 45px;
-            height: 45px;
-            object-fit: cover;
+        .logout-button {
+          padding: 0.5rem 1rem;
+          font-size: 14px;
+          margin-left: 0;
+          margin-top: 10px;
+          width: 100%;
         }
 
         .profile-dropdown {
-            display: none;
-            position: absolute;
-            top: 80px;
-            right: 0;
-            background: white;
-            color: #2c3e50;
-            border: 1px solid #e3f2fd;
-            border-radius: 12px;
-            padding: 1rem;
-            width: 220px;
-            box-shadow: 0 8px 25px rgba(33, 150, 243, 0.2);
+          width: 100%;
+          right: 0;
+          left: 0;
+          top: 70px;
+        }
+      }
+
+      /* Extra small phones */
+      @media (max-width: 400px) {
+        .navbar-left h1 {
+          font-size: 1.2rem;
         }
 
-        .profile-dropdown.active {
-            display: block;
+        .profile_image {
+          width: 90px;
+          height: 90px;
         }
 
-        .profile-dropdown p {
-            margin: 8px 0;
-            font-size: 14px;
+        .profile_details h4 {
+          font-size: 0.9rem;
         }
 
-        .profileImg {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 15px;
+        .card {
+          width: 140px;
         }
 
-        .profileImg img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #e3f2fd;
+        .card img {
+          height: 140px;
         }
 
-        .profile-dropdown button {
-            margin-top: 15px;
-            width: 100%;
-            padding: 10px;
-            background: linear-gradient(135deg, #f44336 0%, #e53935 100%);
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 25px;
-            font-weight: 500;
-            transition: all 0.3s ease;
+        .option-button-dashboard {
+          font-size: 11px;
+          padding: 8px;
         }
+      }
 
-        .profile-dropdown button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
-        }
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
 
-        /* Loading dialog */
-        .loader {
-            border: 4px solid #e3f2fd;
-            border-top: 4px solid #2196f3;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 2s linear infinite;
-        }
+      ::-webkit-scrollbar-track {
+        background: #e3f2fd;
+        border-radius: 10px;
+      }
 
-        /* No profiles image */
-        #no-profile-matched {
-            display: block;
-            margin: 2rem auto;
-            max-width: 200px;
-            opacity: 0.6;
-            border-radius: 15px;
-        }
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient(135deg, #c3a38c 0%, #c3a38c 100%);
+        border-radius: 10px;
+      }
 
-        /* Enhanced Responsive Design */
-        
-        /* Large tablets and small desktops */
-        @media (max-width: 1200px) {
-            .main-container {
-                flex-direction: column;
-            }
-            
-            .profile_section, .notify {
-                width: 100%;
-            }
-            
-            .options-row-dashboard {
-                justify-content: center;
-            }
-            
-            .card {
-                width: 180px;
-            }
-        }
-
-        /* Tablets */
-        @media (max-width: 992px) {
-            .dashboard-container {
-                flex-direction: column;
-            }
-            
-            #sidebar-placeholder, .sidebar {
-                width: 100%;
-                border-right: none;
-                border-bottom: 1px solid #e3f2fd;
-                padding: 1rem;
-            }
-            
-            .content {
-                padding: 1.5rem;
-            }
-            
-            .profile_container {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-            
-            .profile_image {
-                margin-right: 0;
-                margin-bottom: 15px;
-            }
-            
-            .profile_details {
-                width: 100%;
-            }
-            
-            .search-input {
-                width: 100%;
-                max-width: 300px;
-                margin-right: 0;
-                margin-top: 10px;
-            }
-            
-            .container-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 10px;
-            }
-            
-            .options-row-dashboard {
-                justify-content: center;
-            }
-            
-            .option-button-dashboard {
-                flex: 1 1 45%;
-                min-width: 140px;
-            }
-        }
-
-        /* Small tablets and large phones */
-        @media (max-width: 768px) {
-            html, body {
-                overflow-y: auto;
-            }
-            
-            .dashboard-container {
-                height: auto;
-            }
-            
-            .sidebar {
-                width: 100%;
-            }
-            
-            .content {
-                padding: 1rem;
-            }
-            
-            .navbar {
-                padding: 0.8rem 1rem;
-                flex-direction: column;
-                gap: 10px;
-            }
-            
-            .navbar-left h1 {
-                font-size: 1.4rem;
-            }
-            
-            .navbar-right {
-                flex-direction: column;
-                width: 100%;
-            }
-            
-            .search-input {
-                width: 100%;
-                max-width: 100%;
-            }
-            
-            .profile_image {
-                width: 120px;
-                height: 120px;
-            }
-            
-            .profile_details h4 {
-                font-size: 1.2rem;
-            }
-            
-            .profile_details p {
-                font-size: 13px;
-            }
-            
-            .recently-joined-header, .recently-login-header, .profile-matched-header {
-                font-size: 1.2rem;
-            }
-            
-            .card {
-                width: 160px;
-            }
-            
-            .card img {
-                height: 160px;
-            }
-        }
-
-        /* Mobile phones */
-        @media (max-width: 600px) {
-            .content {
-                padding: 10px;
-            }
-            
-            .main-container {
-                gap: 15px;
-                margin-bottom: 1.5rem;
-            }
-            
-            .profile_section, .notify {
-                padding: 1rem;
-            }
-            
-            .profile_image {
-                width: 100px;
-                height: 100px;
-            }
-            
-            .profile_image img {
-                width: 100%;
-                height: 100%;
-            }
-            
-            .profile_details h4 {
-                font-size: 1rem;
-                margin-bottom: 0.5rem;
-            }
-            
-            .profile_details p {
-                font-size: 12px;
-                margin-bottom: 0.5rem;
-            }
-            
-            .profile_button {
-                padding: 6px 12px;
-                font-size: 12px;
-            }
-            
-            .progress-bar-container {
-                height: 8px;
-                font-size: 12px;
-            }
-            
-            .progressBarDiv p {
-                font-size: 12px;
-            }
-            
-            #profilePercent {
-                font-size: 12px;
-            }
-            
-            .options-row-dashboard {
-                flex-direction: column;
-                gap: 8px;
-            }
-            
-            .option-button-dashboard {
-                width: 100%;
-                font-size: 12px;
-                padding: 10px;
-                min-width: auto;
-            }
-            
-            .search-input {
-                width: 100%;
-                font-size: 13px;
-                padding: 10px 15px;
-                margin-top: 10px;
-            }
-            
-            .container-header {
-                font-size: 1rem;
-            }
-            
-            .container-header span {
-                font-size: 1.2rem !important;
-            }
-            
-            .recently-joined-header, .recently-login-header, .profile-matched-header {
-                font-size: 1rem;
-                margin-top: 0.5rem;
-                margin-bottom: 0.8rem;
-            }
-            
-            .card-container-wrapper {
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-            }
-            
-            .card-container {
-                display: flex;
-                gap: 10px;
-                padding-bottom: 10px;
-            }
-            
-            .card {
-                width: 150px;
-                flex-shrink: 0;
-            }
-            
-            .card img {
-                height: 150px;
-            }
-            
-            .card-details {
-                padding: 10px;
-                font-size: 12px;
-            }
-            
-            .card-details h4 {
-                font-size: 14px;
-                margin-bottom: 5px;
-            }
-            
-            .carousel-container {
-                margin: 0 -5px;
-            }
-            
-            .carousel-controls button {
-                padding: 6px 10px;
-                font-size: 14px;
-            }
-            
-            .notify h4 {
-                font-size: 1rem;
-            }
-            
-            .logout-button {
-                padding: 0.5rem 1rem;
-                font-size: 14px;
-                margin-left: 0;
-                margin-top: 10px;
-                width: 100%;
-            }
-            
-            .profile-dropdown {
-                width: 100%;
-                right: 0;
-                left: 0;
-                top: 70px;
-            }
-        }
-
-        /* Extra small phones */
-        @media (max-width: 400px) {
-            .navbar-left h1 {
-                font-size: 1.2rem;
-            }
-            
-            .profile_image {
-                width: 90px;
-                height: 90px;
-            }
-            
-            .profile_details h4 {
-                font-size: 0.9rem;
-            }
-            
-            .card {
-                width: 140px;
-            }
-            
-            .card img {
-                height: 140px;
-            }
-            
-            .option-button-dashboard {
-                font-size: 11px;
-                padding: 8px;
-            }
-        }
-
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-            height: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #e3f2fd;
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb {
+      /* ::-webkit-scrollbar-thumb:hover {
             background: linear-gradient(135deg, #c3a38c 0%, #c3a38c 100%);
-            border-radius: 10px;
+        } */
+
+      /* Additional responsive utilities handled above */
+      .dashboard-container {
+        max-width: 1600px;
+        width: 100%;
+        margin: 0 auto;
+      }
+      @media screen and (max-width: 1024px) {
+        .sidebar {
+          width: 200px;
+        }
+      }
+
+      @media screen and (max-width: 768px) {
+        .sidebar {
+          position: fixed;
+          top: 0;
+          left: -220px; /* hidden by default */
+          width: 220px;
+          height: 100vh;
+          background: #f5e7df; /* adjust to your color */
+          color: inherit;
+          transition: transform 0.3s ease;
+          transform: translateX(-5px);
+          z-index: 1000;
+          padding: 1rem;
         }
 
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(135deg, #c3a38c 0%, #c3a38c 100%);
+        /* When sidebar is open */
+        .sidebar.open {
+          left: 0;
         }
 
-        /* Additional responsive utilities handled above */
-.dashboard-container {
-  max-width: 1600px;
-  width: 100%;
-  margin: 0 auto;
-}
-@media screen and (max-width: 1024px) {
-  .sidebar {
-    width: 200px;
-  }
-}
+        /* Show toggle button only on small screens */
+        .toggle-btn {
+          display: block;
+          position: fixed;
+          top: 2px;
+          left: 10px;
+          z-index: 1100;
+          background: #c3a38c;
+          color: white;
+          border: none;
+          padding: 5px 5px;
+          font-size: 20px;
+          border-radius: 6px;
+          cursor: pointer;
+        }
 
-@media screen and (max-width: 768px) {
-  .sidebar {
-    position: fixed;
-    top: 0;
-    left: -220px; /* hidden by default */
-    width: 220px;
-    height: 100vh;
-    background: #f5e7df;; /* adjust to your color */
-    color: inherit;
-     transition: transform 0.3s ease;
-    transform: translateX(-5px);
-    z-index: 1000;
-    padding: 1rem;
-  }
+        .sidebar.open h3.container-header1 {
+          display: none;
+        }
 
-  /* When sidebar is open */
-  .sidebar.open {
-    left: 0;
-  }
+        .sidebar.open hr.container-header1 {
+          display: none;
+        }
 
-  /* Show toggle button only on small screens */
-  .toggle-btn {
-    display: block;
-    position: fixed;
-    top: 2px;
-    left: 10px;
-    z-index: 1100;
-    background: #c3a38c;
-    color: white;
-    border: none;
-    padding: 5px 5px;
-    font-size: 20px;
-    border-radius: 6px;
-    cursor: pointer;
-  }
+        .sidebar.open ul {
+          margin-top: 25px;
+        }
 
-  .sidebar.open h3.container-header1 {
-    display: none;
-  }
-
-  .sidebar.open hr.container-header1 {
-    display: none;
-  }
-
-  .sidebar.open ul {
-    margin-top: 25px;
-  }
-
-  /* Optional – prevent content shift */
-  .main-content {
-    margin-left: 0;
-  }
-}
-
-
-
-
+        /* Optional – prevent content shift */
+        .main-content {
+          margin-left: 0;
+        }
+      }
     </style>
-</head>
-<body>
-
-   
-
+  </head>
+  <body>
     <div id="navbar-placeholder"></div>
-    
 
     <!-- Main Layout -->
     <div class="dashboard-container">
-        <!-- Sidebar -->
-          <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
-        <div id="sidebar-placeholder"></div>
+      <!-- Sidebar -->
+      <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+      <div id="sidebar-placeholder"></div>
 
-        <!-- Main Content Area -->
-        <main id="content" class="content">
-            <div id="waiting-dialog" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(33, 150, 243, 0.1); backdrop-filter: blur(5px); display: flex; justify-content: center; align-items: center; z-index: 9999;">
-                <div style="background-color: white; padding: 2rem; border-radius: 15px; box-shadow: 0 15px 40px rgba(33, 150, 243, 0.2); text-align: center;">
-                    <div class="loader"></div>
-                    <p style="margin-top: 1rem; color: #1565c0; font-weight: 500;">Please Wait...</p>
+      <!-- Main Content Area -->
+      <main id="content" class="content">
+        <div
+          id="waiting-dialog"
+          style="
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(33, 150, 243, 0.1);
+            backdrop-filter: blur(5px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+          "
+        >
+          <div
+            style="
+              background-color: white;
+              padding: 2rem;
+              border-radius: 15px;
+              box-shadow: 0 15px 40px rgba(33, 150, 243, 0.2);
+              text-align: center;
+            "
+          >
+            <div class="loader"></div>
+            <p style="margin-top: 1rem; color: #1565c0; font-weight: 500">
+              Please Wait...
+            </p>
+          </div>
+        </div>
+
+        <!-- Default Dashboard Content -->
+        <section id="dashboard-content" class="dashboard-content">
+          <div class="main-container">
+            <div class="profile_section">
+              <!-- Profile Info -->
+              <div class="my_profile_info">
+                <div class="profile_container">
+                  <!-- Left side: Image -->
+                  <div class="profile_image">
+                    <img
+                      src=""
+                      alt="Profile Picture"
+                      id="profileImgDashboard"
+                    />
+                    <div class="plan_flag" id="plan_flag" style="display: none">
+                      <span id="viewPlan">free</span>
+                    </div>
+                    <div class="view_count">
+                      <i class="fa fa-eye"></i> <span id="viewCount">0</span>
+                    </div>
+                  </div>
+                  <!-- Right side: Text details -->
+                  <div class="profile_details">
+                    <h4><span id="profile_name"></span></h4>
+                    <p>
+                      <strong>Phone:</strong> <span id="profile_phone"></span>
+                    </p>
+                    <p>
+                      <strong>Matri ID:</strong> <span id="profile_id"></span>
+                    </p>
+                    <p id="subs_date" style="display: none">
+                      <strong>Plan Expiry:</strong>
+                      <span id="profile_end_date"></span>
+                    </p>
+                    <a href="payment.html" style="text-decoration: none">
+                      <button
+                        class="profile_button"
+                        id="profileButton"
+                        style="display: none"
+                      >
+                        <i class="fa fa-star"></i> Upgrade Plan
+                      </button>
+                    </a>
+                  </div>
                 </div>
+              </div>
+
+              <!-- Progress Bar -->
+              <div class="progressBarDiv">
+                <p><i class="fa fa-chart-line"></i> Profile Completion</p>
+                <div class="progress-bar-container">
+                  <span
+                    id="progressBar"
+                    class="progress-bar"
+                    style="width: 60%"
+                  ></span>
+                  <span id="profilePercent">0%</span>
+                </div>
+              </div>
             </div>
-            
-            <!-- Default Dashboard Content -->
-            <section id="dashboard-content" class="dashboard-content">
-                <div class="main-container">
-                    <div class="profile_section">
-                        <!-- Profile Info -->
-                        <div class="my_profile_info">
-                            <div class="profile_container">
-                                <!-- Left side: Image -->
-                                <div class="profile_image">
-                                    <img src="" alt="Profile Picture" id="profileImgDashboard" />
-                                    <div class="plan_flag" id="plan_flag" style="display:none">
-                                        <span id="viewPlan">free</span>
-                                    </div>
-                                    <div class="view_count">
-                                        <i class="fa fa-eye"></i> <span id="viewCount">0</span>
-                                    </div>
-                                </div>
-                                <!-- Right side: Text details -->
-                                <div class="profile_details">
-                                    <h4><span id="profile_name"></span></h4>
-                                    <p><strong>Phone:</strong> <span id="profile_phone"></span></p>
-                                    <p><strong>Matri ID:</strong> <span id="profile_id"></span></p>
-                                    <p id="subs_date" style="display:none;"><strong>Plan Expiry:</strong> <span id="profile_end_date"></span></p>
-                                    <a href="payment.html" style="text-decoration: none;">
-                                        <button class="profile_button" id="profileButton" style="display:none;">
-                                            <i class="fa fa-star"></i> Upgrade Plan
-                                        </button>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    
-                        <!-- Progress Bar -->
-                        <div class="progressBarDiv">
-                            <p><i class="fa fa-chart-line"></i> Profile Completion</p>
-                            <div class="progress-bar-container">
-                                <span id="progressBar" class="progress-bar" style="width: 60%;"></span>
-                                <span id="profilePercent">0%</span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="notify">
-                        <h4><i class="fa fa-bell"></i> Complete Your Profile</h4>
-                        <div class="carousel-container">
-                            <div class="carousel-inner">
-                                <div class="carousel-item" data-index="0">
-                                    <a href="">
-                                        <img src="../img/buntsmatrimonywelcome.png" alt="All completed">
-                                    </a>
-                                </div>
-                                <div class="carousel-item" data-index="1">
-                                    <a href="EditAdditionalDetail.html">
-                                        <img src="../img/EditAdditional.jpg" alt="Additional Details">
-                                    </a>
-                                </div>
-                                <div class="carousel-item" data-index="2">
-                                    <a href="EditEducation.html">
-                                        <img src="../img/EditEducation.jpg" alt="Education Details">
-                                    </a>
-                                </div>
-                                <div class="carousel-item" data-index="3">
-                                    <a href="EditHoroscope.html">
-                                        <img src="../img/horoscope.jpg" alt="Horoscope Details">
-                                    </a>
-                                </div>
-                                <div class="carousel-item" data-index="4">
-                                    <a href="EditFamily.html">
-                                        <img src="../img/EditFamily.jpg" alt="Family Details">
-                                    </a>
-                                </div>
-                                <div class="carousel-item" data-index="5">
-                                    <a href="EditPhoto.html">
-                                        <img src="../img/EditPhoto.jpg" alt="Photo Upload">
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="carousel-controls">
-                                <button id="prevBtn">&lt;</button>
-                                <button id="nextBtn">&gt;</button>
-                            </div>
-                        </div>
-                        <div class="carousel-dots" id="carouselDots"></div>
-                    </div>
-                </div>
-           
-                <h2 class="container-header">
-                    <span style="font-family: 'Playfair Display', serif; color: #c3a38c; font-size: 1.6rem;">
-                        <i class="fa fa-users"></i> Find Your Perfect Match
-                    </span>
-                    <span>
-                        <i class="fa fa-search" style="color: #c3a38c;"></i>
-                        <input 
-                            type="text" 
-                            id="searchProfileInput" 
-                            placeholder="Search profiles by name or ID..." 
-                            class="search-input"
-                            oninput="filterProfiles()"
-                        >
-                    </span>
-                </h2>
-                
-                <div id="optionsRow" class="options-row-dashboard">
-                    <a href="viewed_info.html">
-                        <button class="option-button-dashboard">
-                            <i class="fa fa-eye"></i> I Viewed <span id="i_viewed">0</span>
-                        </button>
-                    </a>
-                    <a href="viewed_info.html">
-                        <button class="option-button-dashboard">
-                            <i class="fa fa-users"></i> Viewed by Others <span id="viewed_by">0</span>
-                        </button>
-                    </a>
-                    <a href="liked_info.html">
-                        <button class="option-button-dashboard">
-                            <i class="fa fa-heart"></i> I Liked <span id="i_liked">0</span>
-                        </button>
-                    </a>
-                    <a href="liked_info.html">
-                        <button class="option-button-dashboard">
-                            <i class="fa fa-heart-o"></i> Liked by Others <span id="liked_by">0</span>
-                        </button>
-                    </a>
-                    <a href="mutual_liked_info.html">
-                        <button class="option-button-dashboard">
-                            <i class="fa fa-comments"></i> Mutually Liked <span id="mutual_liked">0</span>
-                        </button>
-                    </a>
-                    <a href="contacted_info.html">
-                        <button class="option-button-dashboard">
-                            <i class="fa fa-phone"></i> Contacted <span id="contacted">0</span>
-                        </button>
-                    </a>
-                </div>
 
-                <!-- Recently Login Section -->
-                <section class="profile-section">
-                    <h3 class="recently-login-header">
-                        <i class="fa fa-clock-o"></i> Recently Active Members (<span id="recently_login_count">0</span>)
-                    </h3>
-                    <div class="card-container-wrapper">
-                        <div class="card-container" id="recently-login-container"></div>
-                    </div>
-                </section>
-                
-                <!-- Profile Matched Section -->
-                <section class="profile-section">
-                    <h3 class="profile-matched-header">
-                        <i class="fa fa-heart"></i> Perfect Matches for You (<span id="matched_count">0</span>)
-                    </h3>
-                    <div class="card-container-wrapper">
-                        <div class="card-container" id="profile-matched-container"></div>
-                    </div>
-                    <img id="no-profile-matched" src="../img/sad.webp" alt="No Match Found" style="display: none;" />
-                </section>
+            <div class="notify">
+              <h4><i class="fa fa-bell"></i> Complete Your Profile</h4>
+              <div class="carousel-container">
+                <div class="carousel-inner">
+                  <div class="carousel-item" data-index="0">
+                    <a href="">
+                      <img
+                        src="../img/buntsmatrimonywelcome.png"
+                        alt="All completed"
+                      />
+                    </a>
+                  </div>
+                  <div class="carousel-item" data-index="1">
+                    <a href="EditAdditionalDetail.html">
+                      <img
+                        src="../img/EditAdditional.jpg"
+                        alt="Additional Details"
+                      />
+                    </a>
+                  </div>
+                  <div class="carousel-item" data-index="2">
+                    <a href="EditEducation.html">
+                      <img
+                        src="../img/EditEducation.jpg"
+                        alt="Education Details"
+                      />
+                    </a>
+                  </div>
+                  <div class="carousel-item" data-index="3">
+                    <a href="EditHoroscope.html">
+                      <img src="../img/horoscope.jpg" alt="Horoscope Details" />
+                    </a>
+                  </div>
+                  <div class="carousel-item" data-index="4">
+                    <a href="EditFamily.html">
+                      <img src="../img/EditFamily.jpg" alt="Family Details" />
+                    </a>
+                  </div>
+                  <div class="carousel-item" data-index="5">
+                    <a href="EditPhoto.html">
+                      <img src="../img/EditPhoto.jpg" alt="Photo Upload" />
+                    </a>
+                  </div>
+                </div>
+                <div class="carousel-controls">
+                  <button id="prevBtn">&lt;</button>
+                  <button id="nextBtn">&gt;</button>
+                </div>
+              </div>
+              <div class="carousel-dots" id="carouselDots"></div>
+            </div>
+          </div>
 
-                <!-- Recently Joined Section -->
-                <section class="profile-section">
-                    <h3 class="recently-joined-header">
-                        <i class="fa fa-user-plus"></i> New Members (<span id="recently_count">0</span>)
-                    </h3>
-                    <div class="card-container-wrapper">
-                        <div class="card-container" id="recently-joined-container"></div>
-                    </div>
-                </section>
-                
-            </section>
-        </main>
+          <h2 class="container-header">
+            <span
+              style="
+                font-family: 'Playfair Display', serif;
+                color: #000000;
+                font-size: 1.6rem;
+              "
+            >
+              <i class="fa fa-users"></i> Find Your Perfect Match
+            </span>
+            <span>
+              <i class="fa fa-search" style="color: #000000"></i>
+              <input
+                type="text"
+                id="searchProfileInput"
+                placeholder="Search profiles by name or ID..."
+                class="search-input"
+                oninput="filterProfiles()"
+              />
+            </span>
+          </h2>
+
+          <div id="optionsRow" class="options-row-dashboard">
+            <a href="viewed_info.html">
+              <button class="option-button-dashboard">
+                <i class="fa fa-eye"></i> I Viewed <span id="i_viewed">0</span>
+              </button>
+            </a>
+            <a href="viewed_info.html">
+              <button class="option-button-dashboard">
+                <i class="fa fa-users"></i> Viewed by Others
+                <span id="viewed_by">0</span>
+              </button>
+            </a>
+            <a href="liked_info.html">
+              <button class="option-button-dashboard">
+                <i class="fa fa-heart"></i> I Liked <span id="i_liked">0</span>
+              </button>
+            </a>
+            <a href="liked_info.html">
+              <button class="option-button-dashboard">
+                <i class="fa fa-heart-o"></i> Liked by Others
+                <span id="liked_by">0</span>
+              </button>
+            </a>
+            <a href="mutual_liked_info.html">
+              <button class="option-button-dashboard">
+                <i class="fa fa-comments"></i> Mutually Liked
+                <span id="mutual_liked">0</span>
+              </button>
+            </a>
+            <a href="contacted_info.html">
+              <button class="option-button-dashboard">
+                <i class="fa fa-phone"></i> Contacted
+                <span id="contacted">0</span>
+              </button>
+            </a>
+          </div>
+
+          <!-- Recently Login Section -->
+          <section class="profile-section">
+            <h3 class="recently-login-header">
+              <i class="fa fa-clock-o"></i> Recently Active Members (<span
+                id="recently_login_count"
+                >0</span
+              >)
+            </h3>
+            <div class="card-container-wrapper">
+              <div class="card-container" id="recently-login-container"></div>
+            </div>
+          </section>
+
+          <!-- Profile Matched Section -->
+          <section class="profile-section">
+            <h3 class="profile-matched-header">
+              <i class="fa fa-heart"></i> Perfect Matches for You (<span
+                id="matched_count"
+                >0</span
+              >)
+            </h3>
+            <div class="card-container-wrapper">
+              <div class="card-container" id="profile-matched-container"></div>
+            </div>
+            <img
+              id="no-profile-matched"
+              src="../img/sad.webp"
+              alt="No Match Found"
+              style="display: none"
+            />
+          </section>
+
+          <!-- Recently Joined Section -->
+          <section class="profile-section">
+            <h3 class="recently-joined-header">
+              <i class="fa fa-user-plus"></i> New Members (<span
+                id="recently_count"
+                >0</span
+              >)
+            </h3>
+            <div class="card-container-wrapper">
+              <div class="card-container" id="recently-joined-container"></div>
+            </div>
+          </section>
+        </section>
+      </main>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -1263,350 +1389,315 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="baseurl.js"></script>
     <script>
-        let planStatus;
-     function loadHTMLContent(elementId, url, callback) {
-            fetch(url)
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById(elementId).innerHTML = data;
-                    if (callback) callback(); // Execute callback after content is loaded
-                })
-                .catch(error =>console.error('Error loading HTML:', error));
-        }
+      let planStatus;
+      function loadHTMLContent(elementId, url, callback) {
+        fetch(url)
+          .then((response) => response.text())
+          .then((data) => {
+            document.getElementById(elementId).innerHTML = data;
+            if (callback) callback(); // Execute callback after content is loaded
+          })
+          .catch((error) => console.error("Error loading HTML:", error));
+      }
 
-        // Load Navbar and Sidebar
-        // loadHTMLContent('navbar-placeholder', 'navbar.html');
-        function setnavbar(){
-        loadHTMLContent('navbar-placeholder', 'navbar.html', () => {
-                const elementMap = {
-                    profileFor1: 'myprofile_fullname',
-                    profileMatriId: 'matriId',
-                    profileImg: 'myprofile_photo_url',
-                    profilePicture: 'myprofile_photo_url',
-                    profileFor: 'myprofile_fullname',
-                    profileId: 'matriId',
-                };
+      // Load Navbar and Sidebar
+      // loadHTMLContent('navbar-placeholder', 'navbar.html');
+      function setnavbar() {
+        loadHTMLContent("navbar-placeholder", "navbar.html", () => {
+          const elementMap = {
+            profileFor1: "myprofile_fullname",
+            profileMatriId: "matriId",
+            profileImg: "myprofile_photo_url",
+            profilePicture: "myprofile_photo_url",
+            profileFor: "myprofile_fullname",
+            profileId: "matriId",
+          };
 
-                Object.keys(elementMap).forEach((id) => {
-                    const element = document.getElementById(id);
-                    const value = localStorage.getItem(elementMap[id]);
+          Object.keys(elementMap).forEach((id) => {
+            const element = document.getElementById(id);
+            const value = localStorage.getItem(elementMap[id]);
 
-                    if (element) {
-                    // For image elements, set the src attribute
-                    if (id === 'profileImg' || id === 'profilePicture') {
-                        element.src = value || 'https://via.placeholder.com/40'; // Fallback for missing images
-                    } else {
-                        element.textContent = value || ''; // Fallback for text
-                    }
-                    }
-                });
-            });
+            if (element) {
+              // For image elements, set the src attribute
+              if (id === "profileImg" || id === "profilePicture") {
+                element.src = value || "https://via.placeholder.com/40"; // Fallback for missing images
+              } else {
+                element.textContent = value || ""; // Fallback for text
+              }
+            }
+          });
+        });
+      }
 
-        }
+      loadHTMLContent("sidebar-placeholder", "sidebar.html", function () {
+        // Add event listeners after the sidebar content is loaded
+        const menus = document.querySelectorAll(".matches-menu");
 
-        loadHTMLContent('sidebar-placeholder', 'sidebar.html', function () {
-            // Add event listeners after the sidebar content is loaded
-            const menus = document.querySelectorAll('.matches-menu');
+        menus.forEach((menu) => {
+          menu.addEventListener("click", function (event) {
+            // Prevent default behavior only for parent menu links
+            if (!event.target.closest(".submenu a")) {
+              event.preventDefault();
+            }
 
-            menus.forEach(menu => {
-                menu.addEventListener('click', function (event) {
-                    // Prevent default behavior only for parent menu links
-                    if (!event.target.closest('.submenu a')) {
-                        event.preventDefault();
-                    }
+            // Check if the clicked element has a submenu
+            const submenu = this.querySelector(".submenu");
 
-                    // Check if the clicked element has a submenu
-                    const submenu = this.querySelector('.submenu');
+            // If the submenu exists, toggle its visibility
+            if (submenu) {
+              const isVisible = submenu.style.display === "block";
 
-                    // If the submenu exists, toggle its visibility
-                    if (submenu) {
-                        const isVisible = submenu.style.display === 'block';
+              // Close all submenus
+              document.querySelectorAll(".submenu").forEach((s) => {
+                s.style.display = "none";
+              });
 
-                        // Close all submenus
-                        document.querySelectorAll('.submenu').forEach(s => {
-                            s.style.display = 'none';
-                        });
-
-                        // Toggle only the clicked submenu
-                        submenu.style.display = isVisible ? 'none' : 'block';
-                    }
-                });
-            });
-
-            // Add listeners to submenu links to ensure navigation works
-            const submenuLinks = document.querySelectorAll('.submenu a');
-            submenuLinks.forEach(link => {
-                link.addEventListener('click', function (event) {
-                    // Allow navigation or custom logic for submenu links
-                   //consolelog(`Navigating to ${this.getAttribute('href')}`);
-                });
-            });
+              // Toggle only the clicked submenu
+              submenu.style.display = isVisible ? "none" : "block";
+            }
+          });
         });
 
+        // Add listeners to submenu links to ensure navigation works
+        const submenuLinks = document.querySelectorAll(".submenu a");
+        submenuLinks.forEach((link) => {
+          link.addEventListener("click", function (event) {
+            // Allow navigation or custom logic for submenu links
+            //consolelog(`Navigating to ${this.getAttribute('href')}`);
+          });
+        });
+      });
 
+      // function toggleProfileDropdown() {
+      //     const dropdown = document.getElementById('profileDropdown');
+      //     dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
+      // }
 
+      function toggleProfileDropdown() {
+        const dropdown = document.getElementById("profileDropdown");
+        dropdown.style.display =
+          dropdown.style.display === "block" ? "none" : "block";
 
-
-        // function toggleProfileDropdown() {
-        //     const dropdown = document.getElementById('profileDropdown');
-        //     dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
-        // }
-
-        function toggleProfileDropdown() {
-            const dropdown = document.getElementById('profileDropdown');
-            dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
-
-            // Attach a click event listener to close the dropdown when clicking outside
-            if (dropdown.style.display === 'block') {
-                document.addEventListener('click', closeDropdownOnClickOutside);
-            }
+        // Attach a click event listener to close the dropdown when clicking outside
+        if (dropdown.style.display === "block") {
+          document.addEventListener("click", closeDropdownOnClickOutside);
         }
+      }
 
-    // Close the dropdown on outside click
-    function closeDropdownOnClickOutside(event) {
-        const dropdown = document.getElementById('profileDropdown');
-        const profileIcon = document.querySelector('.profile-icon');
+      // Close the dropdown on outside click
+      function closeDropdownOnClickOutside(event) {
+        const dropdown = document.getElementById("profileDropdown");
+        const profileIcon = document.querySelector(".profile-icon");
 
         // Check if the clicked element is outside the dropdown or profile icon
-        if (!dropdown.contains(event.target) && !profileIcon.contains(event.target)) {
-            dropdown.style.display = 'none';
-            document.removeEventListener('click', closeDropdownOnClickOutside); // Clean up the event listener
+        if (
+          !dropdown.contains(event.target) &&
+          !profileIcon.contains(event.target)
+        ) {
+          dropdown.style.display = "none";
+          document.removeEventListener("click", closeDropdownOnClickOutside); // Clean up the event listener
         }
-    }
+      }
 
+      function logout() {
+        //consolelog("User logged out");
+        localStorage.clear();
+        localStorage.setItem("visitedSuccessPage", "true");
+        window.location.href = "Login.html";
+      }
 
-        function logout() {
-           //consolelog("User logged out");
-            localStorage.clear();
-            localStorage.setItem("visitedSuccessPage", "true");
-            window.location.href = 'Login.html';
-        }
+      const carouselInner = document.querySelector(".carousel-inner");
+      const carouselItems = document.querySelectorAll(".carousel-item");
+      const prevBtn = document.getElementById("prevBtn");
+      const nextBtn = document.getElementById("nextBtn");
+      const dotsContainer = document.getElementById("carouselDots");
 
-        const carouselInner = document.querySelector('.carousel-inner');
-        const carouselItems = document.querySelectorAll('.carousel-item');
-        const prevBtn = document.getElementById('prevBtn');
-        const nextBtn = document.getElementById('nextBtn');
-        const dotsContainer = document.getElementById('carouselDots');
+      let currentIndex = 0;
 
-        let currentIndex = 0;
+      // Create dots dynamically
+      carouselItems.forEach((_, index) => {
+        const dot = document.createElement("div");
+        dot.classList.add("dot");
+        if (index === 0) dot.classList.add("active");
+        dot.addEventListener("click", () => goToSlide(index));
+        dotsContainer.appendChild(dot);
+      });
 
-        // Create dots dynamically
-        carouselItems.forEach((_, index) => {
-            const dot = document.createElement('div');
-            dot.classList.add('dot');
-            if (index === 0) dot.classList.add('active');
-            dot.addEventListener('click', () => goToSlide(index));
-            dotsContainer.appendChild(dot);
+      function updateCarousel() {
+        carouselInner.style.transform = `translateX(-${currentIndex * 100}%)`;
+        document.querySelectorAll(".dot").forEach((dot, index) => {
+          dot.classList.toggle("active", index === currentIndex);
+        });
+      }
+
+      function goToSlide(index) {
+        currentIndex = index;
+        updateCarousel();
+      }
+
+      function nextSlide() {
+        currentIndex = (currentIndex + 1) % carouselItems.length;
+        updateCarousel();
+      }
+
+      function prevSlide() {
+        currentIndex =
+          (currentIndex - 1 + carouselItems.length) % carouselItems.length;
+        updateCarousel();
+      }
+
+      // Auto-scroll every 2 seconds
+      let autoScroll = setInterval(nextSlide, 2000);
+
+      // Pause auto-scroll on hover
+      document
+        .querySelector(".carousel-container")
+        .addEventListener("mouseover", () => {
+          clearInterval(autoScroll);
+        });
+      document
+        .querySelector(".carousel-container")
+        .addEventListener("mouseout", () => {
+          autoScroll = setInterval(nextSlide, 2000);
         });
 
-        function updateCarousel() {
-            carouselInner.style.transform = `translateX(-${currentIndex * 100}%)`;
-            document.querySelectorAll('.dot').forEach((dot, index) => {
-                dot.classList.toggle('active', index === currentIndex);
-            });
-        }
+      nextBtn.addEventListener("click", nextSlide);
+      prevBtn.addEventListener("click", prevSlide);
 
-        function goToSlide(index) {
-            currentIndex = index;
-            updateCarousel();
-        }
+      function populateCards(containerId, data) {
+        const container = document.getElementById(containerId);
+        if (!container) return; // Exit if the container is not found
+        container.innerHTML = ""; // Clear previous content if any
 
-        function nextSlide() {
-            currentIndex = (currentIndex + 1) % carouselItems.length;
-            updateCarousel();
-        }
+        data.forEach((profile) => {
+          let imgURL = "";
+          if (
+            profile["gender_type"] === "Male" &&
+            (profile.url === null || profile.url === "")
+          ) {
+            imgURL = "../img/2.png";
+          } else if (
+            profile["gender_type"] === "Female" &&
+            (profile.url === null || profile.url === "")
+          ) {
+            imgURL = "../img/1.png";
+          } else {
+            imgURL = baseURL + profile.url;
+          }
 
-        function prevSlide() {
-            currentIndex = (currentIndex - 1 + carouselItems.length) % carouselItems.length;
-            updateCarousel();
-        }
+          // Create the card element
+          const card = document.createElement("div");
+          card.className = "card";
 
-        // Auto-scroll every 2 seconds
-        let autoScroll = setInterval(nextSlide, 2000);
-
-        // Pause auto-scroll on hover
-        document.querySelector('.carousel-container').addEventListener('mouseover', () => {
-            clearInterval(autoScroll);
-        });
-        document.querySelector('.carousel-container').addEventListener('mouseout', () => {
-            autoScroll = setInterval(nextSlide, 2000);
-        });
-
-        nextBtn.addEventListener('click', nextSlide);
-        prevBtn.addEventListener('click', prevSlide);
-
-
-
-        function populateCards(containerId, data) {
-            const container = document.getElementById(containerId);
-            if (!container) return; // Exit if the container is not found
-            container.innerHTML = ''; // Clear previous content if any
-
-            data.forEach(profile => {
-
-                 let imgURL='';
-                if(profile["gender_type"]==='Male' && (profile.url===null || profile.url==='')){
-                    imgURL='../img/2.png';
-                }else if(profile["gender_type"]==='Female' && (profile.url===null || profile.url==='')){
-                    imgURL='../img/1.png';
-                }else{  
-                    imgURL=baseURL+profile.url;
-                }
-              
-                // Create the card element
-                const card = document.createElement('div');
-                card.className = 'card';
-
-                // Set the card content
-               card.innerHTML = `
+          // Set the card content
+          card.innerHTML = `
 <div class="card-wrapper">
-   ${ profile.plan_status=='Paid'?`<button class="edit-button" title="Premium Profile">
+   ${
+     profile.plan_status == "Paid"
+       ? `<button class="edit-button" title="Premium Profile">
         <div class="veri"><img src="../img/veri.png" alt="verification" style="width:30px;height:30px;"></div>
-        </button>` :""}
-   <img src="${imgURL}" alt="${profile.first_name}" class="card-image" loading="lazy">
+        </button>`
+       : ""
+   }
+   <img src="${imgURL}" alt="${
+            profile.first_name
+          }" class="card-image" loading="lazy">
    <div class="card-details">
-       <h4>${profile.first_name}</h4>
-       <p>Age: ${profile.age}</p>
-       <p>Matri Id: ${profile.matri_id}</p>
+        <h4>${profile.first_name} </h4>
+       <p> ${profile.age} Yrs , ${profile.matri_id}</p>
+      
    </div>
 </div>`;
-                
-           //consolelog(card.innerHTML);
 
-             
-                    card.onclick = async function() {
-                        //matching();
-                        localStorage.setItem("matriIdTo",profile.matri_id);
-                        //localStorage.setItem("planStatus",planStatus);
-                        let planDetail=localStorage.getItem("planStatus");
-                        if(planDetail== 'Expired' && await matching("profile") == 'false'){
-                            console.log("Expired");
-                            Swal.fire({
-                                title: "Your Plan has Expired",
-                                text: "Would you like to upgrade to access more options?",
-                                icon: "info",
-                                showCancelButton: true,
-                                confirmButtonText: "Upgrade",
-                                cancelButtonText: "Cancel",
-                                reverseButtons: true,
-                                customClass: {
-                                    popup: 'swal-wide' // Optional: add custom CSS for styling
-                                }
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    // Redirect to the upgrade page
-                                    window.location.href = "payment.html";
-                                } else if (result.dismiss === Swal.DismissReason.cancel) {
-                                    // Do nothing, alert will close
-                                   //consolelog("User chose to cancel.");
-                                }
-                            });;
-                        } 
-                               //consolelog("cccc",get_entry());    
-                        else if (get_entry() === true || await matching("profile") == 'true') 
-    
-                        {
-                            console.log("mx")
-                        localStorage.setItem("viewedFirstName",profile.first_name);
-                        localStorage.setItem("viewedLastName",profile.last_name);
-                        localStorage.setItem("age", profile.age);
-                        localStorage.setItem("genderType",profile["gender_type"]);
-                        localStorage.setItem("imgURL",imgURL);
-                        localStorage.setItem("height", profile.height);
-                        localStorage.setItem("weight",profile.weight);
-                        // localStorage.setItem("remarks", profile.remark);
-                        // localStorage.setItem("place", profile.home_town);
-                        // localStorage.setItem("mother_tongue",profile.mother_tongue);
-                        // localStorage.setItem("height", profile.height);
-                        // localStorage.setItem("nakshtra", profile.nakshatra);
-                        // localStorage.setItem("rashi", profile.rashi);
-                        // localStorage.setItem("gothra", profile.gothra);
-                        // localStorage.setItem("genderType",profile["gender_type"]);
-                        // localStorage.setItem("address",profile.address);
-                        // localStorage.setItem("birthPlace",profile.birth_place);
-                        // localStorage.setItem("birthTime",profile.birth_time);
-                        // localStorage.setItem("bloodGroup", profile.blood_group);
-                        // localStorage.setItem("company", profile.company);
-                        // localStorage.setItem("complexion", profile.complexion);
-                        // localStorage.setItem("createrPhone", profile.creator_phone);
-                        // localStorage.setItem("disability", profile.disability);
-                        // localStorage.setItem("dob", profile.dob);
-                        // localStorage.setItem("email",profile.email);
-                        // localStorage.setItem("familyDiety",profile.family_diety);
-                        // localStorage.setItem("familyType",profile.family_type);
-                        // localStorage.setItem("fatherName",profile.father_name);
-                        // localStorage.setItem("fatherOccupation", profile.father_ocupation);
-                        // localStorage.setItem("motherName",profile.mother_name);
-                        // localStorage.setItem("motherOccupation", profile.mother_occupation);
-                        // localStorage.setItem("brothers",profile.number_of_brothers);
-                        // localStorage.setItem("sisters", profile.number_of_sisters);
-                        // localStorage.setItem("horoscope", profile.horoscope);
-                        // localStorage.setItem("qualification", profile.qualification);
-                        // localStorage.setItem("specialization",profile.specialization);
-                        // localStorage.setItem("profession", profile.occupation);
-                        // localStorage.setItem("company", profile.company);
-                        // localStorage.setItem("companyCity", profile.company_city);
-                        // localStorage.setItem("salary", profile.salary);
-                        // localStorage.setItem("maritalStatus", profile.status);
-                        // localStorage.setItem("subCaste", profile.sub_caste);
-                        // localStorage.setItem("profileFor",profile.profile_for);
-                        // localStorage.setItem("profileCreator",profile.profile_creator);
-                        // localStorage.setItem("creatorPhone",profile.creator_phone);
-                        // localStorage.setItem("phone",profile.phone);
-                        // localStorage.setItem("creatorName",profile.creator_name);
-                        // localStorage.setItem("liked",profile.liked);
-                        // localStorage.setItem("city",profile.city);
-                        // localStorage.setItem("state",profile.state);
-                        // localStorage.setItem("country",profile.country);
-                        // localStorage.setItem("weight",profile.weight);
-                        //   localStorage.setItem("likedProfile",profile.liked);
-                        
-                            // localStorage.setItem("profile", JSON.stringify(profile));
-                            window.location.href = "profile_view.html";
-                            // Append the card to the container
-                        }
-              
-               else{
-                console.log("maxxxx")
-                Swal.fire({
-                    title: "Maximum Limit has been reached",
-                    text: "Would you like to upgrade to access more options?",
-                    icon: "info",
-                    showCancelButton: true,
-                    confirmButtonText: "Upgrade",
-                    cancelButtonText: "Cancel",
-                    reverseButtons: true,
-                    customClass: {
-                        popup: 'swal-wide' // Optional: add custom CSS for styling
-                    }
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Redirect to the upgrade page
-                        window.location.href = "payment.html";
-                    } else if (result.dismiss === Swal.DismissReason.cancel) {
-                        // Do nothing, alert will close
-                       //consolelog("User chose to cancel.");
-                    }
-                });
-              }
+          //consolelog(card.innerHTML);
 
-              
-           }
+          card.onclick = async function () {
+            //matching();
+            localStorage.setItem("matriIdTo", profile.matri_id);
+            //localStorage.setItem("planStatus",planStatus);
+            let planDetail = localStorage.getItem("planStatus");
+            if (
+              planDetail == "Expired" &&
+              (await matching("profile")) == "false"
+            ) {
+              console.log("Expired");
+              Swal.fire({
+                title: "Your Plan has Expired",
+                text: "Would you like to upgrade to access more options?",
+                icon: "info",
+                showCancelButton: true,
+                confirmButtonText: "Upgrade",
+                cancelButtonText: "Cancel",
+                reverseButtons: true,
+                customClass: {
+                  popup: "swal-wide", // Optional: add custom CSS for styling
+                },
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  // Redirect to the upgrade page
+                  window.location.href = "payment.html";
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                  // Do nothing, alert will close
+                  //consolelog("User chose to cancel.");
+                }
+              });
+            }
+            //consolelog("cccc",get_entry());
+            else if (
+              get_entry() === true ||
+              (await matching("profile")) == "true"
+            ) {
+              console.log("mx");
+              localStorage.setItem("viewedFirstName", profile.first_name);
+              localStorage.setItem("viewedLastName", profile.last_name);
+              localStorage.setItem("age", profile.age);
+              localStorage.setItem("genderType", profile["gender_type"]);
+              localStorage.setItem("imgURL", imgURL);
+              localStorage.setItem("height", profile.height);
+              localStorage.setItem("weight", profile.weight);
+
+              // localStorage.setItem("profile", JSON.stringify(profile));
+              window.location.href = "profile_view.html";
+              // Append the card to the container
+            } else {
+              console.log("maxxxx");
+              Swal.fire({
+                title: "Maximum Limit has been reached",
+                text: "Would you like to upgrade to access more options?",
+                icon: "info",
+                showCancelButton: true,
+                confirmButtonText: "Upgrade",
+                cancelButtonText: "Cancel",
+                reverseButtons: true,
+                customClass: {
+                  popup: "swal-wide", // Optional: add custom CSS for styling
+                },
+              }).then((result) => {
+                if (result.isConfirmed) {
+                  // Redirect to the upgrade page
+                  window.location.href = "payment.html";
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                  // Do nothing, alert will close
+                  //consolelog("User chose to cancel.");
+                }
+              });
+            }
+          };
           // container.appendChild(card);
-           
-                   //consolelog("Card Clicked");
-                
 
-                // Append the card to the container
-                container.appendChild(card);
-            });
-        }
+          //consolelog("Card Clicked");
 
-     // Function to trigger the SweetAlert pop-up
-     function showPopup() {
-            Swal.fire({
-                title: '<span class="small-title"><strong>Upload Photos</strong></span>',
-                html: `
+          // Append the card to the container
+          container.appendChild(card);
+        });
+      }
+
+      // Function to trigger the SweetAlert pop-up
+      function showPopup() {
+        Swal.fire({
+          title:
+            '<span class="small-title"><strong>Upload Photos</strong></span>',
+          html: `
                     <img src="../img/2.png" alt="Image" id="uploadImgFirst" style="width: 100%; max-width: 150px; margin-bottom: 10px;border-radius:8px;">
                     <br/>
                     <div>
@@ -1616,330 +1707,449 @@
                         <button id="closeImageNew" onclick="closePopup()" style="padding:6px;background-color:red;color:white;border-radius:6px;">Close</button>
                     </div>
                 `,
-                showConfirmButton: false,
-                showCloseButton: false, // Hide the cross button
-                focusConfirm: false,
-                width: 'auto',
-                padding: '1em',
-                position: 'center'
-            });
+          showConfirmButton: false,
+          showCloseButton: false, // Hide the cross button
+          focusConfirm: false,
+          width: "auto",
+          padding: "1em",
+          position: "center",
+        });
+      }
+
+      // Function to close the popup
+      function closePopup() {
+        Swal.close();
+      }
+
+      // Trigger the pop-up every 5 minutes (300,000 milliseconds)
+      // 300,000 ms = 5 minutes
+
+      // Function to update progress bar
+      function updateProgressBar(percentage) {
+        const progressBar = document.getElementById("progressBar");
+        const profilePercent = document.getElementById("profilePercent");
+
+        // Update the width and text
+        progressBar.style.width = percentage + "%";
+        profilePercent.textContent = percentage + "%";
+
+        // Change color based on the percentage
+        if (percentage <= 10) {
+          progressBar.style.backgroundColor = "#f44336"; // Red
+        } else if (percentage <= 20) {
+          progressBar.style.backgroundColor = "#ff5722"; // Orange
+        } else if (percentage <= 30) {
+          progressBar.style.backgroundColor = "#ff9800"; // Dark Orange
+        } else if (percentage <= 40) {
+          progressBar.style.backgroundColor = "#ffc107"; // Yellow
+        } else if (percentage <= 50) {
+          progressBar.style.backgroundColor = "#ffeb3b"; // Light Yellow
+        } else if (percentage <= 60) {
+          progressBar.style.backgroundColor = "#cddc39"; // Lime
+        } else if (percentage <= 70) {
+          progressBar.style.backgroundColor = "#8bc34a"; // Light Green
+        } else if (percentage <= 80) {
+          progressBar.style.backgroundColor = "#00bcd4"; // Cyan
+        } else if (percentage <= 90) {
+          progressBar.style.backgroundColor = "#009688"; // Teal
+        } else {
+          progressBar.style.backgroundColor = "#4caf50"; // Green
         }
-
-        // Function to close the popup
-        function closePopup() {
-            Swal.close();
-        }
-
-        // Trigger the pop-up every 5 minutes (300,000 milliseconds)
-         // 300,000 ms = 5 minutes
-
-    // Function to update progress bar
-    function updateProgressBar(percentage) {
-         const progressBar = document.getElementById('progressBar');
-        const profilePercent = document.getElementById('profilePercent');
-
-          // Update the width and text
-            progressBar.style.width = percentage + '%';
-            profilePercent.textContent = percentage + '%';
-
-            // Change color based on the percentage
-            if (percentage <= 10) {
-            progressBar.style.backgroundColor = '#f44336'; // Red
-            } else if (percentage <= 20) {
-            progressBar.style.backgroundColor = '#ff5722'; // Orange
-            } else if (percentage <= 30) {
-            progressBar.style.backgroundColor = '#ff9800'; // Dark Orange
-            } else if (percentage <= 40) {
-            progressBar.style.backgroundColor = '#ffc107'; // Yellow
-            } else if (percentage <= 50) {
-            progressBar.style.backgroundColor = '#ffeb3b'; // Light Yellow
-            } else if (percentage <= 60) {
-            progressBar.style.backgroundColor = '#cddc39'; // Lime
-            } else if (percentage <= 70) {
-            progressBar.style.backgroundColor = '#8bc34a'; // Light Green
-            } else if (percentage <= 80) {
-            progressBar.style.backgroundColor = '#00bcd4'; // Cyan
-            } else if (percentage <= 90) {
-            progressBar.style.backgroundColor = '#009688'; // Teal
-            } else {
-            progressBar.style.backgroundColor = '#4caf50'; // Green
-            }
 
         // Update progress bar width and color
-            // progressBar.style.width = `${percent}%`;
-            // progressBar.style.backgroundColor = colors[Math.floor(percent / 10)];
+        // progressBar.style.width = `${percent}%`;
+        // progressBar.style.backgroundColor = colors[Math.floor(percent / 10)];
 
-            // // Update percentage display
-            // profilePercent.textContent = `${percent}%`;
+        // // Update percentage display
+        // profilePercent.textContent = `${percent}%`;
+      }
+
+      let baseURL = "";
+      document.addEventListener("DOMContentLoaded", function () {
+        const waitingDialog = document.getElementById("waiting-dialog");
+
+        //localStorage.removeItem('matriId');
+        //consolelog(localStorage.getItem('matriId'))
+        if (
+          localStorage.getItem("matriId") == "NULL" ||
+          localStorage.getItem("matriId") == "" ||
+          localStorage.getItem("matriId") == null
+        ) {
+          logout();
+        }
+        //getscore();
+
+        function checkMatchedCount(matched_array_length) {
+          document.getElementById("no-profile-matched").style.display =
+            matched_array_length == 0 ? "block" : "none";
         }
 
-        let baseURL='';
-document.addEventListener('DOMContentLoaded', function () {
-    const waitingDialog = document.getElementById('waiting-dialog');
-    
-    //localStorage.removeItem('matriId');
-   //consolelog(localStorage.getItem('matriId'))
-    if(localStorage.getItem('matriId')== 'NULL'||localStorage.getItem('matriId')==''||localStorage.getItem('matriId')== null ){
-        logout();
-    }
-    //getscore();
-    
-    function checkMatchedCount(matched_array_length) {
-       
-       
-       document.getElementById("no-profile-matched").style.display = (matched_array_length == 0) ? "block":"none";
+        // Call this function to check the count
 
-     
-    }
+        // Show the waiting dialog
+        function showWaitingDialog() {
+          waitingDialog.style.display = "flex";
+        }
 
-    // Call this function to check the count
-    
-    
+        // Hide the waiting dialog
+        function hideWaitingDialog() {
+          waitingDialog.style.display = "none";
+        }
 
-    // Show the waiting dialog
-    function showWaitingDialog() {
-        waitingDialog.style.display = 'flex';
-    }
-
-    // Hide the waiting dialog
-    function hideWaitingDialog() {
-        waitingDialog.style.display = 'none';
-    }
-   
-    /*function getscore(){
+        /*function getscore(){
         let sc= localStorage.getItem('score');
        //consolelog("score",sc);
     }*/
 
         const data = {
-            id: localStorage.getItem('mId'),
-            matri_id: localStorage.getItem('matriId')
+          id: localStorage.getItem("mId"),
+          matri_id: localStorage.getItem("matriId"),
         };
-       //consolelog(data);
+        //consolelog(data);
         showWaitingDialog();
-        
-        axios.post(`${BASE_URL}/z_dashboard2.php`, data, {
+
+        axios
+          .post(`${BASE_URL}/z_dashboard2.php`, data, {
             headers: {
-                'Content-Type': 'application/json',
-                "Authorization": "Bearer " + localStorage.getItem("jwtToken")
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + localStorage.getItem("jwtToken"),
+            },
+          })
+          .then(function (response) {
+            console.log("Success:", response.data);
+            console.log("Matri", response.data.my_profile.matri_id);
+            if (response.data.message.p_out_mssg === "Y") {
+              console.log("Matri", response.data.my_profile.matri_id);
+              localStorage.setItem(
+                "planStatus",
+                response.data.my_profile.plan_status
+              );
+              localStorage.setItem(
+                "matriId",
+                response.data.my_profile.matri_id
+              );
+              localStorage.setItem(
+                "baseURL",
+                response.data.my_profile.base_url
+              );
+              localStorage.setItem(
+                "my_plan_status",
+                response.data.my_profile.plan_status
+              );
+              localStorage.setItem("score", response.data.my_profile.score);
 
-            }   
-        })
-        .then(function(response) {
-           console.log('Success:', response.data);
-             console.log("Matri", response.data.my_profile.matri_id);
-            if(response.data.message.p_out_mssg === 'Y'){
-                console.log("Matri", response.data.my_profile.matri_id);
-            localStorage.setItem("planStatus", response.data.my_profile.plan_status);
-            localStorage.setItem("matriId", response.data.my_profile.matri_id);
-            localStorage.setItem("baseURL", response.data.my_profile.base_url);
-            localStorage.setItem("my_plan_status", response.data.my_profile.plan_status);
-            localStorage.setItem("score", response.data.my_profile.score);
+              localStorage.setItem(
+                "iViewed",
+                response.data.profile_count.i_viewed
+              );
+              localStorage.setItem(
+                "viewedBy",
+                response.data.profile_count.viewed_by
+              );
+              localStorage.setItem(
+                "iLiked",
+                response.data.profile_count.i_liked
+              );
+              localStorage.setItem(
+                "shortlist",
+                response.data.profile_count.shortlisted
+              );
+              //Max
+              localStorage.setItem(
+                "max_profile_count",
+                response.data.my_profile.max_viewed
+              );
+              localStorage.setItem(
+                "max_msg_count",
+                response.data.my_profile.max_message
+              );
+              localStorage.setItem(
+                "max_contact_count",
+                response.data.my_profile.max_contact
+              );
+              localStorage.setItem(
+                "viewed_profile_count",
+                response.data.my_profile.viewed_count
+              );
+              localStorage.setItem(
+                "viewed_msg_count",
+                response.data.my_profile.message_count
+              );
+              localStorage.setItem(
+                "viewed_contact_count",
+                response.data.my_profile.contact_count
+              );
 
-            localStorage.setItem("iViewed", response.data.profile_count.i_viewed);
-            localStorage.setItem("viewedBy", response.data.profile_count.viewed_by);
-            localStorage.setItem("iLiked", response.data.profile_count.i_liked);
-            localStorage.setItem("shortlist", response.data.profile_count.shortlisted);
-            //Max
-            localStorage.setItem("max_profile_count", response.data.my_profile.max_viewed);
-            localStorage.setItem("max_msg_count", response.data.my_profile.max_message);
-            localStorage.setItem("max_contact_count", response.data.my_profile.max_contact);
-            localStorage.setItem("viewed_profile_count", response.data.my_profile.viewed_count);
-            localStorage.setItem("viewed_msg_count", response.data.my_profile.message_count);
-            localStorage.setItem("viewed_contact_count", response.data.my_profile.contact_count);  
-            
-            localStorage.setItem("likedBy", response.data.profile_count.liked_by);
+              localStorage.setItem(
+                "likedBy",
+                response.data.profile_count.liked_by
+              );
 
-            localStorage.setItem("mutualLiked", response.data.profile_count.mutual_liked);
-            localStorage.setItem("contactedCount", response.data.profile_count.profile_contacted);
-            localStorage.setItem("profile_status", response.data.my_profile.profile_status);
-            
-           
-            // const profileFor = document.getElementById("profileFor");
-            // const profileFor1 = document.getElementById("profileFor1");
-            // const profileId = document.getElementById("profileId");
-            // const profileMatriId = document.getElementById("profileMatriId");
-            // profileFor.textContent = response.data.my_profile.first_name+" "+response.data.my_profile.last_name;
-            // profileFor1.textContent = response.data.my_profile.first_name+" "+response.data.my_profile.last_name;
-            localStorage.setItem('myprofile_fullname',response.data.my_profile.first_name+" "+response.data.my_profile.last_name);
-            // profileId.textContent=response.data.my_profile.matri_id;
-            // profileMatriId.textContent=response.data.my_profile.matri_id;
-            // localStorage.setItem("profileFor",(response.data.my_profile.first_name+" "+response.data.my_profile.last_name));
-            // localStorage.setItem("profileFor1",(response.data.my_profile.first_name+" "+response.data.my_profile.last_name));
-            localStorage.setItem("profileId",response.data.my_profile.matri_id);
-            localStorage.setItem("profileImg",response.data.my_profile.base_url+response.data.my_profile["profile_photo"]);
+              localStorage.setItem(
+                "mutualLiked",
+                response.data.profile_count.mutual_liked
+              );
+              localStorage.setItem(
+                "contactedCount",
+                response.data.profile_count.profile_contacted
+              );
+              localStorage.setItem(
+                "profile_status",
+                response.data.my_profile.profile_status
+              );
 
-            // const image1 = document.getElementById("profilePicture1");
-            // profileFor1.textContent = response.data.my_profile.first_name+" "+response.data.my_profile.last_name;
-            const percent=response.data.my_profile["percent"];
-            localStorage.setItem("percent",response.data.my_profile["percent"]);
-            localStorage.setItem("myProfile",response.data.my_profile);
-            updateProgressBar(percent);
-            const recentlyLoginArray = response.data.recently_logedin;
-            localStorage.setItem("recentlyLoginArray", JSON.stringify(recentlyLoginArray));
-            const recentlyJoinedArray = response.data.recently_joined;
-            localStorage.setItem("recentlyJoined", JSON.stringify(recentlyJoinedArray));
-            const matchedArray = response.data.matched;
-            checkMatchedCount(matchedArray.length);
-            localStorage.setItem("matchedProfiles", JSON.stringify(matchedArray));
-            baseURL=response.data.my_profile.base_url;
-           
-            populateCards('recently-login-container', recentlyLoginArray);
-            populateCards('recently-joined-container', recentlyJoinedArray);
-            populateCards('profile-matched-container', matchedArray);
+              // const profileFor = document.getElementById("profileFor");
+              // const profileFor1 = document.getElementById("profileFor1");
+              // const profileId = document.getElementById("profileId");
+              // const profileMatriId = document.getElementById("profileMatriId");
+              // profileFor.textContent = response.data.my_profile.first_name+" "+response.data.my_profile.last_name;
+              // profileFor1.textContent = response.data.my_profile.first_name+" "+response.data.my_profile.last_name;
+              localStorage.setItem(
+                "myprofile_fullname",
+                response.data.my_profile.first_name +
+                  " " +
+                  response.data.my_profile.last_name
+              );
+              // profileId.textContent=response.data.my_profile.matri_id;
+              // profileMatriId.textContent=response.data.my_profile.matri_id;
+              // localStorage.setItem("profileFor",(response.data.my_profile.first_name+" "+response.data.my_profile.last_name));
+              // localStorage.setItem("profileFor1",(response.data.my_profile.first_name+" "+response.data.my_profile.last_name));
+              localStorage.setItem(
+                "profileId",
+                response.data.my_profile.matri_id
+              );
+              localStorage.setItem(
+                "profileImg",
+                response.data.my_profile.base_url +
+                  response.data.my_profile["profile_photo"]
+              );
 
-            document.getElementById('recently_login_count').textContent = recentlyLoginArray.length;
-            document.getElementById('matched_count').textContent = matchedArray.length;
-            document.getElementById('recently_count').textContent = recentlyJoinedArray.length;
+              // const image1 = document.getElementById("profilePicture1");
+              // profileFor1.textContent = response.data.my_profile.first_name+" "+response.data.my_profile.last_name;
+              const percent = response.data.my_profile["percent"];
+              localStorage.setItem(
+                "percent",
+                response.data.my_profile["percent"]
+              );
+              localStorage.setItem("myProfile", response.data.my_profile);
+              updateProgressBar(percent);
+              const recentlyLoginArray = response.data.recently_logedin;
+              localStorage.setItem(
+                "recentlyLoginArray",
+                JSON.stringify(recentlyLoginArray)
+              );
+              const recentlyJoinedArray = response.data.recently_joined;
+              localStorage.setItem(
+                "recentlyJoined",
+                JSON.stringify(recentlyJoinedArray)
+              );
+              const matchedArray = response.data.matched;
+              checkMatchedCount(matchedArray.length);
+              localStorage.setItem(
+                "matchedProfiles",
+                JSON.stringify(matchedArray)
+              );
+              baseURL = response.data.my_profile.base_url;
 
-            const profile_count = response.data.profile_count;
-            document.getElementById('i_viewed').textContent = profile_count.i_viewed;
-            document.getElementById('viewed_by').textContent = profile_count.viewed_by;
-            document.getElementById('i_liked').textContent = profile_count.i_liked;
-            document.getElementById('liked_by').textContent = profile_count.liked_by;
-            document.getElementById('mutual_liked').textContent = profile_count.mutual_liked;
-            document.getElementById('contacted').textContent = profile_count.profile_contacted;
+              populateCards("recently-login-container", recentlyLoginArray);
+              populateCards("recently-joined-container", recentlyJoinedArray);
+              populateCards("profile-matched-container", matchedArray);
 
-            document.getElementById('profile_name').textContent = response.data.my_profile.first_name+" "+response.data.my_profile.last_name;
-            document.getElementById('profile_id').textContent = response.data.my_profile.matri_id;
-            document.getElementById('profile_phone').textContent = response.data.my_profile.creator_phone;
-            document.getElementById('profile_end_date').textContent = moment(response.data.my_profile.subscription_date).format("DD-MMM-YYYY");
-            document.getElementById('viewCount').textContent = profile_count.viewed_by;
+              document.getElementById("recently_login_count").textContent =
+                recentlyLoginArray.length;
+              document.getElementById("matched_count").textContent =
+                matchedArray.length;
+              document.getElementById("recently_count").textContent =
+                recentlyJoinedArray.length;
 
-            if(response.data.my_profile.plan_status=="Paid"){
-                document.getElementById('subs_date').style.display="block";
-                document.getElementById('profileButton').style.display="none";
-                document.getElementById('plan_flag').style.display="block";
-                document.getElementById('viewPlan').textContent="Paid";
-            }else if(response.data.my_profile.plan_status=="Expired"){
-                document.getElementById('subs_date').style.display="block";
-                document.getElementById('profileButton').style.display="block";
-                document.getElementById('plan_flag').style.display="block";
-                document.getElementById('viewPlan').textContent="Expired";
-            }else{
-                document.getElementById('subs_date').style.display="none";
-                document.getElementById('profileButton').style.display="block";
-                document.getElementById('plan_flag').style.display="none";
-                document.getElementById('viewPlan').textContent="";
+              const profile_count = response.data.profile_count;
+              document.getElementById("i_viewed").textContent =
+                profile_count.i_viewed;
+              document.getElementById("viewed_by").textContent =
+                profile_count.viewed_by;
+              document.getElementById("i_liked").textContent =
+                profile_count.i_liked;
+              document.getElementById("liked_by").textContent =
+                profile_count.liked_by;
+              document.getElementById("mutual_liked").textContent =
+                profile_count.mutual_liked;
+              document.getElementById("contacted").textContent =
+                profile_count.profile_contacted;
 
-            }
+              document.getElementById("profile_name").textContent =
+                response.data.my_profile.first_name +
+                " " +
+                response.data.my_profile.last_name;
+              document.getElementById("profile_id").textContent =
+                response.data.my_profile.matri_id;
+              document.getElementById("profile_phone").textContent =
+                response.data.my_profile.creator_phone;
+              document.getElementById("profile_end_date").textContent = moment(
+                response.data.my_profile.subscription_date
+              ).format("DD-MMM-YYYY");
+              document.getElementById("viewCount").textContent =
+                profile_count.viewed_by;
 
-            const profileImg = document.getElementById("profileImg");
-            const profileImgDashboard = document.getElementById("profileImgDashboard");
-            const image = document.getElementById("profilePicture");
-            console.log("base prfolr",response.data.my_profile["profile_photo"]);
-            if(response.data.my_profile["profile_photo"]==null || response.data.my_profile["profile_photo"]==''){
-                let imgURL='';
-                if(response.data.my_profile.gender=="1"){
-                    imgURL='../img/2.png';
-                }else if(response.data.my_profile.gender=="2"){
-                    imgURL='../img/1.png';
+              if (response.data.my_profile.plan_status == "Paid") {
+                document.getElementById("subs_date").style.display = "block";
+                document.getElementById("profileButton").style.display = "none";
+                document.getElementById("plan_flag").style.display = "block";
+                document.getElementById("viewPlan").textContent = "Paid";
+              } else if (response.data.my_profile.plan_status == "Expired") {
+                document.getElementById("subs_date").style.display = "block";
+                document.getElementById("profileButton").style.display =
+                  "block";
+                document.getElementById("plan_flag").style.display = "block";
+                document.getElementById("viewPlan").textContent = "Expired";
+              } else {
+                document.getElementById("subs_date").style.display = "none";
+                document.getElementById("profileButton").style.display =
+                  "block";
+                document.getElementById("plan_flag").style.display = "none";
+                document.getElementById("viewPlan").textContent = "";
+              }
+
+              const profileImg = document.getElementById("profileImg");
+              const profileImgDashboard = document.getElementById(
+                "profileImgDashboard"
+              );
+              const image = document.getElementById("profilePicture");
+              console.log(
+                "base prfolr",
+                response.data.my_profile["profile_photo"]
+              );
+              if (
+                response.data.my_profile["profile_photo"] == null ||
+                response.data.my_profile["profile_photo"] == ""
+              ) {
+                let imgURL = "";
+                if (response.data.my_profile.gender == "1") {
+                  imgURL = "../img/2.png";
+                } else if (response.data.my_profile.gender == "2") {
+                  imgURL = "../img/1.png";
                 }
-                profileImgDashboard.src =imgURL;
+                profileImgDashboard.src = imgURL;
                 // profileImg.src =imgURL;
                 // image.src =imgURL;
-                localStorage.setItem('myprofile_photo_url',imgURL);
-                setInterval(showPopup, 6000); 
-                
-            }else{
-                let src_value = response.data.my_profile.base_url+response.data.my_profile["profile_photo"];
-                console.log("profile",src_value);
-                profileImgDashboard.src = src_value;//response.data.my_profile.base_url+response.data.my_profile["profile_photo"];
+                localStorage.setItem("myprofile_photo_url", imgURL);
+                setInterval(showPopup, 6000);
+              } else {
+                let src_value =
+                  response.data.my_profile.base_url +
+                  response.data.my_profile["profile_photo"];
+                console.log("profile", src_value);
+                profileImgDashboard.src = src_value; //response.data.my_profile.base_url+response.data.my_profile["profile_photo"];
                 // profileImg.src = src_value; //response.data.my_profile.base_url+response.data.my_profile["profile_photo"];
                 // image.src = src_value ;//response.data.my_profile.base_url+response.data.my_profile["profile_photo"];
-                localStorage.setItem('myprofile_photo_url',response.data.my_profile.base_url+response.data.my_profile["profile_photo"]);
-            }
-            
-            hideWaitingDialog();
-            //getscore();
-            getscore();
-            setnavbar();
-            }else{
-           //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);
-            hideWaitingDialog();
-            }
-        });
-});
+                localStorage.setItem(
+                  "myprofile_photo_url",
+                  response.data.my_profile.base_url +
+                    response.data.my_profile["profile_photo"]
+                );
+              }
 
-function filterProfiles() {
-    const searchInput = document.getElementById('searchProfileInput').value.toLowerCase();
-    const cardContainers = document.querySelectorAll('.card-container'); // All profile sections
-
-    cardContainers.forEach(container => {
-        const cards = container.querySelectorAll('.card');
-
-        cards.forEach(card => {
-            const profileName = card.querySelector('h4').textContent.toLowerCase();
-            const profileId = card.querySelector('p:nth-of-type(2)').textContent.toLowerCase(); // For Matri Id
-            if (profileName.includes(searchInput) || profileId.includes(searchInput)) {
-                card.style.display = ''; // Show card
+              hideWaitingDialog();
+              //getscore();
+              getscore();
+              setnavbar();
             } else {
-                card.style.display = 'none'; // Hide card
+              //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);
+              hideWaitingDialog();
             }
+          });
+      });
 
+      function filterProfiles() {
+        const searchInput = document
+          .getElementById("searchProfileInput")
+          .value.toLowerCase();
+        const cardContainers = document.querySelectorAll(".card-container"); // All profile sections
+
+        cardContainers.forEach((container) => {
+          const cards = container.querySelectorAll(".card");
+
+          cards.forEach((card) => {
+            const profileName = card
+              .querySelector("h4")
+              .textContent.toLowerCase();
+            const profileId = card
+              .querySelector("p:nth-of-type(2)")
+              .textContent.toLowerCase(); // For Matri Id
+            if (
+              profileName.includes(searchInput) ||
+              profileId.includes(searchInput)
+            ) {
+              card.style.display = ""; // Show card
+            } else {
+              card.style.display = "none"; // Hide card
+            }
+          });
         });
-    });
-}
-function get_entry() {
-    const maxProfileCount = parseInt(localStorage.getItem("max_profile_count"));
-    const viewedProfileCount = parseInt(localStorage.getItem("viewed_profile_count"));
-  
-    if (isNaN(maxProfileCount) || isNaN(viewedProfileCount)) {
-     console.error("One or both values are not set or are invalid in localStorage.");
-      return false; // Default to false if values are invalid or missing
-    }
- //consolelog("maxProfileCount",maxProfileCount);
- //consolelog(viewedProfileCount);
-    return maxProfileCount > viewedProfileCount;
-  }
-  
- 
-let sc;
+      }
+      function get_entry() {
+        const maxProfileCount = parseInt(
+          localStorage.getItem("max_profile_count")
+        );
+        const viewedProfileCount = parseInt(
+          localStorage.getItem("viewed_profile_count")
+        );
 
-function getscore() {
-    sc = localStorage.getItem("score");
-   //consolelog("score:", sc);
-    showRelevantItems(sc);
-}
+        if (isNaN(maxProfileCount) || isNaN(viewedProfileCount)) {
+          console.error(
+            "One or both values are not set or are invalid in localStorage."
+          );
+          return false; // Default to false if values are invalid or missing
+        }
+        //consolelog("maxProfileCount",maxProfileCount);
+        //consolelog(viewedProfileCount);
+        return maxProfileCount > viewedProfileCount;
+      }
 
-function showRelevantItems(sc) {
-    const items = document.querySelectorAll('.carousel-item');
-    const carouselInner = document.querySelector('.carousel-inner');
-    
-    // Clear previous clones if any
-    carouselInner.innerHTML = '';
+      let sc;
 
-    // Get the number of items to display based on sc length
-    const maxItemsToShow = sc ? sc.length : 0;
+      function getscore() {
+        sc = localStorage.getItem("score");
+        //consolelog("score:", sc);
+        showRelevantItems(sc);
+      }
 
-   //consolelog("Max items to display:", maxItemsToShow);
+      function showRelevantItems(sc) {
+        const items = document.querySelectorAll(".carousel-item");
+        const carouselInner = document.querySelector(".carousel-inner");
 
-    let displayedItems = []; // Array to store displayed items
+        // Clear previous clones if any
+        carouselInner.innerHTML = "";
 
-    items.forEach(item => {
-        const itemIndex = item.getAttribute('data-index'); // Get the data-index of the current item
-        
-        // Only display matching items
-        if (sc.includes(itemIndex)) {
+        // Get the number of items to display based on sc length
+        const maxItemsToShow = sc ? sc.length : 0;
+
+        //consolelog("Max items to display:", maxItemsToShow);
+
+        let displayedItems = []; // Array to store displayed items
+
+        items.forEach((item) => {
+          const itemIndex = item.getAttribute("data-index"); // Get the data-index of the current item
+
+          // Only display matching items
+          if (sc.includes(itemIndex)) {
             item.style.display = "block";
             displayedItems.push(item.cloneNode(true)); // Clone the item and store it
-        }
-    });
+          }
+        });
 
-    // Repeat the displayed items until we fill the container
-    if (displayedItems.length > 0) {
-        while (carouselInner.children.length < items.length) {
-            displayedItems.forEach(clone => {
-                carouselInner.appendChild(clone.cloneNode(true));
+        // Repeat the displayed items until we fill the container
+        if (displayedItems.length > 0) {
+          while (carouselInner.children.length < items.length) {
+            displayedItems.forEach((clone) => {
+              carouselInner.appendChild(clone.cloneNode(true));
             });
+          }
+        } else {
+          //consolelog("No matching items found.");
         }
-    } else {
-       //consolelog("No matching items found.");
-    }
-}
+      }
 
-
-/*
+      /*
 function createDots(sc) {
     const dotsContainer = document.getElementById("carouselDots");
     dotsContainer.innerHTML = ""; // Clear existing dots
@@ -1968,13 +2178,12 @@ function createDots(sc) {
     });
 }*/
 
-        // window.onload = generateCards;
+      // window.onload = generateCards;
 
       function toggleSidebar() {
-    document.querySelector('.sidebar').classList.toggle('open');
-  }
-
+        document.querySelector(".sidebar").classList.toggle("open");
+      }
     </script>
     <script src="maxcount.js"></script>
-</body>
+  </body>
 </html>
