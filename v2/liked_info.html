@@ -164,6 +164,89 @@
     }
 }
 
+
+
+.content {
+    flex: 1;
+    padding: 1rem;
+    min-width: 0;
+    overflow-y: auto; 
+    overflow-x: auto;
+    max-height: 100vh;
+}
+
+html, body {
+    height: 100%;
+    overflow: auto !important;
+}
+/* newly added */
+/* ✅ Card Container Wrapper — allows both horizontal and vertical scroll */
+.card-container-wrapper {
+  overflow: auto; /* allow both directions */
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 0.8rem;
+  scrollbar-width: thin;
+  scrollbar-color: #bfbfbf transparent;
+}
+
+/* Scrollbar styling for Chrome / Edge */
+.card-container-wrapper::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.card-container-wrapper::-webkit-scrollbar-thumb {
+  background-color: #bfbfbf;
+  border-radius: 10px;
+}
+.card-container-wrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ✅ Card Container — use flex with wrap to allow multiple rows */
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-start;
+  justify-content: flex-start;
+  box-sizing: border-box;
+}
+
+/* ✅ Individual Card */
+.card {
+  flex: 0 0 220px; /* base width */
+  min-width: 220px;
+  background: #fff;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+}
+
+/* ✅ Responsive — stack vertically on mobile */
+@media (max-width: 768px) {
+  .card-container-wrapper {
+    overflow: auto;
+  }
+
+  .card-container {
+    display: grid;
+    grid-template-columns: 1fr; /* single column */
+    gap: 1rem;
+  }
+
+  .card {
+    width: 100%;
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+}
+
 </style>
 <body>
 

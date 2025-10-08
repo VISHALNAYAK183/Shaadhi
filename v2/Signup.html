@@ -364,67 +364,67 @@
     let timerInterval, timeLeft = 30; // Timer variables
 
     // Handle Get OTP Button Click
-    document.getElementById('get-otp').addEventListener('click', function () {
-        const phoneInput = document.getElementById('phone').value;
-        const phoneError = document.getElementById('phone-error');
-        const otpSection = document.getElementById('otp-section');
-        const otpSectionTimer = document.getElementById('otp-timer')
-        const getOtpButton = document.getElementById('get-otp');
+  // Handle Get OTP Button Click
+document.getElementById('get-otp').addEventListener('click', function () {
+  const phoneInput = document.getElementById('phone').value.trim();
+  const phoneError = document.getElementById('phone-error');
+  const otpSection = document.getElementById('otp-section');
+  const otpSectionTimer = document.getElementById('otp-timer');
+  const getOtpButton = document.getElementById('get-otp');
 
-        if (phoneInput && /^\d{10}$/.test(phoneInput)) {
-            phoneError.style.display = 'none';
+  if (phoneInput && /^\d{10}$/.test(phoneInput)) {
+    phoneError.style.display = 'none';
 
-            // Verify phone number via API
-            checkPhoneNumber(phoneInput)
-                .then(response => {
-                    if (response.data.message.p_out_mssg_flg === 'Y') {
-                        otpSection.classList.remove('hidden'); // Show OTP section
-                        getOtpButton.style.display = 'none'; // Hide Get OTP button
-                        otpSectionTimer.style.display = 'block';
-                        sendOtpSms(phoneInput); // Send OTP
-                    } else {
-                        phoneError.textContent = "Phone Number Already Exists!";
-                        phoneError.style.display = 'block'; // Display error
-                        otpSectionTimer.style.display = 'none';
-                    }
-                })
-                .catch(error => {
-                   console.error('Phone verification failed:', error);
-                    //alert('Error verifying phone number. Please try again.');
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Error verifying phone number. Please try again.',
-                        text: 'Please try again.',
-                        confirmButtonText: 'OK'
-                    }).then((result) => {
-                        // Reload the page when the alert is closed
-                        if (result.isConfirmed) {
-                            location.reload(); // Reload the page
-                        }
-                    });
-                });
+    // Verify phone number via API
+    checkPhoneNumber(phoneInput)
+      .then(response => {
+        console.log("Phone verify response:", response.data);
+
+        const flag = response.data?.dataout?.[0]?.p_out_mssg_flg;
+
+        if (flag === 'Y') {
+          // ✅ Proceed to send OTP
+          otpSection.classList.remove('hidden');
+          getOtpButton.style.display = 'none';
+          otpSectionTimer.style.display = 'block';
+          sendOtpSms(phoneInput);
         } else {
-            phoneError.textContent = "Please enter a valid phone number.";
-            phoneError.style.display = 'block';
+          // ❌ Phone already exists (change text if needed)
+          const msg = response.data?.dataout?.[0]?.p_out_mssg || "Phone Number Already Exists!";
+          phoneError.textContent = msg;
+          phoneError.style.display = 'block';
+          otpSectionTimer.style.display = 'none';
         }
-    });
-
-    // Check if the phone number is already registered (API call to login.php)
-    function checkPhoneNumber(phoneNumber) {
-        const data = { user: phoneNumber, category: 'register' };
-        return axios.post(`${BASE_URL}/login.php`, data, {
-            headers: { 'Content-Type': 'application/json' },
+      })
+      .catch(error => {
+        console.error('Phone verification failed:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error verifying phone number',
+          text: 'Please try again later.',
+          confirmButtonText: 'OK'
+        }).then(result => {
+          if (result.isConfirmed) location.reload();
         });
-    }
+      });
+  } else {
+    phoneError.textContent = "Please enter a valid 10-digit phone number.";
+    phoneError.style.display = 'block';
+  }
+});
+
+
+function checkPhoneNumber(phoneNumber) {
+  const data = { user: phoneNumber, category: 'register' };
+  return axios.post(`${BASE_URL}/login.php`, data, {
+    headers: { 'Content-Type': 'application/json' },
+  });
+}
+
 
 
     function handleCredentialResponse(response) {
       const user = jwt_decode(response.credential); // Decode JWT response
-     //consolelog("Logged in user:", user);
-     //consolelog("Logged in user:", user.name);
-     //consolelog("Logged in user:", user.email);
-     //consolelog("Logged in user:", user.picture);
-     //consolelog("Logged in user:", user.sub);
         localStorage.setItem('name', user.name);
         localStorage.setItem('password', user.sub);
         localStorage.setItem('email', user.email);
@@ -433,34 +433,36 @@
   }
 
     // Send OTP via API (send_sms.php)
-    function sendOtpSms(phoneNumber) {
-        const data = { type: 'otp', number: phoneNumber };
+  function sendOtpSms(phoneNumber) {
+  const data = { type: 'otp', number: phoneNumber };
 
-        axios.post(`${BASE_URL}/send_sms.php`, data, {
-            headers: { 'Content-Type': 'application/json' },
-        })
-        .then(response => {
-            if(response.data.message.p_out_mssg_flg == 'Y'){
-            generatedOtp = response.data.data.Otp; // Store OTP
-            // alert('OTP sent to your phone: ' + generatedOtp); 
-            startOtpTimer(); 
-            }else{
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Unable to send OTP at the current moment ',
-                    text: 'please try again after sometime.',
-                    confirmButtonText: 'OK'
-                })
-            }
-                // Start OTP timer
-        })
-        // .catch(error => {
-        //    console.error('Error sending OTP:', error);
-        //     // alert('Error sending OTP. Please try again.');
-        
-        // });
-    
-    }
+  axios.post(`${BASE_URL}/send_sms.php`, data, {
+      headers: { 'Content-Type': 'application/json' },
+  })
+  .then(response => {
+      console.log("Send SMS response:", response.data);
+      if (response.data.message.p_out_mssg_flg === 'Y') {
+          generatedOtp = response.data.data.Otp;
+          startOtpTimer();
+      } else {
+          Swal.fire({
+              icon: 'error',
+              title: 'Unable to send OTP',
+              text: 'Please try again later.',
+              confirmButtonText: 'OK'
+          });
+      }
+  })
+  .catch(error => {
+      console.error("Error sending OTP:", error);
+      Swal.fire({
+          icon: 'error',
+          title: 'Server Error',
+          text: 'Please try again later.',
+      });
+  });
+}
+
 
     // OTP Timer Logic
     function startOtpTimer() {

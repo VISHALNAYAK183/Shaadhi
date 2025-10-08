@@ -169,6 +169,62 @@
     }
 }
 
+/* Newly added */
+
+html, body {
+    height: 100%;
+    overflow: auto !important;
+}
+
+.content {
+  flex: 1;
+  padding: 1rem;
+  min-width: 0;
+  overflow-y: auto; /* vertical scroll */
+  overflow-x: auto; /* horizontal scroll */
+  max-height: 100vh; /* keep it within viewport */
+}
+
+/* Card container - horizontal layout by default */
+.card-container {
+  display: flex;
+  flex-wrap: nowrap;        /* Prevent wrapping (horizontal scroll) */
+  gap: 1rem;
+  overflow-x: auto;         /* Enable horizontal scroll */
+  overflow-y: hidden;
+  padding-bottom: 1rem;     /* Some spacing at the bottom */
+  scroll-behavior: smooth;
+}
+
+/* Card styles (optional - make them uniform) */
+.card {
+  min-width: 220px;
+  flex: 0 0 auto;           /* Ensure cards don't shrink */
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* Make cards vertical on mobile screens */
+@media (max-width: 768px) {
+  .card-container {
+    display: grid;
+    grid-template-columns: 1fr; /* One card per row */
+    overflow-x: hidden;         /* Disable horizontal scroll */
+    overflow-y: auto;           /* Allow vertical scroll */
+  }
+
+  .card {
+    width: 100%; /* Take full width */
+  }
+}
+
 </style>
 <body>
 
