@@ -4,20 +4,23 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Bunts Matrimony Login</title>
-    <link rel="shortcut icon" type="image/png" href="../img/icon-72x72.png">
-    <link rel="shortcut icon" type="image/png" href="../img/icon-96x96.png">
-    <link rel="shortcut icon" type="image/png" href="../img/icon-128x128.png">
-    <link rel="shortcut icon" type="image/png" href="../img/icon-144x144.png">
-    <link rel="shortcut icon" type="image/png" href="../img/icon-152x152.png">
-    <link rel="shortcut icon" type="image/png" href="../img/icon-167x167.png">
-    <link rel="shortcut icon" type="image/png" href="../img/icon-180x180.png">
-    <link rel="shortcut icon" type="image/png" href="../img/icon-192x192.png">
+    <link rel="shortcut icon" type="image/png" href="../img/icon-72x72.png" />
+    <link rel="shortcut icon" type="image/png" href="../img/icon-96x96.png" />
+    <link rel="shortcut icon" type="image/png" href="../img/icon-128x128.png" />
+    <link rel="shortcut icon" type="image/png" href="../img/icon-144x144.png" />
+    <link rel="shortcut icon" type="image/png" href="../img/icon-152x152.png" />
+    <link rel="shortcut icon" type="image/png" href="../img/icon-167x167.png" />
+    <link rel="shortcut icon" type="image/png" href="../img/icon-180x180.png" />
+    <link rel="shortcut icon" type="image/png" href="../img/icon-192x192.png" />
 
-     <!-- Add Font Awesome CDN in your <head> -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Add Font Awesome CDN in your <head> -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-      
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
       * {
         margin: 0;
         padding: 0;
@@ -25,9 +28,10 @@
       }
 
       body {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          sans-serif;
         min-height: 100vh;
-        background-image: url('../img/bg-temple.jpg');
+        background-image: url("../img/shaadhi.jpeg");
         background-size: cover;
         background-position: center;
         background-repeat: no-repeat;
@@ -42,12 +46,13 @@
       }
 
       body::before {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
         bottom: 0;
+        backdrop-filter: blur(4px);
         background: rgba(131, 43, 0, 0.3);
         pointer-events: none;
         z-index: 1;
@@ -73,7 +78,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 20px;
+        gap: 10px;
         margin-bottom: 15px;
       }
 
@@ -89,7 +94,7 @@
       .brand-text h1 {
         font-size: 48px;
         font-weight: 700;
-        color: #FFD700;
+        color: #ffd700;
         margin: 0;
         letter-spacing: -1px;
         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
@@ -97,60 +102,75 @@
 
       .brand-subtitle {
         font-size: 25px;
-        color: #FAEBD7;
+        color: #faebd7;
         margin: 10px 0 0 0;
         font-weight: 800;
         text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
       }
 
       .login-forms {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 60px;
         width: 100%;
-        max-width: 800px;
+        max-width: 900px;
+        flex-wrap: wrap;
       }
 
       .form-section {
-        background: white;
-        border-radius: 16px;
-        padding: 40px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        flex: 1;
+        min-width: 350px;
+        max-width: 400px;
+        background: rgba(255, 255, 255, 0.35); /* transparent white */
+        backdrop-filter: blur(8px); /* glass effect */
+        border-radius: 14px;
+        padding: 25px 28px; /* reduced padding */
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
         transition: all 0.3s ease;
+        height: auto;
+      }
+      .login-section {
+        height: 480px; /* reduced height */
       }
 
+      .otp-section {
+        height: 420px; /* slightly smaller */
+      }
       .form-section:hover {
         transform: translateY(-2px);
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
       }
 
       .form-title {
-        font-size: 24px;
+        font-size: 20px;
         font-weight: 600;
-        color: #333;
-        margin-bottom: 8px;
+        color: #222;
+        margin-bottom: 6px;
         text-align: center;
       }
 
       .form-subtitle {
-        font-size: 14px;
-        color: #666;
+        font-size: 13px;
+        color: #555;
         text-align: center;
-        margin-bottom: 30px;
+        margin-bottom: 18px;
       }
-
       .input-group {
-        margin-bottom: 20px;
+        margin-bottom: 14px; /* reduced spacing */
       }
 
       .input-group label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: 500;
+        font-size: 13px;
         color: #333;
-        font-size: 14px;
+        margin-bottom: 5px;
       }
 
+      .input-group input {
+        padding: 10px 12px;
+        border-radius: 8px;
+        font-size: 14px;
+      }
       .input-group input[type="text"],
       .input-group input[type="password"] {
         width: 100%;
@@ -176,7 +196,8 @@
       }
 
 .captcha-container {
-  margin: 25px 0;
+  margin: 15px 0;
+   width: fit-content;
 }
 
 .captcha-label {
@@ -187,74 +208,82 @@
   margin-bottom: 8px;
 }
 
-.captcha-wrapper {
+/* Align all items in one line */
+.captcha-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
+ gap: 8px;
+}
+
+.captcha-box {
   background: #fafafa;
   border: 1px solid #ddd;
-  border-radius: 10px;
-  padding: 12px 16px;
-  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.05);
-  margin-bottom: 12px;
-}
-
-#captchaValue {
-  font-size: 22px;
-  font-weight: 700;
-  letter-spacing: 4px;
-  color: #2c3e50;
-  flex: 1;
-  text-align: center;
-  user-select: none;
-}
-
-.refresh-btn {
-  background: #fff;
-  border: 1px solid #ccc;
-  border-radius: 50%;
-  width: 38px;
-  height: 38px;
+  border-radius: 6px;
   font-size: 18px;
-  color: #5c0c23;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #2c3e50;
+  text-align: center;
+  padding: 6px 10px;
+  user-select: none;
+  width: 120px;             
+  height: 40px;            
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: 'Courier New', monospace;  
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+
+.refresh-btn {
+  background: none;
+  border: none;
+   font-size: 18px;
+  color: #5c0c23;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  padding: 8px;
 }
 
 .refresh-btn:hover {
-  background: #f7f7f7;
   transform: rotate(180deg);
 }
 
 #captchaInput {
-  width: 100%;
-  padding: 12px;
+  width: 180px;     
+  padding: 8px;
   border-radius: 8px;
   border: 1px solid #ddd;
-  font-size: 16px;
+  font-size: 15px;
   text-align: center;
+  background: #fafafa;
+}
+
+.error {
+  color: red;
+  font-size: 13px;
+  margin-top: 6px;
 }
 
 
       .btn {
         width: 100%;
-        background: #C53030;
+        background: #c53030;
         color: white;
         border: none;
-        padding: 14px 20px;
+        padding: 10px 16px;
         border-radius: 8px;
-        font-size: 16px;
+        font-size: 15px;
         font-weight: 600;
         cursor: pointer;
         transition: all 0.3s ease;
-        margin-top: 10px;
+        margin-top: 8px;
       }
 
       .btn:hover {
-        background: #B91C1C;
+        background: #b91c1c;
         transform: translateY(-1px);
         box-shadow: 0 4px 12px rgba(197, 48, 48, 0.3);
       }
@@ -269,14 +298,14 @@
       }
 
       .forgot-password a {
-        color: #C53030;
+        color: #c53030;
         text-decoration: none;
         font-size: 14px;
         transition: color 0.3s ease;
       }
 
       .forgot-password a:hover {
-        color: #B91C1C;
+        color: #b91c1c;
         text-decoration: underline;
       }
 
@@ -286,7 +315,7 @@
       }
 
       #resend-otp {
-        color: #C53030;
+        color: #c53030;
         text-decoration: none;
         font-size: 14px;
         cursor: pointer;
@@ -294,7 +323,7 @@
       }
 
       #resend-otp:hover {
-        color: #B91C1C;
+        color: #b91c1c;
         text-decoration: underline;
       }
 
@@ -305,13 +334,15 @@
       }
 
       .bottom-section {
-        background: white;
-        border-radius: 16px;
-        padding: 30px;
+        background: rgba(255, 255, 255, 0.3);
+        backdrop-filter: blur(6px);
+        border-radius: 14px;
+        padding: 18px;
         text-align: center;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
         width: 100%;
-        max-width: 500px;
+        max-width: 450px;
+        margin-top: 20px;
       }
 
       .checkbox-group {
@@ -334,7 +365,7 @@
       }
 
       .checkbox-group a {
-        color: #C53030;
+        color: #c53030;
         text-decoration: none;
       }
 
@@ -355,14 +386,14 @@
       }
 
       .extra-links a {
-        color: #C53030;
+        color: #c53030;
         text-decoration: none;
         font-weight: 500;
         transition: all 0.3s ease;
       }
 
       .extra-links a:hover {
-        color: #B91C1C;
+        color: #b91c1c;
         text-decoration: underline;
       }
 
@@ -410,19 +441,33 @@
         animation: bounce 1.4s infinite both;
       }
 
-      .dot:nth-child(1) { animation-delay: 0s; }
-      .dot:nth-child(2) { animation-delay: 0.2s; }
-      .dot:nth-child(3) { animation-delay: 0.4s; }
+      .dot:nth-child(1) {
+        animation-delay: 0s;
+      }
+
+      .dot:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+
+      .dot:nth-child(3) {
+        animation-delay: 0.4s;
+      }
 
       @keyframes bounce {
-        0%, 20%, 50%, 80%, 100% {
+        0%,
+        20%,
+        50%,
+        80%,
+        100% {
           opacity: 0;
           transform: translateY(0);
         }
+
         40% {
           opacity: 1;
           transform: translateY(-15px);
         }
+
         60% {
           opacity: 1;
           transform: translateY(-7px);
@@ -447,6 +492,7 @@
           transform: translateX(100px);
           opacity: 0;
         }
+
         to {
           transform: translateX(0);
           opacity: 1;
@@ -514,33 +560,36 @@
       }
 
       .password-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
+        position: relative;
+        display: flex;
+        align-items: center;
+      }
 
-.password-wrapper input {
-  width: 100%;
-  padding-right: 40px; /* make space for the icon */
-}
+      .password-wrapper input {
+        width: 100%;
+        padding-right: 40px;
+        /* make space for the icon */
+      }
 
-.toggle-password {
-  position: absolute;
-  right: 10px;
-  cursor: pointer;
-  font-size: 18px;
-  color: #555; /* subtle eye color */
-}
-.toggle-password:hover {
-  color: #000;
-}
+      .toggle-password {
+        position: absolute;
+        right: 10px;
+        cursor: pointer;
+        font-size: 18px;
+        color: #555;
+        /* subtle eye color */
+      }
 
+      .toggle-password:hover {
+        color: #000;
+      }
     </style>
   </head>
+
   <body>
     <div class="main-container">
       <div id="popupmsg"></div>
-      
+
       <div class="header">
         <div class="logo-section">
           <img
@@ -555,56 +604,57 @@
         <p class="brand-subtitle">ಹೃದಯಗಳಿಗೆ ಸೇತುವೆ</p>
       </div>
 
-      <div class="login-forms" style="display: flex; gap: 100px;" >
+      <div class="login-forms" style="display: flex; gap: 100px">
         <div class="form-section login-section">
           <h2 class="form-title">Login with Password</h2>
           <p class="form-subtitle">Sign in to your account</p>
-          
+
           <div class="input-group">
             <label for="phone-email">Phone / Email / Matri ID</label>
-            <input type="text" id="phone-email" placeholder="Enter your phone, email or Matri ID" />
+            <input
+              type="text"
+              id="phone-email"
+              placeholder="Enter your phone, email or Matri ID"
+            />
             <div id="phoneErrorMessage" class="error"></div>
           </div>
-          
-         
 
-<div class="input-group">
-  <label for="password">Password</label>
-  <div class="password-wrapper">
-  <input type="password" id="password" placeholder="Enter your password" />
-  <span class="toggle-password" onclick="togglePassword()">
-    <i class="fa-solid fa-eye-slash"></i>
-  </span>
-</div>
-  <div id="passwordErrorMessage" class="error"></div>
-  <div class="forgot-password">
-    <a href="forgot_password.html">Forgot Password?</a>
-  </div>
-</div>
-
-
-          
-          <div class="captcha-container">
-            <label class="captcha-label">CAPTCHA</label>
-            <div class="captcha-wrapper">
-              <div id="captchaValue"></div>
-              <button type="button" class="refresh-btn" onclick="generateCaptcha()">↻</button>
+          <div class="input-group">
+            <label for="password">Password</label>
+            <div class="password-wrapper">
+              <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+              />
+              <span class="toggle-password" onclick="togglePassword()">
+                <i class="fa-solid fa-eye-slash"></i>
+              </span>
             </div>
-            <input type="text" id="captchaInput" placeholder="Enter CAPTCHA" required />
-            <div class="error" id="errorMessage"></div>
+            <div id="passwordErrorMessage" class="error"></div>
+            <div class="forgot-password">
+              <a href="forgot_password.html">Forgot Password?</a>
+            </div>
           </div>
 
-          
+          <div class="captcha-container">
+  <label class="captcha-label">CAPTCHA</label>
+  <div class="captcha-row">
+    <div class="captcha-box" id="captchaValue">A7B3C</div>
+    <button type="button" class="refresh-btn" onclick="generateCaptcha()">↻</button>
+    <input type="text" id="captchaInput" placeholder="Enter CAPTCHA" required />
+  </div>
+  <div class="error" id="errorMessage"></div>
+</div>
+
+
           <button class="btn" onclick="loginWithPassword()">LOGIN</button>
         </div>
-
-
-
 
         <div class="form-section otp-section" id="otpContainer">
           <h2 class="form-title">Login with OTP</h2>
           <p class="form-subtitle">Quick and secure access</p>
-          
+
           <div class="input-group">
             <label for="otp-phone-email">Phone Number</label>
             <input
@@ -614,7 +664,7 @@
             />
             <div id="phoneOTPErrorMessage" class="error"></div>
           </div>
-          
+
           <button class="btn" id="generate-otp" onclick="generateOtp()">
             Generate OTP
           </button>
@@ -627,9 +677,10 @@
                 <a
                   href="#"
                   id="resend-otp"
-                  style="display: none;"
+                  style="display: none"
                   onclick="resendOtp()"
-                >Resend OTP</a>
+                  >Resend OTP</a
+                >
               </div>
             </div>
             <button class="btn" onclick="loginWithOtp()">Verify & Login</button>
@@ -640,13 +691,18 @@
 
       <div class="bottom-section">
         <div class="checkbox-group">
-          <input type="checkbox" id="terms" checked>
-          <label for="terms">I agree to the <a href="term.html">terms and privacy policy</a></label>
+          <input type="checkbox" id="terms" checked />
+          <label for="terms"
+            >I agree to the
+            <a href="term.html">terms and privacy policy</a></label
+          >
         </div>
-        
+
         <div class="extra-links">
           <span>Don't have an account? <a href="Signup.html">Register</a></span>
-          <span>For any Query / Support <a href="support.html">Click here</a></span>
+          <span
+            >For any Query / Support <a href="support.html">Click here</a></span
+          >
         </div>
       </div>
     </div>
@@ -666,39 +722,63 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-    <script>"js/cache.js"</script>
+    <script>
+      "js/cache.js";
+    </script>
     <script>
       const OTP_TIMEOUT_DURATION = 30;
       let otpTimeout;
-      let correctOtp ='0000';
+      let correctOtp = "0000";
 
       let currentCaptcha = "";
 
       // Function to generate a 6-digit random CAPTCHA
       function generateCaptcha() {
-      // const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
-      const characters = '0123456789';
-      const fontStyles = ['Arial', 'Verdana', 'Tahoma', 'Georgia', 'Comic Sans MS', 'Courier New'];
-      const colors = ['#FF5733', '#33FF57', '#3357FF', '#FF33A6', '#FF8C33', '#7D33FF'];
+        // const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
+        const characters = "0123456789";
+        const fontStyles = [
+          "Arial",
+          "Verdana",
+          "Tahoma",
+          "Georgia",
+          "Comic Sans MS",
+          "Courier New",
+        ];
+        const colors = [
+          "#FF5733",
+          "#33FF57",
+          "#3357FF",
+          "#FF33A6",
+          "#FF8C33",
+          "#7D33FF",
+        ];
 
-      let captcha = '';
-      for (let i = 0; i < 6; i++) {
-          captcha += characters.charAt(Math.floor(Math.random() * characters.length));
+        let captcha = "";
+        for (let i = 0; i < 6; i++) {
+          captcha += characters.charAt(
+            Math.floor(Math.random() * characters.length)
+          );
+        }
+
+        // Store the captcha globally for validation
+        currentCaptcha = captcha;
+
+        // Style and display the captcha
+        const captchaElement = document.getElementById("captchaValue");
+        captchaElement.textContent = captcha;
+
+        // Apply random font style, size, and color
+        captchaElement.style.fontFamily =
+          fontStyles[Math.floor(Math.random() * fontStyles.length)];
+        captchaElement.style.color =
+          colors[Math.floor(Math.random() * colors.length)];
+        captchaElement.style.fontSize = `${
+          Math.floor(Math.random() * 10) + 20
+        }px`; // Font size between 20px and 30px
+        captchaElement.style.transform = `rotate(${
+          Math.floor(Math.random() * 15) - 7
+        }deg)`; // Slight rotation for distortion
       }
-
-      // Store the captcha globally for validation
-      currentCaptcha = captcha;
-
-      // Style and display the captcha
-      const captchaElement = document.getElementById("captchaValue");
-      captchaElement.textContent = captcha;
-
-      // Apply random font style, size, and color
-      captchaElement.style.fontFamily = fontStyles[Math.floor(Math.random() * fontStyles.length)];
-      captchaElement.style.color = colors[Math.floor(Math.random() * colors.length)];
-      captchaElement.style.fontSize = `${Math.floor(Math.random() * 10) + 20}px`; // Font size between 20px and 30px
-      captchaElement.style.transform = `rotate(${Math.floor(Math.random() * 15) - 7}deg)`; // Slight rotation for distortion
-  }
 
       // Generate a CAPTCHA when the page loads
       window.onload = generateCaptcha;
@@ -713,88 +793,90 @@
         return phoneRegex.test(phone);
       }
 
-    function handleLoginSuccess() {
-    var checkbox = document.getElementById('terms');
-    if (!checkbox.checked) {
-        Swal.fire({
-            icon: 'info',
-            title: 'Terms and Privacy Policy',
-            text: 'Agree to the policy before login',
+      function handleLoginSuccess() {
+        var checkbox = document.getElementById("terms");
+        if (!checkbox.checked) {
+          Swal.fire({
+            icon: "info",
+            title: "Terms and Privacy Policy",
+            text: "Agree to the policy before login",
             showCancelButton: true,
-            confirmButtonText: 'Yes, I Agree',
-            cancelButtonText: 'No'
-        }).then((result) => {
+            confirmButtonText: "Yes, I Agree",
+            cancelButtonText: "No",
+          }).then((result) => {
             if (result.isConfirmed) {
-                document.getElementById('terms').checked = true;
-                document.getElementById("loader").style.display = "flex";
-                handleLoginSuccess();
+              document.getElementById("terms").checked = true;
+              document.getElementById("loader").style.display = "flex";
+              handleLoginSuccess();
             }
-        });
-    } else {
-        const payload = {
-            matri_id: localStorage.getItem('matriId'),
+          });
+        } else {
+          const payload = {
+            matri_id: localStorage.getItem("matriId"),
             category: "login_details",
-            device: "WEB"
-        };
+            device: "WEB",
+          };
 
-        axios.post(`${BASE_URL}/login.php`, payload)
-            .then(response => {
-                if (response.data.dataout[0].p_out_mssg_flg === 'Y') {
-                    console.log("Login details saved");
-                }
-            });
+          axios.post(`${BASE_URL}/login.php`, payload).then((response) => {
+            if (response.data.dataout[0].p_out_mssg_flg === "Y") {
+              console.log("Login details saved");
+            }
+          });
 
-        const popup = document.getElementById("popupmsg");
-        // popup.innerHTML = `<div class="popup"><p>Login successful</p></div>`;
-        // popup.style.display = "block";
-        setTimeout(() => {
+          const popup = document.getElementById("popupmsg");
+          // popup.innerHTML = `<div class="popup"><p>Login successful</p></div>`;
+          // popup.style.display = "block";
+          setTimeout(() => {
             popup.style.display = "none";
             window.location.href = "dashboard.html";
-        }, 2000);
-    }
-}
-     function loginWithPassword() {
-    const emailOrPhone = document.getElementById("phone-email").value;
-    const password = document.getElementById("password").value;
-    const passwordErrorMessage = document.getElementById('passwordErrorMessage');
-    const phoneErrorMessage = document.getElementById('phoneErrorMessage');
-    document.getElementById("loader").style.display = "flex";
+          }, 2000);
+        }
+      }
+      function loginWithPassword() {
+        const emailOrPhone = document.getElementById("phone-email").value;
+        const password = document.getElementById("password").value;
+        const passwordErrorMessage = document.getElementById(
+          "passwordErrorMessage"
+        );
+        const phoneErrorMessage = document.getElementById("phoneErrorMessage");
+        document.getElementById("loader").style.display = "flex";
 
-    passwordErrorMessage.textContent = '';
-    phoneErrorMessage.textContent = '';
+        passwordErrorMessage.textContent = "";
+        phoneErrorMessage.textContent = "";
 
-    const userCaptchaInput = document.getElementById("captchaInput").value;
+        const userCaptchaInput = document.getElementById("captchaInput").value;
 
-    if (!password) {
-        passwordErrorMessage.textContent = 'Please enter a valid password.';
-        document.getElementById("loader").style.display = "none";
-        return;
-    }
+        if (!password) {
+          passwordErrorMessage.textContent = "Please enter a valid password.";
+          document.getElementById("loader").style.display = "none";
+          return;
+        }
 
-    if (!(emailOrPhone)) {
-        phoneErrorMessage.textContent = 'Please enter a 10 digits valid Phone Number/Email/Matri Id';
-        document.getElementById("loader").style.display = "none";
-        return;
-    }
+        if (!emailOrPhone) {
+          phoneErrorMessage.textContent =
+            "Please enter a 10 digits valid Phone Number/Email/Matri Id";
+          document.getElementById("loader").style.display = "none";
+          return;
+        }
 
-    const data = { user: emailOrPhone, password: password };
+        const data = { user: emailOrPhone, password: password };
 
-    if (userCaptchaInput !== currentCaptcha) {
-        document.getElementById("errorMessage").textContent = "Invalid CAPTCHA. Please try again.";
-        document.getElementById("loader").style.display = "none";
-        generateCaptcha();
-    } else {
-        document.getElementById("errorMessage").textContent = "";
+        if (userCaptchaInput !== currentCaptcha) {
+          document.getElementById("errorMessage").textContent =
+            "Invalid CAPTCHA. Please try again.";
+          document.getElementById("loader").style.display = "none";
+          generateCaptcha();
+        } else {
+          document.getElementById("errorMessage").textContent = "";
 
-        fetch(`${BASE_URL}/login.php`, {
+          fetch(`${BASE_URL}/login.php`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
-        })
-        .then((response) => response.json())
-        .then((data) => {
-            if (data.dataout[0].p_out_mssg_flg === "Y") {
-             
+          })
+            .then((response) => response.json())
+            .then((data) => {
+              if (data.dataout[0].p_out_mssg_flg === "Y") {
                 let token = data.dataout[0].token;
                 localStorage.setItem("jwtToken", token);
 
@@ -802,215 +884,211 @@
                 console.log("Decoded JWT:", decoded);
 
                 // Save values from JWT payload
-                localStorage.setItem('matriId', decoded.data.matri_id);
-                localStorage.setItem('mId', decoded.data.id);
-                localStorage.setItem('phone', decoded.data.phone);
+                localStorage.setItem("matriId", decoded.data.matri_id);
+                localStorage.setItem("mId", decoded.data.id);
+                localStorage.setItem("phone", decoded.data.phone);
 
                 document.getElementById("loader").style.display = "none";
 
                 handleLoginSuccess();
-            } else {
+              } else {
                 document.getElementById("loader").style.display = "none";
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Login Failed',
-                    text: data.dataout[0].p_out_mssg,
-                    confirmButtonText: 'OK'
+                  icon: "error",
+                  title: "Login Failed",
+                  text: data.dataout[0].p_out_mssg,
+                  confirmButtonText: "OK",
                 }).then((result) => {
-                    if (result.isConfirmed) {
-                        location.reload();
-                    }
+                  if (result.isConfirmed) {
+                    location.reload();
+                  }
                 });
-            }
-        })
-        .catch((error) => {
-            document.getElementById("loader").style.display = "none";
-            console.error("Error:", error);
-            Swal.fire({
-                icon: 'error',
-                title: 'Server Error',
-                text: 'Please try again later.'
+              }
+            })
+            .catch((error) => {
+              document.getElementById("loader").style.display = "none";
+              console.error("Error:", error);
+              Swal.fire({
+                icon: "error",
+                title: "Server Error",
+                text: "Please try again later.",
+              });
             });
-        });
-    }
-}
-
+        }
+      }
 
       function generateOtp() {
         const emailOrPhone = document.getElementById("otp-phone-email").value;
         const pad = document.getElementById("otpContainer");
-        const phoneOTPErrorMessage = document.getElementById('phoneOTPErrorMessage');
+        const phoneOTPErrorMessage = document.getElementById(
+          "phoneOTPErrorMessage"
+        );
         if (!isValidPhone(emailOrPhone) && !isValidEmail(emailOrPhone)) {
-          phoneOTPErrorMessage.textContent = 'Please enter a valid Phone Number.';
+          phoneOTPErrorMessage.textContent =
+            "Please enter a valid Phone Number.";
           return;
         }
 
         const phoneRegex = /^\d{10}$/;
         if (!phoneRegex.test(emailOrPhone)) {
-          phoneOTPErrorMessage.textContent = 'Please enter a 10 digits valid Phone Number';
+          phoneOTPErrorMessage.textContent =
+            "Please enter a 10 digits valid Phone Number";
           document.getElementById("loader").style.display = "none";
           return;
         }
         const data = {
-            "user": emailOrPhone,
+          user: emailOrPhone,
         };
 
         // Call OTP API
-        axios.post(`${BASE_URL}/login.php`, data, {
+        axios
+          .post(`${BASE_URL}/login.php`, data, {
             headers: {
-                'Content-Type': 'application/json',
+              "Content-Type": "application/json",
+            },
+          })
+          .then((response) => {
+            console.log("phone number sent:", response);
+
+            // Check if the number already exists
+            if (response.data.message.p_out_mssg_flg === "Y") {
+              sendSMS();
+            } else {
+              Swal.fire({
+                icon: "error",
+                title: "Credential Not Found",
+                text: "Please try again.",
+                confirmButtonText: "OK",
+              }).then((result) => {
+                // Reload the page when the alert is closed
+                if (result.isConfirmed) {
+                  location.reload(); // Reload the page
+                }
+              });
             }
-        })
-        .then(response => {
-           console.log('phone number sent:', response);
-    
-        // Check if the number already exists
-        if (response.data.message.p_out_mssg_flg === 'Y') {
-       
-          
-                sendSMS();
-        } else{
-          Swal.fire({
-                    icon: 'error',
-                    title: 'Credential Not Found',
-                    text: 'Please try again.',
-                    confirmButtonText: 'OK'
-                }).then((result) => {
-                    // Reload the page when the alert is closed
-                    if (result.isConfirmed) {
-                        location.reload(); // Reload the page
-                    }
-                }); 
-        
-        }
           });
       }
 
       function handleCredentialResponse(response) {
-      const user = jwt_decode(response.credential); // Decode JWT response
-     console.log("Logged in user:", user);
-     console.log("Logged in user:", user.name);
-     console.log("Logged in user:", user.email);
-     console.log("Logged in user:", user.picture);
-     console.log("Logged in user:", user.sub);
-      google_sign_in(user.email, user.sub);
-  }
-      
+        const user = jwt_decode(response.credential); // Decode JWT response
+        console.log("Logged in user:", user);
+        console.log("Logged in user:", user.name);
+        console.log("Logged in user:", user.email);
+        console.log("Logged in user:", user.picture);
+        console.log("Logged in user:", user.sub);
+        google_sign_in(user.email, user.sub);
+      }
 
-  function google_sign_in(user , sub){
-
-     if ((user != null && sub != null) && (user !== "" && sub !== "")) {
-        const payload = {
+      function google_sign_in(user, sub) {
+        if (user != null && sub != null && user !== "" && sub !== "") {
+          const payload = {
             user: user,
-            password: sub
-        };
+            password: sub,
+          };
 
-        document.getElementById("loader").style.display = "flex";
+          document.getElementById("loader").style.display = "flex";
 
-        axios.post(`${BASE_URL}/login.php`, payload)
-            .then(response => {
-                let data = response.data;
+          axios
+            .post(`${BASE_URL}/login.php`, payload)
+            .then((response) => {
+              let data = response.data;
 
-                if (data.dataout[0].p_out_mssg_flg === 'Y') {
-                    console.log('Login Successful');
+              if (data.dataout[0].p_out_mssg_flg === "Y") {
+                console.log("Login Successful");
 
-                    // ✅ Decode JWT
-                    let token = data.dataout[0].token;
-                    localStorage.setItem("jwtToken", token);
+                // ✅ Decode JWT
+                let token = data.dataout[0].token;
+                localStorage.setItem("jwtToken", token);
 
-                    let decoded = jwt_decode(token);
-                    console.log("Decoded JWT:", decoded);
+                let decoded = jwt_decode(token);
+                console.log("Decoded JWT:", decoded);
 
-                    // Save values from JWT payload
-                    localStorage.setItem('matriId', decoded.data.matri_id);
-                    localStorage.setItem('mId', decoded.data.id);
-                    localStorage.setItem('phone', decoded.data.phone);
+                // Save values from JWT payload
+                localStorage.setItem("matriId", decoded.data.matri_id);
+                localStorage.setItem("mId", decoded.data.id);
+                localStorage.setItem("phone", decoded.data.phone);
 
-                    document.getElementById("loader").style.display = "none";
-
-                    handleLoginSuccess();
-                } else {
-                    document.getElementById("loader").style.display = "none";
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Login Failed',
-                        text: data.dataout[0].p_out_mssg,
-                        confirmButtonText: 'OK'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            location.reload();
-                        }
-                    });
-                }
-            })
-            .catch(error => {
                 document.getElementById("loader").style.display = "none";
-                console.error("Error:", error);
+
+                handleLoginSuccess();
+              } else {
+                document.getElementById("loader").style.display = "none";
                 Swal.fire({
-                    icon: 'error',
-                    title: 'Server Error',
-                    text: 'Please try again later.'
+                  icon: "error",
+                  title: "Login Failed",
+                  text: data.dataout[0].p_out_mssg,
+                  confirmButtonText: "OK",
+                }).then((result) => {
+                  if (result.isConfirmed) {
+                    location.reload();
+                  }
                 });
+              }
+            })
+            .catch((error) => {
+              document.getElementById("loader").style.display = "none";
+              console.error("Error:", error);
+              Swal.fire({
+                icon: "error",
+                title: "Server Error",
+                text: "Please try again later.",
+              });
             });
-    }
+        }
+      }
 
-    
-  }
-
-
-    function sendSMS(){
-      const emailOrPhone = document.getElementById("otp-phone-email").value;
+      function sendSMS() {
+        const emailOrPhone = document.getElementById("otp-phone-email").value;
         const pad = document.getElementById("otpContainer");
-        const data = { number: emailOrPhone,type: "otp"};
+        const data = { number: emailOrPhone, type: "otp" };
         fetch("${BASE_URL}/send_sms.php", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         })
           .then((response) => response.json())
-          .then((data) => { 
-           console.log(data);
-            if(data.message.p_out_mssg_flg === 'Y'){
-            if (data.data.Otp != "") {
-              // sendOtpSms(emailOrPhone);
-              
-              correctOtp = data.data.Otp;
-              const popup = document.getElementById("popupmsg");
-              popup.innerHTML = ` <div class="popup">
+          .then((data) => {
+            console.log(data);
+            if (data.message.p_out_mssg_flg === "Y") {
+              if (data.data.Otp != "") {
+                // sendOtpSms(emailOrPhone);
+
+                correctOtp = data.data.Otp;
+                const popup = document.getElementById("popupmsg");
+                popup.innerHTML = ` <div class="popup">
                         <p>successfully send OTP via SMS</p>
                                 </div>`;
 
-              setInterval(() => {
-                popup.style.display = "none";
-              }, 3000);
-              document.getElementById("otp-input-container").style.display =
-                "block";
-              startOtpTimer();
-              document.getElementById("generate-otp").style.display = "none";
-            } else{
-              Swal.fire({
-                    icon: 'error',
-                    title: 'OTP Not Matched',
-                    text: 'Please try again.',
-                    confirmButtonText: 'OK'
+                setInterval(() => {
+                  popup.style.display = "none";
+                }, 3000);
+                document.getElementById("otp-input-container").style.display =
+                  "block";
+                startOtpTimer();
+                document.getElementById("generate-otp").style.display = "none";
+              } else {
+                Swal.fire({
+                  icon: "error",
+                  title: "OTP Not Matched",
+                  text: "Please try again.",
+                  confirmButtonText: "OK",
                 }).then((result) => {
-                    // Reload the page when the alert is closed
-                    if (result.isConfirmed) {
-                        location.reload(); // Reload the page
-                    }
+                  // Reload the page when the alert is closed
+                  if (result.isConfirmed) {
+                    location.reload(); // Reload the page
+                  }
                 });
-            };
-          }else{
-            Swal.fire({
-              icon: 'error',
-              title: 'Unable to send OTP at the current moment ',
-              text: 'please try again after sometime.',
-              confirmButtonText: 'OK'
-          })
-          }
+              }
+            } else {
+              Swal.fire({
+                icon: "error",
+                title: "Unable to send OTP at the current moment ",
+                text: "please try again after sometime.",
+                confirmButtonText: "OK",
+              });
+            }
           });
-        
-    }
+      }
 
       function startOtpTimer() {
         let timeLeft = OTP_TIMEOUT_DURATION;
@@ -1042,8 +1120,7 @@
         document.getElementById("loader").style.display = "flex";
         if (otp.length == 4) {
           if (CryptoJS.MD5(otp).toString() == correctOtp) {
-            
-            const data = { user: emailOrPhone ,otp: otp };
+            const data = { user: emailOrPhone, otp: otp };
             fetch("${BASE_URL}/login.php", {
               method: "POST",
               headers: { "Content-Type": "application/json" },
@@ -1051,98 +1128,97 @@
             })
               .then((response) => response.json())
               .then((data) => {
-               console.log(data);
-                if (data.message.p_out_mssg_flg == 'Y'){
-                  localStorage.setItem('matriId', data.dataout[0].matri_id);
-                        localStorage.setItem('mId', data.dataout[0].id);
-                        localStorage.setItem('phone', data.dataout[0].phone);
-                        document.getElementById("loader").style.display = "none";
-                        clearInterval(otpTimeout);
-                  handleLoginSuccess();
-                }else{
-                  Swal.fire({
-                    icon: 'error',
-                    title: 'OTP verification failed',
-                    text: 'Please try again.',
-                    confirmButtonText: 'OK'
-                }).then((result) => {
-                    // Reload the page when the alert is closed
-                    if (result.isConfirmed) {
-                        location.reload(); // Reload the page
-                    }
-                });
+                console.log(data);
+                if (data.message.p_out_mssg_flg == "Y") {
+                  localStorage.setItem("matriId", data.dataout[0].matri_id);
+                  localStorage.setItem("mId", data.dataout[0].id);
+                  localStorage.setItem("phone", data.dataout[0].phone);
                   document.getElementById("loader").style.display = "none";
-                };
-              })
-              .catch(() => //alert("An error occurred. Please try again.")
-              Swal.fire({
-                icon: 'error',
-                title: 'An error occurred. Please try again.',
-                text: 'Please try again.',
-                confirmButtonText: 'OK'
-            }).then((result) => {
-                // Reload the page when the alert is closed
-                if (result.isConfirmed) {
-                    location.reload(); // Reload the page
-                }
-            }));
-          }else{
-          document.getElementById("loader").style.display = "none";
-          Swal.fire({
-                    icon: 'error',
-                    title: 'Incorrect OTP',
-                    text: 'Enter valid otp.',
-                    confirmButtonText: 'OK'
-                })
-        }
-        }else{
-          document.getElementById("loader").style.display = "none";
-          Swal.fire({
-                    icon: 'error',
-                    title: 'Enter 4 digit otp',
-                    text: 'Please try again.',
-                    confirmButtonText: 'OK'
-                }).then((result) => {
+                  clearInterval(otpTimeout);
+                  handleLoginSuccess();
+                } else {
+                  Swal.fire({
+                    icon: "error",
+                    title: "OTP verification failed",
+                    text: "Please try again.",
+                    confirmButtonText: "OK",
+                  }).then((result) => {
                     // Reload the page when the alert is closed
                     if (result.isConfirmed) {
-                        location.reload(); // Reload the page
+                      location.reload(); // Reload the page
                     }
-                });
+                  });
+                  document.getElementById("loader").style.display = "none";
+                }
+              })
+              .catch(() =>
+                //alert("An error occurred. Please try again.")
+                Swal.fire({
+                  icon: "error",
+                  title: "An error occurred. Please try again.",
+                  text: "Please try again.",
+                  confirmButtonText: "OK",
+                }).then((result) => {
+                  // Reload the page when the alert is closed
+                  if (result.isConfirmed) {
+                    location.reload(); // Reload the page
+                  }
+                })
+              );
+          } else {
+            document.getElementById("loader").style.display = "none";
+            Swal.fire({
+              icon: "error",
+              title: "Incorrect OTP",
+              text: "Enter valid otp.",
+              confirmButtonText: "OK",
+            });
+          }
+        } else {
+          document.getElementById("loader").style.display = "none";
+          Swal.fire({
+            icon: "error",
+            title: "Enter 4 digit otp",
+            text: "Please try again.",
+            confirmButtonText: "OK",
+          }).then((result) => {
+            // Reload the page when the alert is closed
+            if (result.isConfirmed) {
+              location.reload(); // Reload the page
+            }
+          });
         }
-        
       }
 
       function googleLogin() {
         //alert("Google Login not yet implemented");
         Swal.fire({
-          icon: 'error',
-          title: 'Google Login not yet implemented',
-          text: 'Please try again.',
-          confirmButtonText: 'OK'
-      }).then((result) => {
+          icon: "error",
+          title: "Google Login not yet implemented",
+          text: "Please try again.",
+          confirmButtonText: "OK",
+        }).then((result) => {
           // Reload the page when the alert is closed
           if (result.isConfirmed) {
-              location.reload(); // Reload the page
+            location.reload(); // Reload the page
           }
-      });
+        });
       }
 
-function togglePassword() {
-  const passwordInput = document.getElementById("password");
-  const toggleIcon = document.querySelector(".toggle-password i");
+      function togglePassword() {
+        const passwordInput = document.getElementById("password");
+        const toggleIcon = document.querySelector(".toggle-password i");
 
-  if (passwordInput.type === "password") {
-    passwordInput.type = "text";
-    toggleIcon.classList.remove("fa-eye-slash");
-    toggleIcon.classList.add("fa-eye");
-  } else {
-    passwordInput.type = "password";
-    toggleIcon.classList.remove("fa-eye");
-    toggleIcon.classList.add("fa-eye-slash");
-  }
-}
-
-
+        if (passwordInput.type === "password") {
+          passwordInput.type = "text";
+          toggleIcon.classList.remove("fa-eye-slash");
+          toggleIcon.classList.add("fa-eye");
+        } else {
+          passwordInput.type = "password";
+          toggleIcon.classList.remove("fa-eye");
+          toggleIcon.classList.add("fa-eye-slash");
+        }
+      }
     </script>
   </body>
 </html>
