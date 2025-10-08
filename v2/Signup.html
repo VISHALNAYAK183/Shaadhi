@@ -12,176 +12,340 @@
     <link rel="shortcut icon" type="image/png" href="../img/icon-167x167.png">
     <link rel="shortcut icon" type="image/png" href="../img/icon-180x180.png">
     <link rel="shortcut icon" type="image/png" href="../img/icon-192x192.png">
+    
     <style>
-       body {
-        font-family: 'Poppins', sans-serif;
-        background-image: url('../img/bg-edit.jpg'); 
+        /* ============================================
+           GLOBAL STYLES
+        ============================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-image: url('../img/bg-signup.jpg'); 
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-        /* background: linear-gradient(135deg, #f06, #4a90e2); */
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-       } 
-       .container {
-         background-color: #fff;
-         padding: 30px;
-         border-radius: 5px;
-         box-shadow: 0px 10px 15px rgba(0,0,0,0.2);
-         width: 400px;
-       }
-       h1 {
-         text-align: center;
-         color: #333;
-         margin-bottom: 20px;
-       }
-       .form-group {
-         margin-bottom: 15px;
-         position: relative; /* For the eye icon inside input */
-       }
-       label {
-         display: block;
-         margin-bottom: 5px;
-         color: #444;
-         font-weight: bold;
-       }
-       input, select {
-        width: 100%; 
-        padding: 10px;
-        border: 2px solid #ddd;
-        border-radius: 5px;
-        font-size: 16px;
-        transition: border-color 0.3s ease;
-        box-sizing: border-box; 
-       }
-       input:focus, select:focus {
-        border-color: #4a90e2;
-        outline: none;
-       }
-       .phone-group {
-        display: flex;
-        align-items: stretch; 
-       }
-       .phone-code {
-        width: 30%; 
-        padding: 10px;
-        border: 2px solid #ddd;
-        border-radius: 5px 0 0 5px;
-        border-right: none;
-        font-size: 16px;
-        background-color: #f1f1f1;
-       }
-       .phone-number {
-        width: 70%; 
-        padding-left: 15px;
-        border-radius: 0 5px 5px 0;
-        border: 2px solid #ddd;
-        font-size: 16px;
-        border-left: none;
-       }
-       .error-message {
-         color: red;
-         font-size: 14px;
-         display: none;
-         margin-top: 5px;
-       }
-       .eye-icon {
-         position: absolute;
-         right: 10px;
-         top: 35px;
-         cursor: pointer;
-         font-size: 18px;
-       }
-       button {
-         width: 100%;
-         padding: 12px;
-         background-color: #5c0c23;
-         color: #fff;
-         border: none;
-         border-radius: 5px;
-         font-size: 18px;
-         font-weight: bold;
-         cursor: pointer;
-         transition: background-color 0.3s ease;
-         margin-top: 10px; 
-       }
-       button:hover {
-         background-color: #e94560;
-       }
-       .google-signup {
-         background-color: #4285F4; 
-         color: white;
-         display: flex;
-         align-items: center;
-         justify-content: center;
-         border: none;
-         margin-top: 10px;
-         padding: 12px;
-         border-radius: 5px;
-       }
-       .google-signup img {
-         width: 20px; 
-         margin-right: 10px;
-       }
-       .checkbox-group input[type="checkbox"] {
+            background-attachment: fixed;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        /* ============================================
+           CONTAINER & LAYOUT
+        ============================================ */
+        .container {
+            display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            width: 100%;
+            max-width: 1000px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            margin: 20px auto;
+        }
+
+        /* ============================================
+           IMAGE SECTION
+        ============================================ */
+        .image-section {
+            flex: 1.2;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f9f9f9;
+        }
+
+        .image-section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ============================================
+           FORM SECTION
+        ============================================ */
+        .form-section {
+            flex: 0.8;
+            padding: 40px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .form-section h1 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #5c0c23;
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        /* ============================================
+           FORM ELEMENTS
+        ============================================ */
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 15px;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        input:focus,
+        select:focus {
+            border-color: #5c0c23;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(92, 12, 35, 0.1);
+        }
+
+        input:hover,
+        select:hover {
+            border-color: #999;
+        }
+
+        /* ============================================
+           PHONE NUMBER GROUP
+        ============================================ */
+        .phone-group {
+            display: flex;
+            align-items: stretch;
+            gap: 0;
+        }
+
+        .phone-code {
+            width: 35%;
+            padding: 12px 10px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px 0 0 6px;
+            border-right: none;
+            font-size: 15px;
+            background-color: #f8f8f8;
+            cursor: pointer;
+        }
+
+        .phone-number {
+            width: 65%;
+            padding: 12px 15px;
+            border-radius: 0 6px 6px 0;
+            border: 2px solid #e0e0e0;
+            font-size: 15px;
+            border-left: none;
+        }
+
+        /* ============================================
+           ERROR MESSAGES
+        ============================================ */
+        .error-message {
+            color: #e74c3c;
+            font-size: 13px;
+            display: none;
+            margin-top: 6px;
+        }
+
+        /* ============================================
+           PASSWORD TOGGLE ICON
+        ============================================ */
+        .eye-icon {
+            position: absolute;
+            right: 15px;
+            top: 42px;
+            cursor: pointer;
+            font-size: 20px;
+            user-select: none;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+
+        .eye-icon:hover {
+            opacity: 1;
+        }
+
+        /* ============================================
+           BUTTONS
+        ============================================ */
+        button {
+            width: 100%;
+            padding: 14px;
+            background-color: #5c0c23;
+            color: #fff;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            font-family: inherit;
+        }
+
+        button:hover {
+            background-color: #7a1030;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(92, 12, 35, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        /* ============================================
+           GOOGLE SIGN-IN
+        ============================================ */
+        .google-signup {
+            background-color: #4285F4;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .google-signup:hover {
+            background-color: #357ae8;
+        }
+
+        .google-signup img {
+            width: 20px;
             margin-right: 10px;
-            width: auto;
-            display: inline-block;
-            vertical-align: middle;
         }
+
+        /* ============================================
+           CHECKBOX & TERMS
+        ============================================ */
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 10px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
         .checkbox-group label {
-            display: inline-block;
-            vertical-align: middle;
-            line-height: 1.2;
+            font-size: 13px;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #555;
+            cursor: pointer;
         }
+
         .checkbox-group a {
-            color: #4a90e2;
+            color: #5c0c23;
             text-decoration: none;
+            font-weight: 600;
         }
+
         .checkbox-group a:hover {
             text-decoration: underline;
         }
-       .or-signup {
-         text-align: center;
-         margin: 15px 0; 
-         color: #444;
-       }
-       .login-link {
-            text-align: center;
-            margin-top: 15px;
-            font-size: 14px;
-            color: #444;
-        }
-       .hidden {
-         display: none;
-       }
-       .masked-otp {
-         font-size: 24px;
-         letter-spacing: 10px; /* Space between the dots */
-         color: #000;
-         text-align: center; /* Center the dots */
-         margin-top: 5px; /* Spacing */
-       }
 
-       .loader-container {
+        /* ============================================
+           DIVIDER & LOGIN LINK
+        ============================================ */
+        .or-signup {
+            text-align: center;
+            margin: 20px 0;
+            color: #666;
+            font-size: 14px;
+            position: relative;
+        }
+
+        .or-signup::before,
+        .or-signup::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            width: 40%;
+            height: 1px;
+            background-color: #ddd;
+        }
+
+        .or-signup::before {
+            left: 0;
+        }
+
+        .or-signup::after {
+            right: 0;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .login-link a {
+            color: #5c0c23;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        /* ============================================
+           UTILITY CLASSES
+        ============================================ */
+        .hidden {
+            display: none !important;
+        }
+
+        .masked-otp {
+            font-size: 24px;
+            letter-spacing: 10px;
+            color: #000;
+            text-align: center;
+            margin-top: 5px;
+        }
+
+        /* ============================================
+           LOADER
+        ============================================ */
+        .loader-container {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            display: flex;
+            display: none;
             justify-content: center;
             align-items: center;
-            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-            z-index: 9999; /* Ensure it appears above other content */
-            display: none; /* Hide by default */
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 9999;
+            backdrop-filter: blur(3px);
         }
 
-        /* Loader Text and Dots */
         .loading-text {
             font-size: 24px;
             font-family: Arial, sans-serif;
@@ -216,7 +380,6 @@
             animation-delay: 0.4s;
         }
 
-        /* Bounce Animation for Dots */
         @keyframes bounce {
             0%, 20%, 50%, 80%, 100% {
                 opacity: 0;
@@ -232,134 +395,294 @@
             }
         }
 
-        /* Button Styles */
-        #loadButton {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
+        /* ============================================
+           GOOGLE SIGN-IN CONTAINER
+        ============================================ */
+        .text-centergoogle {
+            display: flex;
+            justify-content: center;
+            margin: 10px 0;
         }
 
-        #loadButton:hover {
-            background-color: #0056b3;
+        /* ============================================
+           RESPONSIVE DESIGN
+        ============================================ */
+        
+        /* Tablets and smaller laptops */
+        @media (max-width: 900px) {
+            .container {
+                max-width: 95%;
+            }
+
+            .form-section {
+                padding: 30px 35px;
+            }
+
+            .image-section {
+                flex: 1;
+            }
+
+            .form-section {
+                flex: 1;
+            }
         }
 
+        /* Small tablets and large phones */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .container {
+                flex-direction: column;
+                width: 100%;
+                max-width: 500px;
+            }
+
+            .image-section {
+                flex: unset;
+                width: 100%;
+                min-height: 200px;
+                max-height: 250px;
+            }
+
+            .form-section {
+                flex: unset;
+                padding: 30px 25px;
+            }
+
+            .form-section h1 {
+                font-size: 1.6rem;
+                margin-bottom: 20px;
+            }
+
+            .phone-code {
+                width: 40%;
+            }
+
+            .phone-number {
+                width: 60%;
+            }
+        }
+
+        /* Mobile phones */
+        @media (max-width: 480px) {
+            body {
+                padding: 5px;
+            }
+
+            .form-section {
+                padding: 25px 20px;
+            }
+
+            .form-section h1 {
+                font-size: 1.4rem;
+                margin-bottom: 15px;
+            }
+
+            .form-group {
+                margin-bottom: 15px;
+            }
+
+            label {
+                font-size: 13px;
+                margin-bottom: 6px;
+            }
+
+            input,
+            select {
+                padding: 10px 12px;
+                font-size: 14px;
+            }
+
+            button {
+                padding: 12px;
+                font-size: 15px;
+            }
+
+            .eye-icon {
+                top: 38px;
+                font-size: 18px;
+            }
+
+            .checkbox-group {
+                align-items: flex-start;
+            }
+
+            .checkbox-group input[type="checkbox"] {
+                margin-top: 2px;
+            }
+
+            .checkbox-group label {
+                font-size: 12px;
+            }
+
+            .or-signup {
+                margin: 15px 0;
+            }
+
+            .image-section {
+                min-height: 180px;
+                max-height: 200px;
+            }
+
+            .phone-code {
+                font-size: 14px;
+                padding: 10px 8px;
+            }
+
+            .phone-number {
+                font-size: 14px;
+                padding: 10px 12px;
+            }
+        }
+
+        /* Very small screens */
+        @media (max-width: 360px) {
+            .form-section {
+                padding: 20px 15px;
+            }
+
+            .form-section h1 {
+                font-size: 1.3rem;
+            }
+
+            button {
+                padding: 11px;
+                font-size: 14px;
+            }
+
+            .loading-text {
+                font-size: 20px;
+            }
+        }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>Sign Up</h1>
-    <form id="signupForm" method="POST">
-        <div class="form-group">
-            <label for="profile-for">Creating profile for:</label>
-            <select id="profile-for" class="form-select" required>
-                <option selected disabled value="">Select an option</option>
-                <option value="1">Self</option>
-                <option value="2">Son</option>
-                <option value="3">Daughter</option>
-                <option value="4">Brother</option>
-                <option value="5">Sister</option>         
-            </select>
-            <span id="create-error" class="error-message">Please select an option.</span>
-
-        </div>
-
-        <div class="form-group">
-            <label for="full-name">Full Name:</label>
-            <input type="text" id="full-name" name="full-name" placeholder="Enter your full name" required pattern="[A-Za-z\s]+" title="Full name should only contain letters.">
-            <span id="name-error" class="error-message">Please enter your name.</span>
-
-        </div>
-
-        <div class="form-group">
-            <label for="phone">Phone Number:</label>
-            <div class="phone-group">
-                <select id="phone-code" class="phone-code" name="phone-code" required>
-                    <option value="+91" selected>India (+91)</option>
-                    <option value="+1">USA (+1)</option>
-                </select>
-                <input type="tel" id="phone" class="phone-number" name="phone" placeholder="Enter your phone number" required pattern="[0-9]{10}" title="Phone number should be 10 digits.">
-            </div>
-            <span id="phone-error" class="error-message">Please enter Phone Number.</span>
-        </div>
-
-        <button type="button" id="get-otp">Get OTP</button>
-        <button type="button" id="resend-otp" class="hidden">Resend OTP</button>
-
-        <div id="otp-section" class="form-group hidden">
-            <label for="otp">Enter OTP:</label>
-            <input type="text" id="otp" placeholder="Enter OTP" required pattern="[0-9]{4}" title="OTP should be 4 digits.">
-            <span id="otp-timer" class="error-message">Time left: 30s</span> <!-- Timer styled as error message -->
-            <span id="otp-error" class="error-message">Please enter a valid OTP.</span>
-        </div>
+    <!-- Left Side Image Section -->
+    <div class="image-section">
+        <img src="../img/bunts-mrg.jpg" alt="Signup Illustration">
+    </div>
+    
+    <!-- Right Side Form Section -->
+    <div class="form-section">
+        <h1>Sign Up</h1>
         
-
-        <div id="password-section" class="hidden">
+        <form id="signupForm" method="POST">
+            <!-- Profile For -->
             <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" 
-                       placeholder="Enter your password" required minlength="8"
-                       title="Password must contain letters, numbers, and symbols." />
-                <span class="eye-icon" id="togglePassword">👁</span>
-                <span id="psw-error" class="error-message">Please enter a password.</span>
+                <label for="profile-for">Creating profile for:</label>
+                <select id="profile-for" class="form-select" required>
+                    <option selected disabled value="">Select an option</option>
+                    <option value="1">Self</option>
+                    <option value="2">Son</option>
+                    <option value="3">Daughter</option>
+                    <option value="4">Brother</option>
+                    <option value="5">Sister</option>         
+                </select>
+                <span id="create-error" class="error-message">Please select an option.</span>
             </div>
 
+            <!-- Full Name -->
             <div class="form-group">
-                <label for="confirm-password">Confirm Password:</label>
-                <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm password" required>
-                <span class="eye-icon" id="toggleConfirmPassword">👁</span>
-                <span id="password-error" class="error-message">Passwords do not match.</span> <!-- Error message -->
+                <label for="full-name">Full Name:</label>
+                <input type="text" id="full-name" name="full-name" placeholder="Enter your full name" required pattern="[A-Za-z\s]+" title="Full name should only contain letters.">
+                <span id="name-error" class="error-message">Please enter your name.</span>
             </div>
-        </div>
 
-        <div class="checkbox-group">
-            <input type="checkbox" id="terms" required>
-            <label for="terms">I agree to the <a href="term.html">terms and privacy policy</a>.</label>
-        </div>
-
-        <button type="submit">Next </button>
-        <div id="loader" class="loader-container">
-            <div class="loading-text">Loading</div>
-            <div class="dots">
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
+            <!-- Phone Number -->
+            <div class="form-group">
+                <label for="phone">Phone Number:</label>
+                <div class="phone-group">
+                    <select id="phone-code" class="phone-code" name="phone-code" required>
+                        <option value="+91" selected>India (+91)</option>
+                        <option value="+1">USA (+1)</option>
+                    </select>
+                    <input type="tel" id="phone" class="phone-number" name="phone" placeholder="Enter your phone number" required pattern="[0-9]{10}" title="Phone number should be 10 digits.">
+                </div>
+                <span id="phone-error" class="error-message">Please enter Phone Number.</span>
             </div>
-        </div>
-        <div class="or-signup"> Or </div>
 
-        <div class="text-centergoogle my-3">
-            <div id="g_id_onload"
-                 data-client_id="691158335150-book60nnl02o5t03eafouio8nofo0rop.apps.googleusercontent.com"
-                 data-context="signup"
-                 data-ux_mode="popup"
-                 data-callback="handleCredentialResponse"
-                 data-auto_prompt="false">
+            <!-- OTP Buttons -->
+            <button type="button" id="get-otp">Get OTP</button>
+            <button type="button" id="resend-otp" class="hidden">Resend OTP</button>
+
+            <!-- OTP Section -->
+            <div id="otp-section" class="form-group hidden">
+                <label for="otp">Enter OTP:</label>
+                <input type="text" id="otp" placeholder="Enter OTP" required pattern="[0-9]{4}" title="OTP should be 4 digits.">
+                <span id="otp-timer" class="error-message">Time left: 30s</span>
+                <span id="otp-error" class="error-message">Please enter a valid OTP.</span>
             </div>
-            <div class="g_id_signin" data-type="standard"></div>
-          </div>
 
-        <div class="login-link">
-            Already have an account? <a href="Login.html">Login</a>
-        </div>
+            <!-- Password Section -->
+            <div id="password-section" class="hidden">
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required minlength="8" title="Password must contain letters, numbers, and symbols.">
+                    <span class="eye-icon" id="togglePassword">👁</span>
+                    <span id="psw-error" class="error-message">Please enter a password.</span>
+                </div>
 
-    </form>
+                <div class="form-group">
+                    <label for="confirm-password">Confirm Password:</label>
+                    <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm password" required>
+                    <span class="eye-icon" id="toggleConfirmPassword">👁</span>
+                    <span id="password-error" class="error-message">Passwords do not match.</span>
+                </div>
+            </div>
+
+            <!-- Terms & Conditions -->
+            <div class="checkbox-group">
+                <input type="checkbox" id="terms" required>
+                <label for="terms">I agree to the <a href="term.html">terms and privacy policy</a>.</label>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit">Next</button>
+
+            <!-- Loader -->
+            <div id="loader" class="loader-container">
+                <div class="loading-text">Loading</div>
+                <div class="dots">
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+            </div>
+
+            <!-- Divider -->
+            <div class="or-signup">Or</div>
+
+            <!-- Google Sign-In -->
+            <div class="text-centergoogle my-3">
+                <div id="g_id_onload"
+                     data-client_id="691158335150-book60nnl02o5t03eafouio8nofo0rop.apps.googleusercontent.com"
+                     data-context="signup"
+                     data-ux_mode="popup"
+                     data-callback="handleCredentialResponse"
+                     data-auto_prompt="false">
+                </div>
+                <div class="g_id_signin" data-type="standard"></div>
+            </div>
+
+            <!-- Login Link -->
+            <div class="login-link">
+                Already have an account? <a href="Login.html">Login</a>
+            </div>
+        </form>
+    </div>
 </div>
 
+<!-- External Scripts -->
 <script src="baseurl.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-<!-- <script src="https://accounts.google.com/gsi/client" async defer></script> -->
-
-
-
 
 <script>
+
     let generatedOtp = ''; // Store the generated OTP
     let timerInterval, timeLeft = 30; // Timer variables
 
