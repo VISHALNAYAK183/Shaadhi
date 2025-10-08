@@ -917,57 +917,59 @@
         }
       }
 
-      function generateOtp() {
-        const emailOrPhone = document.getElementById("otp-phone-email").value;
-        const pad = document.getElementById("otpContainer");
-        const phoneOTPErrorMessage = document.getElementById(
-          "phoneOTPErrorMessage"
-        );
-        if (!isValidPhone(emailOrPhone) && !isValidEmail(emailOrPhone)) {
-          phoneOTPErrorMessage.textContent =
-            "Please enter a valid Phone Number.";
-          return;
-        }
+     function generateOtp() {
+  const emailOrPhone = document.getElementById("otp-phone-email").value;
+  const phoneOTPErrorMessage = document.getElementById("phoneOTPErrorMessage");
 
-        const phoneRegex = /^\d{10}$/;
-        if (!phoneRegex.test(emailOrPhone)) {
-          phoneOTPErrorMessage.textContent =
-            "Please enter a 10 digits valid Phone Number";
-          document.getElementById("loader").style.display = "none";
-          return;
-        }
-        const data = {
-          user: emailOrPhone,
-        };
+  if (!isValidPhone(emailOrPhone) && !isValidEmail(emailOrPhone)) {
+    phoneOTPErrorMessage.textContent = "Please enter a valid Phone Number.";
+    return;
+  }
 
-        // Call OTP API
-        axios
-          .post(`${BASE_URL}/login.php`, data, {
-            headers: {
-              "Content-Type": "application/json",
-            },
-          })
-          .then((response) => {
-            console.log("phone number sent:", response);
+  const phoneRegex = /^\d{10}$/;
+  if (!phoneRegex.test(emailOrPhone)) {
+    phoneOTPErrorMessage.textContent = "Please enter a 10-digit valid Phone Number";
+    document.getElementById("loader").style.display = "none";
+    return;
+  }
 
-            // Check if the number already exists
-            if (response.data.message.p_out_mssg_flg === "Y") {
-              sendSMS();
-            } else {
-              Swal.fire({
-                icon: "error",
-                title: "Credential Not Found",
-                text: "Please try again.",
-                confirmButtonText: "OK",
-              }).then((result) => {
-                // Reload the page when the alert is closed
-                if (result.isConfirmed) {
-                  location.reload(); // Reload the page
-                }
-              });
-            }
-          });
+  const data = { user: emailOrPhone };
+
+  axios
+    .post(`${BASE_URL}/login.php`, data, {
+      headers: { "Content-Type": "application/json" },
+    })
+    .then((response) => {
+      console.log("Login check response:", response.data);
+
+      const flag = response.data?.dataout?.[0]?.p_out_mssg_flg;
+      if (flag === "Y") {
+        // Call sendSMS if user exists
+        sendSMS();
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Credential Not Found",
+          text: "Please try again.",
+          confirmButtonText: "OK",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            location.reload();
+          }
+        });
       }
+    })
+    .catch((error) => {
+      console.error("Error in generateOtp:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Server Error",
+        text: "Unable to connect. Please try again later.",
+        confirmButtonText: "OK",
+      });
+    });
+}
+
 
       function handleCredentialResponse(response) {
         const user = jwt_decode(response.credential); // Decode JWT response
@@ -1041,7 +1043,7 @@
         const emailOrPhone = document.getElementById("otp-phone-email").value;
         const pad = document.getElementById("otpContainer");
         const data = { number: emailOrPhone, type: "otp" };
-        fetch("${BASE_URL}/send_sms.php", {
+        fetch(`${BASE_URL}/send_sms.php`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
@@ -1115,80 +1117,90 @@
       }
 
       function loginWithOtp() {
-        const emailOrPhone = document.getElementById("otp-phone-email").value;
-        const otp = document.getElementById("otp").value;
-        document.getElementById("loader").style.display = "flex";
-        if (otp.length == 4) {
-          if (CryptoJS.MD5(otp).toString() == correctOtp) {
-            const data = { user: emailOrPhone, otp: otp };
-            fetch("${BASE_URL}/login.php", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(data),
-            })
-              .then((response) => response.json())
-              .then((data) => {
-                console.log(data);
-                if (data.message.p_out_mssg_flg == "Y") {
-                  localStorage.setItem("matriId", data.dataout[0].matri_id);
-                  localStorage.setItem("mId", data.dataout[0].id);
-                  localStorage.setItem("phone", data.dataout[0].phone);
-                  document.getElementById("loader").style.display = "none";
-                  clearInterval(otpTimeout);
-                  handleLoginSuccess();
-                } else {
-                  Swal.fire({
-                    icon: "error",
-                    title: "OTP verification failed",
-                    text: "Please try again.",
-                    confirmButtonText: "OK",
-                  }).then((result) => {
-                    // Reload the page when the alert is closed
-                    if (result.isConfirmed) {
-                      location.reload(); // Reload the page
-                    }
-                  });
-                  document.getElementById("loader").style.display = "none";
-                }
-              })
-              .catch(() =>
-                //alert("An error occurred. Please try again.")
-                Swal.fire({
-                  icon: "error",
-                  title: "An error occurred. Please try again.",
-                  text: "Please try again.",
-                  confirmButtonText: "OK",
-                }).then((result) => {
-                  // Reload the page when the alert is closed
-                  if (result.isConfirmed) {
-                    location.reload(); // Reload the page
-                  }
-                })
-              );
-          } else {
-            document.getElementById("loader").style.display = "none";
-            Swal.fire({
-              icon: "error",
-              title: "Incorrect OTP",
-              text: "Enter valid otp.",
-              confirmButtonText: "OK",
-            });
+  const emailOrPhone = document.getElementById("otp-phone-email").value.trim();
+  const otp = document.getElementById("otp").value.trim();
+  document.getElementById("loader").style.display = "flex";
+
+  // --- Step 1: Validate OTP length ---
+  if (otp.length !== 4) {
+    document.getElementById("loader").style.display = "none";
+    Swal.fire({
+      icon: "error",
+      title: "Invalid OTP",
+      text: "Please enter a 4-digit OTP.",
+      confirmButtonText: "OK",
+    });
+    return;
+  }
+
+  // --- Step 2: Verify OTP Hash ---
+  if (CryptoJS.MD5(otp).toString() !== correctOtp) {
+    document.getElementById("loader").style.display = "none";
+    Swal.fire({
+      icon: "error",
+      title: "Incorrect OTP",
+      text: "Please enter a valid OTP.",
+      confirmButtonText: "OK",
+    });
+    return;
+  }
+
+  // --- Step 3: Send verification request to server ---
+  const data = { user: emailOrPhone, otp: otp };
+
+  fetch(`${BASE_URL}/login.php`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("OTP login response:", data);
+
+      // ✅ Adjusted to match your backend response (same as password login)
+      if (data.dataout && data.dataout[0].p_out_mssg_flg === "Y") {
+        const token = data.dataout[0].token;
+        localStorage.setItem("jwtToken", token);
+
+        const decoded = jwt_decode(token);
+        console.log("Decoded JWT:", decoded);
+
+        // Store user data from JWT payload
+        localStorage.setItem("matriId", decoded.data.matri_id);
+        localStorage.setItem("mId", decoded.data.id);
+        localStorage.setItem("phone", decoded.data.phone);
+
+        document.getElementById("loader").style.display = "none";
+        clearInterval(otpTimeout);
+
+        // Redirect or show dashboard
+        handleLoginSuccess();
+      } else {
+        document.getElementById("loader").style.display = "none";
+        Swal.fire({
+          icon: "error",
+          title: "OTP Verification Failed",
+          text: data.dataout ? data.dataout[0].p_out_mssg : "Please try again.",
+          confirmButtonText: "OK",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            location.reload();
           }
-        } else {
-          document.getElementById("loader").style.display = "none";
-          Swal.fire({
-            icon: "error",
-            title: "Enter 4 digit otp",
-            text: "Please try again.",
-            confirmButtonText: "OK",
-          }).then((result) => {
-            // Reload the page when the alert is closed
-            if (result.isConfirmed) {
-              location.reload(); // Reload the page
-            }
-          });
-        }
+        });
       }
+    })
+    .catch((error) => {
+      console.error("Error verifying OTP:", error);
+      document.getElementById("loader").style.display = "none";
+      Swal.fire({
+        icon: "error",
+        title: "Server Error",
+        text: "Please try again later.",
+        confirmButtonText: "OK",
+      });
+    });
+}
+
 
       function googleLogin() {
         //alert("Google Login not yet implemented");
