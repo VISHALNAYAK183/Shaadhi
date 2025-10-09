@@ -185,7 +185,7 @@
                 <h2>Upgrade Your Plan</h2>
                 <p>Get full access to all profiles and unlock complete details.</p>
                 <p>Find your perfect match with advanced features and unlimited messages!</p>
-                <a href="payment.html" class="upgrade-button">Upgrade Now</a>
+                <a href="payment" class="upgrade-button">Upgrade Now</a>
               </div>
             </div>
           </div>
@@ -297,7 +297,7 @@ function loadHTMLContent(elementId, url, callback) {
 
         // Load Navbar and Sidebar
         // loadHTMLContent('navbar-placeholder', 'navbar.html');
-        loadHTMLContent('navbar-placeholder', 'navbar.html', () => {
+        loadHTMLContent('navbar-placeholder', 'navbar', () => {
                 const elementMap = {
                     profileFor1: 'myprofile_fullname',
                     profileMatriId: 'matriId',
@@ -322,7 +322,7 @@ function loadHTMLContent(elementId, url, callback) {
                 });
             });
 
-        loadHTMLContent('sidebar-placeholder', 'sidebar.html', function () {
+        loadHTMLContent('sidebar-placeholder', 'sidebar', function () {
             // Add event listeners after the sidebar content is loaded
             const menus = document.querySelectorAll('.matches-menu');
 
@@ -390,7 +390,7 @@ function loadHTMLContent(elementId, url, callback) {
            //consolelog("User logged out");
             localStorage.clear();
             localStorage.setItem("visitedSuccessPage", "true");
-            window.location.href = 'Login.html';
+            window.location.href = 'Login';
         }
 
 

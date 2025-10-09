@@ -865,8 +865,8 @@
         }
 
         // Load Navbar and Sidebar
-        // loadHTMLContent('navbar-placeholder', 'navbar.html');
-        loadHTMLContent('navbar-placeholder', 'navbar.html', () => {
+        // loadHTMLContent('navbar-placeholder', 'navbar');
+        loadHTMLContent('navbar-placeholder', 'navbar', () => {
                 const elementMap = {
                     profileFor1: 'myprofile_fullname',
                     profileMatriId: 'matriId',
@@ -891,7 +891,7 @@
                 });
             });
 
-        loadHTMLContent('sidebar-placeholder', 'sidebar.html', function () {
+        loadHTMLContent('sidebar-placeholder', 'sidebar', function () {
             // Add event listeners after the sidebar content is loaded
             const menus = document.querySelectorAll('.matches-menu');
 
@@ -1394,7 +1394,7 @@ const minAgeInput = document.getElementById("minAgeInput");
            //consolelog("User logged out");
             localStorage.clear();
             localStorage.setItem("visitedSuccessPage", "true");
-            window.location.href = 'Login.html';
+            window.location.href = 'Login';
         }
 
         function scrollLeft() {
@@ -1474,7 +1474,7 @@ const minAgeInput = document.getElementById("minAgeInput");
                         }).then((result) => {
                             if (result.isConfirmed) {
                                 // Redirect to the upgrade page
-                                window.location.href = "payment.html";
+                                window.location.href = "payment";
                             } else if (result.dismiss === Swal.DismissReason.cancel) {
                                 // Do nothing, alert will close
                                //consolelog("User chose to cancel.");
@@ -1544,7 +1544,7 @@ const minAgeInput = document.getElementById("minAgeInput");
                 // //   localStorage.setItem("likedProfile",profile.liked);
                 //   localStorage.setItem("imgURL",imgURL);
                 //     localStorage.setItem("profile", JSON.stringify(profile));
-                    window.location.href = "profile_view.html";
+                    window.location.href = "profile_view";
                    //consolelog("Card Clicked");
                 }
                 else{
@@ -1562,7 +1562,7 @@ const minAgeInput = document.getElementById("minAgeInput");
                     }).then((result) => {
                         if (result.isConfirmed) {
                             // Redirect to the upgrade page
-                            window.location.href = "payment.html";
+                            window.location.href = "payment";
                         } else if (result.dismiss === Swal.DismissReason.cancel) {
                             // Do nothing, alert will close
                            //consolelog("User chose to cancel.");
@@ -1720,7 +1720,7 @@ function submitForm() {
                     
                    //     toggleOptionSearchBy();
                         hideWaitingDialog();
-                    //window.location.href = 'EducationDetails.html';
+                    //window.location.href = 'EducationDetails';
                 }else{
                    //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);
                     hideWaitingDialog();
@@ -1830,7 +1830,7 @@ function submitForm() {
        //consolelog("User logged out");
         localStorage.clear();
         localStorage.setItem("visitedSuccessPage", "true");
-        window.location.href = 'Login.html';
+        window.location.href = 'Login';
     }
 function filterProfiles() {
     const searchInput = document.getElementById('searchProfileInput').value.toLowerCase();

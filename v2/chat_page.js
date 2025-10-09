@@ -4,7 +4,7 @@ const receiverData = JSON.parse(localStorage.getItem('receiverData'));
 const base_url = `${BASE_URL}/message.php`;
 // Check if receiver data exists, if not, redirect
 if (!receiverData) {
-  window.location.href = 'chat_list.html'; // Redirect to chat list if no data
+  window.location.href = 'chat_list'; // Redirect to chat list if no data
 } else {
   // Set receiver's name and image
   const receiverNameElement = document.getElementById('receiverName');

@@ -279,7 +279,7 @@
             </div>
         </div>
         <div style="margin-top: 2px;text-align: center;">
-            <p style="color:#000000"><a href="Horoscope.html" style="color:#000000">Skip and Continue</a></p>
+            <p style="color:#000000"><a href="Horoscope" style="color:#000000">Skip and Continue</a></p>
         </div>
     </div>
         
@@ -428,7 +428,7 @@ document.getElementById('educationForm').addEventListener('submit', function(eve
         // alert('Education Details retrieved!');
         // alert(data.message);
         if(data.message.p_out_mssg_flg === 'Y'){
-                window.location.href = 'Horoscope.html';
+                window.location.href = 'Horoscope';
                 localStorage.setItem('maritalStatus', maritalStatus);
                 localStorage.setItem('matriId', data.data[0].matri_id);
                 localStorage.setItem('mId', data.data[0].id);
@@ -439,7 +439,7 @@ document.getElementById('educationForm').addEventListener('submit', function(eve
                  //consolelog(data.message.p_out_mssg_flg,"and",data.message.p_out_mssg);
             }
 
-        //  window.location.href = 'Horoscope.html';
+        //  window.location.href = 'Horoscope';
     })
     .catch(error => {
        console.error('There was a problem with the fetch operation:', error);

@@ -357,7 +357,7 @@
        //consolelog("User logged out");
         localStorage.clear();
         localStorage.setItem("visitedSuccessPage", "true");
-        window.location.href = 'Login.html';
+        window.location.href = 'Login';
     }
     </script>
 </head>
@@ -602,7 +602,7 @@ document.getElementById('educationForm').addEventListener('submit', function(eve
     //     // alert('Education Details retrieved!');
     //     // alert(data.message);
     //     if(data.message.p_out_mssg_flg === 'Y'){
-    //             // window.location.href = 'my_profile.html';
+    //             // window.location.href = 'my_profile';
     //             localStorage.setItem('maritalStatus', maritalStatus);
     //             localStorage.setItem('matriId', data.data[0].matri_id);
     //             localStorage.setItem('mId', data.data[0].id);
@@ -613,7 +613,7 @@ document.getElementById('educationForm').addEventListener('submit', function(eve
     //              //consolelog(data.message.p_out_mssg_flg,"and",data.message.p_out_mssg);
     //         }
 
-    //     //  window.location.href = 'my_profile.html';
+    //     //  window.location.href = 'my_profile';
     // })
     // .catch(error => {
     //    console.error('There was a problem with the fetch operation:', error);
@@ -655,11 +655,11 @@ document.getElementById('educationForm').addEventListener('submit', function(eve
        confirmButtonText: "OK",
    }).then((result) => {
     if (result.isConfirmed) {
-        window.location.href = 'my_profile.html';  
+        window.location.href = 'my_profile';  
     }
 });
      
-//    window.location.href = 'my_profile.html';
+//    window.location.href = 'my_profile';
    }else{
       
        

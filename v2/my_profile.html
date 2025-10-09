@@ -574,7 +574,7 @@ body {
             sessionStorage.setItem("formData", JSON.stringify(myProfileNew));
     
             // Redirect to the same page
-            window.location.href = "EditRegister.html";
+            window.location.href = "EditRegister";
         } else {
            console.error("myProfileNew is not defined or empty.");
         }
@@ -585,7 +585,7 @@ body {
             sessionStorage.setItem("formData", JSON.stringify(myProfileNew));
     
             // Redirect to the same page
-            window.location.href = "EditAdditionalDetail.html";
+            window.location.href = "EditAdditionalDetail";
         } else {
            console.error("myProfileNew is not defined or empty.");
         }
@@ -597,7 +597,7 @@ body {
             sessionStorage.setItem("formData", JSON.stringify(myProfileNew));
     
             // Redirect to the same page
-            window.location.href = "EditEducation.html";
+            window.location.href = "EditEducation";
         } else {
            console.error("myProfileNew is not defined or empty.");
         }
@@ -608,7 +608,7 @@ body {
             sessionStorage.setItem("formData", JSON.stringify(myProfileNew));
     
             // Redirect to the same page
-            window.location.href = "EditHoroscope.html";
+            window.location.href = "EditHoroscope";
         } else {
            console.error("myProfileNew is not defined or empty.");
         }
@@ -620,7 +620,7 @@ body {
             sessionStorage.setItem("formData", JSON.stringify(myProfileNew));
     
             // Redirect to the same page
-            window.location.href = "EditFamily.html";
+            window.location.href = "EditFamily";
         } else {
            console.error("Edit family is not defined or empty.");
         }
@@ -631,7 +631,7 @@ body {
             sessionStorage.setItem("formData", JSON.stringify(myProfileNew));
     
             // Redirect to the same page
-            window.location.href = "EditPhoto.html";
+            window.location.href = "EditPhoto";
         } else {
            console.error("Edit family is not defined or empty.");
         }
@@ -758,8 +758,8 @@ body {
                 .catch(error =>console.error('Error loading HTML:', error));
         }
         // Load Navbar and Sidebar
-        loadHTMLContent('navbar-placeholder', 'navbar.html');
-        loadHTMLContent('sidebar-placeholder', 'sidebar.html', function () {
+        loadHTMLContent('navbar-placeholder', 'navbar');
+        loadHTMLContent('sidebar-placeholder', 'sidebar', function () {
             // Add event listeners after the sidebar content is loaded
             const menus = document.querySelectorAll('.matches-menu');
 
@@ -825,7 +825,7 @@ body {
            //consolelog("User logged out");
             localStorage.clear();
             localStorage.setItem("visitedSuccessPage", "true");
-            window.location.href = 'Login.html';
+            window.location.href = 'Login';
         }
       // "More" Button Functionality
 
@@ -919,7 +919,7 @@ body {
     }
 
     function chatInfoSection(){
-        window.location.href = "chats.html";
+        window.location.href = "chats";
     }
 
     function goBack() {

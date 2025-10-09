@@ -286,7 +286,7 @@
             </div>
         </div>
         <div style="margin-top: 10px;text-align: center;">
-            <p><a href="Educationdetails.html">Skip and Continue</a></p>
+            <p><a href="Educationdetails">Skip and Continue</a></p>
         </div>
     </form>
 
@@ -620,7 +620,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 localStorage.setItem('mId', response.data.data[0].id);
                //consolelog(response.data.data[0].id);
                 document.getElementById("loader").style.display = "none";
-                window.location.href = 'Educationdetails.html';
+                window.location.href = 'Educationdetails';
             }else{
                 document.getElementById("loader").style.display = "none";
                  //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);

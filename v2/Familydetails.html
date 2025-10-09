@@ -279,7 +279,7 @@
             </div>
         </div>
         <div style="margin-top: 5px;text-align: center;">
-            <p style="color:#000000"><a href="upload-image.html" style="color:#000000">Skip and Continue</a></p>
+            <p style="color:#000000"><a href="upload-image" style="color:#000000">Skip and Continue</a></p>
         </div>
     </form>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -380,7 +380,7 @@
         .then(function(response) {
            //consolelog('Success:', response.data);
             if(response.data.message.p_out_mssg_flg === 'Y'){
-              window.location.href = 'upload-image.html';
+              window.location.href = 'upload-image';
               localStorage.setItem('matriId', response.data.data[0].matri_id);
               localStorage.setItem('mId', response.data.data[0].id);
               document.getElementById("loader").style.display = "none";

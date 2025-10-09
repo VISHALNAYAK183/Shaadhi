@@ -17,7 +17,7 @@
       flex-direction: column;
       justify-content: flex-end; /* Position items at the bottom */
       align-items: center; /* Center horizontally */
-      background-image: url(`${BASE_URL}/logo/splach.png');
+      background-image: url(`${BASE_URL}/logo/splach.png`);
       background-size: cover;
       background-repeat: no-repeat;
     }
@@ -47,12 +47,12 @@
 <script src="baseurl.js"></script>
 <script>
     if (localStorage.getItem("visitedSuccessPage")) {
-        // If matriId is not set, redirect to login.html
+        // If matriId is not set, redirect to login
         if (localStorage.getItem("matriId") === null) {
-          window.location.href = "Login.html";
+          window.location.href = "Login";
         } else {
-          // Otherwise, redirect to Dashboard.html
-          window.location.href = "dashboard.html";
+          // Otherwise, redirect to Dashboard
+          window.location.href = "dashboard";
         }
       } else {
         // If first time visiting, mark as visited for next time
@@ -61,7 +61,7 @@
   </script>
 <body>
   <!-- Next Button Positioned at Bottom Center -->
-  <a href="login.html" class="login-button">Next</a>
+  <a href="login" class="login-button">Next</a>
 </body>
 
 </html>

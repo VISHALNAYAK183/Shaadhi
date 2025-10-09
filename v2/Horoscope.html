@@ -275,7 +275,7 @@
             </div>
         </div>
         <div style="margin-top: 10px;text-align: center;">
-            <p><a href="Familydetails.html">Skip and Continue</a></p>
+            <p><a href="Familydetails">Skip and Continue</a></p>
         </div>
     </form>
 </div>
@@ -358,7 +358,7 @@
                 localStorage.setItem('matriId', data.data[0].matri_id);
                 localStorage.setItem('mId', data.data[0].id);
                 document.getElementById("loader").style.display = "none";
-                window.location.href = 'Familydetails.html';
+                window.location.href = 'Familydetails';
             }else{
                 document.getElementById("loader").style.display = "none";
                  //consolelog(data.message.p_out_mssg_flg,"and",data.message.p_out_mssg);

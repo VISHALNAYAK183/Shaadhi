@@ -637,7 +637,7 @@
             <!-- Terms & Conditions -->
             <div class="checkbox-group">
                 <input type="checkbox" id="terms" required>
-                <label for="terms">I agree to the <a href="term.html">terms and privacy policy</a>.</label>
+                <label for="terms">I agree to the <a href="term">terms and privacy policy</a>.</label>
             </div>
 
             <!-- Submit Button -->
@@ -670,7 +670,7 @@
 
             <!-- Login Link -->
             <div class="login-link">
-                Already have an account? <a href="Login.html">Login</a>
+                Already have an account? <a href="Login">Login</a>
             </div>
         </form>
     </div>
@@ -751,7 +751,7 @@ function checkPhoneNumber(phoneNumber) {
         localStorage.setItem('name', user.name);
         localStorage.setItem('password', user.sub);
         localStorage.setItem('email', user.email);
-        window.location.href = 'basic_info.html';
+        window.location.href = 'basic_info';
      
   }
 
@@ -904,7 +904,7 @@ function checkPhoneNumber(phoneNumber) {
             localStorage.setItem('password', confirmPasswordInput);
             document.getElementById("loader").style.display = "none";
            //consolelog('Registration Successful');
-            window.location.href = 'Register.html'; // Redirect to next page
+            window.location.href = 'Register'; // Redirect to next page
         }
     });
 </script>

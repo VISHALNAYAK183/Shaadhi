@@ -7,7 +7,7 @@
         if (window.innerWidth <= mobileMaxWidth) {
             // Block mobile users
            // alert("This website is not available on mobile devices.");
-            window.location.href = "/../../mobile-blocked.html"; // Redirect to a mobile-block page
+            window.location.href = "/../../mobile-blocked"; // Redirect to a mobile-block page
         }
     }
 

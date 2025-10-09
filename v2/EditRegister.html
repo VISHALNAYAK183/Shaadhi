@@ -455,13 +455,13 @@ function goBack() {
             <div class="gender-group">
                 <input type="radio" id="male" name="gender" value="1" disabled>
                 <label for="male" class="gender-label">
-                    <img src="https://creazilla-store.fra1.digitaloceanspaces.com/icons/7915246/male-icon-md.png" alt="Male Icon">
+                    <img src="../img/shaadhi_men.png" alt="Male Icon">
                     Male
                 </label>
         
                 <input type="radio" id="female" name="gender" value="2" disabled>
                 <label for="female" class="gender-label">
-                    <img src="https://creazilla-store.fra1.digitaloceanspaces.com/icons/7914838/woman-icon-md.png" alt="Female Icon">
+                    <img src="../img/shaadhi_women.png" alt="Female Icon">
                     Female
                 </label>
             </div>
@@ -758,7 +758,7 @@ function goBack() {
                     confirmButtonText: "OK",
                 }).then((result) => {
                 if (result.isConfirmed) {
-                    window.location.href = 'my_profile.html';  
+                    window.location.href = 'my_profile';  
                 }
             });
                   
@@ -784,7 +784,7 @@ function goBack() {
            //consolelog("User logged out");
             localStorage.clear();
             localStorage.setItem("visitedSuccessPage", "true");
-            window.location.href = 'Login.html';
+            window.location.href = 'Login';
         }
         
 </script>

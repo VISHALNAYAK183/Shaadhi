@@ -64,8 +64,8 @@
         }
 
         // Load Navbar and Sidebar
-        loadHTMLContent('navbar-placeholder', 'navbar.html');
-        loadHTMLContent('sidebar-placeholder', 'sidebar.html');
+        loadHTMLContent('navbar-placeholder', 'navbar');
+        loadHTMLContent('sidebar-placeholder', 'sidebar');
 
 
         function toggleProfileDropdown() {
@@ -75,7 +75,7 @@
 
         function logout() {
            //consolelog("User logged out");
-            window.location.href = 'login.html';
+            window.location.href = 'login';
         }
 
         function scrollLeft() {
@@ -127,7 +127,7 @@
 
                 card.onclick = function() {
                     localStorage.setItem("profile", JSON.stringify(profile));
-                    window.location.href = "profile_view.html";
+                    window.location.href = "profile_view";
                    //consolelog("Card Clicked");
                 }
 

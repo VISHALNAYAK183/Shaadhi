@@ -42,7 +42,7 @@
 
   <!-- Back Button -->
   <!-- <div class="login-back-button">
-    <a href="login.html">
+    <a href="login">
       <i class="bi bi-arrow-left-short text-sign-color"></i>
     </a>
   </div> -->
@@ -54,7 +54,7 @@
     </div>
       <!-- Register Form -->
       <div class="register-form" style="margin: 30px 12%;">
-        <form action="basic_info.html">
+        <form action="basic_info">
           <div class="form-group">
             <select class="form-select mb-3 text-sign-color" id="create-select" name="create-select" required>
               <option value="" disabled selected hidden></option>
@@ -139,7 +139,7 @@
           <div class="g_id_signin" data-type="standard"></div>
         </div>
         <div class="login-meta-data text-center">
-          <p class="mt-3 mb-0 text-sign-color">Already have an account? <a class="stretched-link" href="login.html">Login</a></p>
+          <p class="mt-3 mb-0 text-sign-color">Already have an account? <a class="stretched-link" href="login">Login</a></p>
         </div>
       </div>
     
@@ -394,7 +394,7 @@
         localStorage.setItem('phone', phone);
         localStorage.setItem('password', confirmPassword);
        //consolelog(createSelect,name,phone,confirmPassword,createSelect)
-        window.location.href = 'basic_info.html'; // Redirect to the next page
+        window.location.href = 'basic_info'; // Redirect to the next page
       }
     });
   </script>

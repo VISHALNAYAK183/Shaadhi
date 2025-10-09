@@ -176,8 +176,8 @@ function loadHTMLContent(elementId, url, callback) {
         }
 
         // Load Navbar and Sidebar
-        loadHTMLContent('navbar-placeholder', 'navbar.html');
-        loadHTMLContent('sidebar-placeholder', 'sidebar.html', function () {
+        loadHTMLContent('navbar-placeholder', 'navbar');
+        loadHTMLContent('sidebar-placeholder', 'sidebar', function () {
             // Add event listeners after the sidebar content is loaded
             const menus = document.querySelectorAll('.matches-menu');
 
@@ -225,7 +225,7 @@ function loadHTMLContent(elementId, url, callback) {
            //consolelog("User logged out");
             localStorage.clear();
             localStorage.setItem("visitedSuccessPage", "true");
-            window.location.href = 'Login.html';
+            window.location.href = 'Login';
         }
 
         function deleteProfile() {

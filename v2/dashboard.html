@@ -1180,7 +1180,7 @@
                       <strong>Plan Expiry:</strong>
                       <span id="profile_end_date"></span>
                     </p>
-                    <a href="payment.html" style="text-decoration: none">
+                    <a href="payment" style="text-decoration: none">
                       <button
                         class="profile_button"
                         id="profileButton"
@@ -1220,7 +1220,7 @@
                     </a>
                   </div>
                   <div class="carousel-item" data-index="1">
-                    <a href="EditAdditionalDetail.html">
+                    <a href="EditAdditionalDetail">
                       <img
                         src="../img/EditAdditional.jpg"
                         alt="Additional Details"
@@ -1228,7 +1228,7 @@
                     </a>
                   </div>
                   <div class="carousel-item" data-index="2">
-                    <a href="EditEducation.html">
+                    <a href="EditEducation">
                       <img
                         src="../img/EditEducation.jpg"
                         alt="Education Details"
@@ -1236,17 +1236,17 @@
                     </a>
                   </div>
                   <div class="carousel-item" data-index="3">
-                    <a href="EditHoroscope.html">
+                    <a href="EditHoroscope">
                       <img src="../img/horoscope.jpg" alt="Horoscope Details" />
                     </a>
                   </div>
                   <div class="carousel-item" data-index="4">
-                    <a href="EditFamily.html">
+                    <a href="EditFamily">
                       <img src="../img/EditFamily.jpg" alt="Family Details" />
                     </a>
                   </div>
                   <div class="carousel-item" data-index="5">
-                    <a href="EditPhoto.html">
+                    <a href="EditPhoto">
                       <img src="../img/EditPhoto.jpg" alt="Photo Upload" />
                     </a>
                   </div>
@@ -1283,35 +1283,35 @@
           </h2>
 
           <div id="optionsRow" class="options-row-dashboard">
-            <a href="viewed_info.html">
+            <a href="viewed_info">
               <button class="option-button-dashboard">
                 <i class="fa fa-eye"></i> I Viewed <span id="i_viewed">0</span>
               </button>
             </a>
-            <a href="viewed_info.html">
+            <a href="viewed_info">
               <button class="option-button-dashboard">
                 <i class="fa fa-users"></i> Viewed by Others
                 <span id="viewed_by">0</span>
               </button>
             </a>
-            <a href="liked_info.html">
+            <a href="liked_info">
               <button class="option-button-dashboard">
                 <i class="fa fa-heart"></i> I Liked <span id="i_liked">0</span>
               </button>
             </a>
-            <a href="liked_info.html">
+            <a href="liked_info">
               <button class="option-button-dashboard">
                 <i class="fa fa-heart-o"></i> Liked by Others
                 <span id="liked_by">0</span>
               </button>
             </a>
-            <a href="mutual_liked_info.html">
+            <a href="mutual_liked_info">
               <button class="option-button-dashboard">
                 <i class="fa fa-comments"></i> Mutually Liked
                 <span id="mutual_liked">0</span>
               </button>
             </a>
-            <a href="contacted_info.html">
+            <a href="contacted_info">
               <button class="option-button-dashboard">
                 <i class="fa fa-phone"></i> Contacted
                 <span id="contacted">0</span>
@@ -1384,9 +1384,9 @@
       }
 
       // Load Navbar and Sidebar
-      // loadHTMLContent('navbar-placeholder', 'navbar.html');
+      // loadHTMLContent('navbar-placeholder', 'navbar');
       function setnavbar() {
-        loadHTMLContent("navbar-placeholder", "navbar.html", () => {
+        loadHTMLContent("navbar-placeholder", "navbar", () => {
           const elementMap = {
             profileFor1: "myprofile_fullname",
             profileMatriId: "matriId",
@@ -1412,7 +1412,7 @@
         });
       }
 
-      loadHTMLContent("sidebar-placeholder", "sidebar.html", function () {
+      loadHTMLContent("sidebar-placeholder", "sidebar", function () {
         // Add event listeners after the sidebar content is loaded
         const menus = document.querySelectorAll(".matches-menu");
 
@@ -1486,7 +1486,7 @@
         //consolelog("User logged out");
         localStorage.clear();
         localStorage.setItem("visitedSuccessPage", "true");
-        window.location.href = "Login.html";
+        window.location.href = "Login";
       }
 
       const carouselInner = document.querySelector(".carousel-inner");
@@ -1618,7 +1618,7 @@
               }).then((result) => {
                 if (result.isConfirmed) {
                   // Redirect to the upgrade page
-                  window.location.href = "payment.html";
+                  window.location.href = "payment";
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
                   // Do nothing, alert will close
                   //consolelog("User chose to cancel.");
@@ -1640,7 +1640,7 @@
               localStorage.setItem("weight", profile.weight);
 
               // localStorage.setItem("profile", JSON.stringify(profile));
-              window.location.href = "profile_view.html";
+              window.location.href = "profile_view";
               // Append the card to the container
             } else {
               console.log("maxxxx");
@@ -1658,7 +1658,7 @@
               }).then((result) => {
                 if (result.isConfirmed) {
                   // Redirect to the upgrade page
-                  window.location.href = "payment.html";
+                  window.location.href = "payment";
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
                   // Do nothing, alert will close
                   //consolelog("User chose to cancel.");
@@ -1684,7 +1684,7 @@
                     <img src="../img/2.png" alt="Image" id="uploadImgFirst" style="width: 100%; max-width: 150px; margin-bottom: 10px;border-radius:8px;">
                     <br/>
                     <div>
-                        <a href="edit-image.html" style="text-decoration: none;border-radius:6px;"><button id="uploadImageNew" class="uploadImage_new" style="margin-bottom: 10px;padding:6px;background-color:#1f4a4e;color:white;border-radius:6px;">Upload Image<button></a>
+                        <a href="edit-image" style="text-decoration: none;border-radius:6px;"><button id="uploadImageNew" class="uploadImage_new" style="margin-bottom: 10px;padding:6px;background-color:#1f4a4e;color:white;border-radius:6px;">Upload Image<button></a>
                     </div>
                     <div>
                         <button id="closeImageNew" onclick="closePopup()" style="padding:6px;background-color:red;color:white;border-radius:6px;">Close</button>

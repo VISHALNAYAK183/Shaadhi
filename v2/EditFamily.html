@@ -466,7 +466,7 @@ function set_motherTongue() {
        //consolelog("User logged out");
         localStorage.clear();
         localStorage.setItem("visitedSuccessPage", "true");
-        window.location.href = 'Login.html';
+        window.location.href = 'Login';
     }
      function motherTongue(){
       const data={
@@ -558,11 +558,11 @@ return axios.post(`${BASE_URL}/update_profile.php`, update, {
       confirmButtonText: "OK",
   }).then((result) => {
     if (result.isConfirmed) {
-        window.location.href = 'my_profile.html';  
+        window.location.href = 'my_profile';  
     }
 });
     
-  window.location.href = 'my_profile.html';
+  window.location.href = 'my_profile';
   }else{
      
       

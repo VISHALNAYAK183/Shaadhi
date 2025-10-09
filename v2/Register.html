@@ -251,13 +251,13 @@
             <div class="gender-group">
                 <input type="radio" id="male" name="gender" value="1" required>
                 <label for="male" class="gender-label">
-                    <img src="https://creazilla-store.fra1.digitaloceanspaces.com/icons/7915246/male-icon-md.png" alt="Male Icon">
+                    <img src="../img/shaadhi_men.png" alt="Male Icon">
                     Male
                 </label>
         
                 <input type="radio" id="female" name="gender" value="2" required>
                 <label for="female" class="gender-label">
-                    <img src="https://creazilla-store.fra1.digitaloceanspaces.com/icons/7914838/woman-icon-md.png" alt="Female Icon">
+                    <img src="../img/shaadhi_women.png" alt="Female Icon">
                     Female
                 </label>
             </div>
@@ -592,7 +592,7 @@ $(document).ready(function() {
                 localStorage.setItem('mId', response.data.data[0].id);
                //consolelog(response.data.data[0].id);
                 document.getElementById("loader").style.display = "none";
-                window.location.href = 'AdditionalDetail.html';
+                window.location.href = 'AdditionalDetail';
                 }else{
                    
                     

@@ -1007,11 +1007,11 @@ function submitForm() {
             
 
             if(response.data.message.p_out_mssg_flg === 'Y'){
-                    window.location.href = 'dashboard.html';
+                    window.location.href = 'dashboard';
                     localStorage.setItem('matriId', matri_id);
                     localStorage.setItem('mId', id);
                     document.getElementById("loader").style.display = "none";
-                //window.location.href = 'EducationDetails.html';
+                //window.location.href = 'EducationDetails';
             }else{
               document.getElementById("loader").style.display = "none";
               Swal.fire({

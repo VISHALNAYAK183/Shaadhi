@@ -358,7 +358,7 @@ if (myProfileNew.remark) {
    //consolelog("User logged out");
     localStorage.clear();
     localStorage.setItem("visitedSuccessPage", "true");
-    window.location.href = 'Login.html';
+    window.location.href = 'Login';
 }
       function set_state() {
         const defaultstate = myProfileNew.state_id; 
@@ -858,7 +858,7 @@ return axios.post(`${BASE_URL}/update_profile.php`, data, {
         confirmButtonText: "OK",
     }).then((result) => {
     if (result.isConfirmed) {
-        window.location.href = 'my_profile.html';  
+        window.location.href = 'my_profile';  
     }
 });
     }else{
@@ -892,7 +892,7 @@ return axios.post(`${BASE_URL}/update_profile.php`, data, {
     //             localStorage.setItem('mId', response.data.data[0].id);
     //            //consolelog(response.data.data[0].id);
     //             document.getElementById("loader").style.display = "none";
-    //             // window.location.href = 'my_profile.html';
+    //             // window.location.href = 'my_profile';
     //         }else{
     //             document.getElementById("loader").style.display = "none";
     //              //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);

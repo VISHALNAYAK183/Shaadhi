@@ -259,8 +259,8 @@
         }
 
 
-        // loadHTMLContent('navbar-placeholder', 'navbar.html');
-        loadHTMLContent('navbar-placeholder', 'navbar.html', () => {
+        // loadHTMLContent('navbar-placeholder', 'navbar');
+        loadHTMLContent('navbar-placeholder', 'navbar', () => {
             // Mapping elements to their corresponding localStorage keys
             const elementMap = {
                 profileFor1: 'myprofile_fullname',
@@ -286,7 +286,7 @@
             });
         });
 
-        loadHTMLContent('sidebar-placeholder', 'sidebar.html', function () {
+        loadHTMLContent('sidebar-placeholder', 'sidebar', function () {
             const menus = document.querySelectorAll('.matches-menu');
             menus.forEach(menu => {
                 menu.addEventListener('click', function (event) {
@@ -342,7 +342,7 @@
         function logout() {
             localStorage.clear();
             localStorage.setItem("visitedSuccessPage", "true");
-            window.location.href = 'Login.html';
+            window.location.href = 'Login';
         }
         /* function get_msg_entry() {
              const maxMsgCount = parseInt(localStorage.getItem("max_msg_count"), 10);
@@ -398,7 +398,7 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         // Redirect to the upgrade page
-                        window.location.href = "payment.html";
+                        window.location.href = "payment";
                     } else if (result.dismiss === Swal.DismissReason.cancel) {
                         // Do nothing, alert will close
                         //consolelog("User chose to cancel.");
@@ -421,7 +421,7 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         // Redirect to the upgrade page
-                        window.location.href = "payment.html";
+                        window.location.href = "payment";
                     } else if (result.dismiss === Swal.DismissReason.cancel) {
                         // Do nothing, alert will close
                         //consolelog("User chose to cancel.");
@@ -443,7 +443,7 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         // Redirect to the upgrade page
-                        window.location.href = "payment.html";
+                        window.location.href = "payment";
                     } else if (result.dismiss === Swal.DismissReason.cancel) {
                         // Do nothing, alert will close
                         //consolelog("User chose to cancel.");
@@ -612,7 +612,7 @@
                     }).then((result) => {
                         if (result.isConfirmed) {
                             // Redirect to the upgrade page
-                            window.location.href = "payment.html";
+                            window.location.href = "payment";
                         } else if (result.dismiss === Swal.DismissReason.cancel) {
                             // Do nothing, alert will close
                             //consolelog("User chose to cancel.");
@@ -661,7 +661,7 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         // Redirect to the upgrade page
-                        window.location.href = "payment.html";
+                        window.location.href = "payment";
                     } else if (result.dismiss === Swal.DismissReason.cancel) {
                         // Do nothing, alert will close
                         //consolelog("User chose to cancel.");
@@ -683,7 +683,7 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         // Redirect to the upgrade page
-                        window.location.href = "payment.html";
+                        window.location.href = "payment";
                     } else if (result.dismiss === Swal.DismissReason.cancel) {
                         // Do nothing, alert will close
                         //consolelog("User chose to cancel.");
@@ -711,7 +711,7 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         // Redirect to the upgrade page
-                        window.location.href = "payment.html";
+                        window.location.href = "payment";
                     } else if (result.dismiss === Swal.DismissReason.cancel) {
                     }
                 });

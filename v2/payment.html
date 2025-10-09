@@ -593,8 +593,8 @@
         }
 
         // Load Navbar and Sidebar
-        // loadHTMLContent('navbar-placeholder', 'navbar.html');
-        loadHTMLContent('navbar-placeholder', 'navbar.html', () => {
+        // loadHTMLContent('navbar-placeholder', 'navbar');
+        loadHTMLContent('navbar-placeholder', 'navbar', () => {
                 const elementMap = {
                     profileFor1: 'myprofile_fullname',
                     profileMatriId: 'matriId',
@@ -618,7 +618,7 @@
                     }
                 });
             });
-        loadHTMLContent('sidebar-placeholder', 'sidebar.html', function () {
+        loadHTMLContent('sidebar-placeholder', 'sidebar', function () {
             // Add event listeners after the sidebar content is loaded
             const menus = document.querySelectorAll('.matches-menu');
 
@@ -683,7 +683,7 @@
            //consolelog("User logged out");
             localStorage.clear();
             localStorage.setItem("visitedSuccessPage", "true");
-            window.location.href = 'Login.html';
+            window.location.href = 'Login';
         }
 
         const data1 = {
