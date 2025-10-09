@@ -443,72 +443,74 @@ html, body {
 
 /* Card Styling */
 .card-container-wrapper {
-    position: relative;
-    overflow-x: auto;
-    display: flex;
-    padding-bottom: 15px;
-    scroll-behavior: smooth;
-    width: 100%;
+  position: relative;
+  overflow-x: auto;
+  display: flex;
+  padding-bottom: 15px;
+  scroll-behavior: smooth;
+  width: 100%;
 }
 
 .card-container {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 15px;
-    justify-content: flex-start;
-    white-space: nowrap;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 15px;
+  justify-content: flex-start;
+  white-space: nowrap;
 }
 
 .card {
-    width: 200px;
-    margin: 0;
-    padding: 0;
-    border: 1px solid #e3f2fd;
-    border-radius: 15px;
-    text-align: center;
-    background: white;
-    box-shadow: 0 8px 25px rgba(33, 150, 243, 0.1);
-    transition: all 0.3s ease;
-    overflow: hidden;
-    position: relative;
+  width: 150px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  text-align: left;
+  position: relative;
+  cursor: default;
+  transition: none !important;
 }
 
 .card:hover {
-    background: linear-gradient(135deg, #c3a38c 0%, #c3a38c 50%, #c3a38c 100%);
-    cursor: pointer;
-    color: white;
-    box-shadow: 0 12px 35px rgba(33, 150, 243, 0.3);
-    transform: translateY(-8px);
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+  cursor: default;
 }
 
 .card img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    border-radius: 15px 15px 0 0;
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 15px;
+  display: block;
+  transition: none !important;
+}
+
+.card img:hover {
+  transform: none;
+  filter: none;
 }
 
 .card-details {
-    /* padding: 15px; */
-    font-size: 13px;
+  /* padding-top: 8px; */
+ 
+  color: #000;
+  line-height: 1.5;
 }
 
 .card-details h4 {
-    font-family: 'Playfair Display', serif;
-    margin-bottom: 8px;
-    font-weight: 600;
+  font-family: "Poppins", sans-serif;
+
+  margin-bottom: 1px;
+   font-size: 16px;
+  font-weight: 600;
+  color: #000;
 }
 
 .card-details p {
-    margin: 4px 0;
-    opacity: 0.8;
-}
-
-.card-text {
-    text-align: left;
-    margin: 0;
-    font-size: 14px;
-    color: #333;
+  margin: 2px 0;
+   font-size: 12px;
+  color: #0e0101;
 }
 
 /* Premium verification badge */

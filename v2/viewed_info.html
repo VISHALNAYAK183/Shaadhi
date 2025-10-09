@@ -93,16 +93,19 @@
     
     /*shetty */
     /* General responsive rules */
-body, html {
-    margin: 0;
-    padding: 0;
-    width: 100%;
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: auto !important; /* enable natural scroll */
 }
+
 
 /* Dashboard container layout */
 .dashboard-container {
-    display: flex;
-    min-height: 100vh;
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 100vh; /* allow flexible height */
 }
 
 /* Sidebar default (desktop) */
@@ -113,10 +116,19 @@ body, html {
 
 /* Main content takes rest */
 .content {
-    flex: 1;
-    padding: 1rem;
-    overflow-x: hidden;
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: calc(100vh - 60px); /* adjust if you have header/navbar */
 }
+
+ .toggle-btn {
+  display: none;
+}
+
+
+
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
@@ -165,6 +177,62 @@ body, html {
         margin-top: 10px;
         display: block;
     }
+
+
+
+
+    .sidebar {
+    position: fixed;
+    top: 0;
+    left: -220px; /* hidden by default */
+    width: 220px;
+    height: 100vh;
+    background: #f5e7df;; /* adjust to your color */
+    color: inherit;
+     transition: transform 0.3s ease;
+    transform: translateX(-5px);
+    z-index: 1000;
+    padding: 1rem;
+  }
+
+  /* When sidebar is open */
+  .sidebar.open {
+    left: 0;
+  }
+
+  /* Show toggle button only on small screens */
+  .toggle-btn {
+    display: block;
+    position: fixed;
+    top: 2px;
+    left: 10px;
+    z-index: 1100;
+    background: #c3a38c;
+    color: white;
+    border: none;
+    padding: 5px 5px;
+    font-size: 20px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .sidebar.open h3.container-header1 {
+    display: none;
+  }
+
+  .sidebar.open hr.container-header1 {
+    display: none;
+  }
+
+  .sidebar.open ul {
+    margin-top: 25px;
+  }
+
+  /* Optional – prevent content shift */
+  .main-content {
+    margin-left: 0;
+  }
+
 }
 
 @media (max-width: 480px) {
@@ -193,59 +261,122 @@ body, html {
     .card-container {
         grid-template-columns: 1fr;
     }
+
+
+
+
+
+    .sidebar {
+    position: fixed;
+    top: 0;
+    left: -220px; /* hidden by default */
+    width: 220px;
+    height: 100vh;
+    background: #f5e7df;; /* adjust to your color */
+    color: inherit;
+     transition: transform 0.3s ease;
+    transform: translateX(-5px);
+    z-index: 1000;
+    padding: 1rem;
+  }
+
+  /* When sidebar is open */
+  .sidebar.open {
+    left: 0;
+  }
+
+  /* Show toggle button only on small screens */
+  .toggle-btn {
+    display: block;
+    position: fixed;
+    top: 2px;
+    left: 10px;
+    z-index: 1100;
+    background: #c3a38c;
+    color: white;
+    border: none;
+    padding: 5px 5px;
+    font-size: 20px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .sidebar.open h3.container-header1 {
+    display: none;
+  }
+
+  .sidebar.open hr.container-header1 {
+    display: none;
+  }
+
+  .sidebar.open ul {
+    margin-top: 25px;
+  }
+
+  /* Optional – prevent content shift */
+  .main-content {
+    margin-left: 0;
+  }
+
 }
 
 
 /* ============================
    Card Styling (Clean + Simple)
 =============================== */
+/* Card Styling */
 .card-container-wrapper {
-    position: relative;
-    overflow-x: auto;
-    display: flex;
-    padding-bottom: 15px;
-    scroll-behavior: smooth;
-    width: 100%;
+  position: relative;
+  overflow-x: auto;
+  display: flex;
+  padding-bottom: 15px;
+  scroll-behavior: smooth;
+  width: 100%;
 }
 
 .card-container {
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 15px;
-    justify-content: flex-start;
-    white-space: nowrap;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 15px;
+  justify-content: flex-start;
+  white-space: nowrap;
 }
 
 .card {
-    width: 200px;
-    border: none;
-    border-radius: 15px;
-    text-align: center;
-    background: transparent;
-    box-shadow: none;
-    transition: none;
-    overflow: hidden;
-    cursor: default;
+  width: 150px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  text-align: left;
+  position: relative;
+  cursor: default;
+  transition: none !important;
 }
 
 .card:hover {
-    transform: none;
-    box-shadow: none;
-    background: transparent;
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+  cursor: default;
 }
 
-/* Image fills top area neatly */
-.card img.card-image {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 15px;
-    display: block;
+.card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 15px;
+  display: block;
+  transition: none !important;
+}
+
+.card img:hover {
+  transform: none;
+  filter: none;
 }
 
 .card-details {
   /* padding-top: 8px; */
- text-align: left;
+ 
   color: #000;
   line-height: 1.5;
 }
@@ -266,27 +397,6 @@ body, html {
 }
 
 
-/* Remove hover from button (if shown) */
-.card-wrapper .edit-button {
-    pointer-events: none; /* disable hover click */
-    background: transparent;
-    border: none;
-    box-shadow: none;
-}
-
-/* Responsive: cards become vertical on mobile */
-@media (max-width: 768px) {
-    .card-container {
-        flex-wrap: wrap;
-        white-space: normal;
-        justify-content: center;
-    }
-    .card {
-        width: 100%;
-        max-width: 260px;
-    }
-}
-
 </style>
 <body>
 
@@ -294,6 +404,8 @@ body, html {
 
     <!-- Main Layout -->
     <div class="dashboard-container">
+        <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+
         <!-- Sidebar -->
         <div id="sidebar-placeholder"></div>
 
@@ -696,6 +808,12 @@ function filterProfiles() {
         });
     });
 }
+
+
+function toggleSidebar() {
+    document.querySelector('.sidebar').classList.toggle('open');
+  }
+
     </script>
     <script src="maxcount.js"></script>
 </body>

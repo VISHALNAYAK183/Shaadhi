@@ -101,12 +101,85 @@
     min-width: 0;
 }
 
-/* Card grid */
-.card-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 1rem;
+
+/* Card Styling */
+.card-container-wrapper {
+  position: relative;
+  overflow-x: auto;
+  display: flex;
+  padding-bottom: 15px;
+  scroll-behavior: smooth;
+  width: 100%;
 }
+
+.card-container {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 15px;
+  justify-content: flex-start;
+  white-space: nowrap;
+}
+
+.card {
+  width: 150px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  text-align: left;
+  position: relative;
+  cursor: default;
+  transition: none !important;
+}
+
+.card:hover {
+  background: transparent;
+  box-shadow: none;
+  transform: none;
+  cursor: default;
+}
+
+.card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 15px;
+  display: block;
+  transition: none !important;
+}
+
+.card img:hover {
+  transform: none;
+  filter: none;
+}
+
+.card-details {
+  /* padding-top: 8px; */
+ 
+  color: #000;
+  line-height: 1.5;
+}
+
+.card-details h4 {
+  font-family: "Poppins", sans-serif;
+
+  margin-bottom: 1px;
+   font-size: 16px;
+  font-weight: 600;
+  color: #000;
+}
+
+.card-details p {
+  margin: 2px 0;
+   font-size: 12px;
+  color: #0e0101;
+}
+
+ .toggle-btn {
+  display: none;
+}
+
+
+
 
 /* 📱 Tablets and small laptops */
 @media (max-width: 992px) {
@@ -167,6 +240,62 @@
         width: 100%;
         font-size: 13px;
     }
+
+
+
+
+    .sidebar {
+    position: fixed;
+    top: 0;
+    left: -220px; /* hidden by default */
+    width: 220px;
+    height: 100vh;
+    background: #f5e7df;; /* adjust to your color */
+    color: inherit;
+     transition: transform 0.3s ease;
+    transform: translateX(-5px);
+    z-index: 1000;
+    padding: 1rem;
+  }
+
+  /* When sidebar is open */
+  .sidebar.open {
+    left: 0;
+  }
+
+  /* Show toggle button only on small screens */
+  .toggle-btn {
+    display: block;
+    position: fixed;
+    top: 2px;
+    left: 10px;
+    z-index: 1100;
+    background: #c3a38c;
+    color: white;
+    border: none;
+    padding: 5px 5px;
+    font-size: 20px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .sidebar.open h3.container-header1 {
+    display: none;
+  }
+
+  .sidebar.open hr.container-header1 {
+    display: none;
+  }
+
+  .sidebar.open ul {
+    margin-top: 25px;
+  }
+
+  /* Optional – prevent content shift */
+  .main-content {
+    margin-left: 0;
+  }
+
 }
 
 /* Newly added */
@@ -185,31 +314,9 @@ html, body {
   max-height: 100vh; /* keep it within viewport */
 }
 
-/* Card container - horizontal layout by default */
-.card-container {
-  display: flex;
-  flex-wrap: nowrap;        /* Prevent wrapping (horizontal scroll) */
-  gap: 1rem;
-  overflow-x: auto;         /* Enable horizontal scroll */
-  overflow-y: hidden;
-  padding-bottom: 1rem;     /* Some spacing at the bottom */
-  scroll-behavior: smooth;
-}
 
-/* Card styles (optional - make them uniform) */
-.card {
-  min-width: 220px;
-  flex: 0 0 auto;           /* Ensure cards don't shrink */
-  border: 1px solid #ddd;
-  border-radius: 10px;
-  background: #fff;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease;
-}
 
-.card:hover {
-  transform: translateY(-5px);
-}
+
 
 /* Make cards vertical on mobile screens */
 @media (max-width: 768px) {
@@ -223,6 +330,62 @@ html, body {
   .card {
     width: 100%; /* Take full width */
   }
+
+
+
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -220px; /* hidden by default */
+    width: 220px;
+    height: 100vh;
+    background: #f5e7df;; /* adjust to your color */
+    color: inherit;
+     transition: transform 0.3s ease;
+    transform: translateX(-5px);
+    z-index: 1000;
+    padding: 1rem;
+  }
+
+  /* When sidebar is open */
+  .sidebar.open {
+    left: 0;
+  }
+
+  /* Show toggle button only on small screens */
+  .toggle-btn {
+    display: block;
+    position: fixed;
+    top: 2px;
+    left: 10px;
+    z-index: 1100;
+    background: #c3a38c;
+    color: white;
+    border: none;
+    padding: 5px 5px;
+    font-size: 20px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .sidebar.open h3.container-header1 {
+    display: none;
+  }
+
+  .sidebar.open hr.container-header1 {
+    display: none;
+  }
+
+  .sidebar.open ul {
+    margin-top: 25px;
+  }
+
+  /* Optional – prevent content shift */
+  .main-content {
+    margin-left: 0;
+  }
+
 }
 
 </style>
@@ -232,6 +395,8 @@ html, body {
 
     <!-- Main Layout -->
     <div class="dashboard-container">
+        <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
+
         <!-- Sidebar -->
         <div id="sidebar-placeholder"></div>
 
@@ -434,8 +599,7 @@ html, body {
                         <img src="${imgURL}" alt="${profile.first_name}" class="card-image">
                         <div class="card-details">
                             <h4>${profile.first_name}</h4>
-                            <p>Age: ${profile.age}</p>
-                             <p>Matri Id: ${profile.matri_id}</p>
+                             <p> ${profile.age} Yrs , ${profile.matri_id}</p>
                             
                         </div>
                     </div>
@@ -573,6 +737,12 @@ function filterProfiles() {
         });
     });
 }
+
+
+function toggleSidebar() {
+    document.querySelector('.sidebar').classList.toggle('open');
+  }
+
 
         // window.onload = generateCards;
     </script>
