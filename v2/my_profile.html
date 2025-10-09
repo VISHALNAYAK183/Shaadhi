@@ -1006,7 +1006,8 @@ body {
     function call_api(data){
         axios.post(`${BASE_URL}/edit_image.php`, data, {
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                  "Authorization": "Bearer " + localStorage.getItem("jwtToken")
             }
         })
         .then(response => {
@@ -1048,7 +1049,8 @@ body {
     function call_delete_api(data) {
         axios.post(`${BASE_URL}/edit_image.php`, data, {
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                  "Authorization": "Bearer " + localStorage.getItem("jwtToken")
             }
         })
         .then(response => {
