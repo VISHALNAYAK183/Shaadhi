@@ -6,6 +6,7 @@
     <title>Contacted Information</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../css/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <link rel="shortcut icon" type="image/png" href="../img/icon-72x72.png">
     <link rel="shortcut icon" type="image/png" href="../img/icon-96x96.png">
     <link rel="shortcut icon" type="image/png" href="../img/icon-128x128.png">
@@ -640,62 +641,110 @@
          });
      }
 
-        let profileContacted=[];
-      function toggleOptionContacted(){
-        showWaitingDialog();
-        const data1 = {
-          matri_id:localStorage.getItem('matriId'),
-          type: "icontacted"
-        };
-       //consolelog(data1);
-
-        axios.post(`${BASE_URL}/z_contacted_profile2.php`, data1, {
-            headers: {
-                'Content-Type': 'application/json',
-                "Authorization": "Bearer " + localStorage.getItem("jwtToken")
-            }
-        })
-        .then(function(response) {
-           //consolelog('Success:', response.data);
-            if(response.data.message.p_out_mssg_flg === 'Y'){
-             //consolelog('Success:', response.data.dataout);
-              profileContacted=response.data.dataout;
-              const contactedProfiles = profileContacted.filter(user => user.matri_id);
-              //contacted_count
-              document.getElementById('contacted_count').innerText=contactedProfiles.length;
-              populateCards('contacted-container', contactedProfiles);
-              hideWaitingDialog();
-            }else{
-                hideWaitingDialog();
-             //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);
-            }
-        });
-      }
+       let profileContacted = [];
 
 
-
-        var baseURL='';
 document.addEventListener('DOMContentLoaded', function () {
-   
-    
-    if(localStorage.getItem('matriId')== 'NULL'||localStorage.getItem('matriId')==''||localStorage.getItem('matriId')== null ){
-        logout();
+  const matriId = localStorage.getItem('matriId');
+  const token = localStorage.getItem('jwtToken');
+
+  // 🔹 Check if user is logged in and token valid
+  if (!matriId || matriId === 'NULL' || matriId === '' || !token || isTokenExpired(token)) {
+    logout("Your session has expired. Please log in again.");
+    return;
+  }
+
+  toggleOptionContacted();
+});
+
+function isTokenExpired(token) {
+  if (!token) return true;
+  try {
+    const payload = JSON.parse(atob(token.split('.')[1]));
+    const currentTime = Math.floor(Date.now() / 1000);
+    return payload.exp < currentTime;
+  } catch (e) {
+    console.error("Error decoding token:", e);
+    return true;
+  }
+}
+
+function logout(message = "You have been logged out successfully!") {
+
+  hideWaitingDialog();
+
+  Swal.fire({
+    icon: "info",
+    title: "Session Ended",
+    text: message,
+    confirmButtonText: "OK",
+  }).then(() => {
+    localStorage.removeItem("jwtToken");
+    localStorage.removeItem("matriId");
+    window.location.href = "login.html";
+  });
+}
+
+
+function showWaitingDialog() {
+  const dialog = document.getElementById('waiting-dialog');
+  if (dialog) dialog.style.display = 'flex';
+}
+
+function hideWaitingDialog() {
+  const dialog = document.getElementById('waiting-dialog');
+  if (dialog) dialog.style.display = 'none';
+}
+
+function toggleOptionContacted() {
+  showWaitingDialog();
+
+  const data1 = {
+    matri_id: localStorage.getItem('matriId'),
+    type: "icontacted"
+  };
+
+  const token = localStorage.getItem("jwtToken");
+
+  // 🔹 Check before API call
+  if (!token || isTokenExpired(token)) {
+    hideWaitingDialog();
+    logout("Your session has expired. Please log in again.");
+    return;
+  }
+
+  axios.post(`${BASE_URL}/z_contacted_profile2.php`, data1, {
+    headers: {
+      'Content-Type': 'application/json',
+      "Authorization": "Bearer " + token
     }
-  
-        toggleOptionContacted();
-    });
-
-
-    const waitingDialog = document.getElementById('waiting-dialog');
-    function showWaitingDialog() {
-        waitingDialog.style.display = 'flex';
+  })
+  .then(function(response) {
+    if (response.status === 401 || response.data?.error === "Token expired") {
+      hideWaitingDialog();
+      logout("Your session has expired. Please log in again.");
+      return;
     }
 
-    // Hide the waiting dialog
-    function hideWaitingDialog() {
-        waitingDialog.style.display = 'none';
+    if (response.data.message?.p_out_mssg_flg === 'Y') {
+      profileContacted = response.data.dataout || [];
+      const contactedProfiles = profileContacted.filter(user => user.matri_id);
+      document.getElementById('contacted_count').innerText = contactedProfiles.length;
+      populateCards('contacted-container', contactedProfiles);
+    } else {
+      console.warn("Error:", response.data.message?.p_out_mssg);
     }
-
+  })
+  .catch(function(error) {
+    console.error("API Error:", error);
+    if (error.response && error.response.status === 401) {
+      logout("Your session has expired. Please log in again.");
+    }
+  })
+  .finally(() => {
+    hideWaitingDialog();
+  });
+}
     function get_entry() {
         const maxProfileCount = parseInt(localStorage.getItem("max_profile_count"), 10);
         const viewedProfileCount = parseInt(localStorage.getItem("viewed_profile_count"), 10);
