@@ -1,84 +1,114 @@
-// chat_list.js
-
-// Wait for the DOM to be fully loaded
-// document.addEventListener('DOMContentLoaded', () =>
-  function get_list_js() {
-  
-
+function get_list_js() {
   const myPlanStatus = localStorage.getItem("my_plan_status");
-  
   const upgradeCard = document.getElementById("upgrade_card");
   const listCard = document.getElementById("list_card");
-
-  
   const chatListContainer = document.getElementById('chatList');
 
-  // Ensure that the element exists before proceeding
   if (!chatListContainer) {
-   console.error('Chat list container not found!');
+    console.error('Chat list container not found!');
     return;
   }
 
-  // Function to fetch chat list data
+
+  function logout() {
+    localStorage.removeItem("jwtToken");
+    localStorage.removeItem("matriId");
+    window.location.href = "login.html";
+  }
+
+  function isTokenExpired(token) {
+    if (!token) return true;
+    try {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      const currentTime = Math.floor(Date.now() / 1000);
+      return payload.exp < currentTime;
+    } catch (e) {
+      console.error("Error decoding token:", e);
+      return true;
+    }
+  }
+
+
   async function fetchChatList() {
+    const token = localStorage.getItem("jwtToken");
 
-    if (myPlanStatus != 'Paid') {
-      upgradeCard.style.display = 'block';
-   } else {
-       if (listCard) listCard.style.display = 'block';  
-       get_list_js();
-   }
+    if (!token || isTokenExpired(token)) {
+      console.warn("Session expired or token missing!");
+      logout();
+      return;
+    }
 
-   async function get_list_js(){
+    if (myPlanStatus !== "Paid") {
+      upgradeCard.style.display = "block";
+    } else {
+      if (listCard) listCard.style.display = "block";
+      await getChatList();
+    }
+  }
+
+
+  async function getChatList() {
     try {
       const response = await fetch(`${BASE_URL}/message.php`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'Authorization': 'Bearer ' + localStorage.getItem("jwtToken")
         },
         body: JSON.stringify({
-          matri_id: localStorage.getItem("matriId"), // Replace with logged-in user's matri_id
+          matri_id: localStorage.getItem("matriId"),
           type: 'chat_list',
         }),
       });
+
+      if (response.status === 401) {
+        console.warn("Unauthorized - Token expired!");
+        logout();
+        return;
+      }
 
       if (!response.ok) {
         throw new Error('Failed to fetch chat list');
       }
 
       const data = await response.json();
-      populateChatList(data.dataout); // Call function to populate the list
+
+   
+      if (data.error && data.error === "Token expired") {
+        console.warn("Token expired - Redirecting to login!");
+        logout();
+        return;
+      }
+
+      populateChatList(data.dataout);
     } catch (error) {
-     console.error('Error fetching chat list:', error);
+      console.error('Error fetching chat list:', error);
+      logout(); 
     }
   }
-}
-  
 
-  // Function to populate the chat list
   function populateChatList(chatList) {
+    chatListContainer.innerHTML = "";
+
     chatList.forEach((chat) => {
       const listItem = document.createElement('li');
       listItem.innerHTML = `
-        <img src="${localStorage.getItem("baseURL")+chat.url}" alt="${chat.first_name} ${chat.last_name}"/>
+        <img src="${localStorage.getItem("baseURL") + chat.url}" alt="${chat.first_name} ${chat.last_name}" />
         <div style="display: flex; flex-direction: column;">
-        <span>${chat.first_name} ${chat.last_name}</span>
-        <span>${chat.matri_id}</span>
+          <span>${chat.first_name} ${chat.last_name}</span>
+          <span>${chat.matri_id}</span>
         </div>
       `;
-      listItem.addEventListener('click', () => openChat(chat));  // Open chat on click
+      listItem.addEventListener('click', () => openChat(chat));
       chatListContainer.appendChild(listItem);
     });
   }
 
-  // Fetch the chat list when the page loads
+
   fetchChatList();
-
 }
-// );
 
-// Function to open the chat page (function call)
+
 function openChat(chat) {
-  // Open the chat page by passing necessary data
-  openChatPage(chat.matri_id, chat.first_name+" "+chat.last_name, chat.url);
+  openChatPage(chat.matri_id, chat.first_name + " " + chat.last_name, chat.url);
 }
