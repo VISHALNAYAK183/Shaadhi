@@ -1100,6 +1100,52 @@
           margin-left: 0;
         }
       }
+
+
+
+      /* Newly added for liked buttons */
+      .options-row-dashboard {
+  margin: 2rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+}
+
+.option-button-dashboard {
+  flex: 1 1 22%; /* default: 4–5 per row on large screens */
+  min-width: 140px;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  background: linear-gradient(135deg, #c3a38c 0%, #c3a38c 100%);
+  color: #ffffff;
+  box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+  transition: all 0.3s ease;
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.option-button-dashboard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(33, 150, 243, 0.4);
+  background: linear-gradient(135deg, #c3a38c 0%, #c3a38c 100%);
+}
+
+.options-row-dashboard a {
+  text-decoration: none;
+  color: white;
+}
+
+/* ✅ For mobile: exactly 2 buttons per row */
+@media (max-width: 768px) {
+  .option-button-dashboard {
+    flex: 1 1 45%; /* 2 per row */
+    min-width: 150px;
+  }
+}
+
     </style>
   </head>
   <body>
@@ -1738,13 +1784,6 @@
         } else {
           progressBar.style.backgroundColor = "#4caf50"; // Green
         }
-
-        // Update progress bar width and color
-        // progressBar.style.width = `${percent}%`;
-        // progressBar.style.backgroundColor = colors[Math.floor(percent / 10)];
-
-        // // Update percentage display
-        // profilePercent.textContent = `${percent}%`;
       }
 
       let baseURL = "";
@@ -1784,6 +1823,20 @@
        //consolelog("score",sc);
     }*/
 
+    function handleSessionExpired() {
+    alert("Your session has expired. Please log in again.");
+    localStorage.removeItem("jwtToken");
+    localStorage.removeItem("matriId");
+    localStorage.removeItem("mId");
+    window.location.href = "login.html";
+  }
+
+  function checkMatchedCount(matched_array_length) {
+    document.getElementById("no-profile-matched").style.display =
+      matched_array_length == 0 ? "block" : "none";
+  }
+
+
         const data = {
           id: localStorage.getItem("mId"),
           matri_id: localStorage.getItem("matriId"),
@@ -1800,6 +1853,18 @@
           })
           .then(function (response) {
             console.log("Success:", response.data);
+             if (
+        response.status === 401 ||
+        (response.data.message &&
+          response.data.message.p_out_mssg_flg === "E" &&
+          (
+            response.data.message.p_out_mssg.toLowerCase().includes("expired") ||
+            response.data.message.p_out_mssg.toLowerCase().includes("invalid token")
+          ))
+      ) {
+        handleSessionExpired();
+        return;
+      }
             console.log("Matri", response.data.my_profile.matri_id);
             if (response.data.message.p_out_mssg === "Y") {
               console.log("Matri", response.data.my_profile.matri_id);
@@ -1881,22 +1946,13 @@
                 response.data.my_profile.profile_status
               );
 
-              // const profileFor = document.getElementById("profileFor");
-              // const profileFor1 = document.getElementById("profileFor1");
-              // const profileId = document.getElementById("profileId");
-              // const profileMatriId = document.getElementById("profileMatriId");
-              // profileFor.textContent = response.data.my_profile.first_name+" "+response.data.my_profile.last_name;
-              // profileFor1.textContent = response.data.my_profile.first_name+" "+response.data.my_profile.last_name;
               localStorage.setItem(
                 "myprofile_fullname",
                 response.data.my_profile.first_name +
                   " " +
                   response.data.my_profile.last_name
               );
-              // profileId.textContent=response.data.my_profile.matri_id;
-              // profileMatriId.textContent=response.data.my_profile.matri_id;
-              // localStorage.setItem("profileFor",(response.data.my_profile.first_name+" "+response.data.my_profile.last_name));
-              // localStorage.setItem("profileFor1",(response.data.my_profile.first_name+" "+response.data.my_profile.last_name));
+            
               localStorage.setItem(
                 "profileId",
                 response.data.my_profile.matri_id
@@ -2131,37 +2187,6 @@
           //consolelog("No matching items found.");
         }
       }
-
-      /*
-function createDots(sc) {
-    const dotsContainer = document.getElementById("carouselDots");
-    dotsContainer.innerHTML = ""; // Clear existing dots
-
-    // Loop through each index in sc and create a dot for each
-    const items = document.querySelectorAll('.carousel-item');
-    let itemsDisplayed = 0;
-
-    items.forEach(item => {
-        const itemIndex = item.getAttribute('data-index');
-        
-        if (sc.includes(itemIndex) && itemsDisplayed < 3) {
-            // Create a new dot for each item that's being displayed
-            const dot = document.createElement("div");
-            dot.classList.add("dot");
-            
-            // Add the active class to the first dot (or modify as needed)
-            if (itemsDisplayed === 0) {
-                dot.classList.add("active");
-            }
-            
-            // Append the dot to the dots container
-            dotsContainer.appendChild(dot);
-            itemsDisplayed++;
-        }
-    });
-}*/
-
-      // window.onload = generateCards;
 
       function toggleSidebar() {
         document.querySelector(".sidebar").classList.toggle("open");
