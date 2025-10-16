@@ -739,46 +739,78 @@ function goBack() {
               "matri_id":matri_id,
                "sub_caste": selectedSubCaste
        };
-                return axios.post(`${BASE_URL}/update_profile.php`, update, {
-                headers: {
-                    'Content-Type': 'application/json',
-                }
-            })
-            //console.log("hello")
-            .then(function(response) {
-                
-                document.getElementById("loader").style.display = "none";
-               //consolelog('Success:', response.data);
+              return axios.post(`${BASE_URL}/update_profile.php`, update, {
+  headers: {
+    'Content-Type': 'application/json',
+    "Authorization": "Bearer " + localStorage.getItem("jwtToken")
+  }
+})
+.then(function (response) {
+  document.getElementById("loader").style.display = "none";
 
-                if(response.data.message.p_out_mssg_flg === 'Y'){
-                  Swal.fire({
-                    title: "Success",
-                    text: "Success",
-                    icon: "success",
-                    confirmButtonText: "OK",
-                }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = 'my_profile';  
-                }
-            });
-                  
-            
-                }else{
-                   
-                    
-                        Swal.fire({
-                            title: "Error!",
-                            text: "Failed.",
-                            icon: "error",
-                            confirmButtonText: "OK",
-                        });
-                   
-                    document.getElementById("loader").style.display = "none";
-                 //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);
-                }
-            });
-        })
-        })
+  // 🔹 Check for token expiry or invalid session from backend message
+  if (
+    response.data.message?.p_out_mssg_flg === 'N' &&
+    (response.data.message?.p_out_mssg?.includes('Token expired') ||
+     response.data.message?.p_out_mssg?.includes('Invalid token'))
+  ) {
+    handleSessionExpiry();
+    return;
+  }
+
+  if (response.data.message.p_out_mssg_flg === 'Y') {
+    Swal.fire({
+      title: "Success",
+      text: "Success",
+      icon: "success",
+      confirmButtonText: "OK",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        window.location.href = 'my_profile';
+      }
+    });
+  } else {
+    Swal.fire({
+      title: "Error!",
+      text: "Failed.",
+      icon: "error",
+      confirmButtonText: "OK",
+    });
+  }
+})
+.catch(function (error) {
+  document.getElementById("loader").style.display = "none";
+
+  // 🔹 If backend returned 401 or any token-related issue
+  if (error.response && error.response.status === 401) {
+    handleSessionExpiry();
+  } else {
+    Swal.fire({
+      title: "Error!",
+      text: "Something went wrong. Please try again.",
+      icon: "error",
+      confirmButtonText: "OK",
+    });
+  }
+});
+
+// 🔹 Common session expiry handler
+function handleSessionExpiry() {
+  document.getElementById("loader").style.display = "none";
+  Swal.fire({
+    icon: "info",
+    title: "Session Expired",
+    text: "Your session has expired. Please log in again.",
+    confirmButtonText: "OK",
+  }).then(() => {
+    localStorage.removeItem("jwtToken");
+    localStorage.removeItem("matriId");
+    window.location.href = "login.html";
+  });
+}
+});
+
+    });
         
         function logout() {
            //consolelog("User logged out");
@@ -789,26 +821,7 @@ function goBack() {
         
 </script>
 <script>
-//   window.addEventListener("DOMContentLoaded", () => {
-//     const myProfileNew = { gender: "1" }; // Simulated data (male)
 
-//     sessionStorage.setItem("formData", JSON.stringify(myProfileNew));
-
-//     const storedData = JSON.parse(sessionStorage.getItem("formData"));
-//    //consolelog("Stored Gender Data:", storedData);
-
-//     if (storedData && storedData.gender) {
-//       const genderValue = storedData.gender;
-//      //consolelog("Gender Value:", genderValue);
-
-//       if (genderValue === "1") {
-//         document.getElementById("male").checked = true;
-//       } else if (genderValue === "2") {
-//         document.getElementById("female").checked = true;
-//       }
-//     }
-//    // set_subcaste();
-//   });
 </script>
 
 </body>
