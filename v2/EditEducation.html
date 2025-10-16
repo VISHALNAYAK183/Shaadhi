@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Education Details</title>
@@ -18,44 +19,49 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
         /* For screens larger than 1200px (large desktops) */
-@media (min-width: 1200px) {
-    /* Styles for large desktops */
-}
+        @media (min-width: 1200px) {
+            /* Styles for large desktops */
+        }
 
-/* For screens between 992px and 1199px (medium to large tablets/desktops) */
-@media (min-width: 992px) and (max-width: 1199px) {
-    /* Styles for tablets and medium screens */
-}
+        /* For screens between 992px and 1199px (medium to large tablets/desktops) */
+        @media (min-width: 992px) and (max-width: 1199px) {
+            /* Styles for tablets and medium screens */
+        }
 
-/* For screens between 768px and 991px (tablets) */
-@media (min-width: 768px) and (max-width: 991px) {
-    /* Styles for tablets */
-}
+        /* For screens between 768px and 991px (tablets) */
+        @media (min-width: 768px) and (max-width: 991px) {
+            /* Styles for tablets */
+        }
 
-/* For screens between 480px and 767px (small tablets or large phones) */
-@media (min-width: 480px) and (max-width: 767px) {
-    /* Styles for small tablets and large phones */
-}
+        /* For screens between 480px and 767px (small tablets or large phones) */
+        @media (min-width: 480px) and (max-width: 767px) {
+            /* Styles for small tablets and large phones */
+        }
 
-/* For screens smaller than 480px (phones) */
-@media (max-width: 479px) {
-    /* Styles for phones */
-}
+        /* For screens smaller than 480px (phones) */
+        @media (max-width: 479px) {
+            /* Styles for phones */
+        }
 
         body {
-            background-image: url('../img/bg-edit.jpg'); 
+            background-image: url('../img/bg-edit.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             font-family: 'Poppins', sans-serif;
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* change from center */
-            min-height: 100vh; /* ensures full viewport height */
+            align-items: flex-start;
+            /* change from center */
+            min-height: 100vh;
+            /* ensures full viewport height */
             margin: 0;
-            padding: 20px 0; /* add top/bottom spacing */
-            overflow-y: auto; /* allows scrolling if content overflows */
+            padding: 20px 0;
+            /* add top/bottom spacing */
+            overflow-y: auto;
+            /* allows scrolling if content overflows */
         }
+
         .form-container {
             background: white;
             padding: 30px;
@@ -66,42 +72,45 @@
             box-sizing: border-box;
         }
 
-        
+
         .form-buttons {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
-}
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
 
-.back-btn, .update-btn {
-    flex: 1;
-    padding: 12px;
-    font-size: 16px;
-    font-weight: bold;
-    border-radius: 5px;
-    cursor: pointer;
-    border: none;
-    transition: background-color 0.3s;
-}
+        .back-btn,
+        .update-btn {
+            flex: 1;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 5px;
+            cursor: pointer;
+            border: none;
+            transition: background-color 0.3s;
+        }
 
-.back-btn {
-    background-color: #e94560; /* Back button color */
-    color: white;
-    margin-right: 10px;
-}
+        .back-btn {
+            background-color: #e94560;
+            /* Back button color */
+            color: white;
+            margin-right: 10px;
+        }
 
-.back-btn:hover {
-    background-color: #c92b3a;
-}
+        .back-btn:hover {
+            background-color: #c92b3a;
+        }
 
-.update-btn {
-    background-color: #c3a38c; /* Your existing update button color */
-    color: white;
-}
+        .update-btn {
+            background-color: #c3a38c;
+            /* Your existing update button color */
+            color: white;
+        }
 
-.update-btn:hover {
-    background-color: #a63900;
-}
+        .update-btn:hover {
+            background-color: #a63900;
+        }
 
         .container {
             background-color: #fff;
@@ -110,21 +119,26 @@
             box-shadow: 0px 10px 15px rgba(0, 0, 0, 0.2);
             width: 400px;
         }
+
         h2 {
             text-align: center;
             color: #333;
             margin-bottom: 20px;
         }
+
         .form-group {
             margin-bottom: 15px;
         }
+
         label {
             display: block;
             margin-bottom: 5px;
             color: #444;
             font-weight: bold;
         }
-        input[type="text"], select {
+
+        input[type="text"],
+        select {
             padding: 10px;
             width: 100%;
             border: 2px solid #ddd;
@@ -133,31 +147,45 @@
             transition: border-color 0.3s ease;
             box-sizing: border-box;
         }
-        input[type="text"]:focus, select:focus {
+
+        input[type="text"]:focus,
+        select:focus {
             border-color: #4a90e2;
             outline: none;
         }
+
         .button-group {
             display: flex;
-            justify-content: space-between; /* Space out the buttons */
+            justify-content: space-between;
+            /* Space out the buttons */
             flex-wrap: wrap;
         }
+
         .profession-button {
-            color: black; /* Initial text color */
-            background-color: white; /* Initial background color */
+            color: black;
+            /* Initial text color */
+            background-color: white;
+            /* Initial background color */
             border: 2px solid #ddd;
             border-radius: 5px;
-            padding: 8px 10px; /* Smaller padding for smaller buttons */
-            font-size: 14px; /* Smaller font size */
+            padding: 8px 10px;
+            /* Smaller padding for smaller buttons */
+            font-size: 14px;
+            /* Smaller font size */
             margin: 5px;
             cursor: pointer;
-            flex: 1 0 30%; /* Adjust width to fit buttons side by side */
+            flex: 1 0 30%;
+            /* Adjust width to fit buttons side by side */
             transition: background-color 0.3s, color 0.3s;
         }
+
         .profession-button.selected {
-            background-color: rgb(0, 0, 0); /* Background color when selected */
-            color: white; /* Text color when selected */
+            background-color: rgb(0, 0, 0);
+            /* Background color when selected */
+            color: white;
+            /* Text color when selected */
         }
+
         button {
             width: 100%;
             padding: 12px;
@@ -170,10 +198,12 @@
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
+
         button:hover {
             background-color: #e94560;
         }
-        a{
+
+        a {
             text-decoration: none;
             color: white;
         }
@@ -187,9 +217,12 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
-            z-index: 9999; /* Ensure it appears above other content */
-            display: none; /* Hide by default */
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Semi-transparent background */
+            z-index: 9999;
+            /* Ensure it appears above other content */
+            display: none;
+            /* Hide by default */
         }
 
         /* Loader Text and Dots */
@@ -229,14 +262,21 @@
 
         /* Bounce Animation for Dots */
         @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
                 opacity: 0;
                 transform: translateY(0);
             }
+
             40% {
                 opacity: 1;
                 transform: translateY(-10px);
             }
+
             60% {
                 opacity: 1;
                 transform: translateY(-5px);
@@ -258,58 +298,57 @@
         #loadButton:hover {
             background-color: #0056b3;
         }
-
     </style>
     <script>
-      window.addEventListener("DOMContentLoaded", () => {
-        // Retrieve the dynamically stored data
-        const formData = sessionStorage.getItem("formData");
-        if(localStorage.getItem('matriId')== 'NULL'||localStorage.getItem('matriId')==''||localStorage.getItem('matriId')== null ){
-            logout();
-        }
-        if (formData) {
-             myProfileNew = JSON.parse(formData);
-           //consolelog("Received Data:", myProfileNew);
-            if (myProfileNew.company) {
-              document.getElementById("company").value = myProfileNew.company;
-          }
-          if (myProfileNew.company_city) {
-            document.getElementById("city").value = myProfileNew.company_city;
-        }
-        if (myProfileNew.salary) {
-          const salaryDropdown = document.getElementById("salary-range");
+        window.addEventListener("DOMContentLoaded", () => {
+            // Retrieve the dynamically stored data
+            const formData = sessionStorage.getItem("formData");
+            if (localStorage.getItem('matriId') == 'NULL' || localStorage.getItem('matriId') == '' || localStorage.getItem('matriId') == null) {
+                logout();
+            }
+            if (formData) {
+                myProfileNew = JSON.parse(formData);
+                //consolelog("Received Data:", myProfileNew);
+                if (myProfileNew.company) {
+                    document.getElementById("company").value = myProfileNew.company;
+                }
+                if (myProfileNew.company_city) {
+                    document.getElementById("city").value = myProfileNew.company_city;
+                }
+                if (myProfileNew.salary) {
+                    const salaryDropdown = document.getElementById("salary-range");
 
-          // Define status mappings (both ways for numeric and text input)
-          const salaryMapping = {
-            "0-2 Lakh": "0-2 Lakh",
-            "2-3 Lakh": "2-3 Lakh",
-            "3-5 Lakh": "3-5 Lakh",
-            "5-10 Lakh": "5-10 Lakh",
-            "10-15 Lakh": "10-15 Lakh",
-            "15-20 Lakh": "15-20 Lakh",
-            "20-25 Lakh": "20-25 Lakh",
-            "25 Lakh and Above": "25 Lakh and Above"
-        };
-        
+                    // Define status mappings (both ways for numeric and text input)
+                    const salaryMapping = {
+                        "0-2 Lakh": "0-2 Lakh",
+                        "2-3 Lakh": "2-3 Lakh",
+                        "3-5 Lakh": "3-5 Lakh",
+                        "5-10 Lakh": "5-10 Lakh",
+                        "10-15 Lakh": "10-15 Lakh",
+                        "15-20 Lakh": "15-20 Lakh",
+                        "20-25 Lakh": "20-25 Lakh",
+                        "25 Lakh and Above": "25 Lakh and Above"
+                    };
 
-          // Map status to a numeric value
-          const salaryValue =
-          salaryMapping[myProfileNew.salary.toString()] ||
-          salaryMapping[myProfileNew.salary];
 
-          if (salaryValue) {
-            salaryDropdown.value = salaryValue;
-          } else {
-             //consolewarn(`Invalid salary value: ${myProfileNew.salary}`);
-          }
-      } else {
-         //consolelog("Salary not found in the received data.");
-      }
-           
-        }
-      });
-      function set_qualification() {
-        const defaultqualification_id = myProfileNew.qualification_id; // e.g., "87,88,67"
+                    // Map status to a numeric value
+                    const salaryValue =
+                        salaryMapping[myProfileNew.salary.toString()] ||
+                        salaryMapping[myProfileNew.salary];
+
+                    if (salaryValue) {
+                        salaryDropdown.value = salaryValue;
+                    } else {
+                        //consolewarn(`Invalid salary value: ${myProfileNew.salary}`);
+                    }
+                } else {
+                    //consolelog("Salary not found in the received data.");
+                }
+
+            }
+        });
+        function set_qualification() {
+            const defaultqualification_id = myProfileNew.qualification_id; // e.g., "87,88,67"
             const qualificationSelect = document.getElementById("qualification");
 
             if (defaultqualification_id) {
@@ -323,300 +362,301 @@
                     if (option) {
                         option.selected = true; // Mark the option as selected
                     } else {
-                       //consolelog(`Option not found for qualification ID: ${id}`);
+                        //consolelog(`Option not found for qualification ID: ${id}`);
                     }
                 });
             } else {
-               //consolelog("No qualification_id found.");
+                //consolelog("No qualification_id found.");
             }
-      
-      }
-      function set_specialization() {
-        const defaultspecialization_id = myProfileNew.specialization_id; 
-          const option = document.getElementById("specialization").querySelector(`option[value="${defaultspecialization_id}"]`);
-      
-          if (option) {
-              option.selected = true;  // Set this option as the selected one
-          } else {
-             //consolelog("Option not found for the given Specialization.");
-              }
-      
-      }
-      function set_profession() {
-        const defaultoccupation_id = myProfileNew.occupation_id; 
-          const option = document.getElementById("profession").querySelector(`option[value="${defaultoccupation_id}"]`);
-      
-          if (option) {
-              option.selected = true;  // Set this option as the selected one
-          } else {
-             //consolelog("Option not found for the given Profession.");
-              }
-      
-      }
-      function logout() {
-       //consolelog("User logged out");
-        localStorage.clear();
-        localStorage.setItem("visitedSuccessPage", "true");
-        window.location.href = 'Login';
-    }
+
+        }
+        function set_specialization() {
+            const defaultspecialization_id = myProfileNew.specialization_id;
+            const option = document.getElementById("specialization").querySelector(`option[value="${defaultspecialization_id}"]`);
+
+            if (option) {
+                option.selected = true;  // Set this option as the selected one
+            } else {
+                //consolelog("Option not found for the given Specialization.");
+            }
+
+        }
+        function set_profession() {
+            const defaultoccupation_id = myProfileNew.occupation_id;
+            const option = document.getElementById("profession").querySelector(`option[value="${defaultoccupation_id}"]`);
+
+            if (option) {
+                option.selected = true;  // Set this option as the selected one
+            } else {
+                //consolelog("Option not found for the given Profession.");
+            }
+
+        }
+        function logout() {
+            //consolelog("User logged out");
+            localStorage.clear();
+            localStorage.setItem("visitedSuccessPage", "true");
+            window.location.href = 'Login';
+        }
     </script>
 </head>
+
 <body>
 
-<div class="container">
-    <h2>Education Details</h2>
-    <form id="educationForm" method="POST" novalidate>
-    <div class="form-group">
-        <label for="qualification">Qualification:</label>
-        <select id="qualification" name="qualification[]" multiple="multiple" required>
-          
-        </select>                                                                                                   
-    </div>
-    <div class="form-group">
-        <label for="specialization">Specialization:</label>
-        <select id="specialization" name="specialization" required>
-            <option value="" disabled selected>Select Specialization</option>
-            <!-- <option value="engineering">Engineering</option>
+    <div class="container">
+        <h2>Education Details</h2>
+        <form id="educationForm" method="POST" novalidate>
+            <div class="form-group">
+                <label for="qualification">Qualification:</label>
+                <select id="qualification" name="qualification[]" multiple="multiple" required>
+
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="specialization">Specialization:</label>
+                <select id="specialization" name="specialization" required>
+                    <option value="" disabled selected>Select Specialization</option>
+                    <!-- <option value="engineering">Engineering</option>
             <option value="medicine">Medicine</option>
             <option value="business">Business</option>
             <option value="arts">Arts</option>
             <option value="science">Science</option>
             <option value="Teacher">Teacher</option>
             <option value="others">Others</option> -->
-        </select>
-    </div>
-
-    <div class="form-group">
-        <label>Profession:</label>
-       
-        <select id="profession" name="profession" required>
-            <option value="" disabled selected>Select Profession</option>
-          
-        </select>
-        <input type="hidden" id="profession" name="profession" required>
-    </div>
-    
-    <div class="form-group">
-        <label for="company">Company Name:</label>
-        <input type="text" id="company" name="company" placeholder="Enter Your Company Name" required>
-    </div>
-    <div class="form-group">
-        <label for="city">Company City:</label>
-        <input type="text" id="city" name="city" placeholder="Enter Your Company's City" required>
-    </div>
-    <div class="form-group">
-        <label for="salary-range">Salary Range:</label>
-        <select id="salary-range" name="salary-range" required>
-            <option value="" disabled selected>Select Salary Range</option>
-            <option value="0-1 Lakh">0-1 Lakh</option>
-            <option value="1-2 Lakh">1-2 Lakh</option>
-            <option value="2-3 Lakh">2-3 Lakh</option>
-            <option value="3-5 Lakh">3-5 Lakh</option>
-            <option value="5-7 Lakh">5-7 Lakh</option>
-            <option value="7-9 Lakh">7-9 Lakh</option>
-            <option value="9-11 Lakh">9-11 Lakh</option>
-            <option value="11-13 Lakh">11-13 Lakh</option>
-            <option value="13-15 Lakh">13-15 Lakh</option>
-            <option value="15-20 Lakh">15-20 Lakh</option>
-            <option value="20-25 Lakh">20-25 Lakh</option>
-            <option value="25-30 Lakh">25-30 Lakh</option>
-            <option value="30-35 Lakh">30-35 Lakh</option>
-            <option value="35-40 Lakh">35-40 Lakh</option>
-            <option value="40-45 Lakh">40-45 Lakh</option>
-            <option value="45-50 Lakh">45-50 Lakh</option>
-            <option value="50 Lakh and Above">50 Lakh and Above</option>
-        </select>
-    </div>
-   
-    <div>
-        <div class="form-buttons">
-        <button type="button" class="back-btn" onclick="goBack()">← Back</button>
-        <button type="submit" class="update-btn">Update</button>
-        </div>
-        <div id="loader" class="loader-container">
-            <div class="loading-text">Loading</div>
-            <div class="dots">
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
+                </select>
             </div>
-        </div>
-        
+
+            <div class="form-group">
+                <label>Profession:</label>
+
+                <select id="profession" name="profession" required>
+                    <option value="" disabled selected>Select Profession</option>
+
+                </select>
+                <input type="hidden" id="profession" name="profession" required>
+            </div>
+
+            <div class="form-group">
+                <label for="company">Company Name:</label>
+                <input type="text" id="company" name="company" placeholder="Enter Your Company Name" required>
+            </div>
+            <div class="form-group">
+                <label for="city">Company City:</label>
+                <input type="text" id="city" name="city" placeholder="Enter Your Company's City" required>
+            </div>
+            <div class="form-group">
+                <label for="salary-range">Salary Range:</label>
+                <select id="salary-range" name="salary-range" required>
+                    <option value="" disabled selected>Select Salary Range</option>
+                    <option value="0-1 Lakh">0-1 Lakh</option>
+                    <option value="1-2 Lakh">1-2 Lakh</option>
+                    <option value="2-3 Lakh">2-3 Lakh</option>
+                    <option value="3-5 Lakh">3-5 Lakh</option>
+                    <option value="5-7 Lakh">5-7 Lakh</option>
+                    <option value="7-9 Lakh">7-9 Lakh</option>
+                    <option value="9-11 Lakh">9-11 Lakh</option>
+                    <option value="11-13 Lakh">11-13 Lakh</option>
+                    <option value="13-15 Lakh">13-15 Lakh</option>
+                    <option value="15-20 Lakh">15-20 Lakh</option>
+                    <option value="20-25 Lakh">20-25 Lakh</option>
+                    <option value="25-30 Lakh">25-30 Lakh</option>
+                    <option value="30-35 Lakh">30-35 Lakh</option>
+                    <option value="35-40 Lakh">35-40 Lakh</option>
+                    <option value="40-45 Lakh">40-45 Lakh</option>
+                    <option value="45-50 Lakh">45-50 Lakh</option>
+                    <option value="50 Lakh and Above">50 Lakh and Above</option>
+                </select>
+            </div>
+
+            <div>
+                <div class="form-buttons">
+                    <button type="button" class="back-btn" onclick="goBack()">← Back</button>
+                    <button type="submit" class="update-btn">Update</button>
+                </div>
+                <div id="loader" class="loader-container">
+                    <div class="loading-text">Loading</div>
+                    <div class="dots">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                </div>
+
+            </div>
+
+
+
+
+        </form>
+
     </div>
-        
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- <script src="path/to/jquery.validate.js"></script> -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="baseurl.js"></script>
+    <script>
 
-       
-  
-</form>
-
-</div>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<!-- <script src="path/to/jquery.validate.js"></script> -->
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-<script src="baseurl.js"></script>
-<script>
-
-    $(document).ready(function() {
-        $('#qualification').select2({
-            placeholder: "Select Qualifications",
-            // allowClear: true
+        $(document).ready(function () {
+            $('#qualification').select2({
+                placeholder: "Select Qualifications",
+                // allowClear: true
+            });
         });
-    });
 
-    document.addEventListener("DOMContentLoaded", function () {
-        fetchEducation();
-        fetchOccupation(); 
-    });
-//    function selectProfession(value, event) {
-//     const buttons = document.querySelectorAll('.profession-button');
-//     buttons.forEach(button => {
-//         button.classList.remove('selected'); 
-//     });
-//     document.getElementById('profession').value = value; 
-//     event.target.classList.add('selected'); 
-// }
-async function fetchOccupation() {
+        document.addEventListener("DOMContentLoaded", function () {
+            fetchEducation();
+            fetchOccupation();
+        });
+     
+        async function fetchOccupation() {
             const response = await axios.post(`${BASE_URL}/get_data.php`, {
-                    type: "occupation"
-                });
+                type: "occupation"
+            });
 
-               //consolelog(response.data); // Log for debugging purposes
+            const profession = response.data.dataout;
+            const professionSelect = document.getElementById('profession');
 
+            professionSelect.innerHTML = '<option value="0" disabled selected hidden>Select Profession</option>';
 
-
-                const profession = response.data.dataout;
-                   const professionSelect = document.getElementById('profession');
-
-        // Clear all options except the first one (the default "Qualification" option)
-        professionSelect.innerHTML = '<option value="0" disabled selected hidden>Select Profession</option>';
-
-        // Add each fetched education option to the dropdown
-        profession.forEach(status => {
-            const option = document.createElement('option');
-            option.value = status.id; // Set the option value to the education id
-            option.textContent = status.name; // Display the education name
-            professionSelect.appendChild(option); // Append the option to the select element
-        });
-        set_profession();
-        }  
+            // Add each fetched education option to the dropdown
+            profession.forEach(status => {
+                const option = document.createElement('option');
+                option.value = status.id; // Set the option value to the education id
+                option.textContent = status.name; // Display the education name
+                professionSelect.appendChild(option); // Append the option to the select element
+            });
+            set_profession();
+        }
         async function fetchEducation() {
             const response = await axios.post(`${BASE_URL}/get_data.php`, {
-                    type: "education"
+                type: "education"
+            });
+
+
+            const educations = response.data.dataout;
+            const qualificationSelect = document.getElementById('qualification');
+
+            educations.forEach(status => {
+                const option = document.createElement('option');
+                option.value = status.id; 
+                option.textContent = status.name; // Display the education name
+                qualificationSelect.appendChild(option); // Append the option to the select element
+            });
+            set_qualification();
+
+            const specializationSelect = document.getElementById('specialization');
+            specializationSelect.innerHTML = '<option value="0" disabled selected hidden>Select Specialization</option>';
+
+            educations.forEach(status => {
+                const option = document.createElement('option');
+                option.value = status.id; 
+                option.textContent = status.name; 
+                specializationSelect.appendChild(option); 
+            });
+            set_specialization();
+
+        }
+
+        document.getElementById('educationForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const qualificationSelect = document.getElementById('qualification');
+            const selectedQualifications = Array.from(qualificationSelect.selectedOptions).map(option => parseInt(option.value, 10));
+
+            const qualification = document.getElementById('qualification').value;
+            const specialization = document.getElementById('specialization').value;
+            const profession = document.getElementById('profession').value;
+            const company_name = document.getElementById('company').value;
+            const company_city = document.getElementById('city').value;
+            const salary_range = document.getElementById('salary-range').value;
+
+
+
+            let matri_id = localStorage.getItem('matriId');
+            let id = localStorage.getItem('mId');
+            const update = {
+                "type": "education",
+                "matri_id": matri_id,
+                "id": id,
+                "qualification": selectedQualifications,
+                "profession": profession,
+                "company_name": company_name,
+                "specialization": specialization,
+                "company_city": company_city,
+                "salary_range": salary_range
+            };
+            return axios.post(`${BASE_URL}/update_profile.php`, update, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Authorization": "Bearer " + localStorage.getItem("jwtToken")
+                }
+            })
+                .then(function (response) {
+               
+                    document.getElementById("loader").style.display = "none";
+
+                    if (
+                        response.data.message?.p_out_mssg_flg === 'N' &&
+                        (response.data.message?.p_out_mssg?.includes('Token expired') ||
+                            response.data.message?.p_out_mssg?.includes('Invalid token'))
+                    ) {
+                        handleSessionExpiry();
+                        return;
+                    }
+                    if (response.data.message.p_out_mssg_flg === 'Y') {
+                        Swal.fire({
+                            title: "Success",
+                            text: "Profile updated successfully!",
+                            icon: "success",
+                            confirmButtonText: "OK",
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                window.location.href = 'my_profile';
+                            }
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "Error!",
+                            text: "Failed to update profile.",
+                            icon: "error",
+                            confirmButtonText: "OK",
+                        });
+                    }
+                })
+                .catch(function (error) {
+                    document.getElementById("loader").style.display = "none";
+
+                    if (error.response && error.response.status === 401) {
+                        handleSessionExpiry();
+                    } else {
+                        Swal.fire({
+                            title: "Error!",
+                            text: "Something went wrong. Please try again.",
+                            icon: "error",
+                            confirmButtonText: "OK",
+                        });
+                    }
                 });
-
-               //consolelog(response.data); // Log for debugging purposes
-
-
-
-                const educations = response.data.dataout;
-                   const qualificationSelect = document.getElementById('qualification');
-
-        // Clear all options except the first one (the default "Qualification" option)
-        // qualificationSelect.innerHTML = '<option value="0" disabled selected hidden>Qualification</option>';
-
-        // Add each fetched education option to the dropdown
-        educations.forEach(status => {
-            const option = document.createElement('option');
-            option.value = status.id; // Set the option value to the education id
-            option.textContent = status.name; // Display the education name
-            qualificationSelect.appendChild(option); // Append the option to the select element
         });
-        set_qualification();
-		
-		  const specializationSelect = document.getElementById('specialization');
-
-        // Clear all options except the first one (the default "Qualification" option)
-        specializationSelect.innerHTML = '<option value="0" disabled selected hidden>Select Specialization</option>';
-
-        // Add each fetched education option to the dropdown
-        educations.forEach(status => {
-            const option = document.createElement('option');
-            option.value = status.id; // Set the option value to the education id
-            option.textContent = status.name; // Display the education name
-            specializationSelect.appendChild(option); // Append the option to the select element
-        });
-        set_specialization();
-        
-    }
-
-document.getElementById('educationForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Prevent form submission
-
-    const qualificationSelect = document.getElementById('qualification');
-    const selectedQualifications = Array.from(qualificationSelect.selectedOptions).map(option => parseInt(option.value, 10));
-
-    const qualification = document.getElementById('qualification').value;
-    const specialization = document.getElementById('specialization').value;
-    const profession = document.getElementById('profession').value;
-    const  company_name = document.getElementById('company').value;
-    const company_city = document.getElementById('city').value;
-    const salary_range = document.getElementById('salary-range').value;
-
-   
-        
-        let matri_id=localStorage.getItem('matriId');
-        let id=localStorage.getItem('mId');
-        const update = {
-         "type":"education",
-         "matri_id":matri_id,
-          "id":id,
-          "qualification":selectedQualifications,
-           "profession": profession,
-         "company_name": company_name,
-       "specialization": specialization,
-       "company_city": company_city,
-       "salary_range" :salary_range        
-  };
-  return axios.post(`${BASE_URL}/update_profile.php`, update, {
-   headers: {
-       'Content-Type': 'application/json',
-        "Authorization": "Bearer " + localStorage.getItem("jwtToken")
-   }
-})
-//console.log("hello")
-.then(function(response) {
-  //consolelog('Success:', response.data);
-
-   if(response.data.message.p_out_mssg_flg === 'Y'){
-     Swal.fire({
-       title: "Success",
-       text: "Success",
-       icon: "success",
-       confirmButtonText: "OK",
-   }).then((result) => {
-    if (result.isConfirmed) {
-        window.location.href = 'my_profile';  
-    }
-});
-     
-//    window.location.href = 'my_profile';
-   }else{
       
-       
-           Swal.fire({
-               title: "Error!",
-               text: "Failed.",
-               icon: "error",
-               confirmButtonText: "OK",
-           });
-      
-       document.getElementById("loader").style.display = "none";
-    //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);
-   }
-});
+        function handleSessionExpiry() {
+            document.getElementById("loader").style.display = "none";
+            Swal.fire({
+                icon: "info",
+                title: "Session Expired",
+                text: "Your session has expired. Please log in again.",
+                confirmButtonText: "OK",
+            }).then(() => {
+                localStorage.removeItem("jwtToken");
+                localStorage.removeItem("matriId");
+                window.location.href = "login.html";
+            });
+        }
 
-    });
-    
-// });
-         
-       
-
-function goBack() {
-    window.history.back();
-}
-
-</script>
-
+        function goBack() {
+            window.history.back();
+        }
+    </script>
 </body>
 </html>
