@@ -388,23 +388,10 @@
 
     <div class="form-group">
         <label>Profession:</label>
-        <!-- <div class="button-group">
-            <button type="button" class="profession-button" onclick="selectProfession('government-psu', event)">Govt/PSU</button>
-            <button type="button" class="profession-button" onclick="selectProfession('private', event)">Private</button>
-            <button type="button" class="profession-button" onclick="selectProfession('business', event)">Business</button>
-            <button type="button" class="profession-button" onclick="selectProfession('defence', event)">Defence</button>
-            <button type="button" class="profession-button" onclick="selectProfession('self-employed', event)">Self-employed</button>
-            <button type="button" class="profession-button" onclick="selectProfession('not-working', event)">Not Working</button>
-        </div> -->
+       
         <select id="profession" name="profession" required>
             <option value="" disabled selected>Select Profession</option>
-            <!-- <option value="engineering">Engineering</option>
-            <option value="medicine">Medicine</option>
-            <option value="business">Business</option>
-            <option value="arts">Arts</option>
-            <option value="science">Science</option>
-            <option value="Teacher">Teacher</option>
-            <option value="others">Others</option> -->
+          
         </select>
         <input type="hidden" id="profession" name="profession" required>
     </div>
@@ -566,63 +553,7 @@ document.getElementById('educationForm').addEventListener('submit', function(eve
     const company_city = document.getElementById('city').value;
     const salary_range = document.getElementById('salary-range').value;
 
-    // let matri_id=localStorage.getItem('matriId');
-    //consolelog("m",matri_id)
-    // let id=localStorage.getItem('mId');
-    // let maritalStatus=localStorage.getItem('maritalStatus');
-    // document.getElementById("loader").style.display = "flex";
-    // const formData = {
-    //     procedure:"sign_in",
-    //     type:"education",
-    //     matri_id:matri_id,
-    //     id:id,
-    //     qualification:selectedQualifications,
-    //     profession: profession,
-    //     company_name: company_name,
-    //     specialization: specialization,
-    //     company_city: company_city,
-    //     salary_range :salary_range    
-    // };
-
-    // fetch(`${BASE_URL}/sign_in.php`, {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(formData)
-    // })
-    // .then(response => {
-    //     if (!response.ok) {
-    //         throw new Error('Network response was not ok ' + response.statusText);
-    //     }
-    //     return response.json();
-    // })
-    // .then(data => {
-    //    //consolelog('Success:', data);
-    //     // alert('Education Details retrieved!');
-    //     // alert(data.message);
-    //     if(data.message.p_out_mssg_flg === 'Y'){
-    //             // window.location.href = 'my_profile';
-    //             localStorage.setItem('maritalStatus', maritalStatus);
-    //             localStorage.setItem('matriId', data.data[0].matri_id);
-    //             localStorage.setItem('mId', data.data[0].id);
-    //            //consolelog(response.data.data[0].id);
-    //             document.getElementById("loader").style.display = "none";
-    //         }else{
-    //             document.getElementById("loader").style.display = "none";
-    //              //consolelog(data.message.p_out_mssg_flg,"and",data.message.p_out_mssg);
-    //         }
-
-    //     //  window.location.href = 'my_profile';
-    // })
-    // .catch(error => {
-    //    console.error('There was a problem with the fetch operation:', error);
-    //     Swal.fire({
-    //         title: "Error!",
-    //         text: "Please try after some time.",
-    //         icon: "error",
-    //         confirmButtonText: "OK",
-    //     });
+   
         
         let matri_id=localStorage.getItem('matriId');
         let id=localStorage.getItem('mId');

@@ -273,69 +273,109 @@ function loadHTMLContent(elementId, url, callback) {
         }
 
         // Fetch user data from the API and populate the profile
-        document.addEventListener('DOMContentLoaded', function () {
-            const waitingDialog = document.getElementById('waiting-dialog');
-            function showWaitingDialog() { waitingDialog.style.display = 'flex'; }
-            function hideWaitingDialog() { waitingDialog.style.display = 'none'; }
-            
-            const data = {
-                id:localStorage.getItem('mId'),
-                matri_id:localStorage.getItem('matriId')
-            };
-           //consolelog(data);
-                 
-            axios.post(`${BASE_URL}/dashboard.php`, data, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    "Authorization": "Bearer " + localStorage.getItem("jwtToken")
-                }
-            })
-            .then(function(response) {
-               //consolelog('Success:', response.data);
-                if(response.data.message.p_out_mssg_flg === 'Y'){
-                localStorage.setItem("matriId", response.data.my_profile[0].matri_id);
-                // localStorage.setItem("baseURL", response.data.my_profile[0].base_url);
+      document.addEventListener("DOMContentLoaded", function () {
+  const waitingDialog = document.getElementById("waiting-dialog");
 
-                const image = document.getElementById("profilePicture");
-                image.src = response.data.my_profile[0].base_url+response.data.my_profile[0]["profile_photo"];
-                const profileImg = document.getElementById("profileImg");
-                profileImg.src = response.data.my_profile[0].base_url+response.data.my_profile[0]["profile_photo"];
-                const profileFor = document.getElementById("profileFor");
-                const profileFor1 = document.getElementById("profileFor1");
-                const profileId = document.getElementById("profileId");
-                const profileMatriId = document.getElementById("profileMatriId");
-                const profilePictureDelete = document.getElementById("profilePictureDelete");
-                const profileForDelete = document.getElementById("profileForDelete");
-                const profileMatriIdDelete = document.getElementById("profileMatriIdDelete");
-                profileFor.textContent = response.data.my_profile[0].first_name+" "+response.data.my_profile[0].last_name;
-                profileFor1.textContent = response.data.my_profile[0].first_name+" "+response.data.my_profile[0].last_name;
-                profileId.textContent=response.data.my_profile[0].matri_id;
-                profileMatriId.textContent=response.data.my_profile[0].matri_id;
-                let imgURL='';
-                if(response.data.my_profile[0].gender=="1" && (response.data.my_profile[0].profile_photo===null || response.data.my_profile[0].profile_photo==='')){
-                    imgURL='../img/2.png';
-                }else if(response.data.my_profile[0].gender=="2" && (response.data.my_profile[0].profile_photo===null || response.data.my_profile[0].profile_photo==='')){
-                    imgURL='../img/1.png';
-                }else{  
-                    imgURL=response.data.my_profile[0].base_url+response.data.my_profile[0]["profile_photo"];
-                }
-                profilePictureDelete.src =imgURL;
-                profileForDelete.textContent = response.data.my_profile[0].first_name+" "+response.data.my_profile[0].last_name;
-                profileMatriIdDelete.textContent=response.data.my_profile[0].matri_id;
-                
-                
-                let baseURL=response.data.my_profile[0].base_url;
-                const profileData = JSON.parse(localStorage.getItem("profile"));
-               //consolelog(profileData);
+  // 🔹 Make loader functions global
+  function showWaitingDialog() {
+    waitingDialog.style.display = "flex";
+  }
+  function hideWaitingDialog() {
+    waitingDialog.style.display = "none";
+  }
 
+  // 🔹 Logout function with Swal message
+  function logout(message = "Your session has expired. Please log in again!") {
+    hideWaitingDialog(); // Ensure loader is hidden before showing Swal
+    Swal.fire({
+      icon: "info",
+      title: "Session Expired",
+      text: message,
+      confirmButtonText: "OK",
+    }).then(() => {
+      localStorage.removeItem("jwtToken");
+      localStorage.removeItem("matriId");
+      window.location.href = "login.html";
+    });
+  }
 
-                hideWaitingDialog();
-                }else{
-               //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);
-                hideWaitingDialog();
-                }
-            });
+  // 🔹 Data for dashboard API
+  const data = {
+    id: localStorage.getItem("mId"),
+    matri_id: localStorage.getItem("matriId"),
+  };
+
+  // 🔹 Show loader before API call
+  showWaitingDialog();
+
+  axios
+    .post(`${BASE_URL}/dashboard.php`, data, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("jwtToken"),
+      },
+    })
+    .then(function (response) {
+      hideWaitingDialog();
+
+      // Check if token expired or invalid
+      if (response.data.message && response.data.message.p_out_mssg_flg === "N") {
+        logout("Session expired. Please login again.");
+        return;
+      }
+
+      // ✅ If valid response
+      if (response.data.message.p_out_mssg_flg === "Y") {
+        localStorage.setItem("matriId", response.data.my_profile[0].matri_id);
+
+        const baseURL = response.data.my_profile[0].base_url;
+        const profile = response.data.my_profile[0];
+
+        // Set image sources
+        const profilePhoto =
+          profile.profile_photo && profile.profile_photo !== ""
+            ? baseURL + profile.profile_photo
+            : profile.gender == "1"
+            ? "../img/2.png"
+            : "../img/1.png";
+
+        document.getElementById("profilePicture").src = profilePhoto;
+        document.getElementById("profileImg").src = profilePhoto;
+        document.getElementById("profilePictureDelete").src = profilePhoto;
+
+        // Set names and IDs
+        const fullName = profile.first_name + " " + profile.last_name;
+        document.getElementById("profileFor").textContent = fullName;
+        document.getElementById("profileFor1").textContent = fullName;
+        document.getElementById("profileForDelete").textContent = fullName;
+
+        document.getElementById("profileId").textContent = profile.matri_id;
+        document.getElementById("profileMatriId").textContent = profile.matri_id;
+        document.getElementById("profileMatriIdDelete").textContent = profile.matri_id;
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: "Unable to load profile data.",
         });
+      }
+    })
+    .catch(function (error) {
+      hideWaitingDialog();
+      console.error("API Error:", error);
+
+      if (error.response && error.response.status === 401) {
+        logout("Session expired. Please login again.");
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Network Error",
+          text: "Something went wrong. Please try again later.",
+        });
+      }
+    });
+});
+
     </script>
 </body>
 </html>
