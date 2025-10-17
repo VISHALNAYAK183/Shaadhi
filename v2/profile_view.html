@@ -107,10 +107,13 @@
     .popup-buttons button:nth-child(1):hover {
         background: #b3243b;
     }
+
     .profile-photo {
-        height: 70vh; /* 40% of viewport height */
-         /*Keeps aspect ratio*/
-        object-fit: cover; /* Optional: crops instead of stretching */
+        height: 70vh;
+        /* 40% of viewport height */
+        /*Keeps aspect ratio*/
+        object-fit: cover;
+        /* Optional: crops instead of stretching */
     }
 </style>
 
@@ -184,7 +187,7 @@
                                     <span>Short List</span>
                                 </div>
                                 <div class="icon-item" onclick="contactInfoSection()">
-                                    <i class="fa fa-phone"style="
+                                    <i class="fa fa-phone" style="
                                     font-size: 24px; 
                                     color: #d0afaf; 
                                     cursor: pointer; 
@@ -193,7 +196,7 @@
                                     <span>Contact Info</span>
                                 </div>
                                 <div class="icon-item" onclick="chatInfoSection()">
-                                    <i class="fa fa-comment"style="
+                                    <i class="fa fa-comment" style="
                                     font-size: 24px; 
                                     color: #d0afaf; 
                                     cursor: pointer; 
@@ -246,7 +249,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
     <script src="chat_functions.js" defer></script>
-<script src="baseurl.js"></script>
+    <script src="baseurl.js"></script>
     <script>
         function loadHTMLContent(elementId, url, callback) {
             fetch(url)
@@ -367,23 +370,23 @@
         console.log("Hiii");
         moreButton.addEventListener('click', async function () {
             console.log("Hlo");
-            console.log("plan",planStatus);
-           // console.log("Matching profile result:", matching("profile"));
-           const matchingResult = await matching("profile");
-           console.log("Matching profile result:", matchingResult);
+            console.log("plan", planStatus);
+            // console.log("Matching profile result:", matching("profile"));
+            const matchingResult = await matching("profile");
+            console.log("Matching profile result:", matchingResult);
 
             if (planStatus == "Paid" && localStorage.getItem('max_profile_count') >= localStorage.getItem('viewed_profile_count')) {
                 //optionsRow.style.display = "flex";
-                console.log("Check",planStatus);
-                await loadSectionRow();   
+                console.log("Check", planStatus);
+                await loadSectionRow();
                 moreButton.style.display = "none";
-                   //  loadSectionDetails("basic");
-            }else if(matching("profile") == 'true'){
-                await loadSectionRow();   
+                //  loadSectionDetails("basic");
+            } else if (matching("profile") == 'true') {
+                await loadSectionRow();
                 moreButton.style.display = "none";
 
-            }else if(planStatus == "Paid" && localStorage.getItem('max_profile_count') <= localStorage.getItem('viewed_profile_count')){
-               
+            } else if (planStatus == "Paid" && localStorage.getItem('max_profile_count') <= localStorage.getItem('viewed_profile_count')) {
+
                 Swal.fire({
                     title: "Maximum Profile Limit Reached",
                     text: "Would you like to upgrade to access more options?",
@@ -403,7 +406,7 @@
                         // Do nothing, alert will close
                         //consolelog("User chose to cancel.");
                     }
-                });   
+                });
 
             }
             else if (planStatus == "Expired") {
@@ -461,111 +464,167 @@
             });
         });
 
-        function toggleLike(element) {
-            const icon = element.querySelector('i'); // Get the <i> tag
-            let type; // To store the current status
+    function toggleLike(element) {
+    const icon = element.querySelector('i'); // Get the <i> tag
+    let type;
 
-            // Ensure the icon starts with the correct class
-            if (!icon.classList.contains('fa-heart') && !icon.classList.contains('fa-heart-o')) {
-                icon.classList.add('fa-heart');
-            }
+    // Ensure the icon starts with the correct class
+    if (!icon.classList.contains('fa-heart') && !icon.classList.contains('fa-heart-o')) {
+        icon.classList.add('fa-heart');
+    }
 
-            // Toggle the classes for the heart icon
-            // if (icon.classList.contains('fa-heart')) {
-            if (localStorage.getItem("liked") == '1') {
-                // If currently liked, change to disliked
-                // icon.classList.remove('fa-heart');
-                // icon.classList.add('fa-heart-o');
-                icon.style.color = '#d0afaf'; // Change color to gray
-                type = 'disliked';
-                localStorage.setItem("liked", '0'); // Update localStorage to disliked
-            } else {
-                // If currently disliked, change to liked
-                // icon.classList.remove('fa-heart-o');
-                // icon.classList.add('fa-heart');
-                icon.style.color = 'red'; // Change color to red
-                type = 'liked';
-                localStorage.setItem("liked", '1'); // Update localStorage to liked
-            }
+    // Determine current state (do not update UI yet)
+    if (localStorage.getItem("liked") === '1') {
+        type = 'disliked';
+    } else {
+        type = 'liked';
+    }
 
-            // Prepare the data object for further use
-            const data = {
-                "matri_id_by": localStorage.getItem('matriId'),
-                "matri_id_to": localStorage.getItem("matriIdTo"),
-                "type": type // Either 'liked' or 'disliked'
-            };
+    const data = {
+        "matri_id_by": localStorage.getItem('matriId'),
+        "matri_id_to": localStorage.getItem("matriIdTo"),
+        "type": type
+    };
 
-            // API call
-            axios.post(`${BASE_URL}/matri_liked.php`, data, {
-                headers: {
-                    'Content-Type': 'application/json',
-                          "Authorization": "Bearer " + localStorage.getItem("jwtToken")
-                }
-            })
-                .then(function (response) {
-                    if (response.data.message.p_out_mssg_flg === 'Y') {
-                        console.log('Success:', response.data);
-                    } else {
-                        console.error('Error Message:', response.data.message.p_out_mssg);
-                    }
-                })
-                .catch(function (error) {
-                    console.error('Error:', error);
-                });
+    axios.post(`${BASE_URL}/matri_liked.php`, data, {
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer " + localStorage.getItem("jwtToken")
         }
+    })
+    .then(function (response) {
+        if (response.data.message.p_out_mssg_flg === 'Y') {
+            // ✅ Update UI only after success
+            if (type === 'liked') {
+                icon.style.color = 'red';
+                localStorage.setItem("liked", '1');
+            } else {
+                icon.style.color = '#d0afaf';
+                localStorage.setItem("liked", '0');
+            }
+        } else if (response.data.message.p_out_mssg_flg === 'E' &&
+                   response.data.message.p_out_mssg.includes("Session expired")) {
+            // ✅ Show Swal for session expired
+            Swal.fire({
+                title: "Session Expired!",
+                text: "Your session has expired. Please log in again.",
+                icon: "warning",
+                confirmButtonText: "Login"
+            }).then(() => logout());
+        } else {
+            Swal.fire({
+                title: "Error!",
+                text: "Failed to update like status. Please try again.",
+                icon: "error",
+                confirmButtonText: "OK"
+            });
+        }
+    })
+    .catch(function (error) {
+        if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+            Swal.fire({
+                title: "Session Expired!",
+                text: "Please log in again.",
+                icon: "warning",
+                confirmButtonText: "Login"
+            }).then(() => logout());
+        } else {
+            Swal.fire({
+                title: "Network Error!",
+                text: "Something went wrong. Please try again later.",
+                icon: "error",
+                confirmButtonText: "OK"
+            });
+            console.error('Error:', error);
+        }
+    });
+}
+
 
 
 
 
         function shortlistInfoSection(element) {
-            const icon = element.querySelector('i'); // Get the <i> tag
-            let type; // To store the current status
+    const icon = element.querySelector('i'); // Get the <i> tag
+    let type;
 
-            // Toggle the classes for the shortlist icon
-            if (icon.classList.contains('fas')) {
-                    // Currently solid → change to outlined
-                    icon.classList.remove('fas');
-                    icon.classList.add('far');
-                    icon.style.color = '#d0afaf';
-                    type = 'disliked';
-                } else {
-                    // Currently outlined → change to solid
-                    icon.classList.remove('far');
-                    icon.classList.add('fas');
-                    icon.style.color = 'GREEN';
-                    type = 'liked'; // Update type to liked
+    // Determine current state without changing UI yet
+    if (icon.classList.contains('fas')) {
+        type = 'shortlisted';
+    } else {
+        type = 'unlist';
+    }
+
+    const data = {
+        "matri_id_by": localStorage.getItem('matriId'),
+        "matri_id_to": localStorage.getItem("matriIdTo"),
+        "type": type // liked or disliked
+    };
+
+    axios.post(`${BASE_URL}/shortlisted.php`, data, {
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer " + localStorage.getItem("jwtToken")
+        }
+    })
+    .then(function (response) {
+        // ✅ Check for success
+        if (response.data.message && response.data.message.p_out_mssg_flg === 'Y') {
+            // Update icon only after success
+            if (type === 'liked') {
+                icon.classList.remove('far');
+                icon.classList.add('fas');
+                icon.style.color = 'green';
+            } else {
+                icon.classList.remove('fas');
+                icon.classList.add('far');
+                icon.style.color = '#d0afaf';
             }
 
-            // Prepare the data object for further use
-            const data = {
-                "matri_id_by": localStorage.getItem('matriId'),
-                "matri_id_to": localStorage.getItem("matriIdTo"),
-                "type": "shortlisted" // Either 'liked' or 'disliked'
-            };
+            Swal.fire({
+                title: "Shortlisted!",
+                text: "Success",
+                icon: "success",
+                confirmButtonText: "OK",
+            });
 
-            // Send the data to the server
-            axios.post(`${BASE_URL}/shortlisted.php`, data, {
-                headers: {
-                    'Content-Type': 'application/json',
-                          "Authorization": "Bearer " + localStorage.getItem("jwtToken")
-                }
-            })
-                .then(function (response) {
-                    if (response.data.message.p_out_mssg_flg === 'Y') {
-                        Swal.fire({
-                            title: "Short Listed",
-                            text: "Success",
-                            icon: "success",
-                            confirmButtonText: "OK",
-                        });
-                    } else {
-                        console.error(response.data.message.p_out_mssg_flg, "and", response.data.message.p_out_mssg);
-                    }
-                })
-                .catch(function (error) {
-                    console.error('Error:', error);
-                });
+        } else if (response.data.message && response.data.message.p_out_mssg.includes("Session expired")) {
+            Swal.fire({
+                title: "Session Expired!",
+                text: "Your session has expired. Please log in again.",
+                icon: "warning",
+                confirmButtonText: "Login"
+            }).then(() => logout());
+        } else {
+            Swal.fire({
+                title: "Error!",
+                text: "Failed to update shortlist status. Please try again.",
+                icon: "error",
+                confirmButtonText: "OK"
+            });
         }
+    })
+    .catch(function (error) {
+        console.error('Error:', error);
+
+        if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+            Swal.fire({
+                title: "Session Expired!",
+                text: "Please log in again.",
+                icon: "warning",
+                confirmButtonText: "Login"
+            }).then(() => logout());
+        } else {
+            Swal.fire({
+                title: "Network Error!",
+                text: "Something went wrong. Please try again later.",
+                icon: "error",
+                confirmButtonText: "OK"
+            });
+        }
+    });
+}
+
 
 
         async function contactInfoSection() {
@@ -582,7 +641,7 @@
                     axios.post(`${BASE_URL}/contacted_profile.php`, data, {
                         headers: {
                             'Content-Type': 'application/json',
-                                  "Authorization": "Bearer " + localStorage.getItem("jwtToken")
+                            "Authorization": "Bearer " + localStorage.getItem("jwtToken")
                         }
 
                     })
@@ -620,13 +679,13 @@
                     });
                 }
                 if (await get_contact() || await matching("contact") === 'true') {
-                    const phoneInfo = candidate_profile_info.phone 
-                        ? `<p><strong>Phone No&nbsp;:</strong>${candidate_profile_info.phone}</p>` 
+                    const phoneInfo = candidate_profile_info.phone
+                        ? `<p><strong>Phone No&nbsp;:</strong>${candidate_profile_info.phone}</p>`
                         : '';
-                    const emailInfo = candidate_profile_info.email 
-                        ? `<p><strong>Email Id&nbsp;&nbsp;&nbsp;&nbsp;:</strong>${candidate_profile_info.email}</p>` 
+                    const emailInfo = candidate_profile_info.email
+                        ? `<p><strong>Email Id&nbsp;&nbsp;&nbsp;&nbsp;:</strong>${candidate_profile_info.email}</p>`
                         : '';
-                
+
                     Swal.fire({
                         html: `
                         <h3 style="margin-bottom:10px;">Contact Information</h3>
@@ -644,7 +703,7 @@
                         },
                     });
                 }
-                
+
 
             } else if (planStatus === "Expired") {
                 Swal.fire({
@@ -873,7 +932,7 @@
             axios.post(`${BASE_URL}/profile_viewed.php`, data, {
                 headers: {
                     'Content-Type': 'application/json',
-                          "Authorization": "Bearer " + localStorage.getItem("jwtToken")
+                    "Authorization": "Bearer " + localStorage.getItem("jwtToken")
                 }
             })
                 .then(function (response) {
@@ -889,13 +948,13 @@
 
         // let baseURL='';
         document.addEventListener('DOMContentLoaded', function () {
-            
+
             const waitingDialog = document.getElementById('waiting-dialog');
             if (localStorage.getItem('matriId') == 'NULL' || localStorage.getItem('matriId') == '' || localStorage.getItem('matriId') == null) {
                 logout();
             }
-            console.log("maxview",localStorage.getItem('max_profile_count'));
-            localStorage.setItem('candidate_phone','ewdwefwf');
+            console.log("maxview", localStorage.getItem('max_profile_count'));
+            localStorage.setItem('candidate_phone', 'ewdwefwf');
             {
                 if (localStorage.getItem('viewedFirstName') != null) {
                     // console.log(localStorage.getItem('heigt'));
@@ -924,7 +983,7 @@
                   }*/
                 // hideWaitingDialog();
             }
-                
+
             async function onload_getdata() {
                 if (planStatus != 'Paid' && await matching("profile") == 'true') {
                     console.log("njednje")
@@ -938,16 +997,16 @@
                 }
                 else if (planStatus == 'Paid') {
                     if (localStorage.getItem('max_profile_count') > localStorage.getItem('viewed_profile_count')) {
-                        console.log("maxp",localStorage.getItem('max_profile_count'));
+                        console.log("maxp", localStorage.getItem('max_profile_count'));
                         console.log("first");
                         loadSectionRow();
                     }
                     else if (await matching("profile") == 'true') {
                         console.log("second");
                         loadSectionRow();
-                    }else{
+                    } else {
                         hideWaitingDialog();
-                        console.log("matchi",matching("profile"));
+                        console.log("matchi", matching("profile"));
                     }
                 }
                 else {
@@ -956,20 +1015,20 @@
             }
             onload_getdata();
 
-          
-                async function loadSectionRow() {
-                    await candidateProfile();
-                    profileViewed();
-                    document.getElementById("optionsRow").style.display = "flex";
-            
-                    try {
-                        await loadSectionDetails("basic");
-                    } catch (error) {
-                        console.error("Error loading section details:", error);
-                    }
-                }
 
-                window.loadSectionRow = loadSectionRow;
+            async function loadSectionRow() {
+                await candidateProfile();
+                profileViewed();
+                document.getElementById("optionsRow").style.display = "flex";
+
+                try {
+                    await loadSectionDetails("basic");
+                } catch (error) {
+                    console.error("Error loading section details:", error);
+                }
+            }
+
+            window.loadSectionRow = loadSectionRow;
 
             // Example of how loadSectionDetails function might look with async
             async function loadSectionDetails1(section) {
@@ -1002,15 +1061,19 @@
                     matri_id_to: localStorage.getItem("matriIdTo"),
                     matri_id: localStorage.getItem("matriId"),
                 };
-        
+
                 try {
                     const response = await axios.post(
                         `${BASE_URL}/z_my_profile2.php`,
                         data,
-                        { headers: { "Content-Type": "application/json",    
-                           "Authorization": "Bearer " + localStorage.getItem("jwtToken") } }
+                        {
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Authorization": "Bearer " + localStorage.getItem("jwtToken")
+                            }
+                        }
                     );
-        
+
                     if (response.data.message.p_out_mssg_flg === "Y") {
                         candidate_profile_info = response.data.dataout[0];
                         moreButton.style.display = "none";
@@ -1039,11 +1102,11 @@
                 console.log("Initializing profile...");
                 // Hide the "More" button
                 moreButton.style.display = "none";
-        
+
                 // Load the "basic" section automatically
                 await loadSectionRow();
             })();
-        
+
             // Expose loadSectionRow globally if needed
             window.loadSectionRow = loadSectionRow;
             const matriText = document.getElementById("matriText");
@@ -1088,7 +1151,7 @@
         axios.post(`${BASE_URL}/edit_image.php`, photo, {
             headers: {
                 'Content-Type': 'application/json',
-                      "Authorization": "Bearer " + localStorage.getItem("jwtToken")
+                "Authorization": "Bearer " + localStorage.getItem("jwtToken")
             }
         })
             .then(function (response) {
@@ -1112,49 +1175,7 @@
                 }
             })
 
-        /*  async function matching(type) {
-              let mt;
-              const data = {
-                "matri_id": localStorage.getItem('matriId'),
-                "matri_id_to": localStorage.getItem('matriIdTo'),
-                "type": type
-              };
-            
-             //consolelog('Request Data:', data);
-            
-              try {
-                const response = await axios.post(`${BASE_URL}/master_count.php`, data, {
-                  headers: {
-                    'Content-Type': 'application/json',
-                  }
-                });
-            
-               //consolelog('Success:', response.data);
-            
-                if (response.data.message.p_out_mssg_flg === 'Y') {
-                 //consolelog('Message:', response.data.message.p_out_mssg);
-            
-                 //consolelog("Viewed this account:", response.data.$type_count[0].used_count);
-                  if (response.data.$type_count[0].used_count == 1) {
-                    mt = 'true';
-                  } else {
-                    mt = 'false';
-                  }
-                } else {
-                 //consolelog('Message flag is not "Y". No further processing.');
-                }
-              } catch (error) {
-               console.error('Error:', error);
-                mt = 'false'; // Default value in case of an error
-              }
-            
-              return mt;
-            }*/
-        // window.onload = generateCards;
 
-
-        //Report Button
-        // Function to open the popup
         function openPopup() {
             document.getElementById('popupCard').style.display = 'flex';
         }

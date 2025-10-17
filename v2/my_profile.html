@@ -880,19 +880,55 @@ body {
       }
      //consolelog(data);
       axios.post(`${BASE_URL}/matri_liked.php`, data, {
-                headers: {
-                    'Content-Type': 'application/json',
-                          "Authorization": "Bearer " + localStorage.getItem("jwtToken")
-                }
-            })
-            .then(function(response) {
-               //consolelog('Success:', response.data);
-                if(response.data.message.p_out_mssg_flg === 'Y'){
-                  //consolelog(response.data.dataout[0].viewed_count);
-                }else{
-                 //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);
-                }
-            });
+  headers: {
+    'Content-Type': 'application/json',
+    "Authorization": "Bearer " + localStorage.getItem("jwtToken")
+  }
+})
+.then(function (response) {
+  // ✅ Check if backend says token expired or invalid
+  if (
+    response.data.message?.p_out_mssg_flg === 'N' &&
+    (response.data.message?.p_out_mssg?.includes('Token expired') ||
+     response.data.message?.p_out_mssg?.includes('Invalid token'))
+  ) {
+    handleSessionExpiry();
+    return;
+  }
+
+  if (response.data.message.p_out_mssg_flg === 'Y') {
+    //console.log(response.data.dataout[0].viewed_count);
+  } else {
+    //console.log(response.data.message.p_out_mssg_flg, "and", response.data.message.p_out_mssg);
+  }
+})
+.catch(function (error) {
+  // ✅ Handle unauthorized or token-related errors
+  if (error.response && error.response.status === 401) {
+    handleSessionExpiry();
+  } else {
+    Swal.fire({
+      title: "Error!",
+      text: "Something went wrong. Please try again.",
+      icon: "error",
+      confirmButtonText: "OK",
+    });
+  }
+});
+
+// 🔹 Common session expiry handler (reusable)
+function handleSessionExpiry() {
+  Swal.fire({
+    icon: "info",
+    title: "Session Expired",
+    text: "Your session has expired. Please log in again.",
+    confirmButtonText: "OK",
+  }).then(() => {
+    localStorage.removeItem("jwtToken");
+    localStorage.removeItem("matriId");
+    window.location.href = "login.html";
+  });
+}
       }
 
       function contactInfoSection(){
@@ -1003,30 +1039,58 @@ body {
 
     }
 
-    function call_api(data){
-        axios.post(`${BASE_URL}/edit_image.php`, data, {
-            headers: {
-                'Content-Type': 'application/json',
-                  "Authorization": "Bearer " + localStorage.getItem("jwtToken")
-            }
-        })
-        .then(response => {
-            closePopup();
-            Swal.fire({
-                title: "Success!",
-                text: "Profile photo updated successfully.",
-                icon: "success",
-                confirmButtonText: "OK"
-            });
-           //consolelog("Success:", response.data);
-           
-        })
-        .catch(error => {
-           console.error("Error:", error);
-           
+   function call_api(data) {
+    axios.post(`${BASE_URL}/edit_image.php`, data, {
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer " + localStorage.getItem("jwtToken")
+        }
+    })
+    .then(response => {
+        closePopup();
+
+        // ✅ Handle success
+        Swal.fire({
+            title: "Success!",
+            text: "Profile photo updated successfully.",
+            icon: "success",
+            confirmButtonText: "OK"
         });
 
-    }
+        //console.log("Success:", response.data);
+    })
+    .catch(error => {
+        console.error("Error:", error);
+
+        // ✅ Check if token is expired or unauthorized
+        if (
+            error.response && 
+            (error.response.status === 401 || 
+             (error.response.data && (
+                 error.response.data.message === "Token expired" ||
+                 error.response.data.message === "Invalid token"
+             )))
+        ) {
+            Swal.fire({
+                title: "Session Expired",
+                text: "Your session has expired. Please log in again.",
+                icon: "warning",
+                confirmButtonText: "OK"
+            }).then(() => {
+                // Clear local storage and redirect to login page
+                localStorage.clear();
+                window.location.href = "login.html";
+            });
+        } else {
+            Swal.fire({
+                title: "Error!",
+                text: "Something went wrong. Please try again later.",
+                icon: "error",
+                confirmButtonText: "OK"
+            });
+        }
+    });
+}
 
     function deletePhoto(photoId) {
        //consolelog("Deleting photo with ID:", photoId);
@@ -1046,38 +1110,67 @@ body {
         call_delete_api(data);
     }
     
-    function call_delete_api(data) {
-        axios.post(`${BASE_URL}/edit_image.php`, data, {
-            headers: {
-                'Content-Type': 'application/json',
-                  "Authorization": "Bearer " + localStorage.getItem("jwtToken")
-            }
-        })
-        .then(response => {
-           //consolelog("Delete Success:", response.data);
-            closePopup();
-            if (response.data.message && response.data.message.p_out_mssg_flg === "Y") {
-                Swal.fire({
-                    title: "Success!",
-                    text: "Photo deleted successfully.",
-                    icon: "success",
-                    confirmButtonText: "OK"
-                });
+   function call_delete_api(data) {
+    axios.post(`${BASE_URL}/edit_image.php`, data, {
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer " + localStorage.getItem("jwtToken")
+        }
+    })
+    .then(response => {
+        closePopup();
+
+        if (response.data.message && response.data.message.p_out_mssg_flg === "Y") {
+            Swal.fire({
+                title: "Success!",
+                text: "Photo deleted successfully.",
+                icon: "success",
+                confirmButtonText: "OK"
+            });
+            // ✅ You can refresh gallery or remove deleted photo here
+        } else {
+            Swal.fire({
+                title: "Error!",
+                text: "Failed to delete photo.",
+                icon: "error",
+                confirmButtonText: "OK"
+            });
+        }
+    })
+    .catch(error => {
+        console.error("Error:", error);
+
+        // ✅ Handle token expiry / invalid token
+        if (
+            error.response &&
+            (error.response.status === 401 ||
+             (error.response.data && (
+                 error.response.data.message === "Token expired" ||
+                 error.response.data.message === "Invalid token"
+             )))
+        ) {
+            Swal.fire({
+                title: "Session Expired",
+                text: "Your session has expired. Please log in again.",
+                icon: "warning",
+                confirmButtonText: "OK"
+            }).then(() => {
+                localStorage.clear();
+                window.location.href = "login.html";
+            });
+        } else {
+            Swal.fire({
+                title: "Error!",
+                text: "Something went wrong. Please try again later.",
+                icon: "error",
+                confirmButtonText: "OK"
+            });
+        }
+    });
+}
+
+        
     
-                // Optionally refresh the photo gallery or remove the deleted photo from the DOM
-               
-            } else {
-                Swal.fire({
-                    title: "Error!",
-                    text: "Failed to delete photo.",
-                    icon: "error",
-                    confirmButtonText: "OK"
-                });
-            }
-        })
-        
-        
-    }
     
 
     function closePopup() {
@@ -1174,15 +1267,9 @@ function displayRadioButton() {
     for (let radio of radios) {
         if (radio.checked) {
             selectedValue = radio.value;
-           //consolelog("ch",selectedValue)
             break;
         }
     }
-
-   
-
-    // Save the selected value to localStorage
-   // localStorage.setItem('profile_status', selectedValue);
 
     const val = {
         id: localStorage.getItem('mId'),
@@ -1190,38 +1277,62 @@ function displayRadioButton() {
         status: selectedValue,
     };
 
-   //consolelog(val);
-    
-        
     axios.post(`${BASE_URL}/profile_status.php`, val, {
         headers: {
             'Content-Type': 'application/json',
-                  "Authorization": "Bearer " + localStorage.getItem("jwtToken")
+            "Authorization": "Bearer " + localStorage.getItem("jwtToken")
         }
     })
-    .then(function(response) {
-       //consolelog('API Response:', response.data);
+    .then(function (response) {
+        if (response.data.message && response.data.message.p_out_mssg_flg === 'Y') {
+            const profileStatus = response.data.profile_status || val.status;
+            localStorage.setItem('profile_status', profileStatus);
 
-        const profileStatus = response.data.profile_status || val.status;
-        localStorage.setItem('profile_status', profileStatus);
-
-        Swal.fire({
-            title: "Success!",
-            text: "Profile status updated successfully.",
-            icon: "success",
-            confirmButtonText: "OK",
-        });
+            Swal.fire({
+                title: "Success!",
+                text: "Profile status updated successfully.",
+                icon: "success",
+                confirmButtonText: "OK",
+            });
+        } else {
+            Swal.fire({
+                title: "Error!",
+                text: "Failed to update profile status.",
+                icon: "error",
+                confirmButtonText: "OK",
+            });
+        }
     })
-    .catch(function(error) {
-       console.error('Error:', error);
-        Swal.fire({
-            title: "Error!",
-            text: "Failed to update profile status.",
-            icon: "error",
-            confirmButtonText: "OK",
-        });
+    .catch(function (error) {
+        console.error('Error:', error);
+
+        // ✅ Handle JWT expiry or invalid token
+        if (
+            error.response &&
+            (error.response.status === 401 ||
+                (error.response.data && (
+                    error.response.data.message === "Token expired" ||
+                    error.response.data.message === "Invalid token"
+                )))
+        ) {
+            Swal.fire({
+                title: "Session Expired",
+                text: "Your session has expired. Please log in again.",
+                icon: "warning",
+                confirmButtonText: "OK"
+            }).then(() => {
+                localStorage.clear();
+                window.location.href = "login.html";
+            });
+        } else {
+            Swal.fire({
+                title: "Error!",
+                text: "Failed to update profile status.",
+                icon: "error",
+                confirmButtonText: "OK",
+            });
+        }
     });
-    //restoreRadioButtonState();
 }
 
 // Function to restore the checked state on page load
