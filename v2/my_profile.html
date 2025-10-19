@@ -586,6 +586,24 @@ body {
   }
 }
 
+
+/* On mobile, show .profile-right above .profile-left */
+@media (max-width: 768px) {
+    .profile-container {
+        flex-direction: column; /* stack vertically */
+    }
+
+    .profile-left {
+        order: 2; /* comes after .profile-right */
+    }
+
+    .profile-right {
+        order: 1; /* comes first */
+        margin-bottom: 15px; /* optional spacing */
+    }
+}
+
+
     </style>   
 </head>
 <script>
@@ -739,18 +757,7 @@ function toggleOptions() {
                             <div class="icon-row">
                                 <h2>Matri Id&nbsp;:&nbsp;<span id="matriText"></span></h2>
 
-                                <!-- <div class="icon-item likedClass" id="likeId" onclick="toggleLike(this)">
-                                    <i class="fa fa-heart" id="likeIdIcon"></i>
-                                    <span>Like</span>
-                                </div>
-                                <div class="icon-item" onclick="contactInfoSection()">
-                                    <i class="fa fa-phone"></i>
-                                    <span>Contact Info</span>
-                                </div>
-                                <div class="icon-item" onclick="chatInfoSection()">
-                                    <i class="fa fa-comment"></i>
-                                    <span>Chat Now</span>
-                                </div> -->
+                              
                             </div>
                         </div>
                     </div>
@@ -856,19 +863,7 @@ function toggleOptions() {
       const optionsRow = document.getElementById("optionsRow");
       const detailsSection = document.getElementById("detailsSection");
 
-      // const planStatus = profileData?.plan_status || "Not Paid"; // Example: Replace with actual plan status logic
-      /*moreButton.addEventListener('click', function () {
-         
-            optionsRow.style.display = "flex";
-            moreButton.style.display = "none";
-            loadSectionDetails("basic");
-         
-             window.onload = function() {
-            loadSectionDetails("basic");  // This will be called when the page loads
-        };
-      });*/
-
-      // Handle option button clicks
+    
      document.querySelectorAll(".option-button").forEach(button => {
   button.addEventListener('click', function () {
       const section = this.getAttribute("data-section");
@@ -1707,12 +1702,6 @@ function setDefaultRadioButton() {
             if (section === 'delete') {
                 setDefaultRadioButton();
             }
-
-       
-           
-
-
-
           
         }
 
