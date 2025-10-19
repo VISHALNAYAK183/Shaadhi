@@ -117,39 +117,7 @@
   display: none;
 }
 
-       /* Navbar Styling */
-        /* .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: linear-gradient(135deg, #c3a38c 0%, #c3a38c 50%, #c3a38c 100%);
-            color: white;
-            padding: 1rem 2rem;
-            position: sticky;
-            top: 0;
-            z-index: 10;
-            box-shadow: 0 4px 20px rgba(21, 101, 192, 0.3);
-        }
-
-        .navbar-left h1 {
-            font-size: 1.8rem;
-            margin: 0;
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-
-        .navbar-right {
-            display: flex;
-            align-items: center;
-        }
-
-        .navbar-right span {
-            margin-right: 15px;
-            font-weight: 500;
-        } */
-
-        /* Default styles (for desktops & larger screens) */
+    
 .profile-basic {
   max-width: 600px;
   margin: 20px auto;
@@ -558,10 +526,74 @@ body {
   }
 
 }
+/* ✅ Default - Desktop view */
+.options-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 10px;
+  background-color: white;
+  transition: all 0.3s ease-in-out;
+}
+
+/* ✅ Buttons */
+.option-button {
+  background: #c3a38c;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.option-button:hover {
+  background: #c3a38c;
+}
+
+/* ✅ Hamburger (hidden on desktop) */
+.mobile-menu-icon {
+  display: none;
+  font-size: 24px;
+  cursor: pointer;
+  padding: 10px;
+}
+
+/* ✅ Responsive (mobile) */
+@media (max-width: 768px) {
+  .mobile-menu-icon {
+    display: block;
+  }
+
+  .options-row {
+    display: none !important; /* hidden by default on mobile */
+    flex-direction: column;
+    align-items: flex-start;
+    background-color: white;
+    position: absolute;
+    top: 55px;
+    left: 10px;
+    width: 200px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    z-index: 999;
+  }
+
+  .options-row.show {
+    display: flex !important; /* shown when hamburger clicked */
+  }
+}
+
     </style>   
 </head>
 <script>
-    
+function toggleOptions() {
+  document.getElementById("optionsRow").classList.toggle("show");
+}
+
+
         // Assuming loadSectionDetails is defined somewhere globally
      
         
@@ -676,28 +708,19 @@ body {
                         <p><span class="labelStar"><strong>Height:</strong></span> <span id="profileHeight"></span></p>
                         <p><span class="labelStar"><strong>Weight:</strong></span> <span id="profileWeight"></span></p>
                         <div class="more-section" id="more">
-                            <!-- <script>
-                                loadSectionDetails("basic"); 
-                            </script> -->
-                            <!-- <button id="moreButton" class="more-button">More</button> -->
-                            <!-- <script>
-                                window.onload = function() {
-                                    // Ensure the options row is visible on page load
-                                    document.getElementById("optionsRow").style.display = "flex"; 
-                            
-                                    // Call the loadSectionDetails function after ensuring the row is visible
-                                    loadSectionDetails("basic"); 
-                                };
-                            </script> -->
-                            <div id="optionsRow" class="options-row" style="display: none;">
-                                <button class="option-button" data-section="basic" id="basic">Basic</button>
-                                <button class="option-button" data-section="additional" id="additional">Additional</button>
-                                <button class="option-button" data-section="education" id="education">Education</button>
-                                <button class="option-button" data-section="horoscope" id="horoscope">Horoscope</button>
-                                <button class="option-button" data-section="family" id="family">Family</button>
-                                <button class="option-button" data-section="photo" id="photo">Photo</button>
-                                <button class="option-button" data-section="delete" id="profilestatus" >Profile Status</button>
-                            </div>
+                           
+<div class="mobile-menu-icon" onclick="toggleOptions()">☰</div>
+
+<div id="optionsRow" class="options-row">
+  <button class="option-button" data-section="basic">Basic</button>
+  <button class="option-button" data-section="additional">Additional</button>
+  <button class="option-button" data-section="education">Education</button>
+  <button class="option-button" data-section="horoscope">Horoscope</button>
+  <button class="option-button" data-section="family">Family</button>
+  <button class="option-button" data-section="photo">Photo</button>
+  <button class="option-button" data-section="delete">Profile Status</button>
+</div>
+
                         </div>
                         <div id="detailsSection" class="details-section profile-details">
                             <!-- Dynamic content will load here -->
@@ -846,13 +869,19 @@ body {
       });*/
 
       // Handle option button clicks
-      document.querySelectorAll(".option-button").forEach(button => {
-          button.addEventListener('click', function () {
-              const section = this.getAttribute("data-section");
-              loadSectionDetails(section);
+     document.querySelectorAll(".option-button").forEach(button => {
+  button.addEventListener('click', function () {
+      const section = this.getAttribute("data-section");
+      loadSectionDetails(section);
 
-          });
-      });
+      // ✅ Close dropdown automatically on mobile
+      const optionsRow = document.getElementById("optionsRow");
+      if (window.innerWidth <= 768) {
+          optionsRow.classList.remove("show");
+      }
+  });
+});
+
 
       function toggleLike(element) {
         const icon = element.querySelector('i'); // Get the icon inside the clicked element
@@ -1857,56 +1886,6 @@ function setDefaultRadioButton() {
             }
         }
     }) 
-
-
-
-    
-// Get the profile_status from localStorage
-/*function checkRadiobutton() {
-    // Retrieve the profile_status from localStorage
-    const profileStatus = localStorage.getItem("profile_status");
-   //consolelog("Profile Status from localStorage:", profileStatus);
-   //consolelog(document.getElementById("r2").value);
-    // Check if profileStatus exists in localStorage
-    if (profileStatus) {
-        var radios = document.getElementsByName("utrr");
-       //consolelog("vv",radios);
-        for (var i = 0; i < radios.length; i++) {
-           //consolelog(i);
-           //consolelog(radios[i].value);
-           // if (radios[i].value == "1") { 
-               // radios[i].checked = true;
-               document.getElementById("r1").checked =true;
-                
-                //break; // Stop the loop once the correct radio button is found
-            //}
-        }
-    } else {
-       //consolewarn("No profile_status found in localStorage.");
-    }
-};
-*/
-
-/*function displayRadioButton() {
-    // Get all radio buttons with the name "status"
-    const radios = document.getElementsByName('status');
-    let selectedValue = 'None';
-
-    // Loop through the radio buttons to find the checked one
-    for (let radio of radios) {
-        if (radio.checked) {
-            selectedValue = radio.id;
-            break;
-        }
-    }
-    document.getElementById('selectedValue').textContent = selectedValue;
-    let profileStatus = localStorage.getItem("profile_status");
-
-    // Display the value in the console
-   //consolelog("Profile Status: ", profileStatus); 
-   // let selectedValue1 = document.querySelector('input[name="status"]:checked').value;
-   
-} */
 
 
 </script>
