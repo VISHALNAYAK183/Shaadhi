@@ -14,6 +14,7 @@
     <link rel="shortcut icon" type="image/png" href="../img/icon-167x167.png">
     <link rel="shortcut icon" type="image/png" href="../img/icon-180x180.png">
     <link rel="shortcut icon" type="image/png" href="../img/icon-192x192.png">
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <style>
 
@@ -681,36 +682,62 @@ html, body {
          }
 
         let mutualyLiked=[];
-        function toggleOptionMutualLiked(){
-            const data3 = {
-              matri_id:localStorage.getItem('matriId'),
-              type: "mutual"  
-          }
-        
-          axios.post(`${BASE_URL}/matri_liked.php`, data3, {
-              headers: {
-                  'Content-Type': 'application/json',
-                        "Authorization": "Bearer " + localStorage.getItem("jwtToken")
-              }
-          })
-          .then(function(response) {
-            showWaitingDialog();
-             //consolelog('Success:', response.data);
-              if(response.data.message.p_out_mssg_flg === 'Y'){
-               //consolelog('Success:', response.data.dataout);
-                mutualyLiked=response.data.dataout;
-                const mutuallikedProfiles = mutualyLiked.filter(user => user.matri_id);
-                document.getElementById('mutualliked_count').innerText=mutuallikedProfiles.length;
-                populateCards('mutualliked-container', mutuallikedProfiles);
-                hideWaitingDialog();
-              }else{
-                hideWaitingDialog();
-               //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);
-              }
-          });
-       
-      }
 
+        async function handleSessionExpiry() {
+    if (window.sessionExpiredAlertShown) return;
+    window.sessionExpiredAlertShown = true;
+
+    await Swal.fire({
+        title: "Session Expired",
+        text: "Your session has expired. Please log in again.",
+        icon: "warning",
+        confirmButtonText: "OK",
+        allowOutsideClick: false,
+        allowEscapeKey: false
+    });
+
+    localStorage.removeItem('jwtToken');
+    localStorage.removeItem('matriId');
+    sessionStorage.clear();
+
+   
+    window.location.href = "login";
+}
+
+    async function toggleOptionMutualLiked() {
+    showWaitingDialog();
+
+    const data3 = {
+        matri_id: localStorage.getItem("matriId"),
+        type: "mutual"
+    };
+
+    try {
+        const response = await axios.post(`${BASE_URL}/matri_liked.php`, data3, {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": "Bearer " + localStorage.getItem("jwtToken")
+            }
+        });
+
+    
+
+        if (response.data.message.p_out_mssg_flg === "Y") {
+            const mutualyLiked = response.data.dataout;
+            const mutuallikedProfiles = mutualyLiked.filter(user => user.matri_id);
+            document.getElementById("mutualliked_count").innerText = mutuallikedProfiles.length;
+            populateCards("mutualliked-container", mutuallikedProfiles);
+        } else {
+            Swal.fire("Error", response.data.message.p_out_mssg, "error");
+        }
+    }  catch (error) {
+        
+            await handleSessionExpiry();
+      
+    } finally {
+        hideWaitingDialog();
+    }
+}
 
         var baseURL='';
 document.addEventListener('DOMContentLoaded', function () {
@@ -723,7 +750,6 @@ document.addEventListener('DOMContentLoaded', function () {
         toggleOptionMutualLiked();
       
     });
-
 
     const waitingDialog = document.getElementById('waiting-dialog');
     // Show the waiting dialog
@@ -743,7 +769,7 @@ document.addEventListener('DOMContentLoaded', function () {
       
         if (isNaN(maxProfileCount) || isNaN(viewedProfileCount)) {
          console.error("One or both values are not set or are invalid in localStorage.");
-          return false; // Default to false if values are invalid or missing
+          return false; 
         }
       
         return maxProfileCount > viewedProfileCount;
@@ -751,18 +777,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function filterProfiles() {
     const searchInput = document.getElementById('searchProfileInput').value.toLowerCase();
-    const cardContainers = document.querySelectorAll('.card-container'); // All profile sections
-
+    const cardContainers = document.querySelectorAll('.card-container'); 
     cardContainers.forEach(container => {
         const cards = container.querySelectorAll('.card');
 
         cards.forEach(card => {
             const profileName = card.querySelector('h4').textContent.toLowerCase();
-            const profileId = card.querySelector('p:nth-of-type(2)').textContent.toLowerCase(); // For Matri Id
+            const profileId = card.querySelector('p:nth-of-type(2)').textContent.toLowerCase(); 
             if (profileName.includes(searchInput) || profileId.includes(searchInput)) {
-                card.style.display = ''; // Show card
+                card.style.display = ''; 
             } else {
-                card.style.display = 'none'; // Hide card
+                card.style.display = 'none'; 
             }
         });
     });
@@ -773,8 +798,6 @@ function toggleSidebar() {
     document.querySelector('.sidebar').classList.toggle('open');
   }
 
-
-        // window.onload = generateCards;
     </script>
     <script src="maxcount.js"></script>
 </body>

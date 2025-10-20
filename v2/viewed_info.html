@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,66 +18,73 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <style>
-
-#content {
-  position: relative;
-  z-index: 1;
-  overflow: hidden; /* ensures the background doesn't spill out */
-}
-
-
-#content::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url("../img/sharath.png") no-repeat center center/cover;
-  filter: blur(10px);
-  opacity: 0.85;
-  z-index: -1; /* keep it behind everything inside main */
-  border-radius: 10px;
-}
+    #content {
+        position: relative;
+        z-index: 1;
+        overflow: hidden;
+    }
 
 
-.dashboard-content {
-  position: relative;
-  z-index: 2;
-}
+    #content::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("../img/sharath.png") no-repeat center center/cover;
+        filter: blur(10px);
+        opacity: 0.85;
+        z-index: -1;
+        border-radius: 10px;
+    }
 
 
-    .recently-joined-header, .recently-login-header, .profile-matched-header {
-    margin-top: 0.8rem;
-    font-family: 'Playfair Display', serif;
-    color: #c3a38c;
-    font-weight: 600;
-    font-size: 1.4rem;
-    border-bottom: 3px solid #e3f2fd;
-    padding-bottom: 0.5rem;
-    margin-bottom: 1rem;
-}
-     #sidebar-placeholder {
-            background: linear-gradient(180deg, #f5e7df 0%, #f5e7df 100%);
-            color: #2c3e50;
-            border-right: 1px solid #e3f2fd;
-        }
-        .sidebar {
-            width: 280px;
-            background: linear-gradient(180deg, #f5e7df 0%, #f5e7df 100%);
-            padding: 1.5rem;
-            border-right: 1px solid #e3f2fd;
-            box-shadow: 4px 0 15px rgba(33, 150, 243, 0.1);
-        }
-    
+    .dashboard-content {
+        position: relative;
+        z-index: 2;
+    }
+
+
+    .recently-joined-header,
+    .recently-login-header,
+    .profile-matched-header {
+        margin-top: 0.8rem;
+        font-family: 'Playfair Display', serif;
+        color: #c3a38c;
+        font-weight: 600;
+        font-size: 1.4rem;
+        border-bottom: 3px solid #e3f2fd;
+        padding-bottom: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    #sidebar-placeholder {
+        background: linear-gradient(180deg, #f5e7df 0%, #f5e7df 100%);
+        color: #2c3e50;
+        border-right: 1px solid #e3f2fd;
+    }
+
+    .sidebar {
+        width: 280px;
+        background: linear-gradient(180deg, #f5e7df 0%, #f5e7df 100%);
+        padding: 1.5rem;
+        border-right: 1px solid #e3f2fd;
+        box-shadow: 4px 0 15px rgba(33, 150, 243, 0.1);
+    }
+
     .card-wrapper .edit-button {
         position: absolute;
-        top: 8px; /* Adjust the top spacing */
-        right: 8px; /* Adjust the right spacing */
+        top: 8px;
+        /* Adjust the top spacing */
+        right: 8px;
+        /* Adjust the right spacing */
         background-color: #fff;
         color: #000;
-        border: 1px solid #ccc; /* Add a border for clarity */
-        border-radius: 50%; /* Make it circular */
+        border: 1px solid #ccc;
+        /* Add a border for clarity */
+        border-radius: 50%;
+        /* Make it circular */
         width: 30px;
         height: 30px;
         font-size: 16px;
@@ -86,21 +94,25 @@
         justify-content: center;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         transition: transform 0.2s, box-shadow 0.2s;
-        position: relative; /* Make it the reference point for the tooltip */
+        position: relative;
+        /* Make it the reference point for the tooltip */
     }
-    
+
     /* Button hover effect */
     .card-wrapper .edit-button:hover {
         transform: scale(1.1);
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     }
-    
+
     /* Tooltip for the button */
     .card-wrapper .edit-button::after {
-        content: "Premium Profile"; /* Tooltip text */
+        content: "Premium Profile";
+        /* Tooltip text */
         position: absolute;
-        top: 35px; /* Adjust tooltip position below the button */
-        right: 50%; /* Center it horizontally */
+        top: 35px;
+        /* Adjust tooltip position below the button */
+        right: 50%;
+        /* Center it horizontally */
         transform: translateX(50%);
         background-color: #333;
         color: #fff;
@@ -108,325 +120,339 @@
         font-size: 12px;
         border-radius: 5px;
         white-space: nowrap;
-        opacity: 0; /* Hidden by default */
-        visibility: hidden; /* Hidden by default */
+        opacity: 0;
+        /* Hidden by default */
+        visibility: hidden;
+        /* Hidden by default */
         transition: opacity 0.3s ease, visibility 0.3s ease;
         z-index: 10;
     }
-    
-    /* Show tooltip on hover */
+
     .card-wrapper .edit-button:hover::after {
-        opacity: 1; /* Make it visible */
-        visibility: visible; /* Make it visible */
+        opacity: 1;
+        visibility: visible;
     }
-    
+
     /*shetty */
     /* General responsive rules */
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  overflow: auto !important; /* enable natural scroll */
-}
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: auto !important;
+        /* enable natural scroll */
+    }
 
 
-/* Dashboard container layout */
-.dashboard-container {
-  display: flex;
-  flex-wrap: wrap;
-  min-height: 100vh; /* allow flexible height */
-}
-
-/* Sidebar default (desktop) */
-.sidebar {
-    width: 280px;
-    flex-shrink: 0;
-}
-
-/* Main content takes rest */
-.content {
-  flex: 1;
-  padding: 1rem;
-  overflow-y: auto;
-  overflow-x: hidden;
-  min-height: calc(100vh - 60px); /* adjust if you have header/navbar */
-}
-
- .toggle-btn {
-  display: none;
-}
-
-
-
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
+    /* Dashboard container layout */
     .dashboard-container {
-        flex-direction: column;
-    }
-
-    /* Sidebar collapses into top bar */
-    .sidebar {
-        width: 100%;
-        padding: 1rem;
-        border-right: none;
-        border-bottom: 1px solid #e3f2fd;
-        box-shadow: none;
-    }
-
-    /* Sidebar items stack better */
-    .sidebar ul {
         display: flex;
         flex-wrap: wrap;
-        gap: 10px;
-    }
-    .sidebar li {
-        flex: 1 1 45%; /* two per row */
+        min-height: 100vh;
+        /* allow flexible height */
     }
 
-    /* Content padding reduced */
+    /* Sidebar default (desktop) */
+    .sidebar {
+        width: 280px;
+        flex-shrink: 0;
+    }
+
+    /* Main content takes rest */
     .content {
-        padding: 0.5rem;
+        flex: 1;
+        padding: 1rem;
+        overflow-y: auto;
+        overflow-x: hidden;
+        min-height: calc(100vh - 60px);
+        /* adjust if you have header/navbar */
     }
 
-    /* Card responsiveness */
+    .toggle-btn {
+        display: none;
+    }
+
+
+
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+        .dashboard-container {
+            flex-direction: column;
+        }
+
+        /* Sidebar collapses into top bar */
+        .sidebar {
+            width: 100%;
+            padding: 1rem;
+            border-right: none;
+            border-bottom: 1px solid #e3f2fd;
+            box-shadow: none;
+        }
+
+        /* Sidebar items stack better */
+        .sidebar ul {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .sidebar li {
+            flex: 1 1 45%;
+            /* two per row */
+        }
+
+        /* Content padding reduced */
+        .content {
+            padding: 0.5rem;
+        }
+
+        /* Card responsiveness */
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: 10px;
+        }
+
+        .card {
+            width: 100%;
+        }
+
+        /* Search input full width */
+        .search-input {
+            width: 100%;
+            margin-top: 10px;
+            display: block;
+        }
+
+
+
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -220px;
+            /* hidden by default */
+            width: 220px;
+            height: 100vh;
+            background: #f5e7df;
+            ;
+            /* adjust to your color */
+            color: inherit;
+            transition: transform 0.3s ease;
+            transform: translateX(-5px);
+            z-index: 1000;
+            padding: 1rem;
+        }
+
+        /* When sidebar is open */
+        .sidebar.open {
+            left: 0;
+        }
+
+        /* Show toggle button only on small screens */
+        .toggle-btn {
+            display: block;
+            position: fixed;
+            top: 2px;
+            left: 10px;
+            z-index: 1100;
+            background: #c3a38c;
+            color: white;
+            border: none;
+            padding: 5px 5px;
+            font-size: 20px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .sidebar.open h3.container-header1 {
+            display: none;
+        }
+
+        .sidebar.open hr.container-header1 {
+            display: none;
+        }
+
+        .sidebar.open ul {
+            margin-top: 25px;
+        }
+
+        /* Optional – prevent content shift */
+        .main-content {
+            margin-left: 0;
+        }
+
+    }
+
+    @media (max-width: 480px) {
+        .sidebar {
+            width: 100%;
+            /* take full width on mobile */
+            padding: 1rem;
+            border-right: none;
+            border-bottom: 1px solid #e3f2fd;
+            box-shadow: none;
+            display: block;
+            /* ✅ force it visible */
+        }
+
+        /* Add space for a menu button */
+        .menu-toggle {
+            display: block;
+            background: #f7d6e0;
+            border: none;
+            padding: 10px;
+            font-size: 18px;
+            width: 100%;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        /* Cards single column */
+        .card-container {
+            grid-template-columns: 1fr;
+        }
+
+
+
+
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -220px;
+            /* hidden by default */
+            width: 220px;
+            height: 100vh;
+            background: #f5e7df;
+            ;
+            /* adjust to your color */
+            color: inherit;
+            transition: transform 0.3s ease;
+            transform: translateX(-5px);
+            z-index: 1000;
+            padding: 1rem;
+        }
+
+        /* When sidebar is open */
+        .sidebar.open {
+            left: 0;
+        }
+
+        /* Show toggle button only on small screens */
+        .toggle-btn {
+            display: block;
+            position: fixed;
+            top: 2px;
+            left: 10px;
+            z-index: 1100;
+            background: #c3a38c;
+            color: white;
+            border: none;
+            padding: 5px 5px;
+            font-size: 20px;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .sidebar.open h3.container-header1 {
+            display: none;
+        }
+
+        .sidebar.open hr.container-header1 {
+            display: none;
+        }
+
+        .sidebar.open ul {
+            margin-top: 25px;
+        }
+
+        /* Optional – prevent content shift */
+        .main-content {
+            margin-left: 0;
+        }
+
+    }
+
+
+    /* ============================
+   Card Styling (Clean + Simple)
+=============================== */
+    /* Card Styling */
+    .card-container-wrapper {
+        position: relative;
+        overflow-x: auto;
+        display: flex;
+        padding-bottom: 15px;
+        scroll-behavior: smooth;
+        width: 100%;
+    }
+
     .card-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-        gap: 10px;
+        display: flex;
+        flex-wrap: nowrap;
+        gap: 15px;
+        justify-content: flex-start;
+        white-space: nowrap;
     }
 
     .card {
-        width: 100%;
-    }
-
-    /* Search input full width */
-    .search-input {
-        width: 100%;
-        margin-top: 10px;
-        display: block;
-    }
-
-
-
-
-    .sidebar {
-    position: fixed;
-    top: 0;
-    left: -220px; /* hidden by default */
-    width: 220px;
-    height: 100vh;
-    background: #f5e7df;; /* adjust to your color */
-    color: inherit;
-     transition: transform 0.3s ease;
-    transform: translateX(-5px);
-    z-index: 1000;
-    padding: 1rem;
-  }
-
-  /* When sidebar is open */
-  .sidebar.open {
-    left: 0;
-  }
-
-  /* Show toggle button only on small screens */
-  .toggle-btn {
-    display: block;
-    position: fixed;
-    top: 2px;
-    left: 10px;
-    z-index: 1100;
-    background: #c3a38c;
-    color: white;
-    border: none;
-    padding: 5px 5px;
-    font-size: 20px;
-    border-radius: 6px;
-    cursor: pointer;
-  }
-
-  .sidebar.open h3.container-header1 {
-    display: none;
-  }
-
-  .sidebar.open hr.container-header1 {
-    display: none;
-  }
-
-  .sidebar.open ul {
-    margin-top: 25px;
-  }
-
-  /* Optional – prevent content shift */
-  .main-content {
-    margin-left: 0;
-  }
-
-}
-
-@media (max-width: 480px) {
-    .sidebar {
-        width: 100%;   /* take full width on mobile */
-        padding: 1rem;
-        border-right: none;
-        border-bottom: 1px solid #e3f2fd;
-        box-shadow: none;
-        display: block;  /* ✅ force it visible */
-    }
-
-    /* Add space for a menu button */
-    .menu-toggle {
-        display: block;
-        background: #f7d6e0;
+        width: 150px;
+        background: transparent;
         border: none;
-        padding: 10px;
-        font-size: 18px;
-        width: 100%;
+        box-shadow: none;
         text-align: left;
-        cursor: pointer;
+        position: relative;
+        cursor: default;
+        transition: none !important;
     }
 
-    /* Cards single column */
-    .card-container {
-        grid-template-columns: 1fr;
+    .card:hover {
+        background: transparent;
+        box-shadow: none;
+        transform: none;
+        cursor: default;
     }
 
+    .card img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+        border-radius: 15px;
+        display: block;
+        transition: none !important;
+    }
 
+    .card img:hover {
+        transform: none;
+        filter: none;
+    }
 
+    .card-details {
+        /* padding-top: 8px; */
 
+        color: #000;
+        line-height: 1.5;
+    }
 
-    .sidebar {
-    position: fixed;
-    top: 0;
-    left: -220px; /* hidden by default */
-    width: 220px;
-    height: 100vh;
-    background: #f5e7df;; /* adjust to your color */
-    color: inherit;
-     transition: transform 0.3s ease;
-    transform: translateX(-5px);
-    z-index: 1000;
-    padding: 1rem;
-  }
+    .card-details h4 {
+        font-family: "Poppins", sans-serif;
 
-  /* When sidebar is open */
-  .sidebar.open {
-    left: 0;
-  }
+        margin-bottom: 1px;
+        font-size: 16px;
+        font-weight: 600;
+        color: #000;
+    }
 
-  /* Show toggle button only on small screens */
-  .toggle-btn {
-    display: block;
-    position: fixed;
-    top: 2px;
-    left: 10px;
-    z-index: 1100;
-    background: #c3a38c;
-    color: white;
-    border: none;
-    padding: 5px 5px;
-    font-size: 20px;
-    border-radius: 6px;
-    cursor: pointer;
-  }
-
-  .sidebar.open h3.container-header1 {
-    display: none;
-  }
-
-  .sidebar.open hr.container-header1 {
-    display: none;
-  }
-
-  .sidebar.open ul {
-    margin-top: 25px;
-  }
-
-  /* Optional – prevent content shift */
-  .main-content {
-    margin-left: 0;
-  }
-
-}
-
-
-/* ============================
-   Card Styling (Clean + Simple)
-=============================== */
-/* Card Styling */
-.card-container-wrapper {
-  position: relative;
-  overflow-x: auto;
-  display: flex;
-  padding-bottom: 15px;
-  scroll-behavior: smooth;
-  width: 100%;
-}
-
-.card-container {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 15px;
-  justify-content: flex-start;
-  white-space: nowrap;
-}
-
-.card {
-  width: 150px;
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  text-align: left;
-  position: relative;
-  cursor: default;
-  transition: none !important;
-}
-
-.card:hover {
-  background: transparent;
-  box-shadow: none;
-  transform: none;
-  cursor: default;
-}
-
-.card img {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-  border-radius: 15px;
-  display: block;
-  transition: none !important;
-}
-
-.card img:hover {
-  transform: none;
-  filter: none;
-}
-
-.card-details {
-  /* padding-top: 8px; */
- 
-  color: #000;
-  line-height: 1.5;
-}
-
-.card-details h4 {
-  font-family: "Poppins", sans-serif;
-
-  margin-bottom: 1px;
-   font-size: 16px;
-  font-weight: 600;
-  color: #000;
-}
-
-.card-details p {
-  margin: 2px 0;
-   font-size: 12px;
-  color: #0e0101;
-}
-
-
+    .card-details p {
+        margin: 2px 0;
+        font-size: 12px;
+        color: #0e0101;
+    }
 </style>
+
 <body>
 
     <div id="navbar-placeholder"></div>
@@ -441,27 +467,25 @@ html, body {
 
         <!-- Main Content Area -->
         <main id="content" class="content">
-            <div id="waiting-dialog" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center; z-index: 9999;">
+            <div id="waiting-dialog"
+                style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); display: flex; justify-content: center; align-items: center; z-index: 9999;">
                 <div style="background-color: white; padding: 20px; border-radius: 8px;">
-                    <div class="loader" style="border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 50px; height: 50px; animation: spin 2s linear infinite;"></div>
+                    <div class="loader"
+                        style="border: 4px solid #f3f3f3; border-top: 4px solid #3498db; border-radius: 50%; width: 50px; height: 50px; animation: spin 2s linear infinite;">
+                    </div>
                     <p style="text-align: center; margin-top: 10px;">Please Wait...</p>
                 </div>
             </div>
             <!-- Default Dashboard Content -->
             <section id="dashboard-content" class="dashboard-content">
-               
+
                 <h2 class="container-header">
                     Views
-                    <span><i class="fa fa-search"></i><input 
-                        type="text" 
-                        id="searchProfileInput" 
-                        placeholder="Search profiles..." 
-                        class="search-input"
-                        oninput="filterProfiles()"
-                    ></span>
+                    <span><i class="fa fa-search"></i><input type="text" id="searchProfileInput"
+                            placeholder="Search profiles..." class="search-input" oninput="filterProfiles()"></span>
                 </h2>
-             
-                
+
+
                 <!-- Recently Joined Section -->
                 <section class="profile-section">
                     <h3 class="recently-joined-header">I Viewed(<span id="iviewed_count">0</span>)</h3>
@@ -481,7 +505,7 @@ html, body {
         </main>
     </div>
     <script src="baseurl.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script>
         function loadHTMLContent(elementId, url, callback) {
             fetch(url)
@@ -490,35 +514,35 @@ html, body {
                     document.getElementById(elementId).innerHTML = data;
                     if (callback) callback(); // Execute callback after content is loaded
                 })
-                .catch(error =>console.error('Error loading HTML:', error));
+                .catch(error => console.error('Error loading HTML:', error));
         }
 
         // Load Navbar and Sidebar
         // loadHTMLContent('navbar-placeholder', 'navbar');
         loadHTMLContent('navbar-placeholder', 'navbar', () => {
-                const elementMap = {
-                    profileFor1: 'myprofile_fullname',
-                    profileMatriId: 'matriId',
-                    profileImg: 'myprofile_photo_url',
-                    profilePicture: 'myprofile_photo_url',
-                    profileFor: 'myprofile_fullname',
-                    profileId: 'matriId',
-                };
+            const elementMap = {
+                profileFor1: 'myprofile_fullname',
+                profileMatriId: 'matriId',
+                profileImg: 'myprofile_photo_url',
+                profilePicture: 'myprofile_photo_url',
+                profileFor: 'myprofile_fullname',
+                profileId: 'matriId',
+            };
 
-                Object.keys(elementMap).forEach((id) => {
-                    const element = document.getElementById(id);
-                    const value = localStorage.getItem(elementMap[id]);
+            Object.keys(elementMap).forEach((id) => {
+                const element = document.getElementById(id);
+                const value = localStorage.getItem(elementMap[id]);
 
-                    if (element) {
+                if (element) {
                     // For image elements, set the src attribute
                     if (id === 'profileImg' || id === 'profilePicture') {
                         element.src = value || 'https://via.placeholder.com/40'; // Fallback for missing images
                     } else {
                         element.textContent = value || ''; // Fallback for text
                     }
-                    }
-                });
+                }
             });
+        });
 
         loadHTMLContent('sidebar-placeholder', 'sidebar', function () {
             // Add event listeners after the sidebar content is loaded
@@ -554,7 +578,7 @@ html, body {
             submenuLinks.forEach(link => {
                 link.addEventListener('click', function (event) {
                     // Allow navigation or custom logic for submenu links
-                   //consolelog(`Navigating to ${this.getAttribute('href')}`);
+                    //consolelog(`Navigating to ${this.getAttribute('href')}`);
                 });
             });
         });
@@ -572,20 +596,20 @@ html, body {
             }
         }
 
-    // Close the dropdown on outside click
-    function closeDropdownOnClickOutside(event) {
-        const dropdown = document.getElementById('profileDropdown');
-        const profileIcon = document.querySelector('.profile-icon');
+        // Close the dropdown on outside click
+        function closeDropdownOnClickOutside(event) {
+            const dropdown = document.getElementById('profileDropdown');
+            const profileIcon = document.querySelector('.profile-icon');
 
-        // Check if the clicked element is outside the dropdown or profile icon
-        if (!dropdown.contains(event.target) && !profileIcon.contains(event.target)) {
-            dropdown.style.display = 'none';
-            document.removeEventListener('click', closeDropdownOnClickOutside); // Clean up the event listener
+            // Check if the clicked element is outside the dropdown or profile icon
+            if (!dropdown.contains(event.target) && !profileIcon.contains(event.target)) {
+                dropdown.style.display = 'none';
+                document.removeEventListener('click', closeDropdownOnClickOutside); // Clean up the event listener
+            }
         }
-    }
 
-    function logout() {
-           //consolelog("User logged out");
+        function logout() {
+            //consolelog("User logged out");
             localStorage.clear();
             localStorage.setItem("visitedSuccessPage", "true");
             window.location.href = 'Login';
@@ -610,15 +634,15 @@ html, body {
         function get_entry() {
             const maxProfileCount = parseInt(localStorage.getItem("max_profile_count"), 10);
             const viewedProfileCount = parseInt(localStorage.getItem("viewed_profile_count"), 10);
-          
+
             if (isNaN(maxProfileCount) || isNaN(viewedProfileCount)) {
-             console.error("One or both values are not set or are invalid in localStorage.");
-              return false; // Default to false if values are invalid or missing
+                console.error("One or both values are not set or are invalid in localStorage.");
+                return false; // Default to false if values are invalid or missing
             }
-          
+
             return maxProfileCount > viewedProfileCount;
-          }
-          console.log("Karthik",get_entry());
+        }
+        console.log("Karthik", get_entry());
         function populateCards(containerId, data) {
             const container = document.getElementById(containerId);
             if (!container) return; // Exit if the container is not found
@@ -626,25 +650,25 @@ html, body {
 
             data.forEach(profile => {
 
-                 let imgURL='';
-                if(profile["gender_type"]==='Male' && (profile.url===null || profile.url==='')){
-                    imgURL='../img/2.png';
-                }else if(profile["gender_type"]==='Female' && (profile.url===null || profile.url==='')){
-                    imgURL='../img/1.png';
-                }else{  
-                    imgURL=localStorage.getItem("baseURL")+profile.url;
+                let imgURL = '';
+                if (profile["gender_type"] === 'Male' && (profile.url === null || profile.url === '')) {
+                    imgURL = '../img/2.png';
+                } else if (profile["gender_type"] === 'Female' && (profile.url === null || profile.url === '')) {
+                    imgURL = '../img/1.png';
+                } else {
+                    imgURL = localStorage.getItem("baseURL") + profile.url;
                 }
-              
+
                 // Create the card element
                 const card = document.createElement('div');
                 card.className = 'card';
 
                 // Set the card content
-               card.innerHTML = `
+                card.innerHTML = `
     <div class="card-wrapper">
-        ${ profile.plan_status == 'Paid' 
-            ? `<button class="edit-button"><div class="veri"><img src="../img/veri.png" alt="verification" style="width: 30px; height: 30px;"></div></button>` 
-            : "" }
+        ${profile.plan_status == 'Paid'
+                        ? `<button class="edit-button"><div class="veri"><img src="../img/veri.png" alt="verification" style="width: 30px; height: 30px;"></div></button>`
+                        : ""}
         <img src="${imgURL}" alt="${profile.first_name}" class="card-image">
         <div class="card-details">
             <h4>${profile.first_name}</h4>
@@ -655,12 +679,12 @@ html, body {
 `;
 
 
-                card.onclick =  async function() {
-                    console.log("shartya",get_entry());
-                    localStorage.setItem("matriIdTo",profile.matri_id);
-                   let planStatus=localStorage.getItem("planStatus");
-                    console.log("plan",planStatus);
-                    if(planStatus== 'Expired' && await matching("profile") == 'false'){
+                card.onclick = async function () {
+                    console.log("shartya", get_entry());
+                    localStorage.setItem("matriIdTo", profile.matri_id);
+                    let planStatus = localStorage.getItem("planStatus");
+                    console.log("plan", planStatus);
+                    if (planStatus == 'Expired' && await matching("profile") == 'false') {
                         console.log("Expired");
                         Swal.fire({
                             title: "Your Plan has Expired",
@@ -679,171 +703,198 @@ html, body {
                                 window.location.href = "payment";
                             } else if (result.dismiss === Swal.DismissReason.cancel) {
                                 // Do nothing, alert will close
-                               //consolelog("User chose to cancel.");
+                                //consolelog("User chose to cancel.");
                             }
                         });
                     }
-                 
-                    else if (get_entry() === true || await matching("profile") === true)
 
-                     //else if (get_entry() === 'true') 
-    
-                    {
-                        console.log("Karthikkkk",get_entry());
-                            console.log("hlo Vishal");
-                        localStorage.setItem("viewedFirstName",profile.first_name);
-                        localStorage.setItem("viewedLastName",profile.last_name);
-                        localStorage.setItem("imageViewed",profile.url);
+                    else if (get_entry() === true || await matching("profile") === true) {
+                        console.log("Karthikkkk", get_entry());
+                        console.log("Hlo Vishal");
+                        localStorage.setItem("viewedFirstName", profile.first_name);
+                        localStorage.setItem("viewedLastName", profile.last_name);
+                        localStorage.setItem("imageViewed", profile.url);
                         localStorage.setItem("age", profile.age);
-                        localStorage.setItem("genderType",profile["gender_type"]);
-                        localStorage.setItem("imgURL",imgURL);
+                        localStorage.setItem("genderType", profile["gender_type"]);
+                        localStorage.setItem("imgURL", imgURL);
                         localStorage.setItem("height", profile.height);
-                        localStorage.setItem("weight",profile.weight);
+                        localStorage.setItem("weight", profile.weight);
 
-             
-                    window.location.href = "profile_view";
-                  
+
+                        window.location.href = "profile_view";
+
+                    }
+                    else {
+                        Swal.fire({
+                            title: "Maximum Limit has been reached",
+                            text: "Would you like to upgrade to access more options?",
+                            icon: "info",
+                            showCancelButton: true,
+                            confirmButtonText: "Upgrade",
+                            cancelButtonText: "Cancel",
+                            reverseButtons: true,
+                            customClass: {
+                                popup: 'swal-wide' // Optional: add custom CSS for styling
+                            }
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                // Redirect to the upgrade page
+                                window.location.href = "payment";
+                            } else if (result.dismiss === Swal.DismissReason.cancel) {
+
+                            }
+                        });
+                    }
+
+
                 }
-                else{
-                    Swal.fire({
-                        title: "Maximum Limit has been reached",
-                        text: "Would you like to upgrade to access more options?",
-                        icon: "info",
-                        showCancelButton: true,
-                        confirmButtonText: "Upgrade",
-                        cancelButtonText: "Cancel",
-                        reverseButtons: true,
-                        customClass: {
-                            popup: 'swal-wide' // Optional: add custom CSS for styling
-                        }
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            // Redirect to the upgrade page
-                            window.location.href = "payment";
-                        } else if (result.dismiss === Swal.DismissReason.cancel) {
-                           
-                        }
-                    });
-               }
- 
-               
-            }
-                 container.appendChild(card);
-             });
-         }
- 
+                container.appendChild(card);
+            });
+        }
 
-        let profileIViewed=[];
-        let profileViewedBy=[];
-        async function toggleOptionIViewed(){
-            showWaitingDialog();
-        const data = {
-          matri_id:localStorage.getItem('matriId'),
-          type: "iviewed"
-        };
 
-        await axios.post(`${BASE_URL}/z_profile_viewed2.php`, data, {
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-        .then(function(response) {
-            
-           //consolelog('Success:', response.data);
-            if(response.data.message.p_out_mssg_flg === 'Y'){
-             //consolelog('Success:', response.data.dataout);
-              profileIViewed=response.data.dataout;
-              const viewedProfiles = profileIViewed.filter(user => user.matri_id);
-              document.getElementById('iviewed_count').innerText=viewedProfiles.length;
+        let profileIViewed = [];
+        let profileViewedBy = [];
 
-           
-           
-            populateCards('iviewed-container', viewedProfiles);
-            hideWaitingDialog();
-            //   displayProfiles(viewedProfiles);
-            }else{
-                hideWaitingDialog();
-             //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);
-            }
-        });
-      }
+async function handleSessionExpiry() {
+    // Prevent multiple alerts showing at once
+    if (window.sessionExpiredAlertShown) return;
+    window.sessionExpiredAlertShown = true;
 
-      async function toggleOptionViewedBy(){
-        showWaitingDialog();
-        const data1 = {
-          matri_id:localStorage.getItem('matriId'),
-          type: "viewedby"
-        };
-       //consolelog(data1);
-
-        await axios.post(`${BASE_URL}/z_profile_viewed2.php`, data1, {
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-        .then(function(response) {
-            if(response.data.message.p_out_mssg_flg === 'Y'){
-              profileViewedBy=response.data.dataout;
-              const viewedByProfiles = profileViewedBy.filter(user => user.matri_id);
-              document.getElementById('viewed_by_count').innerText=viewedByProfiles.length;
-              populateCards('viewedby-container', viewedByProfiles);
-              hideWaitingDialog();
-              
-            }else{
-                hideWaitingDialog();
-             //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);
-            }
-        });
-      }
-
-      
-
-        var baseURL='';
-document.addEventListener('DOMContentLoaded', function () {
-    
-   
-    if(localStorage.getItem('matriId')== 'NULL'||localStorage.getItem('matriId')==''||localStorage.getItem('matriId')== null ){
-        logout();
-    }
-        toggleOptionIViewed();
-        toggleOptionViewedBy();
+    await Swal.fire({
+        title: "Session Expired",
+        text: "Your session has expired. Please log in again.",
+        icon: "warning",
+        confirmButtonText: "OK",
+        allowOutsideClick: false,
+        allowEscapeKey: false
     });
-    const waitingDialog = document.getElementById('waiting-dialog');
-    function showWaitingDialog() {
-        waitingDialog.style.display = 'flex';
-    }
 
-    // Hide the waiting dialog
-    function hideWaitingDialog() {
-        waitingDialog.style.display = 'none';
-    }
+    // Clear storage AFTER user clicks OK
+    localStorage.removeItem('jwtToken');
+    localStorage.removeItem('matriId');
+    sessionStorage.clear();
 
-
-function filterProfiles() {
-    const searchInput = document.getElementById('searchProfileInput').value.toLowerCase();
-    const cardContainers = document.querySelectorAll('.card-container'); // All profile sections
-
-    cardContainers.forEach(container => {
-        const cards = container.querySelectorAll('.card');
-
-        cards.forEach(card => {
-            const profileName = card.querySelector('h4').textContent.toLowerCase();
-            const profileId = card.querySelector('p:nth-of-type(2)').textContent.toLowerCase(); // For Matri Id
-            if (profileName.includes(searchInput) || profileId.includes(searchInput)) {
-                card.style.display = ''; // Show card
-            } else {
-                card.style.display = 'none'; // Hide card
-            }
-        });
-    });
+    // Then redirect
+    window.location.href = "login";
 }
 
 
-function toggleSidebar() {
-    document.querySelector('.sidebar').classList.toggle('open');
-  }
+async function toggleOptionIViewed() {
+    showWaitingDialog();
+    const data = {
+        matri_id: localStorage.getItem('matriId'),
+        type: "iviewed"
+    };
+
+    try {
+        const response = await axios.post(`${BASE_URL}/z_profile_viewed2.php`, data, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`
+            }
+        });
+
+        if (response.data.message.p_out_mssg_flg === 'Y') {
+            const profileIViewed = response.data.dataout.filter(user => user.matri_id);
+            document.getElementById('iviewed_count').innerText = profileIViewed.length;
+            populateCards('iviewed-container', profileIViewed);
+        } else {
+            Swal.fire("Error", response.data.message.p_out_mssg, "error");
+        }
+    } catch (error) {
+        if (error.response && error.response.status === 401) {
+            await handleSessionExpiry();
+        } else {
+            Swal.fire("Error", "Unable to load profiles. Try again later.", "error");
+        }
+    } finally {
+        hideWaitingDialog();
+    }
+}
+
+// 🧩 Function - Viewed By
+async function toggleOptionViewedBy() {
+    showWaitingDialog();
+    const data1 = {
+        matri_id: localStorage.getItem('matriId'),
+        type: "viewedby"
+    };
+
+    try {
+        const response = await axios.post(`${BASE_URL}/z_profile_viewed2.php`, data1, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`
+            }
+        });
+
+        if (response.data.message.p_out_mssg_flg === 'Y') {
+            const profileViewedBy = response.data.dataout.filter(user => user.matri_id);
+            document.getElementById('viewed_by_count').innerText = profileViewedBy.length;
+            populateCards('viewedby-container', profileViewedBy);
+        } else {
+            Swal.fire("Error", response.data.message.p_out_mssg, "error");
+        }
+    } catch (error) {
+        if (error.response && error.response.status === 401) {
+            await handleSessionExpiry();
+        } else {
+            Swal.fire("Error", "Unable to load profiles. Try again later.", "error");
+        }
+    } finally {
+        hideWaitingDialog();
+    }
+}
+
+
+        var baseURL = '';
+        document.addEventListener('DOMContentLoaded', function () {
+
+
+            if (localStorage.getItem('matriId') == 'NULL' || localStorage.getItem('matriId') == '' || localStorage.getItem('matriId') == null) {
+                logout();
+            }
+            toggleOptionIViewed();
+            toggleOptionViewedBy();
+        });
+        const waitingDialog = document.getElementById('waiting-dialog');
+        function showWaitingDialog() {
+            waitingDialog.style.display = 'flex';
+        }
+
+        // Hide the waiting dialog
+        function hideWaitingDialog() {
+            waitingDialog.style.display = 'none';
+        }
+
+
+        function filterProfiles() {
+            const searchInput = document.getElementById('searchProfileInput').value.toLowerCase();
+            const cardContainers = document.querySelectorAll('.card-container'); // All profile sections
+
+            cardContainers.forEach(container => {
+                const cards = container.querySelectorAll('.card');
+
+                cards.forEach(card => {
+                    const profileName = card.querySelector('h4').textContent.toLowerCase();
+                    const profileId = card.querySelector('p:nth-of-type(2)').textContent.toLowerCase(); // For Matri Id
+                    if (profileName.includes(searchInput) || profileId.includes(searchInput)) {
+                        card.style.display = ''; // Show card
+                    } else {
+                        card.style.display = 'none'; // Hide card
+                    }
+                });
+            });
+        }
+
+
+        function toggleSidebar() {
+            document.querySelector('.sidebar').classList.toggle('open');
+        }
 
     </script>
     <script src="maxcount.js"></script>
 </body>
+
 </html>
