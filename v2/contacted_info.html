@@ -46,8 +46,6 @@
   z-index: 2;
 }
 
-
-
      #sidebar-placeholder {
             background: linear-gradient(180deg, #f5e7df 0%, #f5e7df 100%);
             color: #2c3e50;
@@ -727,7 +725,29 @@ function hideWaitingDialog() {
   if (dialog) dialog.style.display = 'none';
 }
 
-function toggleOptionContacted() {
+
+async function handleSessionExpiry() {
+    if (window.sessionExpiredAlertShown) return;
+    window.sessionExpiredAlertShown = true;
+
+    await Swal.fire({
+        title: "Session Expired",
+        text: "Your session has expired. Please log in again.",
+        icon: "warning",
+        confirmButtonText: "OK",
+        allowOutsideClick: false,
+        allowEscapeKey: false
+    });
+
+    localStorage.removeItem('jwtToken');
+    localStorage.removeItem('matriId');
+    sessionStorage.clear();
+
+   
+    window.location.href = "login";
+}
+
+async function toggleOptionContacted() {
   showWaitingDialog();
 
   const data1 = {
@@ -737,45 +757,55 @@ function toggleOptionContacted() {
 
   const token = localStorage.getItem("jwtToken");
 
-  // 🔹 Check before API call
+  // 🔹 Check before making API call
   if (!token || isTokenExpired(token)) {
     hideWaitingDialog();
-    logout("Your session has expired. Please log in again.");
+    await handleSessionExpiry();
     return;
   }
 
-  axios.post(`${BASE_URL}/z_contacted_profile2.php`, data1, {
-    headers: {
-      'Content-Type': 'application/json',
-      "Authorization": "Bearer " + token
-    }
-  })
-  .then(function(response) {
-    if (response.status === 401 || response.data?.error === "Token expired") {
-      hideWaitingDialog();
-      logout("Your session has expired. Please log in again.");
+  try {
+    const response = await axios.post(`${BASE_URL}/z_contacted_profile2.php`, data1, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token
+      }
+    });
+
+    // 🔹 Handle session expiry messages returned by backend
+    if (
+      response.status === 401 ||
+      response.data?.message?.p_out_mssg_flg === "E" &&
+      response.data?.message?.p_out_mssg?.toLowerCase().includes("session expired")
+    ) {
+      await handleSessionExpiry();
       return;
     }
 
+    // 🔹 If response is valid
     if (response.data.message?.p_out_mssg_flg === 'Y') {
-      profileContacted = response.data.dataout || [];
+      const profileContacted = response.data.dataout || [];
       const contactedProfiles = profileContacted.filter(user => user.matri_id);
       document.getElementById('contacted_count').innerText = contactedProfiles.length;
       populateCards('contacted-container', contactedProfiles);
     } else {
-      console.warn("Error:", response.data.message?.p_out_mssg);
+      Swal.fire("Error", response.data.message?.p_out_mssg || "Unable to load contacted profiles.", "error");
     }
-  })
-  .catch(function(error) {
+
+  } catch (error) {
     console.error("API Error:", error);
+
+    // 🔹 If token invalid or expired, trigger session expiry alert
     if (error.response && error.response.status === 401) {
-      logout("Your session has expired. Please log in again.");
+      await handleSessionExpiry();
+    } else {
+      Swal.fire("Error", "Unable to load contacted profiles. Please try again later.", "error");
     }
-  })
-  .finally(() => {
+  } finally {
     hideWaitingDialog();
-  });
+  }
 }
+
     function get_entry() {
         const maxProfileCount = parseInt(localStorage.getItem("max_profile_count"), 10);
         const viewedProfileCount = parseInt(localStorage.getItem("viewed_profile_count"), 10);
