@@ -19,26 +19,33 @@
 
 </head>
 <style>
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
 
   
 #content {
+  flex: 1; /* take remaining space */
+  overflow-y: auto;
+  overflow-x: hidden;
   position: relative;
   z-index: 1;
-  overflow: hidden; /* ensures the background doesn't spill out */
+  min-height: 100vh;
 }
 
-
+/* ✅ Background blur effect (unchanged) */
 #content::before {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background: url("../img/shaadhi.jpeg") no-repeat center center/cover;
   filter: blur(10px);
   opacity: 0.85;
-  z-index: -1; /* keep it behind everything inside main */
+  z-index: -1;
   border-radius: 10px;
 }
 
@@ -405,14 +412,13 @@
       outline: none;
       border-color: #0134d4;
     }
-
 .card-container-wrapper {
-  position: relative;
-  overflow-x: auto;
   display: flex;
-  padding-bottom: 15px;
-  scroll-behavior: smooth;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 10px;
   width: 100%;
+  overflow: visible;
 }
 
 .card-container {
@@ -622,12 +628,15 @@
   }
 }
 
-
 .dashboard-container {
-  max-width: 1600px;
+  display: flex;
+  flex-direction: row; /* sidebar + main side by side */
+  min-height: 100vh; /* ensures full height on desktop */
+  height: auto;
   width: 100%;
-  margin: 0 auto;
+  overflow: hidden; /* prevent double scrollbars */
 }
+
 @media screen and (max-width: 1024px) {
   .sidebar {
     width: 200px;
@@ -687,6 +696,103 @@
     margin-left: 0;
   }
 }
+.sidebar {
+  flex-shrink: 0;
+  width: 280px;
+  height: 100vh;
+  overflow-y: auto; /* only sidebar scrolls if long */
+  background: linear-gradient(180deg, #f5e7df 0%, #f5e7df 100%);
+  border-right: 1px solid #e3f2fd;
+}
+
+@media (max-width: 768px) {
+  html, body {
+    height: auto;
+    min-height: 100%;
+  }
+
+  #content {
+    overflow-y: visible; /* let it expand naturally */
+    min-height: 100vh; /* ensures full scroll range */
+  }
+}
+
+
+/* ✅ Universal layout fix for scrolling */
+html, body {
+  height: auto !important;
+  min-height: 100% !important;
+  overflow-x: hidden !important;
+  overflow-y: auto !important;
+  scroll-behavior: smooth;
+}
+
+/* ✅ Let dashboard layout expand naturally */
+.dashboard-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  min-height: 100vh;
+  height: auto !important;
+  overflow: visible !important;
+}
+
+/* ✅ Make #content scrollable and full height */
+#content {
+  flex: 1;
+  position: relative;
+  overflow-y: visible !important;
+  overflow-x: hidden;
+  min-height: 100vh;
+  height: auto !important;
+}
+
+@media (max-width: 768px) {
+  /* ✅ Remove white space on left */
+  .dashboard-container {
+    overflow-x: hidden;
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+  /* ✅ Hide sidebar off-screen without leaving a gap */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -240px; /* moves completely out of view */
+    width: 220px;
+    height: 100vh;
+    background: #f5e7df;
+    transition: left 0.3s ease;
+    z-index: 1000;
+  }
+
+  .sidebar.open {
+    left: 0; /* slide in when opened */
+  }
+
+  /* ✅ Keep toggle button visible above everything */
+  .toggle-btn {
+    display: block;
+    position: fixed;
+    top: 10px; /* move slightly up */
+    left: 10px;
+    z-index: 2000; /* ensure above all layers */
+    background: #c3a38c;
+    color: white;
+    border: none;
+    padding: 8px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  /* ✅ Adjust content so it starts from left edge */
+  #content {
+    margin-left: 0 !important;
+    padding-left: 10px;
+  }
+}
+
 
 </style>
 <body>
