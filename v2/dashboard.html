@@ -1871,8 +1871,15 @@
           return;
         }
       }
+
+       if (res.token) {
+        localStorage.setItem("jwtToken", res.token);
+        console.log("✅ Token refreshed. New expiry:", res.token_expiry);
+      }
             console.log("Matri", response.data.my_profile.matri_id);
-            if (response.data.message.p_out_mssg === "Y") {
+            if (response.data.message.p_out_mssg === "Y" || res.my_profile) {
+              const profile = res.my_profile;
+        const counts = res.profile_count || {};
               console.log("Matri", response.data.my_profile.matri_id);
               localStorage.setItem(
                 "planStatus",
