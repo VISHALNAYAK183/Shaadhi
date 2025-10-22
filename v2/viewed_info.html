@@ -779,7 +779,6 @@ async function handleSessionExpiry() {
     window.location.href = "login";
 }
 
-
 async function toggleOptionIViewed() {
     showWaitingDialog();
     const data = {
@@ -794,6 +793,11 @@ async function toggleOptionIViewed() {
                 'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`
             }
         });
+
+        // 🔹 Save refreshed token if present
+        if (response.data.token) {
+            localStorage.setItem('jwtToken', response.data.token);
+        }
 
         if (response.data.message.p_out_mssg_flg === 'Y') {
             const profileIViewed = response.data.dataout.filter(user => user.matri_id);
@@ -813,7 +817,7 @@ async function toggleOptionIViewed() {
     }
 }
 
-// 🧩 Function - Viewed By
+
 async function toggleOptionViewedBy() {
     showWaitingDialog();
     const data1 = {
@@ -828,6 +832,11 @@ async function toggleOptionViewedBy() {
                 'Authorization': `Bearer ${localStorage.getItem('jwtToken')}`
             }
         });
+
+      
+        if (response.data.token) {
+            localStorage.setItem('jwtToken', response.data.token);
+        }
 
         if (response.data.message.p_out_mssg_flg === 'Y') {
             const profileViewedBy = response.data.dataout.filter(user => user.matri_id);
@@ -846,6 +855,7 @@ async function toggleOptionViewedBy() {
         hideWaitingDialog();
     }
 }
+
 
 
         var baseURL = '';
