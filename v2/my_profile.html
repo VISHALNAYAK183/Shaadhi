@@ -33,7 +33,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 160%;
     background: url("../img/sharath.png") no-repeat center center/cover;
     filter: blur(10px);
     opacity: 0.85;
@@ -1916,6 +1916,8 @@ function setDefaultRadioButton() {
            
             let baseURL=response.data.dataout[0].base_url;
             loadSectionRow();      
+
+            loadSectionDetails('basic');
 
 
         } else {
