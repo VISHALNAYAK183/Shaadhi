@@ -1055,36 +1055,73 @@
 
 
 
-            async function candidateProfile() {
-                showWaitingDialog();
-                const data = {
-                    matri_id_to: localStorage.getItem("matriIdTo"),
-                    matri_id: localStorage.getItem("matriId"),
-                };
+           async function candidateProfile() {
+    showWaitingDialog();
 
-                try {
-                    const response = await axios.post(
-                        `${BASE_URL}/z_my_profile2.php`,
-                        data,
-                        {
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Authorization": "Bearer " + localStorage.getItem("jwtToken")
-                            }
-                        }
-                    );
+    const data = {
+        matri_id_to: localStorage.getItem("matriIdTo"),
+        matri_id: localStorage.getItem("matriId"),
+    };
 
-                    if (response.data.message.p_out_mssg_flg === "Y") {
-                        candidate_profile_info = response.data.dataout[0];
-                        moreButton.style.display = "none";
-                        localStorage.setItem("liked", candidate_profile_info.liked);
-                    }
-                } catch (error) {
-                    console.error("Error fetching candidate profile:", error);
-                } finally {
-                    hideWaitingDialog();
+    try {
+        const response = await axios.post(
+            `${BASE_URL}/z_my_profile2.php`,
+            data,
+            {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": "Bearer " + localStorage.getItem("jwtToken")
                 }
             }
+        );
+
+        const resData = response.data;
+
+        // --- Step 1: Refresh JWT if new token is returned ---
+        if (resData.token) {
+            localStorage.setItem("jwtToken", resData.token);
+        }
+
+        // --- Step 2: Handle API response ---
+        if (resData.message?.p_out_mssg_flg === "Y") {
+            candidate_profile_info = resData.dataout[0] || {};
+            moreButton.style.display = "none";
+            localStorage.setItem("liked", candidate_profile_info.liked || 0);
+        } else {
+            Swal.fire({
+                title: "Error!",
+                text: resData.message?.p_out_mssg || "Failed to fetch profile.",
+                icon: "error",
+                confirmButtonText: "OK"
+            });
+        }
+
+    } catch (error) {
+        console.error("Error fetching candidate profile:", error);
+
+        // Handle token/session expiration
+        if (error.response && error.response.status === 401) {
+            Swal.fire({
+                title: "Session Expired",
+                text: "Please log in again.",
+                icon: "warning",
+                confirmButtonText: "OK"
+            }).then(() => {
+                // Redirect to login page
+                window.location.href = "login"; 
+            });
+        } else {
+            Swal.fire({
+                title: "Error!",
+                text: "Unable to fetch candidate profile. Please try again.",
+                icon: "error",
+                confirmButtonText: "OK"
+            });
+        }
+    } finally {
+        hideWaitingDialog();
+    }
+}
 
             window.candidateProfile = candidateProfile;
 
