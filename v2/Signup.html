@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,11 +13,12 @@
     <link rel="shortcut icon" type="image/png" href="../img/icon-167x167.png">
     <link rel="shortcut icon" type="image/png" href="../img/icon-180x180.png">
     <link rel="shortcut icon" type="image/png" href="../img/icon-192x192.png">
-    
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+
     <style>
         /* ============================================
-           GLOBAL STYLES
-        ============================================ */
+           GLOBAL STYLES
+        ============================================ */
         * {
             margin: 0;
             padding: 0;
@@ -25,7 +27,7 @@
 
         body {
             font-family: 'Poppins', sans-serif;
-            background-image: url('../img/bg-signup.jpg'); 
+            background-image: url('../img/bg-signup.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -38,8 +40,8 @@
         }
 
         /* ============================================
-           CONTAINER & LAYOUT
-        ============================================ */
+           CONTAINER & LAYOUT
+        ============================================ */
         .container {
             display: flex;
             flex-direction: row;
@@ -54,8 +56,8 @@
         }
 
         /* ============================================
-           IMAGE SECTION
-        ============================================ */
+           IMAGE SECTION
+        ============================================ */
         .image-section {
             flex: 1.2;
             display: flex;
@@ -71,8 +73,8 @@
         }
 
         /* ============================================
-           FORM SECTION
-        ============================================ */
+           FORM SECTION
+        ============================================ */
         .form-section {
             flex: 0.8;
             padding: 40px 50px;
@@ -90,8 +92,8 @@
         }
 
         /* ============================================
-           FORM ELEMENTS
-        ============================================ */
+           FORM ELEMENTS
+        ============================================ */
         .form-group {
             margin-bottom: 20px;
             position: relative;
@@ -129,8 +131,8 @@
         }
 
         /* ============================================
-           PHONE NUMBER GROUP
-        ============================================ */
+           PHONE NUMBER GROUP
+        ============================================ */
         .phone-group {
             display: flex;
             align-items: stretch;
@@ -158,8 +160,8 @@
         }
 
         /* ============================================
-           ERROR MESSAGES
-        ============================================ */
+           ERROR MESSAGES
+        ============================================ */
         .error-message {
             color: #e74c3c;
             font-size: 13px;
@@ -168,8 +170,8 @@
         }
 
         /* ============================================
-           PASSWORD TOGGLE ICON
-        ============================================ */
+           PASSWORD TOGGLE ICON
+        ============================================ */
         .eye-icon {
             position: absolute;
             right: 15px;
@@ -186,8 +188,8 @@
         }
 
         /* ============================================
-           BUTTONS
-        ============================================ */
+           BUTTONS
+        ============================================ */
         button {
             width: 100%;
             padding: 14px;
@@ -213,9 +215,46 @@
             transform: translateY(0);
         }
 
+        /* Resend button styling (Disabled state) */
+        #resend-otp {
+            width: auto;
+            padding: 10px 15px;
+            margin-top: 0;
+            /* Disabled state styles */
+            background-color: #ccc;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        /* Active/Enabled state styles */
+        #resend-otp:not([disabled]) {
+            background-color: #c3a38c;
+            /* Use the normal button color when enabled */
+            cursor: pointer;
+            pointer-events: auto;
+        }
+
+        /* FIX: Add hover state specifically for the enabled button */
+        #resend-otp:not([disabled]):hover {
+            background-color: #7a1030;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(92, 12, 35, 0.3);
+        }
+
+        /* Container for timer and resend button */
+        #otp-controls {
+            display: flex;
+            justify-content: flex-start;
+            /* Aligns items to the left */
+            align-items: center;
+            margin-top: 10px;
+            gap: 10px;
+        }
+
+
         /* ============================================
-           GOOGLE SIGN-IN
-        ============================================ */
+           GOOGLE SIGN-IN
+        ============================================ */
         .google-signup {
             background-color: #4285F4;
             color: white;
@@ -234,8 +273,8 @@
         }
 
         /* ============================================
-           CHECKBOX & TERMS
-        ============================================ */
+           CHECKBOX & TERMS
+        ============================================ */
         .checkbox-group {
             display: flex;
             align-items: center;
@@ -269,8 +308,8 @@
         }
 
         /* ============================================
-           DIVIDER & LOGIN LINK
-        ============================================ */
+           DIVIDER & LOGIN LINK
+        ============================================ */
         .or-signup {
             text-align: center;
             margin: 20px 0;
@@ -315,8 +354,8 @@
         }
 
         /* ============================================
-           UTILITY CLASSES
-        ============================================ */
+           UTILITY CLASSES
+        ============================================ */
         .hidden {
             display: none !important;
         }
@@ -330,8 +369,8 @@
         }
 
         /* ============================================
-           LOADER
-        ============================================ */
+           LOADER
+        ============================================ */
         .loader-container {
             position: fixed;
             top: 0;
@@ -381,7 +420,11 @@
         }
 
         @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
                 opacity: 0;
                 transform: translateY(0);
             }
@@ -396,8 +439,8 @@
         }
 
         /* ============================================
-           GOOGLE SIGN-IN CONTAINER
-        ============================================ */
+           GOOGLE SIGN-IN CONTAINER
+        ============================================ */
         .text-centergoogle {
             display: flex;
             justify-content: center;
@@ -405,9 +448,9 @@
         }
 
         /* ============================================
-           RESPONSIVE DESIGN
-        ============================================ */
-        
+           RESPONSIVE DESIGN
+        ============================================ */
+
         /* Tablets and smaller laptops */
         @media (max-width: 900px) {
             .container {
@@ -558,359 +601,379 @@
         }
     </style>
 </head>
+
 <body>
 
-<div class="container">
-    <!-- Left Side Image Section -->
-    <div class="image-section">
-        <img src="../img/bunts-mrg.jpg" alt="Signup Illustration">
-    </div>
-    
-    <!-- Right Side Form Section -->
-    <div class="form-section">
-        <h1>Sign Up</h1>
-        
-        <form id="signupForm" method="POST">
-            <!-- Profile For -->
-            <div class="form-group">
-                <label for="profile-for">Creating profile for:</label>
-                <select id="profile-for" class="form-select" required>
-                    <option selected disabled value="">Select an option</option>
-                    <option value="1">Self</option>
-                    <option value="2">Son</option>
-                    <option value="3">Daughter</option>
-                    <option value="4">Brother</option>
-                    <option value="5">Sister</option>         
-                </select>
-                <span id="create-error" class="error-message">Please select an option.</span>
-            </div>
+    <div class="container">
+        <div class="image-section">
+            <img src="../img/bunts-mrg.jpg" alt="Signup Illustration">
+        </div>
 
-            <!-- Full Name -->
-            <div class="form-group">
-                <label for="full-name">Full Name:</label>
-                <input type="text" id="full-name" name="full-name" placeholder="Enter your full name" required pattern="[A-Za-z\s]+" title="Full name should only contain letters.">
-                <span id="name-error" class="error-message">Please enter your name.</span>
-            </div>
+        <div class="form-section">
+            <h1>Sign Up</h1>
 
-            <!-- Phone Number -->
-            <div class="form-group">
-                <label for="phone">Phone Number:</label>
-                <div class="phone-group">
-                    <select id="phone-code" class="phone-code" name="phone-code" required>
-                        <option value="+91" selected>India (+91)</option>
-                        <option value="+1">USA (+1)</option>
+            <form id="signupForm" method="POST">
+                <div class="form-group">
+                    <label for="profile-for">Creating profile for:</label>
+                    <select id="profile-for" class="form-select" required>
+                        <option selected disabled value="">Select an option</option>
+                        <option value="1">Self</option>
+                        <option value="2">Son</option>
+                        <option value="3">Daughter</option>
+                        <option value="4">Brother</option>
+                        <option value="5">Sister</option>
                     </select>
-                    <input type="tel" id="phone" class="phone-number" name="phone" placeholder="Enter your phone number" required pattern="[0-9]{10}" title="Phone number should be 10 digits.">
-                </div>
-                <span id="phone-error" class="error-message">Please enter Phone Number.</span>
-            </div>
-
-            <!-- OTP Buttons -->
-            <button type="button" id="get-otp">Get OTP</button>
-            <button type="button" id="resend-otp" class="hidden">Resend OTP</button>
-
-            <!-- OTP Section -->
-            <div id="otp-section" class="form-group hidden">
-                <label for="otp">Enter OTP:</label>
-                <input type="text" id="otp" placeholder="Enter OTP" required pattern="[0-9]{4}" title="OTP should be 4 digits.">
-                <span id="otp-timer" class="error-message">Time left: 30s</span>
-                <span id="otp-error" class="error-message">Please enter a valid OTP.</span>
-            </div>
-
-            <!-- Password Section -->
-            <div id="password-section" class="hidden">
-                <div class="form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" placeholder="Enter your password" required minlength="8" title="Password must contain letters, numbers, and symbols.">
-                    <span class="eye-icon" id="togglePassword">👁</span>
-                    <span id="psw-error" class="error-message">Please enter a password.</span>
+                    <span id="create-error" class="error-message">Please select an option.</span>
                 </div>
 
                 <div class="form-group">
-                    <label for="confirm-password">Confirm Password:</label>
-                    <input type="password" id="confirm-password" name="confirm-password" placeholder="Confirm password" required>
-                    <span class="eye-icon" id="toggleConfirmPassword">👁</span>
-                    <span id="password-error" class="error-message">Passwords do not match.</span>
+                    <label for="full-name">Full Name:</label>
+                    <input type="text" id="full-name" name="full-name" placeholder="Enter your full name" required
+                        pattern="[A-Za-z\s]+" title="Full name should only contain letters.">
+                    <span id="name-error" class="error-message">Please enter your name.</span>
                 </div>
-            </div>
 
-            <!-- Terms & Conditions -->
-            <div class="checkbox-group">
-                <input type="checkbox" id="terms" required>
-                <label for="terms">I agree to the <a href="term">terms and privacy policy</a>.</label>
-            </div>
-
-            <!-- Submit Button -->
-            <button type="submit">Next</button>
-
-            <!-- Loader -->
-            <div id="loader" class="loader-container">
-                <div class="loading-text">Loading</div>
-                <div class="dots">
-                    <div class="dot"></div>
-                    <div class="dot"></div>
-                    <div class="dot"></div>
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <div class="phone-group">
+                        <select id="phone-code" class="phone-code" name="phone-code" required>
+                            <option value="+91" selected>India (+91)</option>
+                            <option value="+1">USA (+1)</option>
+                        </select>
+                        <input type="tel" id="phone" class="phone-number" name="phone"
+                            placeholder="Enter your phone number" required pattern="[0-9]{10}"
+                            title="Phone number should be 10 digits.">
+                    </div>
+                    <span id="phone-error" class="error-message">Please enter Phone Number.</span>
                 </div>
-            </div>
 
-            <!-- Divider -->
-            <div class="or-signup">Or</div>
+                <button type="button" id="get-otp">Get OTP</button>
 
-            <!-- Google Sign-In -->
-            <div class="text-centergoogle my-3">
-                <div id="g_id_onload"
-                     data-client_id="691158335150-book60nnl02o5t03eafouio8nofo0rop.apps.googleusercontent.com"
-                     data-context="signup"
-                     data-ux_mode="popup"
-                     data-callback="handleCredentialResponse"
-                     data-auto_prompt="false">
+                <div id="otp-section" class="form-group hidden">
+                    <label for="otp">Enter OTP:</label>
+                    <input type="text" id="otp" placeholder="Enter OTP" required pattern="[0-9]{4}"
+                        title="OTP should be 4 digits.">
+                    <span id="otp-error" class="error-message">Please enter a valid OTP.</span>
+
+                    <div id="otp-controls">
+                        <span id="otp-timer" class="error-message"
+                            style="display: none; margin-top: 0; color: #666; font-size: 14px;">Resend OTP in 30s</span>
+                        <button type="button" id="resend-otp" disabled style="width: auto; padding: 10px 15px; margin-top: 0;">Resend OTP</button>
+                    </div>
                 </div>
-                <div class="g_id_signin" data-type="standard"></div>
-            </div>
 
-            <!-- Login Link -->
-            <div class="login-link">
-                Already have an account? <a href="Login">Login</a>
-            </div>
-        </form>
+                <div id="password-section" class="hidden">
+                    <div class="form-group">
+                        <label for="password">Password:</label>
+                        <input type="password" id="password" name="password" placeholder="Enter your password" required
+                            minlength="8" title="Password must contain letters, numbers, and symbols.">
+                        <span class="eye-icon" id="togglePassword">👁</span>
+                        <span id="psw-error" class="error-message">Please enter a password.</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirm-password">Confirm Password:</label>
+                        <input type="password" id="confirm-password" name="confirm-password"
+                            placeholder="Confirm password" required>
+                        <span class="eye-icon" id="toggleConfirmPassword">👁</span>
+                        <span id="password-error" class="error-message">Passwords do not match.</span>
+                    </div>
+                </div>
+
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms">I agree to the <a href="term">terms and privacy policy</a>.</label>
+                </div>
+
+                <button type="submit">Next</button>
+
+                <div id="loader" class="loader-container">
+                    <div class="loading-text">Loading</div>
+                    <div class="dots">
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                        <div class="dot"></div>
+                    </div>
+                </div>
+
+                <div class="or-signup">Or</div>
+
+                <div class="text-centergoogle my-3">
+                    <div id="g_id_onload"
+                        data-client_id="691158335150-book60nnl02o5t03eafouio8nofo0rop.apps.googleusercontent.com"
+                        data-context="signup" data-ux_mode="popup" data-callback="handleCredentialResponse"
+                        data-auto_prompt="false">
+                    </div>
+                    <div class="g_id_signin" data-type="standard"></div>
+                </div>
+
+                <div class="login-link">
+                    Already have an account? <a href="Login">Login</a>
+                </div>
+            </form>
+        </div>
     </div>
-</div>
 
-<!-- External Scripts -->
-<script src="baseurl.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="baseurl.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jwt-decode/3.1.2/jwt-decode.min.js"></script>
 
-<script>
+    <script>
 
-    let generatedOtp = ''; // Store the generated OTP
-    let timerInterval, timeLeft = 30; // Timer variables
+        let generatedOtp = ''; // Store the generated OTP (MD5 hash)
+        let timerInterval, timeLeft = 30; // Timer variables
 
-    // Handle Get OTP Button Click
-  // Handle Get OTP Button Click
-document.getElementById('get-otp').addEventListener('click', function () {
-  const phoneInput = document.getElementById('phone').value.trim();
-  const phoneError = document.getElementById('phone-error');
-  const otpSection = document.getElementById('otp-section');
-  const otpSectionTimer = document.getElementById('otp-timer');
-  const getOtpButton = document.getElementById('get-otp');
+        // Handle Get OTP Button Click
+        document.getElementById('get-otp').addEventListener('click', function () {
+            const phoneInput = document.getElementById('phone').value.trim();
+            const phoneError = document.getElementById('phone-error');
+            const otpSection = document.getElementById('otp-section');
+            const getOtpButton = document.getElementById('get-otp');
 
-  if (phoneInput && /^\d{10}$/.test(phoneInput)) {
-    phoneError.style.display = 'none';
+            if (phoneInput && /^\d{10}$/.test(phoneInput)) {
+                phoneError.style.display = 'none';
 
-    // Verify phone number via API
-    checkPhoneNumber(phoneInput)
-      .then(response => {
-        console.log("Phone verify response:", response.data);
+                // Verify phone number via API
+                checkPhoneNumber(phoneInput)
+                    .then(response => {
+                        console.log("Phone verify response:", response.data);
 
-        const flag = response.data?.dataout?.[0]?.p_out_mssg_flg;
+                        // Assuming 'Y' means phone number is NOT registered and can proceed
+                        const flag = response.data?.dataout?.[0]?.p_out_mssg_flg;
 
-        if (flag === 'Y') {
-          // ✅ Proceed to send OTP
-          otpSection.classList.remove('hidden');
-          getOtpButton.style.display = 'none';
-          otpSectionTimer.style.display = 'block';
-          sendOtpSms(phoneInput);
-        } else {
-          // ❌ Phone already exists (change text if needed)
-          const msg = response.data?.dataout?.[0]?.p_out_mssg || "Phone Number Already Exists!";
-          phoneError.textContent = msg;
-          phoneError.style.display = 'block';
-          otpSectionTimer.style.display = 'none';
-        }
-      })
-      .catch(error => {
-        console.error('Phone verification failed:', error);
-        Swal.fire({
-          icon: 'error',
-          title: 'Error verifying phone number',
-          text: 'Please try again later.',
-          confirmButtonText: 'OK'
-        }).then(result => {
-          if (result.isConfirmed) location.reload();
+                        if (flag === 'Y') {
+                            // ✅ Proceed to send OTP
+                            otpSection.classList.remove('hidden');
+                            getOtpButton.style.display = 'none';
+                            sendOtpSms(phoneInput);
+                        } else {
+                            // ❌ Phone already exists
+                            const msg = response.data?.dataout?.[0]?.p_out_mssg || "Phone Number Already Exists!";
+                            phoneError.textContent = msg;
+                            phoneError.style.display = 'block';
+                            // Ensure buttons are reset if failure occurs
+                            getOtpButton.style.display = 'block';
+                            otpSection.classList.add('hidden');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Phone verification failed:', error);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Error verifying phone number',
+                            text: 'Please try again later.',
+                            confirmButtonText: 'OK'
+                        }).then(result => {
+                            if (result.isConfirmed) location.reload();
+                        });
+                    });
+            } else {
+                phoneError.textContent = "Please enter a valid 10-digit phone number.";
+                phoneError.style.display = 'block';
+            }
         });
-      });
-  } else {
-    phoneError.textContent = "Please enter a valid 10-digit phone number.";
-    phoneError.style.display = 'block';
-  }
-});
 
 
-function checkPhoneNumber(phoneNumber) {
-  const data = { user: phoneNumber, category: 'register' };
-  return axios.post(`${BASE_URL}/login.php`, data, {
-    headers: { 'Content-Type': 'application/json' },
-  });
-}
+        function checkPhoneNumber(phoneNumber) {
+            const data = { user: phoneNumber, category: 'register' };
+            // BASE_URL is assumed to be defined in baseurl.js
+            return axios.post(`${BASE_URL}/login.php`, data, {
+                headers: { 'Content-Type': 'application/json' },
+            });
+        }
+
+        // Send OTP via API (send_sms.php)
+        function sendOtpSms(phoneNumber) {
+            const getOtpButton = document.getElementById('get-otp');
+            const resendOtpButton = document.getElementById('resend-otp');
+            const otpTimer = document.getElementById('otp-timer');
+
+            // Disable resend button and show timer countdown text (or sending status)
+            resendOtpButton.disabled = true;
+            resendOtpButton.style.display = 'none'; // Hide the button when countdown is active
+            otpTimer.style.display = 'inline-block';
+            otpTimer.textContent = 'Sending OTP...';
+
+            const data = { type: 'otp', number: phoneNumber };
+
+            axios.post(`${BASE_URL}/send_sms.php`, data, {
+                headers: { 'Content-Type': 'application/json' },
+            })
+                .then(response => {
+                    console.log("Send SMS response:", response.data);
+                    if (response.data.message.p_out_mssg_flg === 'Y') {
+                        generatedOtp = response.data.data.Otp;
+                        startOtpTimer();
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'OTP Sent!',
+                            text: 'Please check your phone for the 4-digit code.',
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+                    } else {
+                        // Handle OTP send failure
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Unable to send OTP',
+                            text: response.data.message.p_out_mssg || 'Please try again later.',
+                            confirmButtonText: 'OK'
+                        });
+                        // Re-enable Get OTP button if all else fails
+                        getOtpButton.style.display = 'block';
+                        resendOtpButton.style.display = 'none';
+                        otpTimer.style.display = 'none';
+                    }
+                })
+                .catch(error => {
+                    console.error("Error sending OTP:", error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Server Error',
+                        text: 'An error occurred while sending OTP. Please try again later.',
+                    });
+                    // Re-enable Get OTP button on error
+                    getOtpButton.style.display = 'block';
+                    resendOtpButton.style.display = 'none';
+                    otpTimer.style.display = 'none';
+                });
+        }
 
 
+        // Google Sign-in Callback
+        function handleCredentialResponse(response) {
+            const user = jwt_decode(response.credential); // Decode JWT response
+            localStorage.setItem('name', user.name);
+            localStorage.setItem('password', user.sub); // Using Google sub ID as temporary password/ID
+            localStorage.setItem('email', user.email);
+            window.location.href = 'basic_info';
+        }
 
-    function handleCredentialResponse(response) {
-      const user = jwt_decode(response.credential); // Decode JWT response
-        localStorage.setItem('name', user.name);
-        localStorage.setItem('password', user.sub);
-        localStorage.setItem('email', user.email);
-        window.location.href = 'basic_info';
-     
-  }
+        // OTP Timer Logic
+        function startOtpTimer() {
+            timeLeft = 30;
+            const resendOtpButton = document.getElementById('resend-otp');
+            const otpTimer = document.getElementById('otp-timer');
 
-    // Send OTP via API (send_sms.php)
-  function sendOtpSms(phoneNumber) {
-  const data = { type: 'otp', number: phoneNumber };
+            // Clear any existing timer
+            if (timerInterval) clearInterval(timerInterval);
 
-  axios.post(`${BASE_URL}/send_sms.php`, data, {
-      headers: { 'Content-Type': 'application/json' },
-  })
-  .then(response => {
-      console.log("Send SMS response:", response.data);
-      if (response.data.message.p_out_mssg_flg === 'Y') {
-          generatedOtp = response.data.data.Otp;
-          startOtpTimer();
-      } else {
-          Swal.fire({
-              icon: 'error',
-              title: 'Unable to send OTP',
-              text: 'Please try again later.',
-              confirmButtonText: 'OK'
-          });
-      }
-  })
-  .catch(error => {
-      console.error("Error sending OTP:", error);
-      Swal.fire({
-          icon: 'error',
-          title: 'Server Error',
-          text: 'Please try again later.',
-      });
-  });
-}
+            // Initially, disable the resend button and show countdown text
+            resendOtpButton.disabled = true;
+            otpTimer.style.display = 'inline-block';
+            resendOtpButton.style.display = 'none'; // Hide the button during countdown
 
-
-    // OTP Timer Logic
-    function startOtpTimer() {
-        timeLeft = 30;
-        updateOtpTimerDisplay();
-
-        timerInterval = setInterval(() => {
-            timeLeft--;
             updateOtpTimerDisplay();
 
-            if (timeLeft <= 0) {
-                clearInterval(timerInterval);
-                // alert('OTP expired. Please request a new one.');
-                document.getElementById('get-otp').style.display = 'none'; // Hide Get OTP button
-            document.getElementById('resend-otp').classList.remove('hidden'); // Show Resend OTP button
-                hideOtpSection();
-            }
-        }, 1000);
-    }
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                updateOtpTimerDisplay();
 
-    // Resend OTP Button Click
-    document.getElementById('resend-otp').addEventListener('click', function () {
-    const phoneInput = document.getElementById('phone').value;
-    document.getElementById('otp').value = ''; // Clear previous OTP input
-    sendOtpSms(phoneInput); // Send OTP again
-    document.getElementById('resend-otp').classList.add('hidden'); // Hide Resend OTP button
-    document.getElementById('get-otp').style.display = 'none'; // Hide Get OTP button while processing
-    document.getElementById('otp-section').classList.remove('hidden'); // Show OTP section again
-});
-
-    // Update OTP Timer Display
-    function updateOtpTimerDisplay() {
-        document.getElementById('otp-timer').textContent = `Time left: ${timeLeft}s`;
-    }
-
-    // Hide OTP Section
-    function hideOtpSection() {
-        document.getElementById('otp-section').classList.add('hidden');
-        document.getElementById('otp').value = ''; // Clear OTP input
-    }
-
-    // OTP Verification Logic
-    document.getElementById('otp').addEventListener('input', function () {
-        const enteredOtp = this.value;
-
-        if (enteredOtp.length == 4) {
-            if (CryptoJS.MD5(enteredOtp).toString() == generatedOtp) {
-                // alert('OTP Verified Successfully!');
-                clearInterval(timerInterval); // Stop timer
-                document.getElementById('otp-section').classList.add('hidden'); // Hide OTP section
-                document.getElementById('password-section').classList.remove('hidden'); // Show password section
-            } else {
-                document.getElementById('otp-error').style.display = 'block'; // Show incorrect OTP error
-                document.getElementById('otp-error').textContent = 'Incorrect OTP. Please try again.'; // Custom error message
-            }
-        } else {
-            document.getElementById('otp-error').style.display = 'none'; // Hide error if incomplete input
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    // Hide timer text, enable and show the resend button
+                    otpTimer.style.display = 'none';
+                    resendOtpButton.disabled = false;
+                    resendOtpButton.style.display = 'block';
+                }
+            }, 1000);
         }
-    });
 
-    // Password Match Validation
-    function checkPasswordMatch() {
-        const password = document.getElementById('psw-input').value;
-        const confirmPassword = document.getElementById('psw-input-confirm').value;
-        const passwordError = document.getElementById('password-error');
+        // Resend OTP Button Click
+        document.getElementById('resend-otp').addEventListener('click', function () {
+            const phoneInput = document.getElementById('phone').value;
+            document.getElementById('otp').value = ''; // Clear previous OTP input
 
-        if (password !== confirmPassword) {
-            passwordError.style.display = 'block'; // Show error message
-        } else {
-            passwordError.style.display = 'none'; // Hide error message if passwords match
-        }
-    }
+            // Disable the resend button immediately
+            this.disabled = true;
 
-    // Toggle Password Visibility
-    document.querySelectorAll('.eye-icon').forEach(icon => {
-        icon.addEventListener('click', function () {
-            const input = icon.previousElementSibling;
-            const type = input.type === 'password' ? 'text' : 'password';
-            input.type = type;
-            icon.textContent = type === 'password' ? '👁' : '◡';
+            sendOtpSms(phoneInput); // Send OTP again
+
+            // OTP section remains visible per user request
+            document.getElementById('otp-section').classList.remove('hidden');
         });
-    });
 
-    // Handle Form Submission
-    document.getElementById('signupForm').addEventListener('submit', function (event) {
-        event.preventDefault(); // Prevent form submission
-        document.getElementById("loader").style.display = "flex";
-        let isValid = true;
-
-        // Validate Full Name
-        const nameInput = document.getElementById('full-name').value;
-
-       // Validate profile selection
-       const profileSelect = document.getElementById('profile-for');
-     
-        
-
-        // Validate Password
-        const passwordInput = document.getElementById('password').value;
-        // if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W_]).{8,}$/.test(passwordInput)) {
-        //     isValid = false;
-        // }
-
-        // Validate Confirm Password
-        const confirmPasswordInput = document.getElementById('confirm-password').value;
-        if (confirmPasswordInput !== passwordInput) {
-            // alert('Passwords do not match.');
-            isValid = false;
+        // Update OTP Timer Display
+        function updateOtpTimerDisplay() {
+            // Updated to be simpler and just show the countdown
+            document.getElementById('otp-timer').textContent = `Resend OTP in ${timeLeft}s`;
         }
 
-        // If All Validations Pass, Store Data and Redirect
-        if (isValid) {
-            localStorage.setItem('profileFor', profileSelect.value);
-            localStorage.setItem('name', nameInput);
-            localStorage.setItem('phone', document.getElementById('phone').value);
-            localStorage.setItem('password', confirmPasswordInput);
-            document.getElementById("loader").style.display = "none";
-           //consolelog('Registration Successful');
-            window.location.href = 'Register'; // Redirect to next page
-        }
-    });
-</script>
+        // OTP Verification Logic
+        document.getElementById('otp').addEventListener('input', function () {
+            const enteredOtp = this.value;
+            const otpError = document.getElementById('otp-error');
+            const passwordSection = document.getElementById('password-section');
+
+            if (enteredOtp.length == 4) {
+                // Assuming generatedOtp is the MD5 hash of the expected OTP
+                if (CryptoJS.MD5(enteredOtp).toString() === generatedOtp) {
+                    clearInterval(timerInterval); // Stop timer
+                    document.getElementById('otp-section').classList.add('hidden'); // Hide OTP section
+                    passwordSection.classList.remove('hidden'); // Show password section
+                    otpError.style.display = 'none';
+                    document.getElementById('resend-otp').style.display = 'none'; // Hide resend button
+                } else {
+                    otpError.textContent = 'Incorrect OTP. Please try again.';
+                    otpError.style.display = 'block';
+                }
+            } else {
+                otpError.style.display = 'none';
+            }
+        });
 
 
+        // Toggle Password Visibility
+        document.querySelectorAll('.eye-icon').forEach(icon => {
+            icon.addEventListener('click', function () {
+                const input = icon.previousElementSibling;
+                const type = input.type === 'password' ? 'text' : 'password';
+                input.type = type;
+                icon.textContent = type === 'password' ? '👁' : '✖'; // Changed the open eye icon for simplicity
+            });
+        });
+
+        // Handle Form Submission
+        document.getElementById('signupForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            document.getElementById("loader").style.display = "flex";
+            let isValid = true;
+
+            const profileSelect = document.getElementById('profile-for');
+            const nameInput = document.getElementById('full-name').value;
+            const passwordInput = document.getElementById('password').value;
+            const confirmPasswordInput = document.getElementById('confirm-password').value;
+            const passwordError = document.getElementById('password-error');
+
+            // Basic Form Validation (Post-OTP)
+            if (confirmPasswordInput !== passwordInput) {
+                passwordError.textContent = 'Passwords do not match.';
+                passwordError.style.display = 'block';
+                isValid = false;
+            } else {
+                passwordError.style.display = 'none';
+            }
+
+            // Check if password section is visible (meaning OTP was successfully verified)
+            if (document.getElementById('password-section').classList.contains('hidden')) {
+                // This means the user is trying to submit without verifying OTP
+                isValid = false;
+            }
+
+            if (isValid) {
+                // Store Data and Redirect
+                localStorage.setItem('profileFor', profileSelect.value);
+                localStorage.setItem('name', nameInput);
+                localStorage.setItem('phone', document.getElementById('phone').value);
+                localStorage.setItem('password', confirmPasswordInput);
+                document.getElementById("loader").style.display = "none";
+                window.location.href = 'Register'; // Redirect to next page
+            } else {
+                document.getElementById("loader").style.display = "none";
+            }
+        });
+    </script>
 </body>
+
 </html>
-
-
