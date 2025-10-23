@@ -1091,57 +1091,80 @@ function handleSessionExpiry() {
 
     }
 
-   function call_api(data) {
-    axios.post(`${BASE_URL}/edit_image.php`, data, {
-        headers: {
-            'Content-Type': 'application/json',
-            "Authorization": "Bearer " + localStorage.getItem("jwtToken")
-        }
-    })
-    .then(response => {
-        closePopup();
+  async function call_api(data) {
+  try {
+    const token = localStorage.getItem("jwtToken");
 
-        // ✅ Handle success
-        Swal.fire({
-            title: "Success!",
-            text: "Profile photo updated successfully.",
-            icon: "success",
-            confirmButtonText: "OK"
-        });
+    if (!token) {
+      await handleSessionExpiry();
+      return;
+    }
 
-        //console.log("Success:", response.data);
-    })
-    .catch(error => {
-        console.error("Error:", error);
-
-        // ✅ Check if token is expired or unauthorized
-        if (
-            error.response && 
-            (error.response.status === 401 || 
-             (error.response.data && (
-                 error.response.data.message === "Token expired" ||
-                 error.response.data.message === "Invalid token"
-             )))
-        ) {
-            Swal.fire({
-                title: "Session Expired",
-                text: "Your session has expired. Please log in again.",
-                icon: "warning",
-                confirmButtonText: "OK"
-            }).then(() => {
-                // Clear local storage and redirect to login page
-                localStorage.clear();
-                window.location.href = "login.html";
-            });
-        } else {
-            Swal.fire({
-                title: "Error!",
-                text: "Something went wrong. Please try again later.",
-                icon: "error",
-                confirmButtonText: "OK"
-            });
-        }
+    const response = await axios.post(`${BASE_URL}/edit_image.php`, data, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token
+      }
     });
+
+    // ✅ If backend returns a new token, update it
+    if (response.data && response.data.token) {
+      localStorage.setItem("jwtToken", response.data.token);
+    }
+
+    // ✅ Success message
+    Swal.fire({
+      title: "Success!",
+      text: "Profile photo updated successfully.",
+      icon: "success",
+      confirmButtonText: "OK"
+    });
+
+    closePopup();
+
+  } catch (error) {
+    console.error("Error:", error);
+
+    // ✅ Handle unauthorized or expired session
+    if (
+      error.response &&
+      (
+        error.response.status === 401 ||
+        (error.response.data && (
+          error.response.data.message?.includes("expired") ||
+          error.response.data.message?.includes("Invalid token")
+        ))
+      )
+    ) {
+      await handleSessionExpiry();
+    } else {
+      Swal.fire({
+        title: "Error!",
+        text: "Something went wrong. Please try again later.",
+        icon: "error",
+        confirmButtonText: "OK"
+      });
+    }
+  }
+}
+async function handleSessionExpiry() {
+  if (window.sessionExpiredAlertShown) return;
+  window.sessionExpiredAlertShown = true;
+
+  await Swal.fire({
+    title: "Session Expired",
+    text: "Your session has expired. Please log in again.",
+    icon: "warning",
+    confirmButtonText: "OK",
+    allowOutsideClick: false,
+    allowEscapeKey: false
+  });
+
+  localStorage.removeItem('jwtToken');
+  localStorage.removeItem('matriId');
+  sessionStorage.clear();
+
+  window.location.href = "login";
 }
 
     function deletePhoto(photoId) {
@@ -1162,68 +1185,79 @@ function handleSessionExpiry() {
         call_delete_api(data);
     }
     
-   function call_delete_api(data) {
-    axios.post(`${BASE_URL}/edit_image.php`, data, {
-        headers: {
-            'Content-Type': 'application/json',
-            "Authorization": "Bearer " + localStorage.getItem("jwtToken")
-        }
-    })
-    .then(response => {
-        closePopup();
+   async function call_delete_api(data) {
+  try {
+    const token = localStorage.getItem("jwtToken");
 
-        if (response.data.message && response.data.message.p_out_mssg_flg === "Y") {
-            Swal.fire({
-                title: "Success!",
-                text: "Photo deleted successfully.",
-                icon: "success",
-                confirmButtonText: "OK"
-            });
-            // ✅ You can refresh gallery or remove deleted photo here
-        } else {
-            Swal.fire({
-                title: "Error!",
-                text: "Failed to delete photo.",
-                icon: "error",
-                confirmButtonText: "OK"
-            });
-        }
-    })
-    .catch(error => {
-        console.error("Error:", error);
+    if (!token) {
+      await handleSessionExpiry();
+      return;
+    }
 
-        // ✅ Handle token expiry / invalid token
-        if (
-            error.response &&
-            (error.response.status === 401 ||
-             (error.response.data && (
-                 error.response.data.message === "Token expired" ||
-                 error.response.data.message === "Invalid token"
-             )))
-        ) {
-            Swal.fire({
-                title: "Session Expired",
-                text: "Your session has expired. Please log in again.",
-                icon: "warning",
-                confirmButtonText: "OK"
-            }).then(() => {
-                localStorage.clear();
-                window.location.href = "login.html";
-            });
-        } else {
-            Swal.fire({
-                title: "Error!",
-                text: "Something went wrong. Please try again later.",
-                icon: "error",
-                confirmButtonText: "OK"
-            });
-        }
+    const response = await axios.post(`${BASE_URL}/edit_image.php`, data, {
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token
+      }
     });
-}
 
-        
-    
-    
+    // ✅ Refresh JWT token if new one is returned
+    if (response.data && response.data.token) {
+      localStorage.setItem("jwtToken", response.data.token);
+    }
+
+    closePopup();
+
+    // ✅ Handle success/failure message
+    const msgFlag = response.data.message?.p_out_mssg_flg || "N";
+    const msgText = response.data.message?.p_out_mssg || "No message returned.";
+
+    if (msgFlag === "Y") {
+      Swal.fire({
+        title: "Success!",
+        text: "Photo deleted successfully.",
+        icon: "success",
+        confirmButtonText: "OK"
+      }).then(() => {
+        // You can refresh gallery or remove deleted photo here
+        // Example: refreshGallery();
+      });
+    } else {
+      Swal.fire({
+        title: "Error!",
+        text: msgText || "Failed to delete photo.",
+        icon: "error",
+        confirmButtonText: "OK"
+      });
+    }
+
+  } catch (error) {
+    console.error("Error:", error);
+
+    // ✅ Handle token expiry / unauthorized access
+    if (
+      error.response &&
+      (
+        error.response.status === 401 ||
+        (error.response.data &&
+          (
+            error.response.data.message?.includes("expired") ||
+            error.response.data.message?.includes("Invalid token")
+          )
+        )
+      )
+    ) {
+      await handleSessionExpiry();
+    } else {
+      Swal.fire({
+        title: "Error!",
+        text: "Something went wrong. Please try again later.",
+        icon: "error",
+        confirmButtonText: "OK"
+      });
+    }
+  }
+}
 
     function closePopup() {
         const popup = document.querySelector('body > div[style*="z-index: 1000"]');
@@ -1265,54 +1299,98 @@ function initZoom() {
 }
 
 let myProfileNew=[];
-function myProfile(){
-    const data = {
-            matri_id:localStorage.getItem('matriId')          
-        };
-       //consolelog(data);
 
-        axios.post(`${BASE_URL}/my_profile.php`, data, {
-            headers: {
-                'Content-Type': 'application/json',
-                      "Authorization": "Bearer " + localStorage.getItem("jwtToken")
+
+ function myProfile() {
+    const data = {
+        matri_id: localStorage.getItem('matriId')
+    };
+
+    axios.post(`${BASE_URL}/my_profile.php`, data, {
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer " + localStorage.getItem("jwtToken")
+        }
+    })
+    .then(function(response) {
+        const res = response.data;
+ if (res.token) {
+        localStorage.setItem("jwtToken", res.token);
+    }
+        if (res.message && res.message.p_out_mssg_flg === 'Y') {
+            const myProfile = res.dataout[0];
+            console.log("MY profd",myProfile);
+            myProfileNew = myProfile;
+  console.log("MY njfenjem",myProfileNew);
+            // Update profile details safely
+            document.getElementById("profileNameText").textContent =
+                (myProfile.first_name && myProfile.first_name !== 'null'
+                    ? myProfile.first_name + " " + myProfile.last_name
+                    : '');
+
+            document.getElementById("profileAge").textContent =
+                (myProfile.age && myProfile.age !== 'null'
+                    ? myProfile.age + " yrs"
+                    : '');
+
+            document.getElementById("profileHeight").textContent =
+                (myProfile.height && myProfile.height !== 'null'
+                    ? myProfile.height + " cm"
+                    : '');
+
+            document.getElementById("profileWeight").textContent =
+                (myProfile.weight && myProfile.weight !== 'null'
+                    ? myProfile.weight + " kg"
+                    : '');
+
+            // Handle profile image
+            let imgURL = '';
+            if (myProfile.gender_type === 'Male' && (!myProfile.url || myProfile.url === '')) {
+                imgURL = '../img/2.png';
+            } else if (myProfile.gender_type === 'Female' && (!myProfile.url || myProfile.url === '')) {
+                imgURL = '../img/1.png';
+            } else {
+                imgURL = localStorage.getItem("baseURL") + myProfile.url;
             }
-        })
-        .then(function(response) {
-           //consolelog('Success:', response.data);
-            if(response.data.message.p_out_mssg_flg === 'Y'){
-            //consolelog(response.data.dataout);
-                let myProfile=response.data.dataout[0];
-                myProfileNew=response.data.dataout[0];
-                document.getElementById("profileNameText").textContent = `${(myProfile.first_name==null || myProfile.first_name=='null')?'':myProfile.first_name+" "+myProfile.last_name}`;
-                document.getElementById("profileAge").textContent = `${(myProfile.age==null || myProfile.age=='null')?'':myProfile.age+"yrs"}`;
-                document.getElementById("profileHeight").textContent = `${(myProfile.height==null || myProfile.height=='null')?'': myProfile.height+"cm"}`;
-                document.getElementById("profileWeight").textContent = `${(myProfile.weight==null || myProfile.weight=='null')?'':myProfile.weight+"kg"}`;
-             let imgURL='';
-                if(myProfile.gender_type==='Male' && (myProfile.url===null || myProfile.url==='')){
-                    imgURL='../img/2.png';
-                }else if(myProfile.gender_type==='Female' && (myProfile.url===null || myProfile.url==='')){
-                    imgURL='../img/1.png';
-                }else{  
-                    imgURL=localStorage.getItem("baseURL")+myProfile.url;
-                }
-                document.getElementById("profilePhoto").src = imgURL;
-                const matriText=document.getElementById("matriText");
-                matriText.textContent=myProfile.matri_id;
-            // updateProgressBar(percent);
-            // hideWaitingDialog();
-            }else{
-           //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);
-            // hideWaitingDialog();
-            }
-        });
+            document.getElementById("profilePhoto").src = imgURL;
+
+            // Set matrimony ID
+            document.getElementById("matriText").textContent = myProfile.matri_id;
+
+        } else {
+            console.error("Profile fetch failed:", res.message.p_out_mssg);
+        }
+    })
+    .catch(function(error) {
+        console.error("Error fetching profile:", error);
+
+        // ✅ Check for token-related errors
+        if (
+            error.response &&
+            (error.response.status === 401 ||
+             (error.response.data &&
+              (error.response.data.message.p_out_mssg.includes("expired") ||
+               error.response.data.message.p_out_mssg.includes("Invalid token"))))
+        ) {
+            handleSessionExpiry(); // 🔥 centralized session expiry handler
+        } else {
+            Swal.fire({
+                title: "Error!",
+                text: "Something went wrong while fetching profile details.",
+                icon: "error",
+                confirmButtonText: "OK"
+            });
+        }
+    });
 }
+
 
 
 
 // Function to handle button click and display the stored value
 // Function to handle radio button selection and API call
 
-function displayRadioButton() {
+async function displayRadioButton() {
     const radios = document.getElementsByName('utrr');
     let selectedValue = 'None';
 
@@ -1329,62 +1407,54 @@ function displayRadioButton() {
         status: selectedValue,
     };
 
-    axios.post(`${BASE_URL}/profile_status.php`, val, {
-        headers: {
-            'Content-Type': 'application/json',
-            "Authorization": "Bearer " + localStorage.getItem("jwtToken")
-        }
-    })
-    .then(function (response) {
+    try {
+        const response = await axios.post(`${BASE_URL}/profile_status.php`, val, {
+            headers: {
+                'Content-Type': 'application/json',
+                "Authorization": "Bearer " + localStorage.getItem("jwtToken")
+            }
+        });
+
         if (response.data.message && response.data.message.p_out_mssg_flg === 'Y') {
             const profileStatus = response.data.profile_status || val.status;
             localStorage.setItem('profile_status', profileStatus);
 
-            Swal.fire({
+            await Swal.fire({
                 title: "Success!",
                 text: "Profile status updated successfully.",
                 icon: "success",
                 confirmButtonText: "OK",
             });
         } else {
-            Swal.fire({
+            await Swal.fire({
                 title: "Error!",
                 text: "Failed to update profile status.",
                 icon: "error",
                 confirmButtonText: "OK",
             });
         }
-    })
-    .catch(function (error) {
+    } catch (error) {
         console.error('Error:', error);
 
-        // ✅ Handle JWT expiry or invalid token
+        // ✅ Use handleSessionExpiry for token errors
         if (
             error.response &&
             (error.response.status === 401 ||
                 (error.response.data && (
-                    error.response.data.message === "Token expired" ||
-                    error.response.data.message === "Invalid token"
+                    error.response.data.message === "Session expired. Please log in again." ||
+                    error.response.data.message.startsWith("Invalid token")
                 )))
         ) {
-            Swal.fire({
-                title: "Session Expired",
-                text: "Your session has expired. Please log in again.",
-                icon: "warning",
-                confirmButtonText: "OK"
-            }).then(() => {
-                localStorage.clear();
-                window.location.href = "login.html";
-            });
+            await handleSessionExpiry();
         } else {
-            Swal.fire({
+            await Swal.fire({
                 title: "Error!",
                 text: "Failed to update profile status.",
                 icon: "error",
                 confirmButtonText: "OK",
             });
         }
-    });
+    }
 }
 
 // Function to restore the checked state on page load
@@ -1736,75 +1806,78 @@ function setDefaultRadioButton() {
     // Function to update progress bar
    
     // let baseURL='';
-    document.addEventListener('DOMContentLoaded', function () {
-        const waitingDialog = document.getElementById('waiting-dialog');
-       //consolelog('DOM fully loaded and parsed');
-        
-        if(localStorage.getItem('matriId')== 'NULL'||localStorage.getItem('matriId')==''||localStorage.getItem('matriId')== null ){
-            logout();
-        }
-         async function loadSectionRow() {
-            // Ensure the options row is visible on page load
-            document.getElementById("optionsRow").style.display = "flex"; 
-            
-            try {
-                // Wait for the data to load before calling loadSectionDetails
-                await loadSectionDetails("basic"); 
+   document.addEventListener('DOMContentLoaded', function () {
+    const waitingDialog = document.getElementById('waiting-dialog');
 
-            } catch (error) {
-               console.error("Error loading section details:", error);
-            }
-        };
-    
-        // Example of how loadSectionDetails function might look with async
-        async function loadSectionDetails1(section) {
-            // Simulate an async operation, like fetching data from an API
-            let response = await fetchData(section);
-    
-            if (response.success) {
-                // Process the loaded data and update the DOM
-               //consolelog(`Section ${section} loaded successfully!`);
-               
-            } else {
-               console.error("Failed to load section data");
-            }
-        }
-    
-        // Simulated async data-fetching function
-        async function fetchData(section) {
-            return new Promise((resolve) => {
-                setTimeout(() => {
-                    resolve({ success: true, data: section });
-                }, 1000); // Simulate a 1-second delay for fetching data
+    // ✅ Logout if no valid matriId
+    if (
+        !localStorage.getItem('matriId') ||
+        localStorage.getItem('matriId') === 'NULL' ||
+        localStorage.getItem('matriId') === ''
+    ) {
+        logout();
+        return;
+    }
+
+    // ✅ Global session expiry handler
+    function handleSessionExpiry(error) {
+        if (
+            error.response &&
+            (error.response.status === 401 ||
+                (error.response.data &&
+                    (error.response.data.message === "Token expired" ||
+                        error.response.data.message === "Invalid token" ||
+                        error.response.data.message === "Authorization header missing")))
+        ) {
+            Swal.fire({
+                title: "Session Expired",
+                text: "Your session has expired. Please log in again.",
+                icon: "warning",
+                confirmButtonText: "OK"
+            }).then(() => {
+                localStorage.clear();
+                window.location.href = "login.html";
             });
+            return true;
         }
-        // Show the waiting dialog
-        function showWaitingDialog() {
-            waitingDialog.style.display = 'flex';
-        }
+        return false;
+    }
 
-        // Hide the waiting dialog
-        function hideWaitingDialog() {
-            waitingDialog.style.display = 'none';
-        }
-        
-        const data = {
-            id:localStorage.getItem('mId'),
-            matri_id:localStorage.getItem('matriId')
-        };
-       //consolelog(data);
+    // ✅ Waiting dialog helpers
+    function showWaitingDialog() {
+        waitingDialog.style.display = 'flex';
+    }
+    function hideWaitingDialog() {
+        waitingDialog.style.display = 'none';
+    }
 
-        axios.post(`${BASE_URL}/my_profile.php`, data, {
-            headers: {
-                'Content-Type': 'application/json',
-                      "Authorization": "Bearer " + localStorage.getItem("jwtToken")
-            }
-        })
-        .then(function(response) {
-           //consolelog('Success:', response.data);
-            //console.log('API Data Loaded');
-            
-            if(response.data.message.p_out_mssg_flg === 'Y'){
+    // ✅ Load profile section
+    async function loadSectionRow() {
+        document.getElementById("optionsRow").style.display = "flex";
+    }
+
+    // ✅ Prepare data
+    const data = {
+        id: localStorage.getItem('mId'),
+        matri_id: localStorage.getItem('matriId')
+    };
+
+    showWaitingDialog();
+
+    // ✅ Fetch user profile
+    axios.post(`${BASE_URL}/my_profile.php`, data, {
+        headers: {
+            'Content-Type': 'application/json',
+            "Authorization": "Bearer " + localStorage.getItem("jwtToken")
+        }
+    })
+    .then(function (response) {
+          const res = response.data;
+    if (res.token) {
+        localStorage.setItem("jwtToken", res.token);
+    }
+
+        if (res.message && res.message.p_out_mssg_flg === 'Y' && res.dataout && res.dataout.length > 0) {
             localStorage.setItem("matriId", response.data.dataout[0].matri_id);
             // localStorage.setItem("baseURL", response.data.my_profile[0].base_url);
             
@@ -1845,64 +1918,93 @@ function setDefaultRadioButton() {
             loadSectionRow();      
 
 
+        } else {
+            Swal.fire({
+                title: "Error!",
+                text: "Failed to load your profile details. Please try again later.",
+                icon: "error",
+                confirmButtonText: "OK"
+            });
+        }
+    })
+    .catch(function (error) {
+        console.error("Profile fetch error:", error);
+        if (!handleSessionExpiry(error)) {
+            Swal.fire({
+                title: "Error!",
+                text: "Unable to fetch profile information.",
+                icon: "error",
+                confirmButtonText: "OK"
+            });
+        }
+    })
+    .finally(hideWaitingDialog);
 
-
-           // myProfile();
-            hideWaitingDialog();
-            //setDefaultRadioButton();
-            //restoreRadioButtonState();
-            }else{
-           //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);
-            hideWaitingDialog();
-            }
-        });
- 
-
-       
-        
-    });
-   
+    // ✅ Fetch profile images
     const photo = {
-        //id:localStorage.getItem('mId'),
-        matri_id:localStorage.getItem('matriId'),
-        type:"get_image",
-        //url:localStorage.getItem('url'),
+        matri_id: localStorage.getItem('matriId'),
+        type: "get_image",
     };
-    photos_url=[];
-   //consolelog("ch",photo);
 
     axios.post(`${BASE_URL}/edit_image.php`, photo, {
         headers: {
             'Content-Type': 'application/json',
-                  "Authorization": "Bearer " + localStorage.getItem("jwtToken")
+            "Authorization": "Bearer " + localStorage.getItem("jwtToken")
         }
     })
-    .then(function(response) {
-       //consolelog('Siiii:', response.data);
-        if (response.data.message.p_out_mssg_flg === 'Y') {
-            // Access `dataout` properly from `response.data`
-            const dataout = response.data.dataout; // Ensure this matches the API structure
-            if (dataout && dataout.length > 0) {
-               //consolelog("pic", dataout[0].url);
-                for(i=0;i<dataout.length;i++){
-            
-                    photos_url[i] ={ url : localStorage.getItem("baseURL")+dataout[i].url ,
-                                     sl_id:dataout[i].sl_id
-                                    }
-                   //consolelog(photos_url[i]);
-                }
+    .then(function (response) {
+        const res = response.data;
+         if (res.token) {
+        localStorage.setItem("jwtToken", res.token);
+    }
+        if (res.message && res.message.p_out_mssg_flg === 'Y') {
+            const dataout = res.dataout || [];
+            if (dataout.length > 0) {
+                photos_url = dataout.map(item => ({
+                    url: localStorage.getItem("baseURL") + (item.url || ""),
+                    sl_id: item.sl_id || ""
+                }));
             } else {
                 Swal.fire({
-                    title: "Error!",
-                    text: "Please Retry Again.",
-                    icon: "error",
+                    title: "No Photos Found",
+                    text: "Please upload your photos.",
+                    icon: "info",
                     confirmButtonText: "OK"
                 });
-               //consolewarn("No dataout or empty array in response.");
-
             }
+        } else {
+            Swal.fire({
+                title: "Error!",
+                text: "Failed to load profile images. Please retry.",
+                icon: "error",
+                confirmButtonText: "OK"
+            });
         }
-    }) 
+    })
+    .catch(function (error) {
+        console.error("Image fetch error:", error);
+        if (!handleSessionExpiry(error)) {
+            Swal.fire({
+                title: "Error!",
+                text: "Unable to fetch profile photos.",
+                icon: "error",
+                confirmButtonText: "OK"
+            });
+        }
+    });
+
+    // ✅ Safe helper functions
+    function setText(id, value) {
+        const el = document.getElementById(id);
+        if (el) el.textContent = value || '';
+    }
+
+    function setSrc(id, src) {
+        const el = document.getElementById(id);
+        if (el) el.src = src || '../img/default.png';
+    }
+});
+
 
 
 </script>
