@@ -1471,35 +1471,56 @@ const minAgeInput = document.getElementById("minAgeInput");
             });
 
             // Function to handle showing cards
-            function showCards() {
-                let inputField = document.getElementById('matriIdInput');
-                const inputValue = inputField.value.trim(); // Get the input value
-                const cardsContainer = document.getElementById('cardsContainer');
-                const data = {
-                        matri_id:localStorage.getItem('matriId'),
-                        type: "matri_id",
-                        matri_id_of:inputValue
-                    };
-                   //consolelog(data);
+           async function showCards() {
+  const token = localStorage.getItem("jwtToken"); // ✅ Get token from localStorage
+  if (!token) {
+    await handleSessionExpiry();
+    return;
+  }
 
-                axios.post(`${BASE_URL}/z_search_preference2.php`, data, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    }
-                })
-                .then(function(response) {
-                   //consolelog('Success:', response.data);
-                    if(response.data.message.p_out_mssg_flg === 'Y'){
-                    // document.getElementById("profileMatchedContainer").style.display = 'flex';
-                        profileSearchBy=response.data.dataout;
-                        const searchByProfiles = profileSearchBy.filter(user => user.matri_id);
-                        document.getElementById('search_count').innerText=searchByProfiles.length;
-                        populateCards('searchBy-container', searchByProfiles);
-                    }else{
-                   //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);
-                    }
-                });
-            }
+  let inputField = document.getElementById('matriIdInput');
+  const inputValue = inputField.value.trim();
+  const data = {
+    matri_id: localStorage.getItem('matriId'),
+    type: "matri_id",
+    matri_id_of: inputValue
+  };
+
+  try {
+    const response = await axios.post(`${BASE_URL}/z_search_preference2.php`, data, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + token  // ✅ Include JWT in header
+      }
+    });
+
+    // ✅ If backend refreshed token, store it
+    if (response.data.token) {
+      localStorage.setItem("jwtToken", response.data.token);
+    }
+
+    if (response.data.message.p_out_mssg_flg === 'Y') {
+      const profileSearchBy = response.data.dataout || [];
+      const searchByProfiles = profileSearchBy.filter(user => user.matri_id);
+
+      document.getElementById('search_count').innerText = searchByProfiles.length;
+      populateCards('searchBy-container', searchByProfiles);
+    } else {
+      console.log("Error:", response.data.message.p_out_mssg);
+    }
+
+  } catch (error) {
+    console.error("Error fetching cards:", error);
+
+  
+    if (error.response && error.response.status === 401) {
+      await handleSessionExpiry();
+    } else {
+      Swal.fire("Error", "Something went wrong while fetching data.", "error");
+    }
+  }
+}
+
 
             function toggleProfileDropdown() {
                 const dropdown = document.getElementById('profileDropdown');
@@ -1759,116 +1780,104 @@ async function handleSessionExpiry() {
 
 
 
+async function submitForm() {
+  const minAge = parseInt(document.getElementById('minAge').value);
+  const maxAge = parseInt(document.getElementById('maxAge').value);
+  const height_min = parseInt(document.getElementById('minHeight').value);
+  const height_max = parseInt(document.getElementById('maxHeight').value);
+  const income_from = parseInt(document.getElementById('minIncome').value);
+  const income_to = parseInt(document.getElementById('maxIncome').value);
 
-function submitForm() {
-    const min_age = parseInt(document.getElementById('minAge').value);
-    const max_age = parseInt(document.getElementById('maxAge').value);
-    const height_min = parseInt(document.getElementById('minHeight').value);
-    const height_max = parseInt(document.getElementById('maxHeight').value);
-    const income_from = parseInt(document.getElementById('minIncome').value);
-    const income_to = parseInt(document.getElementById('maxIncome').value);
+  showWaitingDialog();
 
+  // ✅ Age validation
+  if (minAge < 18 || maxAge > 100) {
+    hideWaitingDialog();
+    await Swal.fire({
+      icon: 'error',
+      title: 'Please ensure that the minimum age is at least 18 and the maximum age does not exceed 100',
+      text: 'Please try again.',
+      confirmButtonText: 'OK'
+    });
+    return;
+  }
 
-          showWaitingDialog();
-    // Age validation
-    if (minAge < 18 || maxAge > 100) {
-        //alert('Please ensure that the minimum age is at least 18 and the maximum age does not exceed 100.');
-        Swal.fire({
-          icon: 'error',
-      title: 'Please ensure that the minimum age is atleast 18 and the maximum  age doesnot exceed 100',
-          text: 'Please try again.',
-          confirmButtonText: 'OK'
-      }).then((result) => {
-          // Reload the page when the alert is closed
-          if (result.isConfirmed) {
-              location.reload(); // Reload the page
-          }
+  if (minAge > maxAge) {
+    hideWaitingDialog();
+    await Swal.fire({
+      icon: 'error',
+      title: 'Minimum age cannot be greater than maximum age.',
+      text: 'Please try again.',
+      confirmButtonText: 'OK'
+    });
+    return;
+  }
+
+  const token = localStorage.getItem('jwtToken');
+  const data = {
+    matri_id: localStorage.getItem('matriId'),
+    marital_status: ($("#maritalStatus").val() || []).join(","),
+    height_min,
+    height_max,
+    sub_caste: ($("#subCasteDropdown").val() || []).join(","),
+    blood_group: "A+,A-,B+,B-,AB+,AB-,O+,O-",
+    city: ($("#city").val() || []).join(","),
+    country: ($("#country").val() || []).join(","),
+    state: ($("#state").val() || []).join(","),
+    education: ($("#educationDropdown").val() || []).join(","),
+    income_from,
+    income_to,
+    min_age: minAge,
+    max_age: maxAge
+  };
+
+  try {
+    const response = await axios.post(`${BASE_URL}/z_search_preference2.php`, data, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}` // ✅ Send JWT
+      }
+    });
+
+    if (response.data.message.p_out_mssg_flg === 'Y') {
+      const profileSearchBy = response.data.dataout || [];
+      const searchByProfiles = profileSearchBy.filter(user => user.matri_id);
+      document.getElementById('search_count').innerText = searchByProfiles.length;
+      populateCards('searchBy-container', searchByProfiles);
+
+      // ✅ Toggle visibility
+      document.getElementById('matriIdInput').style.display = 'none';
+      document.getElementById('searchProfileInput').style.display = 'inline-block';
+      document.getElementById('categoryContainer').style.display = 'none';
+      document.getElementById('profileSection').style.display = 'block';
+    } else {
+      await Swal.fire({
+        icon: 'error',
+        title: 'No results found.',
+        text: 'Please try again with different filters.',
+        confirmButtonText: 'OK'
       });
-        return; // Prevent form submission
+    }
+  } catch (error) {
+    console.error('Error:', error);
+
+    // ✅ Handle session expiry (JWT invalid or expired)
+    if (error.response && error.response.status === 401) {
+      await handleSessionExpiry();
+      return;
     }
 
-    if (minAge > maxAge) {
-        //alert('Minimum age cannot be greater than maximum age.');
-        Swal.fire({
-          icon: 'error',
-          title: 'Minimum age cannot be graeter than maximum age.',
-          text: 'Please try again.',
-          confirmButtonText: 'OK'
-      }).then((result) => {
-          // Reload the page when the alert is closed
-          if (result.isConfirmed) {
-              location.reload(); // Reload the page
-          }
-      });
-        return; // Prevent form submission
-    }
+    await Swal.fire({
+      icon: 'error',
+      title: 'Something went wrong!',
+      text: 'Please try again later.',
+      confirmButtonText: 'OK'
+    });
+  } finally {
+    hideWaitingDialog();
+  }
+}
 
-      let stateSelected1="";
-          let citySelected1="";
-          let countrySelected1="";
-          let educationSelected1="";
-
-       const data = {     
-          matri_id:localStorage.getItem('matriId'),
-          marital_status: ($("#maritalStatus").val()).join(","),
-          height_min: height_min,
-          height_max:height_max,
-          sub_caste:($("#subCasteDropdown").val()).join(","),
-          blood_group: "A+,A-,B+,B-,AB+,AB-,O+,O-",
-          city:($("#city").val()).join(","),
-          country:($("#country").val()).join(","),
-          state:($("#state").val()).join(","),
-          education:($("#educationDropdown").val()).join(","),
-          income_from:income_from,
-          income_to:income_to,    
-          min_age: min_age,
-          max_age: max_age
-
-    };
-
-   //consolelog(data);
-        
-        axios.post(`${BASE_URL}/z_search_preference2.php`, data, {
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-        .then(function(response) {
-           //consolelog('Success:', response.data);
-            
-
-                if(response.data.message.p_out_mssg_flg === 'Y'){
-                  //consolelog('Success:', response.data.dataout);
-              profileSearchBy=response.data.dataout;
-              const searchByProfiles = profileSearchBy.filter(user => user.matri_id);
-                document.getElementById('search_count').innerText=searchByProfiles.length;
-              populateCards('searchBy-container', searchByProfiles);
-                document.getElementById('matriIdInput').style.display='none';
-                document.getElementById('searchProfileInput').style.display='inline-block';
-                // document.getElementById('searchIcon').style.display='inline-block';
-                document.getElementById('categoryContainer').style.display='none';
-                document.getElementById('profileSection').style.display='block';
-                    
-                   //     toggleOptionSearchBy();
-                        hideWaitingDialog();
-                    //window.location.href = 'EducationDetails';
-                }else{
-                   //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);
-                    hideWaitingDialog();
-                    Swal.fire({
-                        icon: 'error',
-                        title: '',
-                        text: 'Please try again.',
-                        confirmButtonText: 'OK'
-                        });
-                }
-            })
-            .catch(function(error) {
-                   console.error('Error:', error);
-                    // Optionally display an error message to the user
-                });
-       // }  
-    }
 
    
     const waitingDialog = document.getElementById('waiting-dialog');
