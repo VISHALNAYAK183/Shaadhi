@@ -46,7 +46,7 @@ if ($data['event'] == 'payment.captured') {
       $encodeUpdateTranLog = json_encode($updateTranLog);
 
       $ch = curl_init();
-  curl_setopt($ch, CURLOPT_URL,"${BASE_URL}/token_cashfree.php");
+  curl_setopt($ch, CURLOPT_URL,"$BASE_URL/token_cashfree.php");
       curl_setopt($ch, CURLOPT_POST, 1);
       curl_setopt($ch, CURLOPT_POSTFIELDS,$encodeUpdateTranLog);
       curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json' ));

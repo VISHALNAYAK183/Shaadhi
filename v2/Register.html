@@ -532,8 +532,8 @@ $(document).ready(function() {
            
         ])
         .then(function (responses) {
-            let phoneExists = responses[0].data.message.p_out_mssg_flg === 'N';
-            let emailExists = responses[1].data.message.p_out_mssg_flg === 'N';
+            let phoneExists = responses[0].data.p_out_mssg_flg === 'N';
+            let emailExists = responses[1].data.p_out_mssg_flg === 'N';
             
 
             if (phoneExists) {
