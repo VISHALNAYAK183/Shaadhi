@@ -115,6 +115,263 @@
         object-fit: cover;
         /* Optional: crops instead of stretching */
     }
+
+
+    /* Base Styles (already good — just keep your existing above) */
+
+    /* --- MOBILE RESPONSIVE STYLES --- */
+    @media (max-width: 992px) {
+        .dashboard-container {
+            flex-direction: column;
+        }
+
+        .profile-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding: 10px;
+        }
+
+        .profile-left {
+            width: 100%;
+            order: 2;
+        }
+
+        .profile-right {
+            width: 100%;
+            order: 1;
+            text-align: center;
+        }
+
+        /* Image responsive */
+        .profile-photo {
+            width: 100%;
+            height: auto;
+            max-height: 60vh;
+            object-fit: contain;
+            border-radius: 10px;
+        }
+
+        /* Make buttons stack nicely */
+        .options-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .option-button {
+            flex: 1 1 45%;
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        .icon-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 10px;
+        }
+
+        .icon-item {
+            flex: 0 1 45%;
+            justify-content: center;
+            font-size: 14px;
+            background: #f9f9f9;
+            padding: 8px;
+            border-radius: 8px;
+            transition: 0.3s ease;
+        }
+
+        .icon-item:hover {
+            background: #f0f0f0;
+        }
+
+        .popup-content {
+            width: 90%;
+            padding: 15px;
+        }
+
+        .popup-content textarea {
+            height: 70px;
+            font-size: 14px;
+        }
+
+        .popup-buttons {
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .popup-buttons button {
+            width: 100%;
+            padding: 10px;
+        }
+
+        /* Adjust typography */
+        .profile-left h2 {
+            font-size: 18px;
+            text-align: center;
+        }
+
+        .profile-left p {
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .labelStar strong {
+            display: inline-block;
+            min-width: 120px;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .icon-item {
+            flex: 0 1 100%;
+        }
+
+        .option-button {
+            flex: 1 1 100%;
+        }
+
+        .popup-content h3 {
+            font-size: 18px;
+        }
+
+        .popup-content label {
+            font-size: 14px;
+        }
+    }
+
+    /* --- Sidebar Toggle Button --- */
+    .menu-toggle {
+        display: none;
+        position: fixed;
+        top: 15px;
+        left: 15px;
+        background: #c3a38c;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        padding: 10px 15px;
+        font-size: 20px;
+        cursor: pointer;
+        z-index: 2000;
+        transition: background 0.3s ease;
+    }
+
+    .menu-toggle:hover {
+        background: #c3a38c;
+    }
+
+    /* --- Sidebar Styles for Mobile --- */
+    @media (max-width: 992px) {
+        #sidebar-placeholder {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            background: white;
+            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+            z-index: 1500;
+            overflow-y: auto;
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        #sidebar-placeholder.active {
+            display: block;
+            transform: translateX(0);
+        }
+
+        /* Dark overlay when sidebar is open */
+        #overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1400;
+        }
+
+        #overlay.active {
+            display: block;
+        }
+
+        /* Show the menu button */
+        .menu-toggle {
+            display: block;
+        }
+
+        /* Prevent scrolling when sidebar is open */
+        body.sidebar-open {
+            overflow: hidden;
+        }
+    }
+
+    /* Desktop - show buttons */
+    .options-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    /* Hide dropdown on desktop */
+    .options-dropdown {
+        display: none;
+    }
+
+    /* Mobile view */
+ /* Mobile view */
+@media (max-width: 768px) {
+    .options-buttons {
+        display: none; /* hide buttons */
+    }
+
+    .options-dropdown {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+        background-color: #fff;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        margin-top: 10px;
+        box-sizing: border-box;
+        appearance: none; /* Makes it consistent across iOS/Android */
+    }
+
+    /* Optional: Add slight rounding and border containment */
+    .options-dropdown:focus {
+        border-color: #007bff;
+        outline: none;
+    }
+
+    /* Ensure dropdown doesn't overflow horizontally */
+    .more-section {
+        width: 100%;
+        overflow-x: hidden;
+        display: flex;
+        justify-content: center;
+    }
+
+    /* Fix positioning issues inside profile-left */
+    .profile-left {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 0 10px;
+    }
+}
+
 </style>
 
 <body>
@@ -123,6 +380,11 @@
     <div class="dashboard-container">
         <!-- Sidebar -->
         <div id="sidebar-placeholder"></div>
+
+        <!-- Sidebar Toggle Button -->
+        <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+        <div id="overlay" onclick="toggleSidebar()"></div>
+
         <!-- Main Content Area -->
         <main id="content" class="content">
             <div id="waiting-dialog"
@@ -149,14 +411,32 @@
                         <div class="more-section">
                             <button id="moreButton" class="more-button">More</button>
                             <div id="optionsRow" class="options-row" style="display: none;">
-                                <button class="option-button" data-section="basic" id="basic">Basic</button>
-                                <button class="option-button" data-section="additional"
-                                    id="additional">Additional</button>
-                                <button class="option-button" data-section="education" id="education">Education</button>
-                                <button class="option-button" data-section="horoscope" id="horoscope">Horoscope</button>
-                                <button class="option-button" data-section="family" id="family">Family</button>
-                                <button class="option-button" data-section="photo" id="photo">Photo</button>
+                                <!-- Desktop Buttons -->
+                                <div class="options-buttons">
+                                    <button class="option-button" data-section="basic" id="basic">Basic</button>
+                                    <button class="option-button" data-section="additional"
+                                        id="additional">Additional</button>
+                                    <button class="option-button" data-section="education"
+                                        id="education">Education</button>
+                                    <button class="option-button" data-section="horoscope"
+                                        id="horoscope">Horoscope</button>
+                                    <button class="option-button" data-section="family" id="family">Family</button>
+                                    <button class="option-button" data-section="photo" id="photo">Photo</button>
+                                </div>
+
+                                <!-- Mobile Dropdown -->
+                                <select id="optionsDropdown" class="options-dropdown"
+                                    onchange="handleDropdownChange(this)">
+                                    <option value="">Select Section</option>
+                                    <option value="basic">Basic</option>
+                                    <option value="additional">Additional</option>
+                                    <option value="education">Education</option>
+                                    <option value="horoscope">Horoscope</option>
+                                    <option value="family">Family</option>
+                                    <option value="photo">Photo</option>
+                                </select>
                             </div>
+
                         </div>
                         <div id="detailsSection" class="details-section profile-details">
                             <!-- Dynamic content will load here -->
@@ -251,6 +531,21 @@
     <script src="chat_functions.js" defer></script>
     <script src="baseurl.js"></script>
     <script>
+        function handleDropdownChange(select) {
+            const selectedSection = select.value;
+            if (selectedSection) {
+                loadSectionDetails(selectedSection);
+            }
+        }
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar-placeholder');
+            const overlay = document.getElementById('overlay');
+            const body = document.body;
+
+            sidebar.classList.toggle('active');
+            overlay.classList.toggle('active');
+            body.classList.toggle('sidebar-open');
+        }
         function loadHTMLContent(elementId, url, callback) {
             fetch(url)
                 .then(response => response.text())
@@ -347,20 +642,7 @@
             localStorage.setItem("visitedSuccessPage", "true");
             window.location.href = 'Login';
         }
-        /* function get_msg_entry() {
-             const maxMsgCount = parseInt(localStorage.getItem("max_msg_count"), 10);
-             const viewedMsgCount = parseInt(localStorage.getItem("viewed_msg_count"), 10);
-           
-             if (isNaN(maxMsgCount) || isNaN(viewedMsgCount)) {
-              console.error("One or both values are not set or are invalid in localStorage.");
-               return false; // Default to false if values are invalid or missing
-             }
-           
-             return maxMsgCount > viewedProfileCount;
-           }*/
 
-
-        // "More" Button Functionality
         const moreButton = document.getElementById("moreButton");
         const optionsRow = document.getElementById("optionsRow");
         const detailsSection = document.getElementById("detailsSection");
@@ -464,166 +746,166 @@
             });
         });
 
-    function toggleLike(element) {
-    const icon = element.querySelector('i'); // Get the <i> tag
-    let type;
+        function toggleLike(element) {
+            const icon = element.querySelector('i'); // Get the <i> tag
+            let type;
 
-    // Ensure the icon starts with the correct class
-    if (!icon.classList.contains('fa-heart') && !icon.classList.contains('fa-heart-o')) {
-        icon.classList.add('fa-heart');
-    }
-
-    // Determine current state (do not update UI yet)
-    if (localStorage.getItem("liked") === '1') {
-        type = 'disliked';
-    } else {
-        type = 'liked';
-    }
-
-    const data = {
-        "matri_id_by": localStorage.getItem('matriId'),
-        "matri_id_to": localStorage.getItem("matriIdTo"),
-        "type": type
-    };
-
-    axios.post(`${BASE_URL}/matri_liked.php`, data, {
-        headers: {
-            'Content-Type': 'application/json',
-            "Authorization": "Bearer " + localStorage.getItem("jwtToken")
-        }
-    })
-    .then(function (response) {
-        if (response.data.message.p_out_mssg_flg === 'Y') {
-            // ✅ Update UI only after success
-            if (type === 'liked') {
-                icon.style.color = 'red';
-                localStorage.setItem("liked", '1');
-            } else {
-                icon.style.color = '#d0afaf';
-                localStorage.setItem("liked", '0');
+            // Ensure the icon starts with the correct class
+            if (!icon.classList.contains('fa-heart') && !icon.classList.contains('fa-heart-o')) {
+                icon.classList.add('fa-heart');
             }
-        } else if (response.data.message.p_out_mssg_flg === 'E' &&
-                   response.data.message.p_out_mssg.includes("Session expired")) {
-            // ✅ Show Swal for session expired
-            Swal.fire({
-                title: "Session Expired!",
-                text: "Your session has expired. Please log in again.",
-                icon: "warning",
-                confirmButtonText: "Login"
-            }).then(() => logout());
-        } else {
-            Swal.fire({
-                title: "Error!",
-                text: "Failed to update like status. Please try again.",
-                icon: "error",
-                confirmButtonText: "OK"
-            });
+
+            // Determine current state (do not update UI yet)
+            if (localStorage.getItem("liked") === '1') {
+                type = 'disliked';
+            } else {
+                type = 'liked';
+            }
+
+            const data = {
+                "matri_id_by": localStorage.getItem('matriId'),
+                "matri_id_to": localStorage.getItem("matriIdTo"),
+                "type": type
+            };
+
+            axios.post(`${BASE_URL}/matri_liked.php`, data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Authorization": "Bearer " + localStorage.getItem("jwtToken")
+                }
+            })
+                .then(function (response) {
+                    if (response.data.message.p_out_mssg_flg === 'Y') {
+
+                        if (type === 'liked') {
+                            icon.style.color = 'red';
+                            localStorage.setItem("liked", '1');
+                        } else {
+                            icon.style.color = '#d0afaf';
+                            localStorage.setItem("liked", '0');
+                        }
+                    } else if (response.data.message.p_out_mssg_flg === 'E' &&
+                        response.data.message.p_out_mssg.includes("Session expired")) {
+
+                        Swal.fire({
+                            title: "Session Expired!",
+                            text: "Your session has expired. Please log in again.",
+                            icon: "warning",
+                            confirmButtonText: "Login"
+                        }).then(() => logout());
+                    } else {
+                        Swal.fire({
+                            title: "Error!",
+                            text: "Failed to update like status. Please try again.",
+                            icon: "error",
+                            confirmButtonText: "OK"
+                        });
+                    }
+                })
+                .catch(function (error) {
+                    if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+                        Swal.fire({
+                            title: "Session Expired!",
+                            text: "Please log in again.",
+                            icon: "warning",
+                            confirmButtonText: "Login"
+                        }).then(() => logout());
+                    } else {
+                        Swal.fire({
+                            title: "Network Error!",
+                            text: "Something went wrong. Please try again later.",
+                            icon: "error",
+                            confirmButtonText: "OK"
+                        });
+                        console.error('Error:', error);
+                    }
+                });
         }
-    })
-    .catch(function (error) {
-        if (error.response && (error.response.status === 401 || error.response.status === 403)) {
-            Swal.fire({
-                title: "Session Expired!",
-                text: "Please log in again.",
-                icon: "warning",
-                confirmButtonText: "Login"
-            }).then(() => logout());
-        } else {
-            Swal.fire({
-                title: "Network Error!",
-                text: "Something went wrong. Please try again later.",
-                icon: "error",
-                confirmButtonText: "OK"
-            });
-            console.error('Error:', error);
-        }
-    });
-}
 
 
 
 
 
         function shortlistInfoSection(element) {
-    const icon = element.querySelector('i'); // Get the <i> tag
-    let type;
+            const icon = element.querySelector('i'); // Get the <i> tag
+            let type;
 
-    // Determine current state without changing UI yet
-    if (icon.classList.contains('fas')) {
-        type = 'shortlisted';
-    } else {
-        type = 'unlist';
-    }
-
-    const data = {
-        "matri_id_by": localStorage.getItem('matriId'),
-        "matri_id_to": localStorage.getItem("matriIdTo"),
-        "type": type // liked or disliked
-    };
-
-    axios.post(`${BASE_URL}/shortlisted.php`, data, {
-        headers: {
-            'Content-Type': 'application/json',
-            "Authorization": "Bearer " + localStorage.getItem("jwtToken")
-        }
-    })
-    .then(function (response) {
-        // ✅ Check for success
-        if (response.data.message && response.data.message.p_out_mssg_flg === 'Y') {
-            // Update icon only after success
-            if (type === 'liked') {
-                icon.classList.remove('far');
-                icon.classList.add('fas');
-                icon.style.color = 'green';
+            // Determine current state without changing UI yet
+            if (icon.classList.contains('fas')) {
+                type = 'shortlisted';
             } else {
-                icon.classList.remove('fas');
-                icon.classList.add('far');
-                icon.style.color = '#d0afaf';
+                type = 'unlist';
             }
 
-            Swal.fire({
-                title: "Shortlisted!",
-                text: "Success",
-                icon: "success",
-                confirmButtonText: "OK",
-            });
+            const data = {
+                "matri_id_by": localStorage.getItem('matriId'),
+                "matri_id_to": localStorage.getItem("matriIdTo"),
+                "type": type // liked or disliked
+            };
 
-        } else if (response.data.message && response.data.message.p_out_mssg.includes("Session expired")) {
-            Swal.fire({
-                title: "Session Expired!",
-                text: "Your session has expired. Please log in again.",
-                icon: "warning",
-                confirmButtonText: "Login"
-            }).then(() => logout());
-        } else {
-            Swal.fire({
-                title: "Error!",
-                text: "Failed to update shortlist status. Please try again.",
-                icon: "error",
-                confirmButtonText: "OK"
-            });
-        }
-    })
-    .catch(function (error) {
-        console.error('Error:', error);
+            axios.post(`${BASE_URL}/shortlisted.php`, data, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    "Authorization": "Bearer " + localStorage.getItem("jwtToken")
+                }
+            })
+                .then(function (response) {
+                    // ✅ Check for success
+                    if (response.data.message && response.data.message.p_out_mssg_flg === 'Y') {
+                        // Update icon only after success
+                        if (type === 'liked') {
+                            icon.classList.remove('far');
+                            icon.classList.add('fas');
+                            icon.style.color = 'green';
+                        } else {
+                            icon.classList.remove('fas');
+                            icon.classList.add('far');
+                            icon.style.color = '#d0afaf';
+                        }
 
-        if (error.response && (error.response.status === 401 || error.response.status === 403)) {
-            Swal.fire({
-                title: "Session Expired!",
-                text: "Please log in again.",
-                icon: "warning",
-                confirmButtonText: "Login"
-            }).then(() => logout());
-        } else {
-            Swal.fire({
-                title: "Network Error!",
-                text: "Something went wrong. Please try again later.",
-                icon: "error",
-                confirmButtonText: "OK"
-            });
+                        Swal.fire({
+                            title: "Shortlisted!",
+                            text: "Success",
+                            icon: "success",
+                            confirmButtonText: "OK",
+                        });
+
+                    } else if (response.data.message && response.data.message.p_out_mssg.includes("Session expired")) {
+                        Swal.fire({
+                            title: "Session Expired!",
+                            text: "Your session has expired. Please log in again.",
+                            icon: "warning",
+                            confirmButtonText: "Login"
+                        }).then(() => logout());
+                    } else {
+                        Swal.fire({
+                            title: "Error!",
+                            text: "Failed to update shortlist status. Please try again.",
+                            icon: "error",
+                            confirmButtonText: "OK"
+                        });
+                    }
+                })
+                .catch(function (error) {
+                    console.error('Error:', error);
+
+                    if (error.response && (error.response.status === 401 || error.response.status === 403)) {
+                        Swal.fire({
+                            title: "Session Expired!",
+                            text: "Please log in again.",
+                            icon: "warning",
+                            confirmButtonText: "Login"
+                        }).then(() => logout());
+                    } else {
+                        Swal.fire({
+                            title: "Network Error!",
+                            text: "Something went wrong. Please try again later.",
+                            icon: "error",
+                            confirmButtonText: "OK"
+                        });
+                    }
+                });
         }
-    });
-}
 
 
 
@@ -1055,73 +1337,73 @@
 
 
 
-           async function candidateProfile() {
-    showWaitingDialog();
+            async function candidateProfile() {
+                showWaitingDialog();
 
-    const data = {
-        matri_id_to: localStorage.getItem("matriIdTo"),
-        matri_id: localStorage.getItem("matriId"),
-    };
+                const data = {
+                    matri_id_to: localStorage.getItem("matriIdTo"),
+                    matri_id: localStorage.getItem("matriId"),
+                };
 
-    try {
-        const response = await axios.post(
-            `${BASE_URL}/z_my_profile2.php`,
-            data,
-            {
-                headers: {
-                    "Content-Type": "application/json",
-                    "Authorization": "Bearer " + localStorage.getItem("jwtToken")
+                try {
+                    const response = await axios.post(
+                        `${BASE_URL}/z_my_profile2.php`,
+                        data,
+                        {
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Authorization": "Bearer " + localStorage.getItem("jwtToken")
+                            }
+                        }
+                    );
+
+                    const resData = response.data;
+
+                    // --- Step 1: Refresh JWT if new token is returned ---
+                    if (resData.token) {
+                        localStorage.setItem("jwtToken", resData.token);
+                    }
+
+                    // --- Step 2: Handle API response ---
+                    if (resData.message?.p_out_mssg_flg === "Y") {
+                        candidate_profile_info = resData.dataout[0] || {};
+                        moreButton.style.display = "none";
+                        localStorage.setItem("liked", candidate_profile_info.liked || 0);
+                    } else {
+                        Swal.fire({
+                            title: "Error!",
+                            text: resData.message?.p_out_mssg || "Failed to fetch profile.",
+                            icon: "error",
+                            confirmButtonText: "OK"
+                        });
+                    }
+
+                } catch (error) {
+                    console.error("Error fetching candidate profile:", error);
+
+                    // Handle token/session expiration
+                    if (error.response && error.response.status === 401) {
+                        Swal.fire({
+                            title: "Session Expired",
+                            text: "Please log in again.",
+                            icon: "warning",
+                            confirmButtonText: "OK"
+                        }).then(() => {
+                            // Redirect to login page
+                            window.location.href = "login";
+                        });
+                    } else {
+                        Swal.fire({
+                            title: "Error!",
+                            text: "Unable to fetch candidate profile. Please try again.",
+                            icon: "error",
+                            confirmButtonText: "OK"
+                        });
+                    }
+                } finally {
+                    hideWaitingDialog();
                 }
             }
-        );
-
-        const resData = response.data;
-
-        // --- Step 1: Refresh JWT if new token is returned ---
-        if (resData.token) {
-            localStorage.setItem("jwtToken", resData.token);
-        }
-
-        // --- Step 2: Handle API response ---
-        if (resData.message?.p_out_mssg_flg === "Y") {
-            candidate_profile_info = resData.dataout[0] || {};
-            moreButton.style.display = "none";
-            localStorage.setItem("liked", candidate_profile_info.liked || 0);
-        } else {
-            Swal.fire({
-                title: "Error!",
-                text: resData.message?.p_out_mssg || "Failed to fetch profile.",
-                icon: "error",
-                confirmButtonText: "OK"
-            });
-        }
-
-    } catch (error) {
-        console.error("Error fetching candidate profile:", error);
-
-        // Handle token/session expiration
-        if (error.response && error.response.status === 401) {
-            Swal.fire({
-                title: "Session Expired",
-                text: "Please log in again.",
-                icon: "warning",
-                confirmButtonText: "OK"
-            }).then(() => {
-                // Redirect to login page
-                window.location.href = "login"; 
-            });
-        } else {
-            Swal.fire({
-                title: "Error!",
-                text: "Unable to fetch candidate profile. Please try again.",
-                icon: "error",
-                confirmButtonText: "OK"
-            });
-        }
-    } finally {
-        hideWaitingDialog();
-    }
-}
 
             window.candidateProfile = candidateProfile;
 
