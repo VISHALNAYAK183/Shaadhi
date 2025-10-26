@@ -1872,6 +1872,7 @@ function setDefaultRadioButton() {
         }
     })
     .then(function (response) {
+          hideWaitingDialog();
           const res = response.data;
     if (res.token) {
         localStorage.setItem("jwtToken", res.token);
@@ -1930,6 +1931,7 @@ function setDefaultRadioButton() {
         }
     })
     .catch(function (error) {
+         hideWaitingDialog(); 
         console.error("Profile fetch error:", error);
         if (!handleSessionExpiry(error)) {
             Swal.fire({
@@ -1942,7 +1944,7 @@ function setDefaultRadioButton() {
     })
     .finally(hideWaitingDialog);
 
-    // ✅ Fetch profile images
+
     const photo = {
         matri_id: localStorage.getItem('matriId'),
         type: "get_image",
