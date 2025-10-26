@@ -1,6 +1,6 @@
 <?php
 // Redirect to the dist folder
-// header("Cache-Control: no-cache, must-revalidate");
+header("Cache-Control: no-cache, must-revalidate");
 // header("Location: Login.html");
 
 // exit;
