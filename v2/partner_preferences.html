@@ -921,115 +921,110 @@ function updateAgeLabels() {
         
     // -----------------------------------*-------------------------------------------- //
 
-    // Form Submission
-function submitForm() {
-    const min_age = parseInt(document.getElementById('minAge').value);
-    const max_age = parseInt(document.getElementById('maxAge').value);
-    const height_min = parseInt(document.getElementById('minHeight').value);
-    const height_max = parseInt(document.getElementById('maxHeight').value);
-    const income_from = parseInt(document.getElementById('minIncome').value);
-    const income_to = parseInt(document.getElementById('maxIncome').value);
+ async function submitForm() {
+  const min_age = parseInt(document.getElementById('minAge').value);
+  const max_age = parseInt(document.getElementById('maxAge').value);
+  const height_min = parseInt(document.getElementById('minHeight').value);
+  const height_max = parseInt(document.getElementById('maxHeight').value);
+  const income_from = parseInt(document.getElementById('minIncome').value);
+  const income_to = parseInt(document.getElementById('maxIncome').value);
 
+  // ✅ Validate age
+  if (min_age < 18 || max_age > 100) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Invalid Age Range',
+      text: 'Minimum age must be at least 18 and maximum age not more than 100.',
+      confirmButtonText: 'OK'
+    });
+    return;
+  }
 
-  
+  if (min_age > max_age) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Invalid Age Order',
+      text: 'Minimum age cannot be greater than maximum age.',
+      confirmButtonText: 'OK'
+    });
+    return;
+  }
 
-    // Age validation
-    if (minAge < 18 || maxAge > 100) {
-        //alert('Please ensure that the minimum age is at least 18 and the maximum age does not exceed 100.');
-        Swal.fire({
-          icon: 'error',
-          title: 'Please Ensure that the minimum age is atleast 18 and the maximum age doesnot exceed 100.',
-          text: 'Please try again.',
-          confirmButtonText: 'OK'
-      }).then((result) => {
-          // Reload the page when the alert is closed
-          if (result.isConfirmed) {
-              location.reload(); // Reload the page
-          }
+  document.getElementById("loader").style.display = "flex";
+
+  const matri_id = localStorage.getItem('matriId');
+  const id = localStorage.getItem('mId');
+
+  const data = {
+    matri_id: matri_id,
+    marital_status: ($("#maritalStatus").val()).join(","),
+    height_min: height_min,
+    height_max: height_max,
+    sub_caste: ($("#subCasteDropdown").val()).join(","),
+    blood_group: "A+,A-,B+,B-,AB+,AB-,O+,O-",
+    city: ($("#city").val()).join(","),
+    country: ($("#country").val()).join(","),
+    state: ($("#state").val()).join(","),
+    education: ($("#educationDropdown").val()).join(","),
+    income_from: income_from,
+    income_to: income_to,
+    min_age: min_age,
+    max_age: max_age
+  };
+
+  try {
+    const response = await axios.post(`${BASE_URL}/search_preference.php`, data, {
+      headers: { 'Content-Type': 'application/json' }
+    });
+
+    console.log("API Response:", response.data);
+
+    const res = response.data;
+
+    if (res.message.p_out_mssg_flg === 'Y') {
+      // ✅ Generate and store token if API sends one
+      if (res.dataout && res.dataout[0].token) {
+        localStorage.setItem("jwtToken", res.dataout[0].token);
+        console.log("✅ Token saved from partner preference flow");
+      }
+
+      localStorage.setItem('matriId', matri_id);
+      localStorage.setItem('mId', id);
+      document.getElementById("loader").style.display = "none";
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Preferences Saved!',
+        text: 'Redirecting to your dashboard...',
+        showConfirmButton: false,
+        timer: 1500
       });
-        return; // Prevent form submission
-    }
 
-    if (minAge > maxAge) {
-        //alert('Minimum age cannot be greater than maximum age.');
-        Swal.fire({
-          icon: 'error',
-          title: 'Minimum age cannot be greater than maximum age.',
-          text: 'Please try again.',
-          confirmButtonText: 'OK'
-      }).then((result) => {
-          // Reload the page when the alert is closed
-          if (result.isConfirmed) {
-              location.reload(); // Reload the page
-          }
+      setTimeout(() => {
+        window.location.href = 'dashboard.html';
+      }, 1500);
+
+    } else {
+      document.getElementById("loader").style.display = "none";
+      Swal.fire({
+        icon: 'error',
+        title: 'Failed to Save',
+        text: res.message.p_out_mssg || 'Please try again.',
+        confirmButtonText: 'OK'
       });
-        return; // Prevent form submission
     }
-
-      let matri_id=localStorage.getItem('matriId');
-      let id=localStorage.getItem('mId');
-
-      let stateSelected1="";
-          let citySelected1="";
-          let countrySelected1="";
-          let educationSelected1="";
-
-      // let maritalStatus=localStorage.getItem('maritalStatus');
-      document.getElementById("loader").style.display = "flex";
-      // if (isValid) {
-       const data = {     
-          matri_id:localStorage.getItem('matriId'),
-          marital_status: ($("#maritalStatus").val()).join(","),
-          height_min: height_min,
-          height_max:height_max,
-          sub_caste:($("#subCasteDropdown").val()).join(","),
-          blood_group: "A+,A-,B+,B-,AB+,AB-,O+,O-",
-          city:($("#city").val()).join(","),
-          country:($("#country").val()).join(","),
-          state:($("#state").val()).join(","),
-          education:($("#educationDropdown").val()).join(","),
-          income_from:income_from,
-          income_to:income_to,    
-          min_age: min_age,
-          max_age: max_age
-
-    };
-
-   //consolelog(data);
-        
-        axios.post(`${BASE_URL}/search_preference.php`, data, {
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-        .then(function(response) {
-           //consolelog('Success:', response.data);
-            
-
-            if(response.data.message.p_out_mssg_flg === 'Y'){
-                    window.location.href = 'dashboard';
-                    localStorage.setItem('matriId', matri_id);
-                    localStorage.setItem('mId', id);
-                    document.getElementById("loader").style.display = "none";
-                //window.location.href = 'EducationDetails';
-            }else{
-              document.getElementById("loader").style.display = "none";
-              Swal.fire({
-                icon: 'error',
-                title: '',
-                text: 'Please try again.',
-                confirmButtonText: 'OK'
-                })
-                 //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);
-            }
-        })
-        .catch(function(error) {
-               console.error('Error:', error);
-                // Optionally display an error message to the user
-            });
-      // }  
+  } catch (error) {
+    document.getElementById("loader").style.display = "none";
+    console.error("Error:", error);
+    Swal.fire({
+      icon: 'error',
+      title: 'Error Occurred',
+      text: 'Something went wrong. Please try again later.',
+      confirmButtonText: 'OK'
+    });
+  }
 }
-    
+
    
 </script>
 
