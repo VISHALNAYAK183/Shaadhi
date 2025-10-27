@@ -15,15 +15,32 @@
     <link rel="shortcut icon" type="image/png" href="../img/icon-180x180.png">
     <link rel="shortcut icon" type="image/png" href="../img/icon-192x192.png">
     <!-- updated for Tab space for Edit -->
-     <style>
-       /* Default styles (for larger screens like desktops) */
+<style>
+/* *** GLOBAL MARGIN/PADDING RESET (AGGRESSIVE) *** */
+html, body {
+    padding: 0 !important; /* Force all padding to zero */
+    margin: 0 !important; /* Force all margin to zero */
+    box-sizing: border-box; 
+    width: 100%;
+    overflow-x: hidden; /* Prevents horizontal scrollbar */
+    /* *** FIX: Ensure vertical scrolling on the entire page and allow collapse *** */
+    overflow-y: scroll;
+    min-height: 100%; /* Allow shrinking */
+    height: auto;
+}
+/* **************************************** */
 
+
+/* Default styles (for larger screens like desktops) */
 #content {
     position: relative;
     z-index: 1; /* content above blur */
-    overflow-y: auto;
-    height: 100vh;
-    padding: 20px;
+    overflow-y: visible; /* Let the body/document handle scrolling */
+    /* 💥 FIX 1: Allow content to dictate height */
+    min-height: auto; 
+    height: auto; 
+    padding: 20px; /* Default desktop padding */
+    flex: 1; 
 }
 
 
@@ -33,7 +50,8 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 160%;
+    /* 💥 CRITICAL FIX 2: Set height to 100% of content, not 160% */
+    height: 100%;
     background: url("../img/shaadhi.png") no-repeat center center/cover;
     filter: blur(10px);
     opacity: 0.85;
@@ -43,11 +61,11 @@
 
 
 .dashboard-content {
-  position: relative;
-  z-index: 2;
+    position: relative;
+    z-index: 2;
 }
 
-       .option-button {
+.option-button {
     padding: 8px 10px;
     border: none;
     border-radius: 20px;
@@ -58,7 +76,7 @@
     font-weight: 500;
 }
 
-       .icon-row {
+.icon-row {
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -72,193 +90,256 @@
     background: linear-gradient(135deg, #f5e7df 0%, #f5e7df 100%);
 }
 
-       .profile h2 {
+.profile h2 {
     font-size: 1.8rem;
     color: #c3a38c;
     margin-bottom: 1rem;
     font-family: 'Playfair Display', serif;
 }
 
-       #sidebar-placeholder {
-            background: linear-gradient(180deg, #f5e7df 0%, #f5e7df 100%);
-            color: #2c3e50;
-            border-right: 1px solid #e3f2fd;
-        }
-
-        .sidebar {
-            width: 280px;
-            background: linear-gradient(180deg, #f5e7df 0%, #f5e7df 100%);
-            padding: 1.5rem;
-            border-right: 1px solid #e3f2fd;
-            box-shadow: 4px 0 15px rgba(33, 150, 243, 0.1);
-        }
-
-       .profile-basic {
-        max-width: 600px;
-        margin: 20px auto;
-        padding: 5px;
-        background: #f9f9f9;
-        /*border: 1px solid #ddd;
-        border-radius: 10px;*/
-        font-family: Arial, sans-serif;
-    }
-    .profile-item1 {
-        display: flex;
-        justify-content: space-between;
-        padding: 10px 0;
-        border-bottom: 1px solid #eee;
-    }
-    .profile-label1 {
-        flex: 2; /* Allocates space for labels */
-        font-weight: bold;
-        color: #333;
-    }
-    .profile-item1 span {
-        flex: 2; /* Allocates space for values */
-        color: #555;
-        text-align: left; /* Aligns values properly */
-        margin-left: 20px;
-    }
-    .option-button {
-        margin-bottom: 20px;
-    }
-    p {
-        display: flex;
-        align-items: center;
-      }
-      
-      #dob {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        align-items: center;
-      }
-      
-      .option-button {
-        display: flex;
-        flex: 2;
-        align-items: right;
-        margin-left: auto; /* Pushes the button to the right */
-      }
-
-
-       .toggle-btn {
-  display: none;
+#sidebar-placeholder {
+    background: linear-gradient(180deg, #f5e7df 0%, #f5e7df 100%);
+    color: #2c3e50;
+    border-right: 1px solid #e3f2fd;
+    /* 💥 FIX 3: Allow height to collapse */
+    height: auto;
+    min-height: auto;
 }
 
-    
+.sidebar {
+    width: 280px;
+    background: linear-gradient(180deg, #f5e7df 0%, #f5e7df 100%);
+    padding: 1.5rem;
+    border-right: 1px solid #e3f2fd;
+    box-shadow: 4px 0 15px rgba(33, 150, 243, 0.1);
+    /* 💥 FIX 3: Allow height to collapse */
+    height: auto;
+    min-height: auto; 
+    }
+
 .profile-basic {
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 5px;
-  background: #f9f9f9;
-  font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 5px;
+    background: #f9f9f9;
+    font-family: Arial, sans-serif;
+    }
+    .profile-item1 {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    }
+    .profile-label1 {
+    flex: 2; /* Allocates space for labels */
+    font-weight: bold;
+    color: #333;
+    }
+    .profile-item1 span {
+    flex: 2; /* Allocates space for values */
+    color: #555;
+    text-align: left; /* Aligns values properly */
+    margin-left: 20px;
+    
+        /* 🛠️ FIX: Prevent email/long text overflow on mobile/desktop */
+        word-break: break-all;
+        word-wrap: break-word;
+    }
+    .option-button {
+    margin-bottom: 20px;
+    }
+    p {
+    display: flex;
+    align-items: center;
+    }
+    
+    #dob {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    }
+    
+    .option-button {
+    display: flex;
+    flex: 2;
+    align-items: right;
+    margin-left: auto; /* Pushes the button to the right */
+    }
+
+
+.toggle-btn {
+    display: none;
+}
+
+.profile-basic {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 5px;
+    background: #f9f9f9;
+    font-family: Arial, sans-serif;
 }
 
 .profile-item1 {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px 0;
-  border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
 }
 
 .profile-label1 {
-  flex: 2;
-  font-weight: bold;
-  color: #333;
+    flex: 2;
+    font-weight: bold;
+    color: #333;
 }
 
 .profile-item1 span {
-  flex: 2;
-  color: #555;
-  text-align: left;
-  margin-left: 20px;
+    flex: 2;
+    color: #555;
+    text-align: left;
+    margin-left: 20px;
+    /* 🛠️ FIX: Prevent email/long text overflow (Redundant but keep for safety) */
+    word-break: break-all; 
+    word-wrap: break-word;
 }
 
 .option-button {
-  margin-bottom: 20px;
+    margin-bottom: 20px;
 }
 
 p {
-  display: flex;
-  align-items: center;
+    display: flex;
+    align-items: center;
 }
 
 #dob {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  align-items: center;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
 }
 
 .option-button {
-  display: flex;
-  flex: 2;
-  margin-left: auto;
+    display: flex;
+    flex: 2;
+    margin-left: auto;
 }
 
 /* ✅ Responsive Adjustments */
 @media (max-width: 768px) {
-  .profile-basic {
-    max-width: 90%;  /* shrink container */
-    padding: 10px;
-  }
+    /* 1. Reset Dashboard Container spacing and height limits */
+    .dashboard-container {
+        padding: 0 !important; 
+        margin: 0 !important; 
+        min-height: auto !important; /* *** CRITICAL FIX: Ensure collapse on mobile *** */
+        height: auto !important;
+        display: block; /* Ensure stacked layout for mobile */
+    }
+    
+    /* 2. Minimized padding on the main content wrapper (#content) */
+    #content {
+        padding-left: 2px !important; 
+        padding-right: 2px !important;
+        padding-top: 40px !important; 
+        min-height: auto !important; /* *** CRITICAL FIX: Collapse height to fit content *** */
+        height: auto !important;
+    }
+    
+    /* Ensure sidebar also doesn't force height on mobile */
+    .sidebar, #sidebar-placeholder {
+        min-height: auto !important;
+        height: auto !important;
+    }
 
-  .profile-item1 {
-    flex-direction: column;  /* stack label + value */
-    align-items: flex-start;
-  }
 
-  .profile-item1 span {
-    margin-left: 0;   /* reset margin */
-    margin-top: 5px;  /* add small spacing below label */
-    text-align: left;
-    width: 100%;
-  }
+    .profile-basic {
+        /* 3. Force content card to use full available space */
+        max-width: 100% !important; 
+        padding: 5px;
+        margin: 10px auto;
+    }
 
-  #dob {
-    flex-direction: column; /* stack elements */
-    align-items: flex-start;
-    gap: 8px;
-  }
+    .profile-item1 {
+        flex-direction: column; /* stack label + value */
+        align-items: flex-start;
+    }
 
-  .option-button {
-    justify-content: center;  /* center buttons */
-    margin-left: 0;
-    margin-top: 10px;
-  }
+    .profile-item1 span {
+        margin-left: 0; /* reset margin */
+        margin-top: 5px; /* add small spacing below label */
+        text-align: left;
+        width: 100%;
+    }
+
+    #dob {
+        flex-direction: column; /* stack elements */
+        align-items: flex-start;
+        gap: 8px;
+    }
+
+    .option-button {
+        justify-content: center; /* center buttons */
+        margin-left: 0;
+        margin-top: 10px;
+    }
 }
 
 @media (max-width: 480px) {
-  .profile-basic {
-    max-width: 100%;  /* use full width */
-    padding: 8px;
-  }
+    /* 1. Reset Dashboard Container spacing and height limits */
+    .dashboard-container {
+        padding: 0 !important;
+        margin: 0 !important;
+        min-height: auto !important; 
+        height: auto !important;
+    }
+    
+      /* 2. Minimized padding on the main content wrapper (#content) */
+    #content {
+        padding-left: 2px !important;
+        padding-right: 2px !important;
+        padding-top: 40px !important; 
+        min-height: auto !important; /* *** CRITICAL FIX: Collapse height to fit content *** */
+        height: auto !important;
+    }
+    
+    /* Ensure sidebar also doesn't force height on mobile */
+    .sidebar, #sidebar-placeholder {
+        min-height: auto !important;
+        height: auto !important;
+    }
 
-  .profile-label1 {
-    font-size: 14px;
-  }
+    .profile-basic {
+        /* 3. Force content card to use full available space */
+        max-width: 100% !important; 
+        padding: 5px;
+    }
 
-  .profile-item1 span {
-    font-size: 14px;
-  }
+    .profile-label1 {
+        font-size: 14px;
+    }
 
-  .option-button {
-    width: 100%;
-    justify-content: center;
-  }
+    .profile-item1 span {
+        font-size: 14px;
+    }
+
+    .option-button {
+        width: 100%;
+        justify-content: center;
+    }
 }
 
 /*shetty */
 /* Base Styles */
 body {
-    margin: 0;
+    /* The global reset at the top already sets margin: 0 */
     font-family: Arial, sans-serif;
 }
 
 .dashboard-container {
     display: flex;
-    min-height: 100vh;
+    /* 💥 FIX 4: Use auto-height for content-fitting height */
+    min-height: auto;
+    height: auto;
 }
 
 /* Sidebar */
@@ -268,19 +349,25 @@ body {
     padding: 1.5rem;
     border-right: 1px solid #e3f2fd;
     box-shadow: 4px 0 15px rgba(33, 150, 243, 0.1);
-    flex-shrink: 0; /* prevent shrinking on small screens */
+    flex-shrink: 0; 
+    /* 💥 FIX 4: Use auto-height for content-fitting height */
+    height: auto;
+    min-height: auto;
+}
+
+.sidebar {
+    width: 280px;
+    background: linear-gradient(180deg, #f5e7df 0%, #f5e7df 100%);
+    padding: 1.5rem;
+    border-right: 1px solid #e3f2fd;
+    box-shadow: 4px 0 15px rgba(33, 150, 243, 0.1);
+    /* 💥 FIX 4: Use auto-height for content-fitting height */
+    height: auto;
+    min-height: auto;
 }
 
 .sidebar h3 {
     margin-top: 0;
-}
-
-/* Main Content */
-#content {
-    flex: 1;
-    padding: 20px;
-    background: #f9f9f9;
-    overflow-x: hidden;
 }
 
 /* Profile Section */
@@ -332,6 +419,9 @@ body {
 .profile-item1 span {
     color: #555;
     margin-left: 10px;
+    /* 🛠️ FIX: Prevent email/long text overflow (Redundant but keep for safety) */
+    word-break: break-all;
+    word-wrap: break-word;
 }
 
 /* Right Section Photo */
@@ -393,19 +483,25 @@ body {
     font-size: 40px;
     cursor: pointer;
 }
-  .toggle-btn {
-  display: none;
+.toggle-btn {
+    display: none;
 }
 /* Responsive */
 @media (max-width: 1024px) {
     .dashboard-container {
         flex-direction: column;
+        /* 💥 FIX 5: Use auto-height for content-fitting height */
+        min-height: auto;
+        height: auto;
     }
     
     #sidebar-placeholder {
         width: 100%;
         border-right: none;
         border-bottom: 1px solid #e3f2fd;
+        /* 💥 FIX 5: Use auto-height for content-fitting height */
+        min-height: auto; 
+        height: auto;
     }
     
     .profile-container {
@@ -441,7 +537,8 @@ body {
     top: 0;
     left: -220px; /* hidden by default */
     width: 220px;
-    height: 100vh;
+    /* 💥 FIX 6: Use auto-height for content-fitting height */
+    height: auto; 
     background: #f5e7df;
     color: inherit;
     transition: transform 0.3s ease;
@@ -450,168 +547,169 @@ body {
     padding: 1rem;
 }
 
-  /* When sidebar is open */
-  .sidebar.open {
-    left: 0;
-  }
+    /* When sidebar is open */
+    .sidebar.open {
+        left: 0;
+    }
 
-  /* Show toggle button only on small screens */
-  .toggle-btn {
-    display: block;
-    position: fixed;
-    top: 2px;
-    left: 10px;
-    z-index: 1100;
-    background: #c3a38c;
-    color: white;
-    border: none;
-    padding: 5px 5px;
-    font-size: 20px;
-    border-radius: 6px;
-    cursor: pointer;
-  }
+    /* Show toggle button only on small screens */
+    .toggle-btn {
+        display: block;
+        position: fixed;
+        top: 2px;
+        left: 10px;
+        z-index: 1100;
+        background: #c3a38c;
+        color: white;
+        border: none;
+        padding: 5px 5px;
+        font-size: 20px;
+        border-radius: 6px;
+        cursor: pointer;
+    }
 
-  .sidebar.open h3.container-header1 {
-    display: none;
-  }
+    .sidebar.open h3.container-header1 {
+        display: none;
+    }
 
-  .sidebar.open hr.container-header1 {
-    display: none;
-  }
+    .sidebar.open hr.container-header1 {
+        display: none;
+    }
 
-  .sidebar.open ul {
-    margin-top: 25px;
-  }
+    .sidebar.open ul {
+        margin-top: 25px;
+    }
 
-  /* Optional – prevent content shift */
-  .main-content {
-    margin-left: 0;
-  }
+    /* Optional – prevent content shift */
+    .main-content {
+        margin-left: 0;
+    }
 
 }
 .dashboard-container {
-  max-width: 1600px;
-  width: 100%;
-  margin: 0 auto;
+    max-width: 1600px;
+    width: 100%;
+    margin: 0 auto;
 }
 @media screen and (max-width: 1024px) {
-  .sidebar {
-    width: 200px;
-  }
+    .sidebar {
+        width: 200px;
+    }
 }
 
 @media screen and (max-width: 768px) {
-  .sidebar {
-    position: fixed;
-    top: 0;
-    left: -220px; /* hidden by default */
-    width: 220px;
-    height: 100vh;
-    background: #f5e7df;; /* adjust to your color */
-    color: inherit;
-     transition: transform 0.3s ease;
-    transform: translateX(-5px);
-    z-index: 1000;
-    padding: 1rem;
-  }
+    .sidebar {
+        position: fixed;
+        top: 0;
+        left: -220px; /* hidden by default */
+        width: 220px;
+        /* 💥 FIX 7: Use auto-height for content-fitting height */
+        height: auto; 
+        background: #f5e7df;; /* adjust to your color */
+        color: inherit;
+        transition: transform 0.3s ease;
+        transform: translateX(-5px);
+        z-index: 1000;
+        padding: 1rem;
+    }
 
-  /* When sidebar is open */
-  .sidebar.open {
-    left: 0;
-  }
+    /* When sidebar is open */
+    .sidebar.open {
+        left: 0;
+    }
 
-  /* Show toggle button only on small screens */
-  .toggle-btn {
-    display: block;
-    position: fixed;
-    top: 2px;
-    left: 10px;
-    z-index: 1100;
-    background: #c3a38c;
-    color: white;
-    border: none;
-    padding: 5px 5px;
-    font-size: 20px;
-    border-radius: 6px;
-    cursor: pointer;
-  }
+    /* Show toggle button only on small screens */
+    .toggle-btn {
+        display: block;
+        position: fixed;
+        top: 2px;
+        left: 10px;
+        z-index: 1100;
+        background: #c3a38c;
+        color: white;
+        border: none;
+        padding: 5px 5px;
+        font-size: 20px;
+        border-radius: 6px;
+        cursor: pointer;
+    }
 
-  .sidebar.open h3.container-header1 {
-    display: none;
-  }
+    .sidebar.open h3.container-header1 {
+        display: none;
+    }
 
-  .sidebar.open hr.container-header1 {
-    display: none;
-  }
+    .sidebar.open hr.container-header1 {
+        display: none;
+    }
 
-  .sidebar.open ul {
-    margin-top: 25px;
-  }
+    .sidebar.open ul {
+        margin-top: 25px;
+    }
 
-  /* Optional – prevent content shift */
-  .main-content {
-    margin-left: 0;
-  }
+    /* Optional – prevent content shift */
+    .main-content {
+        margin-left: 0;
+    }
 
 }
 /* ✅ Default - Desktop view */
 .options-row {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 10px;
-  padding: 10px;
-  background-color: white;
-  transition: all 0.3s ease-in-out;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px;
+    background-color: white;
+    transition: all 0.3s ease-in-out;
 }
 
 /* ✅ Buttons */
 .option-button {
-  background: #c3a38c;
-  color: white;
-  border: none;
-  padding: 8px 14px;
-  border-radius: 6px;
-  font-size: 14px;
-  cursor: pointer;
-  transition: background 0.3s;
+    background: #c3a38c;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s;
 }
 
 .option-button:hover {
-  background: #c3a38c;
+    background: #c3a38c;
 }
 
 /* ✅ Hamburger (hidden on desktop) */
 .mobile-menu-icon {
-  display: none;
-  font-size: 24px;
-  cursor: pointer;
-  padding: 10px;
+    display: none;
+    font-size: 24px;
+    cursor: pointer;
+    padding: 10px;
 }
 
 /* ✅ Responsive (mobile) */
 @media (max-width: 768px) {
-  .mobile-menu-icon {
-    display: block;
-  }
+    .mobile-menu-icon {
+        display: block;
+    }
 
-  .options-row {
-    display: none !important; /* hidden by default on mobile */
-    flex-direction: column;
-    align-items: flex-start;
-    background-color: white;
-    position: absolute;
-    top: 55px;
-    left: 10px;
-    width: 200px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-    z-index: 999;
-  }
+    .options-row {
+        display: none !important; /* hidden by default on mobile */
+        flex-direction: column;
+        align-items: flex-start;
+        background-color: white;
+        position: absolute;
+        top: 55px;
+        left: 10px;
+        width: 200px;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        z-index: 999;
+    }
 
-  .options-row.show {
-    display: flex !important; /* shown when hamburger clicked */
-  }
+    .options-row.show {
+        display: flex !important; /* shown when hamburger clicked */
+    }
 }
 
 
@@ -630,99 +728,7 @@ body {
         margin-bottom: 15px; /* optional spacing */
     }
 }
-
-
-    </style>   
-</head>
-<script>
-function toggleOptions() {
-  document.getElementById("optionsRow").classList.toggle("show");
-}
-
-
-        // Assuming loadSectionDetails is defined somewhere globally
-     
-        
-        // You can also call any other necessary initialization functions
-    
-    function openPageAndPostMessage() {
-        // Ensure `myProfileNew` is dynamically populated
-        if (typeof myProfileNew !== "undefined" && myProfileNew !== null) {
-            // Store the data in sessionStorage
-            sessionStorage.setItem("formData", JSON.stringify(myProfileNew));
-    
-            // Redirect to the same page
-            window.location.href = "EditRegister";
-        } else {
-           console.error("myProfileNew is not defined or empty.");
-        }
-    }
-    function openEditAdditional(){
-        if (typeof myProfileNew !== "undefined" && myProfileNew !== null) {
-            // Store the data in sessionStorage
-            sessionStorage.setItem("formData", JSON.stringify(myProfileNew));
-    
-            // Redirect to the same page
-            window.location.href = "EditAdditionalDetail";
-        } else {
-           console.error("myProfileNew is not defined or empty.");
-        }
-    
-    }
-    function openEditEducation(){
-        if (typeof myProfileNew !== "undefined" && myProfileNew !== null) {
-            // Store the data in sessionStorage
-            sessionStorage.setItem("formData", JSON.stringify(myProfileNew));
-    
-            // Redirect to the same page
-            window.location.href = "EditEducation";
-        } else {
-           console.error("myProfileNew is not defined or empty.");
-        }
-    }
-    function openEditHoroscope(){
-        if (typeof myProfileNew !== "undefined" && myProfileNew !== null) {
-            // Store the data in sessionStorage
-            sessionStorage.setItem("formData", JSON.stringify(myProfileNew));
-    
-            // Redirect to the same page
-            window.location.href = "EditHoroscope";
-        } else {
-           console.error("myProfileNew is not defined or empty.");
-        }
-
-    }
-    function openEditFamily(){
-        if (typeof myProfileNew !== "undefined" && myProfileNew !== null) {
-            // Store the data in sessionStorage
-            sessionStorage.setItem("formData", JSON.stringify(myProfileNew));
-    
-            // Redirect to the same page
-            window.location.href = "EditFamily";
-        } else {
-           console.error("Edit family is not defined or empty.");
-        }
-    }
-    function openEditPhoto(){
-        if (typeof myProfileNew !== "undefined" && myProfileNew !== null) {
-            // Store the data in sessionStorage
-            sessionStorage.setItem("formData", JSON.stringify(myProfileNew));
-    
-            // Redirect to the same page
-            window.location.href = "EditPhoto";
-        } else {
-           console.error("Edit family is not defined or empty.");
-        }
-    }
-
-
-
-    function toggleSidebar() {
-    document.querySelector('.sidebar').classList.toggle('open');
-  }
-
-    
-</script>
+</style>
 <body>
 
     <div id="navbar-placeholder"></div>
