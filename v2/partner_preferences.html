@@ -981,11 +981,13 @@ function updateAgeLabels() {
 
     const res = response.data;
 
-    if (res.message.p_out_mssg_flg === 'Y') {
-      // ✅ Generate and store token if API sends one
-      if (res.dataout && res.dataout[0].token) {
+
+    if (res.dataout && res.dataout[0] && res.dataout[0].p_out_mssg_flg === "Y") {
+
+   
+      if (res.dataout[0].token) {
         localStorage.setItem("jwtToken", res.dataout[0].token);
-        console.log("✅ Token saved from partner preference flow");
+        console.log("Token saved successfully:", res.dataout[0].token);
       }
 
       localStorage.setItem('matriId', matri_id);
@@ -1006,10 +1008,11 @@ function updateAgeLabels() {
 
     } else {
       document.getElementById("loader").style.display = "none";
+      const errMsg = res.dataout && res.dataout[0]?.p_out_mssg ? res.dataout[0].p_out_mssg : "Please try again.";
       Swal.fire({
         icon: 'error',
         title: 'Failed to Save',
-        text: res.message.p_out_mssg || 'Please try again.',
+        text: errMsg,
         confirmButtonText: 'OK'
       });
     }
