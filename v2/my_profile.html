@@ -827,7 +827,7 @@ function handleSessionExpiry() {
     }).then(() => {
         localStorage.removeItem("jwtToken");
         localStorage.removeItem("matriId");
-        window.location.href = "login.html";
+        window.location.href = "Login.html";
     });
 }
 }
@@ -1694,7 +1694,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 confirmButtonText: "OK"
             }).then(() => {
                 localStorage.clear();
-                window.location.href = "login.html";
+                window.location.href = "Login.html";
             });
             return true;
         }

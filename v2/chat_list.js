@@ -13,7 +13,7 @@ function get_list_js() {
   function logout() {
     localStorage.removeItem("jwtToken");
     localStorage.removeItem("matriId");
-    window.location.href = "login.html";
+    window.location.href = "Login.html";
   }
 
   function isTokenExpired(token) {
