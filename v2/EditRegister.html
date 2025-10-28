@@ -125,7 +125,7 @@
                 "caste_id": "1"  // Adjust caste_id as needed
             };
             
-            axios.post("${BASE_URL}/get_info.php", data, {
+            axios.post(`${BASE_URL}/get_info.php`, data, {
                 headers: { 'Content-Type': 'application/json' }
             })
             .then(function (response) {

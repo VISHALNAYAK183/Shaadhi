@@ -424,7 +424,7 @@ $(document).ready(function() {
             "type": "sub_caste"  // Adjust caste_id as needed
         };
         
-        axios.post("${BASE_URL}/get_data.php", data, {
+        axios.post(`${BASE_URL}/get_data.php`, data, {
             headers: { 'Content-Type': 'application/json' }
         })
         .then(function (response) {

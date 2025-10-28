@@ -703,7 +703,7 @@
           if(response.data.message.p_out_mssg_flg === 'Y'){
               const subscription_plan = response.data.dataout;
               const container = document.getElementById('payment-buttons-container');
-              const base_url = "${BASE_URL}//"
+              const base_url = `${BASE_URL}//`
               // Clear the container before adding new buttons
             //   container.innerHTML = '';
 
@@ -820,7 +820,7 @@
                       "currency": "INR",
                       "name": "Bunts Matrimony",
                       "description": "Payment for Bunts Matrimony", // Fixed description as example
-                      "image": "${BASE_URL}/logo/logo.png",
+                      "image": `${BASE_URL}/logo/logo.png`,
                       "order_id": rz_order_id, // Use the dynamic or static order ID
                       "handler": function(response) {
                           // Successful payment handler
