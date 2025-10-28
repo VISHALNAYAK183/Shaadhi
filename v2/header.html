@@ -187,12 +187,7 @@ document.addEventListener('DOMContentLoaded', function () {
             localStorage.setItem("mutualLiked", response.data.profile_count.mutual_liked);
             localStorage.setItem("contactedCount", response.data.profile_count.profile_contacted);
 
-            // const image = document.getElementById("profilePicture");
-            // image.src = response.data.my_profile[0].base_url+response.data.my_profile[0]["profile_photo"];
-            // const profileFor = document.getElementById("profileFor");
-            // profileFor.textContent = response.data.my_profile[0].first_name+" "+response.data.my_profile[0].last_name;
-            // const image1 = document.getElementById("profilePicture1");
-            // profileFor1.textContent = response.data.my_profile[0].first_name+" "+response.data.my_profile[0].last_name;
+           
             const percent=response.data.my_profile[0]["percent"];
             updateProgressBar(percent)
             const recentlyJoinedArray = response.data.recently_joined;

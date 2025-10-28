@@ -1507,6 +1507,7 @@ const minAgeInput = document.getElementById("minAgeInput");
     // ✅ If backend refreshed token, store it
     if (response.data.token) {
       localStorage.setItem("jwtToken", response.data.token);
+      console.log("Newtkde",response.data.token);
     }
 
     if (response.data.message.p_out_mssg_flg === 'Y') {
@@ -1848,6 +1849,10 @@ async function submitForm() {
         'Authorization': `Bearer ${token}` // ✅ Send JWT
       }
     });
+    if (response.data.token) {
+        localStorage.setItem('jwtToken', response.data.token);
+        console.log("nnd", response.data.token);
+      }
 
     if (response.data.message.p_out_mssg_flg === 'Y') {
       const profileSearchBy = response.data.dataout || [];

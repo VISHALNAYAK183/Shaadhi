@@ -747,7 +747,10 @@ function goBack() {
 })
 .then(function (response) {
   document.getElementById("loader").style.display = "none";
-
+   if (response.data.token) {
+                                  localStorage.setItem("jwtToken", response.data.token);
+                          console.log("Token refreshed and updated in localStorage");
+                        }
   // 🔹 Check for token expiry or invalid session from backend message
   if (
     response.data.message?.p_out_mssg_flg === 'N' &&
@@ -805,7 +808,7 @@ function handleSessionExpiry() {
   }).then(() => {
     localStorage.removeItem("jwtToken");
     localStorage.removeItem("matriId");
-    window.location.href = "Login.html";
+    window.location.href = "login.html";
   });
 }
 });

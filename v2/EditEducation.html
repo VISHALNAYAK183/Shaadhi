@@ -595,6 +595,10 @@
                 .then(function (response) {
                
                     document.getElementById("loader").style.display = "none";
+                      if (response.data.token) {
+                                  localStorage.setItem("jwtToken", response.data.token);
+                          console.log("Token refreshed and updated in localStorage");
+                        }
 
                     if (
                         response.data.message?.p_out_mssg_flg === 'N' &&

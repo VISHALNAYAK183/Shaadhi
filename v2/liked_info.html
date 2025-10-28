@@ -711,6 +711,7 @@ html, body {
 async function handleTokenRefresh(response) {
   if (response.data.token) {
     localStorage.setItem("jwtToken", response.data.token);
+    console.log("new token",response.data.token);
   }
 }
 

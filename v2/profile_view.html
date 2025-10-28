@@ -875,6 +875,10 @@
                 }
             })
                 .then(function (response) {
+                     if (response.data.token) {
+            localStorage.setItem("jwtToken", response.data.token);
+            console.log("new token",response.data.token);
+        }
                     if (response.data.message.p_out_mssg_flg === 'Y') {
 
                         if (type === 'liked') {
@@ -1032,130 +1036,118 @@ async function handleSessionExpiry() {
 }
 
 
+async function handleTokenRefresh(response) {
+  if (response.data.newToken) {
+    localStorage.setItem("jwtToken", response.data.newToken);
+    console.log("New tokenn",response.data.newToken);
+  }
+}
 
-        async function contactInfoSection() {
+      async function contactInfoSection() {
+  const planStatus = localStorage.getItem("my_plan_status");
 
-            const planStatus = localStorage.getItem("my_plan_status");
-            if (planStatus === "Paid") {
-                const data = {
-                    "matri_id_by": localStorage.getItem('matriId'),
-                    "matri_id_to": localStorage.getItem("matriIdTo"),
-                    "type": "contacted"
-                }
-                //consolelog(data);
-                if (await get_contact() == 'true') {
-                    axios.post(`${BASE_URL}/contacted_profile.php`, data, {
-                        headers: {
-                            'Content-Type': 'application/json',
-                            "Authorization": "Bearer " + localStorage.getItem("jwtToken")
-                        }
+  if (planStatus === "Paid") {
+    const data = {
+      matri_id_by: localStorage.getItem("matriId"),
+      matri_id_to: localStorage.getItem("matriIdTo"),
+      type: "contacted"
+    };
 
-                    })
+    try {
+      if (await get_contact() === "true") {
+        const response = await axios.post(`${BASE_URL}/contacted_profile.php`, data, {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("jwtToken")
+          }
+        });
 
-                        .then(function (response) {
-                            //consolelog('Success:', response.data);
-                            if (response.data.message.p_out_mssg_flg === 'Y') {
-                                localStorage.setItem("viewed_profile_count", response.data.dataout[0].viewed_count);
-                                localStorage.setItem("viewed_msg_count", response.data.dataout[0].message_count);
-                                localStorage.setItem("viewed_contact_count", response.data.dataout[0].contact_count);
-                            } else {
-                                //consolelog(response.data.message.p_out_mssg_flg,"and",response.data.message.p_out_mssg);
-                            }
-                        });
-                } else {
-                    Swal.fire({
-                        title: "Maximum Limit has been reached",
-                        text: "Would you like to upgrade to access more options?",
-                        icon: "info",
-                        showCancelButton: true,
-                        confirmButtonText: "Upgrade",
-                        cancelButtonText: "Cancel",
-                        reverseButtons: true,
-                        customClass: {
-                            popup: 'swal-wide' // Optional: add custom CSS for styling
-                        }
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            // Redirect to the upgrade page
-                            window.location.href = "payment";
-                        } else if (result.dismiss === Swal.DismissReason.cancel) {
-                            // Do nothing, alert will close
-                            //consolelog("User chose to cancel.");
-                        }
-                    });
-                }
-                if (await get_contact() || await matching("contact") === 'true') {
-                    const phoneInfo = candidate_profile_info.phone
-                        ? `<p><strong>Phone No&nbsp;:</strong>${candidate_profile_info.phone}</p>`
-                        : '';
-                    const emailInfo = candidate_profile_info.email
-                        ? `<p><strong>Email Id&nbsp;&nbsp;&nbsp;&nbsp;:</strong>${candidate_profile_info.email}</p>`
-                        : '';
+       
+        await handleTokenRefresh(response);
 
-                    Swal.fire({
-                        html: `
-                        <h3 style="margin-bottom:10px;">Contact Information</h3>
-                        <div style="text-align: left;">
-                        ${phoneInfo}
-                        ${emailInfo}
-                        </div>
-                        `,
-                        confirmButtonText: 'Close',
-                        confirmButtonColor: '#3085d6',
-                        background: '#f7f7f7',
-                        customClass: {
-                            title: 'swal-title',
-                            htmlContainer: 'swal-html-container',
-                        },
-                    });
-                }
-
-
-            } else if (planStatus === "Expired") {
-                Swal.fire({
-                    title: "Your plan is expired",
-                    text: "Would you like to upgrade to access more options?",
-                    icon: "info",
-                    showCancelButton: true,
-                    confirmButtonText: "Upgrade",
-                    cancelButtonText: "Cancel",
-                    reverseButtons: true,
-                    customClass: {
-                        popup: 'swal-wide' // Optional: add custom CSS for styling
-                    }
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Redirect to the upgrade page
-                        window.location.href = "payment";
-                    } else if (result.dismiss === Swal.DismissReason.cancel) {
-                        // Do nothing, alert will close
-                        //consolelog("User chose to cancel.");
-                    }
-                });
-            } else {
-
-                Swal.fire({
-                    title: "Your account is currently free",
-                    text: "Would you like to upgrade to access more options?",
-                    icon: "info",
-                    showCancelButton: true,
-                    confirmButtonText: "Upgrade",
-                    cancelButtonText: "Cancel",
-                    reverseButtons: true,
-                    customClass: {
-                        popup: 'swal-wide' // Optional: add custom CSS for styling
-                    }
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        // Redirect to the upgrade page
-                        window.location.href = "payment";
-                    } else if (result.dismiss === Swal.DismissReason.cancel) {
-                        // Do nothing, alert will close
-                        //consolelog("User chose to cancel.");
-                    }
-                });
-            }
+       
+        if (response.data.message.p_out_mssg_flg === "Y") {
+          localStorage.setItem("viewed_profile_count", response.data.dataout[0].viewed_count);
+          localStorage.setItem("viewed_msg_count", response.data.dataout[0].message_count);
+          localStorage.setItem("viewed_contact_count", response.data.dataout[0].contact_count);
         }
+
+       
+        if (await get_contact() || (await matching("contact")) === "true") {
+        //  const candidate_profile_info = response.data.dataout[0];
+          const phoneInfo = candidate_profile_info.phone
+            ? `<p><strong>Phone No&nbsp;:</strong> ${candidate_profile_info.phone}</p>`
+            : "";
+          const emailInfo = candidate_profile_info.email
+            ? `<p><strong>Email Id&nbsp;&nbsp;&nbsp;&nbsp;:</strong> ${candidate_profile_info.email}</p>`
+            : "";
+
+          Swal.fire({
+            html: `
+              <h3 style="margin-bottom:10px;">Contact Information</h3>
+              <div style="text-align: left;">
+                ${phoneInfo}
+                ${emailInfo}
+              </div>
+            `,
+            confirmButtonText: "Close",
+            confirmButtonColor: "#3085d6",
+            background: "#f7f7f7",
+            customClass: {
+              title: "swal-title",
+              htmlContainer: "swal-html-container"
+            }
+          });
+        }
+      } else {
+        
+        Swal.fire({
+          title: "Maximum Limit Reached",
+          text: "Would you like to upgrade to access more options?",
+          icon: "info",
+          showCancelButton: true,
+          confirmButtonText: "Upgrade",
+          cancelButtonText: "Cancel",
+          reverseButtons: true
+        }).then(result => {
+          if (result.isConfirmed) window.location.href = "payment";
+        });
+      }
+    } catch (error) {
+    
+      if (error.response && error.response.status === 401) {
+        await handleSessionExpiry();
+      } else {
+        Swal.fire("Error", "Unable to load contact info. Try again later.", "error");
+      }
+    }
+  } else if (planStatus === "Expired") {
+    Swal.fire({
+      title: "Your plan is expired",
+      text: "Would you like to upgrade to access more options?",
+      icon: "info",
+      showCancelButton: true,
+      confirmButtonText: "Upgrade",
+      cancelButtonText: "Cancel",
+      reverseButtons: true
+    }).then(result => {
+      if (result.isConfirmed) window.location.href = "payment";
+    });
+  } else {
+    Swal.fire({
+      title: "Your account is currently free",
+      text: "Would you like to upgrade to access more options?",
+      icon: "info",
+      showCancelButton: true,
+      confirmButtonText: "Upgrade",
+      cancelButtonText: "Cancel",
+      reverseButtons: true
+    }).then(result => {
+      if (result.isConfirmed) window.location.href = "payment";
+    });
+  }
+}
+
 
         async function chatInfoSection() {
             if (await get_entry() == "true" || await matching("message") === 'true') {
@@ -1328,28 +1320,43 @@ async function handleSessionExpiry() {
 
 
 
-        function profileViewed() {
-            const data = {
-                "matri_id_by": localStorage.getItem("matriId"),
-                "matri_id_to": localStorage.getItem("matriIdTo"),
-                "type": "viewed"
-            }
+       async function profileViewed() {
+  const data = {
+    matri_id_by: localStorage.getItem("matriId"),
+    matri_id_to: localStorage.getItem("matriIdTo"),
+    type: "viewed"
+  };
 
-            axios.post(`${BASE_URL}/profile_viewed.php`, data, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    "Authorization": "Bearer " + localStorage.getItem("jwtToken")
-                }
-            })
-                .then(function (response) {
-                    if (response.data.message.p_out_mssg_flg === 'Y') {
-                        localStorage.setItem("viewed_profile_count", response.data.dataout[0].viewed_count);
-                        localStorage.setItem("viewed_msg_count", response.data.dataout[0].message_count);
-                        localStorage.setItem("viewed_contact_count", response.data.dataout[0].contact_count);
-                    }
-                });
-        }
- const waitingDialog = document.getElementById('waiting-dialog');
+  try {
+    const response = await axios.post(`${BASE_URL}/profile_viewed.php`, data, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + localStorage.getItem("jwtToken")
+      }
+    });
+
+    // Refresh the token if provided
+     if (response.data.newToken) {
+    localStorage.setItem("jwtToken", response.data.newToken);
+    
+    console.log("Token refreshed:", response.data.newToken);
+  }
+
+    if (response.data.message.p_out_mssg_flg === "Y") {
+      const d = response.data.dataout[0];
+      localStorage.setItem("viewed_profile_count", d.viewed_count);
+      localStorage.setItem("viewed_msg_count", d.message_count);
+      localStorage.setItem("viewed_contact_count", d.contact_count);
+    }
+  } catch (error) {
+    if (error.response && error.response.status === 401) {
+      await handleSessionExpiry();
+    } else {
+      Swal.fire("Error", "Unable to load viewed profiles.", "error");
+    }
+  }
+}
+            const waitingDialog = document.getElementById('waiting-dialog');
   // Show the waiting dialog
             function showWaitingDialog() {
                 waitingDialog.style.display = "flex";

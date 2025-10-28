@@ -721,6 +721,7 @@ async function toggleOptionMutualLiked() {
         // ✅ Automatically update token if refreshed
         if (response.data.token) {
             localStorage.setItem("jwtToken", response.data.token);
+            console.log("new token",response.data.token);
         }
 
         if (response.data.message.p_out_mssg_flg === "Y") {

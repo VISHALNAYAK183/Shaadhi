@@ -13,7 +13,7 @@ function get_list_js() {
   function logout() {
     localStorage.removeItem("jwtToken");
     localStorage.removeItem("matriId");
-    window.location.href = "Login.html";
+    window.location.href = "Login";
   }
 
   function isTokenExpired(token) {
@@ -47,45 +47,75 @@ function get_list_js() {
   }
 
 
-  async function getChatList() {
-    try {
-      const response = await fetch(`${BASE_URL}/message.php`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + localStorage.getItem("jwtToken")
-        },
-        body: JSON.stringify({
-          matri_id: localStorage.getItem("matriId"),
-          type: 'chat_list',
-        }),
-      });
+ async function getChatList() {
+  try {
+    const response = await fetch(`${BASE_URL}/message.php`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + localStorage.getItem("jwtToken")
+      },
+      body: JSON.stringify({
+        matri_id: localStorage.getItem("matriId"),
+        type: 'chat_list',
+      }),
+    });
+ if (data.newToken) {
+      localStorage.setItem("jwtToken", data.newToken);
+    }
+   
+    if (response.status === 401) {
+      console.warn("Unauthorized - Token expired!");
+      await handleSessionExpiry();
+      return;
+    }
 
-      if (response.status === 401) {
-        console.warn("Unauthorized - Token expired!");
-        logout();
-        return;
-      }
+    if (!response.ok) {
+      throw new Error('Failed to fetch chat list');
+    }
 
-      if (!response.ok) {
-        throw new Error('Failed to fetch chat list');
-      }
+    const data = await response.json();
 
-      const data = await response.json();
+ 
+    if (
+      data.message &&
+      data.message.p_out_mssg &&
+      data.message.p_out_mssg.toLowerCase().includes("expired")
+    ) {
+      console.warn("Token expired - Redirecting to login!");
+      await handleSessionExpiry();
+      return;
+    }
 
    
-      if (data.error && data.error === "Token expired") {
-        console.warn("Token expired - Redirecting to login!");
-        logout();
-        return;
-      }
 
-      populateChatList(data.dataout);
-    } catch (error) {
-      console.error('Error fetching chat list:', error);
-      logout(); 
-    }
+    populateChatList(data.dataout);
+  } catch (error) {
+    console.error('Error fetching chat list:', error);
+    await handleSessionExpiry();
   }
+}
+
+
+async function handleSessionExpiry() {
+  if (window.sessionExpiredAlertShown) return;
+  window.sessionExpiredAlertShown = true;
+
+  await Swal.fire({
+    title: "Session Expired",
+    text: "Your session has expired. Please log in again.",
+    icon: "warning",
+    confirmButtonText: "OK",
+    allowOutsideClick: false,
+    allowEscapeKey: false
+  });
+
+  localStorage.removeItem("jwtToken");
+  localStorage.removeItem("matriId");
+  sessionStorage.clear();
+  window.location.href = "Login";
+}
+
 
   function populateChatList(chatList) {
     chatListContainer.innerHTML = "";

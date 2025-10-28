@@ -727,6 +727,10 @@
     });
 
     const msg = response.data?.message?.p_out_mssg;
+    if (response.data?.token) {
+    localStorage.setItem("jwtToken", response.data.token);
+    console.log("new token in sgh",response.data.token);
+  }
 
     // ✅ Check for expired token/session
     if (
@@ -779,6 +783,10 @@
     });
 
     const msg = response.data?.message?.p_out_mssg;
+       if (response.data?.token) {
+    localStorage.setItem("jwtToken", response.data.token);
+    console.log("new token in sgh",response.data.token);
+  }
 
     // ✅ Handle session expiry consistently
     if (
@@ -881,6 +889,10 @@ async function unshortlistProfile(event, matriId) {
 
     const msg = response.data?.message?.p_out_mssg || "";
     const flag = response.data?.message?.p_out_mssg_flg || "";
+       if (response.data?.token) {
+    localStorage.setItem("jwtToken", response.data.token);
+    console.log("new token in sgh",response.data.token);
+  }
 
     // ✅ Check for token/session expiry
     if (response.status === 401 || (flag === "E" && isTokenExpiredMessage(msg))) {

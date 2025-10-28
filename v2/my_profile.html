@@ -788,6 +788,10 @@ headers: {
 })
 .then(function (response) {
 // ✅ Check if backend says token expired or invalid
+if (response.data.token) {
+            localStorage.setItem("jwtToken", response.data.token);
+            console.log("new token",response.data.token);
+        }
 if (
     response.data.message?.p_out_mssg_flg === 'N' &&
     (response.data.message?.p_out_mssg?.includes('Token expired') ||
@@ -827,7 +831,7 @@ function handleSessionExpiry() {
     }).then(() => {
         localStorage.removeItem("jwtToken");
         localStorage.removeItem("matriId");
-        window.location.href = "Login.html";
+        window.location.href = "Login";
     });
 }
 }
@@ -959,6 +963,7 @@ try {
     // ✅ If backend returns a new token, update it
     if (response.data && response.data.token) {
         localStorage.setItem("jwtToken", response.data.token);
+        console.log("new token",response.data.token);
     }
 
     // ✅ Success message
@@ -1694,7 +1699,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 confirmButtonText: "OK"
             }).then(() => {
                 localStorage.clear();
-                window.location.href = "Login.html";
+                window.location.href = "Login";
             });
             return true;
         }

@@ -602,7 +602,7 @@
                 "gothra": gothra,
                 "family_diety": familyDeity,
             };
-            return axios.post(`${BASE_URL}/update_profile.php`, update, {
+                        return axios.post(`${BASE_URL}/update_profile.php`, update, {
                 headers: {
                     'Content-Type': 'application/json',
                     "Authorization": "Bearer " + localStorage.getItem("jwtToken")
@@ -610,6 +610,10 @@
             })
                 .then(function (response) {
                     document.getElementById("loader").style.display = "none";
+                       if (response.data.token) {
+                                  localStorage.setItem("jwtToken", response.data.token);
+                          console.log("Token refreshed and updated in localStorage");
+                        }
                     if (
                         response.data.message?.p_out_mssg_flg === 'N' &&
                         (response.data.message?.p_out_mssg?.includes('Token expired') ||
@@ -671,6 +675,7 @@
                 window.location.href = "login";
             });
         }
+
 
 
         function goBack() {
