@@ -89,11 +89,22 @@ html, body {
     background: linear-gradient(135deg, #f5e7df 0%, #f5e7df 100%);
 }
 
+/* 🚩 COLOR FIX 1: My Profile Title Color */
 .profile h2 {
     font-size: 1.8rem;
-    color: #c3a38c;
+    color: #cc2114; /* Updated color */
     margin-bottom: 1rem;
     font-family: 'Playfair Display', serif;
+}
+/* 🚩 COLOR FIX 2: Matri Id Text Color */
+.icon-row h2 {
+    color: #cc2114; /* Updated color */
+}
+
+/* 🚩 SYMBOL COLOR FIX: Back arrow in the title */
+.profile h2 .fa-arrow-left {
+    color: #cc2114 !important; /* Updated color */
+    border: 1px solid #cc2114 !important; /* Update border color for consistency */
 }
 
 /* Base Desktop Sidebar Styles */
@@ -547,9 +558,7 @@ html, body {
                         <div class="icon-row1">
                             <img id="profilePhoto" alt="User Photo" class="profile-photo">
                             <div class="icon-row">
-                                <h2>Matri Id&nbsp;:&nbsp;<span id="matriText"></span></h2>
-
-                              
+                                <h2>Matri Id&nbsp;:&nbsp;<span id="matriText"></span></h2> 
                             </div>
                         </div>
                     </div>
@@ -860,9 +869,9 @@ function getPhotoHTML(photoArray) {
             <div class="photo-item" style="position: relative; display: inline-block; margin: 10px;">
                 <img class="photo" src="${photoUrl.url}" alt="Photo" style="width: 150px; height: 150px; object-fit: cover; cursor: pointer;">
                 <div class="edit-icon" 
-                      style="position: absolute; top: 5px; right: 5px; background-color: rgba(0, 0, 0, 0.6); color: white; border-radius: 50%; width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; cursor: pointer;" 
-                      onclick="showPhotoOptions('${photoUrl.sl_id}')">
-                      ✎
+                     style="position: absolute; top: 5px; right: 5px; background-color: rgba(0, 0, 0, 0.6); color: white; border-radius: 50%; width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; cursor: pointer;" 
+                     onclick="showPhotoOptions('${photoUrl.sl_id}')">
+                     ✎
                 </div>
             </div>
         `;
@@ -882,7 +891,7 @@ function showPhotoOptions(photoId) {
 
     popup.innerHTML = `
         <p style="margin: 0 0 10px;">Choose an option:</p> 
-        <button style="position: absolute; top: 5px; right: 5px; cursor: pointer; font-size: 16px;" onclick="closePopup()">✖</button >           
+        <button style="position: absolute; top: 5px; right: 5px; cursor: pointer; font-size: 16px;" onclick="closePopup()">✖</button >           
         <button style="margin: 5px; padding: 10px; cursor: pointer;" onclick="setAsProfilePhoto('${photoId}')">Set as Profile Photo</button>
         <button style="margin: 5px; padding: 10px; cursor: pointer;" onclick="deletePhoto('${photoId}')">Delete</button>
         
@@ -958,6 +967,9 @@ try {
         text: "Profile photo updated successfully.",
         icon: "success",
         confirmButtonText: "OK"
+    }).then(() => {
+        // Reload the page to show the new profile picture
+        window.location.reload();
     });
 
     closePopup();
@@ -1059,8 +1071,8 @@ try {
             icon: "success",
             confirmButtonText: "OK"
         }).then(() => {
-            // You can refresh gallery or remove deleted photo here
-            // Example: refreshGallery();
+            // Reload the page to refresh the photo list
+            window.location.reload(); 
         });
     } else {
         Swal.fire({
@@ -1336,15 +1348,15 @@ function setDefaultRadioButton() {
        // Function to load section details dynamically
        
        function loadSectionDetails(section) {
-           
-           let heightInCm = parseFloat(myProfileNew.height);
+            
+            let heightInCm = parseFloat(myProfileNew.height);
 
-           // Convert to feet and inches
-           let heightInFeet = heightInCm / 30.48;
-           let feet = Math.floor(heightInFeet);
-           let inches = Math.round((heightInFeet - feet) * 12);
-           let profileCreator='';
-           
+            // Convert to feet and inches
+            let heightInFeet = heightInCm / 30.48;
+            let feet = Math.floor(heightInFeet);
+            let inches = Math.round((heightInFeet - feet) * 12);
+            let profileCreator='';
+            
             const sectionData = {
                 basic: `
                 
@@ -1401,7 +1413,7 @@ function setDefaultRadioButton() {
                 
                 
                     <div class="profile-basic">
-                            <button 
+                                <button 
              class="option-button" 
              data-section="edit" 
              id="edit" 
@@ -1454,7 +1466,7 @@ function setDefaultRadioButton() {
                 `,
                 education: `
                     <div class="profile-basic">
-                            <button 
+                                <button 
              class="option-button" 
              data-section="edit" 
              id="edit" 
@@ -1491,7 +1503,7 @@ function setDefaultRadioButton() {
                 `,
                 horoscope: `
                             <div class="profile-basic">
-                                    <button 
+                                         <button 
              class="option-button" 
              data-section="edit" 
              id="edit" 
@@ -1529,14 +1541,14 @@ function setDefaultRadioButton() {
                 `,
                 family: `
                     <div class="profile-basic">
-                            <button 
+                                <button 
              class="option-button" 
              data-section="edit" 
              id="edit" 
              onClick="openEditFamily()">
              Edit
           </button>
-           <div class="profile-item1">
+               <div class="profile-item1">
         <strong class="profile-label1">No. of kids:</strong>
         <span id="kids">${myProfileNew.kids}</span>
         
@@ -1589,52 +1601,54 @@ function setDefaultRadioButton() {
 </div>
 
                 `,
-                 photo: `
-                     <button 
+                photo: `
+                            <button 
              class="option-button" 
              data-section="edit" 
              id="edit" 
              onClick="openEditPhoto()">
              Upload
           </button>
-                       <div class="photo-row">
-                       ${getPhotoHTML(photos_url)}
-                       </div>
-                       `,
+                        <div class="photo-row">
+                        ${getPhotoHTML(photos_url)}
+                        </div>
+                        `,
 
 
-                       
-                       
-                       
-                       
-                       
-                       
-                       delete: `
-                           <div>
-                           <input type="radio" id="r1" name="utrr" value="1">
-                           <label for="r1">Active</label><br><br>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        delete: `
+                            <div>
+                            <input type="radio" id="r1" name="utrr" value="1">
+                            <label for="r1">Active</label><br><br>
 
-                           <input type="radio" id="r2" name="utrr" value="2">
-                           <label for="r2">Married</label><br><br>
+                            <input type="radio" id="r2" name="utrr" value="2">
+                            <label for="r2">Married</label><br><br>
 
-                           <input type="radio" id="r3" name="utrr" value="3">
-                           <label for="r3">Not Interested</label><br><br>
+                            <input type="radio" id="r3" name="utrr" value="3">
+                            <label for="r3">Not Interested</label><br><br>
 
-                           <input type="radio" id="r4" name="utrr" value="4">
-                           <label for="r4">Delete</label><br><br>
+                            <input type="radio" id="r4" name="utrr" value="4">
+                            <label for="r4">Delete</label><br><br>
 
-                           <button class="option-button-sub" id="delete1" onclick="displayRadioButton()">Submit</button> 
-                           </div>                      
-                       `,
-                       
-                       
-                       
-                       
-           };
-           
-           
-           
-           detailsSection.innerHTML = sectionData[section] || "<p>No details available for this section.</p>";
+                            <button class="option-button-sub" id="delete1" onclick="displayRadioButton()">Submit</button> 
+                            </div>                      
+                        `,
+                        
+                        
+                        
+                        
+                        
+            };
+            
+            
+            
+            detailsSection.innerHTML = sectionData[section] || "<p>No details available for this section.</p>";
              // Initialize zoom functionality after the section is loaded
              if (section === 'photo') {
                  initZoom();
@@ -1644,8 +1658,8 @@ function setDefaultRadioButton() {
              if (section === 'delete') {
                  setDefaultRadioButton();
              }
-           
-          }
+            
+           }
 
 // Function to update progress bar
 
@@ -1735,11 +1749,15 @@ document.addEventListener('DOMContentLoaded', function () {
            //consolelog(response.data.dataout);
                 let myProfile=response.data.dataout[0];
                 myProfileNew=response.data.dataout[0];
+                
+                // 🚩 FIX: Ensure Name is displayed
                 document.getElementById("profileNameText").textContent = `${(myProfile.first_name==null || myProfile.first_name=='null')?'':myProfile.first_name+" "+myProfile.last_name}`;
+                
                 document.getElementById("profileAge").textContent = `${(myProfile.age==null || myProfile.age=='null')?'':myProfile.age+"yrs"}`;
                 document.getElementById("profileHeight").textContent = `${(myProfile.height==null || myProfile.height=='null')?'': myProfile.height+"cm"}`;
                 document.getElementById("profileWeight").textContent = `${(myProfile.weight==null || myProfile.weight=='null')?'':myProfile.weight+"kg"}`;
-             let imgURL='';
+             
+                let imgURL='';
                 if(myProfile.gender_type==='Male' && (myProfile.url===null || myProfile.url==='')){
                     imgURL='../img/2.png';
                 }else if(myProfile.gender_type==='Female' && (myProfile.url===null || myProfile.url==='')){
@@ -1748,6 +1766,8 @@ document.addEventListener('DOMContentLoaded', function () {
                     imgURL=localStorage.getItem("baseURL")+myProfile.url;
                 }
                 document.getElementById("profilePhoto").src = imgURL;
+                
+                // 🚩 FIX: Ensure Matri ID is displayed
                 const matriText=document.getElementById("matriText");
                 matriText.textContent=myProfile.matri_id;
 
@@ -1755,7 +1775,7 @@ document.addEventListener('DOMContentLoaded', function () {
             
             
             let baseURL=response.data.dataout[0].base_url;
-            loadSectionRow();       
+            loadSectionRow();      
 
             loadSectionDetails('basic');
 
@@ -1797,7 +1817,7 @@ document.addEventListener('DOMContentLoaded', function () {
     })
     .then(function (response) {
         const res = response.data;
-           if (res.token) {
+            if (res.token) {
         localStorage.setItem("jwtToken", res.token);
     }
         if (res.message && res.message.p_out_mssg_flg === 'Y') {
@@ -1809,13 +1829,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 }));
             } else {
                 // If there are no photos, photos_url is empty array, which is fine.
-                // You can remove this Swal.fire since it might be annoying on every load.
-                // Swal.fire({
-                //      title: "No Photos Found",
-                //      text: "Please upload your photos.",
-                //      icon: "info",
-                //      confirmButtonText: "OK"
-                // });
             }
         } else {
             // Error loading photos, but don't show an error, just log it.
@@ -1825,14 +1838,7 @@ document.addEventListener('DOMContentLoaded', function () {
     .catch(function (error) {
         console.error("Image fetch error:", error);
         if (!handleSessionExpiry(error)) {
-            // Error handling here is generally fine, but if the main profile loaded,
-            // we probably don't need a huge error popup for missing photos.
-           // Swal.fire({
-           //       title: "Error!",
-           //       text: "Unable to fetch profile photos.",
-           //       icon: "error",
-           //       confirmButtonText: "OK"
-           //   });
+             // Non-critical error, no big popup needed
         }
     });
 
