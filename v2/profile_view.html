@@ -1645,53 +1645,69 @@ async function handleTokenRefresh(response) {
         }
 
         // Handle form submission
-        document.getElementById('reportForm').addEventListener('submit', function (event) {
-            event.preventDefault();
+        document.getElementById('reportForm').addEventListener('submit', async function (event) {
+    event.preventDefault();
 
-            const action = document.querySelector('input[name="action"]:checked')?.value;
-            const details = document.getElementById('reportText').value;
+    const action = document.querySelector('input[name="action"]:checked')?.value;
+    const details = document.getElementById('reportText').value;
 
-            if (!action) {
-                Swal.fire('Error', 'Please select an action (Block or Report).', 'error');
-                return;
+    if (!action) {
+        Swal.fire('Error', 'Please select an action (Block or Report).', 'error');
+        return;
+    }
+
+    if (!details.trim()) {
+        Swal.fire('Error', 'Please enter details in the textbox.', 'error');
+        return;
+    }
+
+   
+    const data = {
+        "matri_id_by": localStorage.getItem('matriId'),
+        "matri_id_to": localStorage.getItem("matriIdTo"),
+        "user_comment": details,
+        "type": "block"
+    };
+
+    try {
+        const response = await axios.post(`${BASE_URL}/block_user.php`, data, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem("jwtToken")
             }
-
-            if (!details.trim()) {
-                Swal.fire('Error', 'Please enter details in the textbox.', 'error');
-                return;
-            }
-
-            // Prepare the data for the API call
-            const data = {
-                matri_id_by: localStorage.getItem('matriId'), // Assuming current user ID is stored in localStorage
-                matri_id_to: localStorage.getItem("matriIdTo"), // Replace with the target user ID dynamically if needed
-                user_comment: details,
-                type: "block"
-            };
-
-            // Call the API
-            axios
-                .post(`${BASE_URL}/block_user.php`, data, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                        "Authorization": "Bearer " + localStorage.getItem("jwtToken")
-                    },
-                })
-                .then(function (response) {
-                    // Check API response
-                    if (response.data.message.p_out_mssg_flg === 'Y') {
-                        Swal.fire('Success', response.data.message.p_out_mssg, 'success').then(() => {
-                            closePopup(); // Close the popup
-                        });
-                    } else {
-                        Swal.fire('Error', response.data.message.p_out_mssg || 'Failed to process your request.', 'error');
-                    }
-                })
-                .catch(function (error) {
-                    console.error('Error during API call:', error);
-                    Swal.fire('Error', 'An error occurred while processing your request. Please try again.', 'error');
-                });
         });
+
+     
+        if (response.status === 401 || response.data?.message === "Session expired. Please log in again.") {
+            await handleSessionExpiry();
+            return;
+        }
+t
+        if (response.data.newToken) {
+            localStorage.setItem("jwtToken", response.data.newToken);
+            console.log(" New token saved:", response.data.newToken);
+        }
+
+        if (response.data.message?.p_out_mssg_flg === 'Y') {
+            Swal.fire('Success', response.data.message.p_out_mssg, 'success').then(() => {
+                closePopup(); // Close the popup
+            });
+        } else {
+            Swal.fire('Error', response.data.message?.p_out_mssg || 'Failed to process your request.', 'error');
+        }
+
+    } catch (error) {
+        console.error("Error during API call:", error);
+
+        if (error.response && error.response.status === 401) {
+            await handleSessionExpiry();
+        } else {
+            Swal.fire('Error', 'An error occurred while processing your request. Please try again.', 'error');
+        }
+    }
+});
+
+
 
     </script>
     <script src="maxcount.js"></script>
