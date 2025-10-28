@@ -1682,7 +1682,7 @@ async function handleTokenRefresh(response) {
             await handleSessionExpiry();
             return;
         }
-t
+
         if (response.data.newToken) {
             localStorage.setItem("jwtToken", response.data.newToken);
             console.log(" New token saved:", response.data.newToken);
