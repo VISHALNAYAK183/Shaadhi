@@ -13,7 +13,7 @@ if (!receiverData) {
 
   receiverNameElement.textContent = receiverData.receiverName;
   receiverMatriIdElement.textContent = receiverData.receiverMatriId;
-  receiverImageElement.src = localStorage.getItem("baseURL")+receiverData.receiverImage;
+  receiverImageElement.src =receiverData.receiverImage;
 }
 
 // Function to fetch old messages
