@@ -143,7 +143,7 @@
 
         /* 💥 MODIFIED: Main content flush horizontally */
         main#content.content {
-            padding: 0 0 10px 0 !important; /* Keep bottom padding, zero horizontal padding */
+            padding: 0 0 50px 0 !important; /* Keep bottom padding, zero horizontal padding */
             margin: 0 !important;
             box-sizing: border-box;
             width: 100%;
@@ -161,11 +161,11 @@
             order: 2;
             box-sizing: border-box;
             /* 💥 MODIFIED: Set to 0 horizontal padding for max reduction */
-            padding: 0; 
+            padding: 0;
             word-wrap: break-word;
             overflow-wrap: break-word;
         }
-        
+
         /* Apply padding to content *inside* .profile-left for text to breathe if needed, but not to the container itself */
         .profile-left h2, .profile-left p, .profile-left .more-section, .profile-left .details-section {
             padding-left: 10px;
@@ -199,7 +199,7 @@
             /* 💥 MODIFIED: Zero padding for edge-to-edge buttons/dropdown */
             padding: 0;
         }
-        
+
         /* Dropdown should use the space provided by its parent (.options-row) */
         .options-dropdown {
             margin: 15px 0 0 0;
@@ -207,11 +207,30 @@
             padding-right: 40px; /* Ensure space for the custom arrow */
         }
 
+        /* --- BUTTON STYLING (Applies on larger screens too, but overridden below for mobile dropdown view) --- */
         .option-button {
             flex: 1 1 45%;
-            padding: 10px;
+            padding: 10px 15px;
             font-size: 14px;
+            border-radius: 20px;
+            background-color: #f5e7df; /* 🛠️ CHANGED: Your requested background */
+            color: #fff;              /* ⚠️ WARNING: Poor contrast. Suggest changing to #555 or #c3a38c */
+            border: 1px solid #c3a38c; /* 🛠️ ADDED: Border using theme color to make button visible */
+            cursor: pointer;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease; /* Added color transition */
+            margin: 5px;
         }
+
+        .option-button:hover {
+            background-color: #e8d9cf; /* Slightly darker shade of the button background */
+            /* Keep text white on hover, or change if you change the default text color */
+            /* color: #555; */ /* Example: If you used dark text */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+        /* --- END BUTTON STYLING --- */
+
 
         /* Icon Row - Horizontal layout, 3 items per row, no background/shadow */
         .icon-row {
@@ -309,7 +328,7 @@
         }
 
         .option-button {
-            flex: 1 1 100%;
+            flex: 1 1 100%; /* Make buttons full width on very small screens */
         }
 
         .popup-content h3 {
@@ -326,7 +345,7 @@
             box-sizing: border-box;
             padding: 0;
         }
-        
+
         /* Apply padding to content *inside* .profile-left for text to breathe if needed */
         .profile-left h2, .profile-left p, .profile-left .more-section, .profile-left .details-section {
             padding-left: 10px;
@@ -365,11 +384,11 @@
             left: 0;
             width: 250px;
             height: 100%;
-            background: white;
-            box-shadow: 2px 0 8px rgba(0, 0, 0, 0.2);
+            background: #f5e7df;
+            box-shadow: none;
             z-index: 1500;
             overflow-y: auto;
-            padding: 20px;
+            padding: 0;
             transition: transform 0.3s ease;
         }
 
@@ -410,7 +429,7 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 10px;
+        gap: 10px; /* Gap between buttons */
     }
 
     /* Hide dropdown on desktop (Kept for completeness) */
@@ -421,10 +440,10 @@
     /* Mobile view (Applies to screens up to 768px - Kept for completeness) */
     @media (max-width: 768px) {
         .options-buttons {
-            display: none;
+            display: none; /* Hide individual buttons */
         }
 
-        /* DROPDOWN - BASE STYLING */
+        /* --- DROPDOWN STYLING --- */
         .options-dropdown {
             display: block;
             width: 100%;
@@ -432,45 +451,49 @@
             padding: 10px;
             font-size: 16px;
             border-radius: 8px;
-            border: 2px solid #c3a38c;
-            background-color: #c3a38c;
+            border: 2px solid #c3a38c;          /* Theme color border */
+            background-color: #f5e7df;        /* Your background color */
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             margin-top: 15px;
             box-sizing: border-box;
-            appearance: none;
-            color: white;
-            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23ffffff%22%20d%3D%22M287%20173.5c-6%20-6%20-13.8%20-9.2%20-21.7%20-9.2s-15.6%203.7-21.7%209.2L146.2%20272.2%2048.9%20174.9c-6-6-13.8-9.2-21.7-9.2s-15.7%203.7-21.7%209.2c-6%206-9.2%2013.8-9.2%2021.7s3.7%2015.6%209.2%2021.7l115.5%20115.5c6%206%2013.8%209.2%2021.7%209.2s15.6-3.7%2021.7-9.2l115.5-115.5c6-6%209.2-13.8%209.2-21.7s-3.7-15.6-9.2-21.7z%22%20transform%3D%22translate(0%20-146.2)%20scale(0.5)%22%2F%3E%3C%2Fsvg%3E');
+            appearance: none;                 /* Important for custom arrow */
+            color: #555;                      /* Dark text for readability */
+            /* UPDATED SVG Arrow with dark fill */
+            background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23555555%22%20d%3D%22M287%20173.5c-6%20-6%20-13.8%20-9.2%20-21.7%20-9.2s-15.6%203.7-21.7%209.2L146.2%20272.2%2048.9%20174.9c-6-6-13.8%20-9.2%20-21.7%20-9.2s-15.7%203.7-21.7%209.2c-6%206-9.2%2013.8-9.2%2021.7s3.7%2015.6%209.2%2021.7l115.5%20115.5c6%206%2013.8%209.2%2021.7%209.2s15.6-3.7%2021.7-9.2l115.5-115.5c6-6%209.2-13.8%209.2-21.7s-3.7-15.6-9.2-21.7z%22%20transform%3D%22translate(0%20-146.2)%20scale(0.5)%22%2F%3E%3C%2Fsvg%3E');
             background-repeat: no-repeat;
             background-position: right 10px center;
             background-size: 12px;
-            padding-right: 40px;
+            padding-right: 40px; /* Space for the arrow */
         }
 
-        /* Option list styling: default */
-      .options-dropdown option {
-        padding: 5px 10px;
-        background-color: #c3a38c; /* Change: Make default option background the theme color */
-        color: #ffffff; /* Change: Make default option text white */
-    }
+        /* Option list styling */
+        .options-dropdown option {
+            padding: 8px 10px;               /* Adjust padding if needed */
+            background-color: #f5e7df;        /* Dropdown background */
+            color: #555;                      /* Dark text */
+        }
 
-    /* Change: Ensure the selected/hovered option still looks correct (though this is now redundant) */
-    .options-dropdown option:checked,
-    .options-dropdown option:hover {
-        background-color: #c3a38c;
-        color: #ffffff;
-    }
+        /* Selected/hovered option - using theme color */
+        .options-dropdown option:checked,
+        .options-dropdown option:hover {
+            background-color: #c3a38c;        /* Theme color highlight */
+            color: #fff;                      /* White text for highlight */
+        }
 
-    /* Change: Keep the WebKit fix for consistency, although now it's identical to the base option style */
-    .options-dropdown option:checked {
-        background-color: #c3a38c !important;
-        color: #ffffff !important;
-    }
+        /* WebKit fix for selected option */
+        .options-dropdown option:checked {
+            background-color: #c3a38c !important; /* Theme color highlight */
+            color: #fff !important;               /* White text for highlight */
+        }
+
         /* Dropdown Focus State */
         .options-dropdown:focus {
-            border-color: #c3a38c;
-            outline: 2px solid #c3a38c;
-            box-shadow: 0 0 0 2px rgba(195, 163, 140, 0.5);
+            border-color: #a1836c;                 /* Darker theme color on focus */
+            outline: none;                         /* Remove default outline */
+            box-shadow: 0 0 0 3px rgba(195, 163, 140, 0.4); /* Subtle focus ring */
         }
+        /* --- END DROPDOWN STYLING --- */
+
 
         .more-section {
             width: 100%;
@@ -486,6 +509,74 @@
             padding: 0;
         }
     }
+    /* --- ADD THESE STYLES FOR MOBILE NAVBAR --- */
+@media (max-width: 768px) {
+        html,
+        body {
+          overflow-y: auto;
+        }
+
+        .dashboard-container {
+          height: auto;
+        }
+
+        .sidebar {
+          width: 100%;
+        }
+
+        .content {
+          padding: 1rem;
+        }
+
+        .navbar {
+          padding: 0.8rem 1rem;
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .navbar-left h1 {
+          font-size: 1.4rem;
+        }
+
+        .navbar-right {
+          flex-direction: column;
+          width: 100%;
+        }
+
+        .search-input {
+          width: 100%;
+          max-width: 100%;
+        }
+
+        .profile_image {
+          width: 120px;
+          height: 120px;
+        }
+
+        .profile_details h4 {
+          font-size: 1.2rem;
+        }
+
+        .profile_details p {
+          font-size: 13px;
+        }
+
+        .recently-joined-header,
+        .recently-login-header,
+        .profile-matched-header {
+          font-size: 1.2rem;
+        }
+
+        .card {
+          width: 160px;
+        }
+
+        .card img {
+          height: 160px;
+        }
+      }
+
+      /* Mobile phones */
 </style>
 <body>
     <div id="navbar-placeholder"></div>

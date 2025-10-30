@@ -218,9 +218,24 @@
  .toggle-btn {
   display: none;
 }
-
-
-
+.btn-unshortlist {
+        display: inline-block; /* Allow padding and margins */
+        background-color: #c3a38c; /* Theme color */
+        color: white;
+        padding: 4px 10px; /* Adjust padding */
+        border-radius: 5px; /* Rounded corners */
+        text-decoration: none; /* Remove underline */
+        font-size: 12px;
+        font-weight: 500;
+        margin-top: 5px; /* Space above button */
+        border: none; /* Remove default anchor border */
+        cursor: pointer;
+        transition: background-color 0.2s ease;
+    }
+    .btn-unshortlist:hover {
+        background-color: #a1836c; /* Darker shade on hover */
+        color: white;
+    }
 
 /* Tablet adjustments */
 @media (max-width: 992px) {
@@ -360,14 +375,36 @@
 
     .card-container {
         display: grid;
-        grid-template-columns: 1fr;
+        grid-template-columns: repeat(2,1fr);
         gap: 1rem;
     }
 
     .card {
-        min-width: 100%;
+        min-width: 0%;
     }
 
+    /* Style for the search bar wrapper */
+.container-header > span {
+    display: flex;          /* Aligns children (icon and input) in a row */
+    align-items: center;    /* Vertically centers them */
+    border:none;
+    border-radius: 6px;
+    padding: 5px 8px;
+    background-color:none;  /* Gives it a white background */
+}
+
+/* Style for the icon inside the wrapper */
+.container-header > span .fa-search {
+    color: #777; /* Makes the icon grey */
+}
+
+/* Style for the input inside the wrapper */
+.container-header > span .search-input {
+    border: none;   /* Removes the default input border */
+    outline: none;  /* Removes the blue glow on focus */
+    padding-left: 12px; /* Adds space between the icon and the text */
+    /* The width: 100% from your media query will now correctly fill the remaining space */
+}
 
 
     .sidebar {
@@ -423,6 +460,70 @@
   }
 
 }
+
+@media (max-width: 768px) {
+        html,
+        body {
+          overflow-y: auto;
+        }
+
+        .dashboard-container {
+          height: auto;
+        }
+
+        .content {
+          padding: 1rem;
+        }
+
+        .navbar {
+          padding: 0.8rem 1rem;
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .navbar-left h1 {
+          font-size: 1.4rem;
+        }
+
+        .navbar-right {
+          flex-direction: column;
+          width: 100%;
+        }
+
+        .search-input {
+          width: 100%;
+          max-width: 100%;
+        }
+
+        .profile_image {
+          width: 120px;
+          height: 120px;
+        }
+
+        .profile_details h4 {
+          font-size: 1.2rem;
+        }
+
+        .profile_details p {
+          font-size: 13px;
+        }
+
+        .recently-joined-header,
+        .recently-login-header,
+        .profile-matched-header {
+          font-size: 1.2rem;
+        }
+
+        .card {
+          width: 160px;
+        }
+
+        .card img {
+          height: 160px;
+        }
+      }
+
+
 
 </style>
 <body>

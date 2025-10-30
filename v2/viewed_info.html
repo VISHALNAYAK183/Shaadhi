@@ -177,114 +177,181 @@
 
 
     /* Responsive adjustments */
-    @media (max-width: 768px) {
-        .dashboard-container {
-            flex-direction: column;
-        }
-
-        /* Sidebar collapses into top bar */
-        .sidebar {
-            width: 100%;
-            padding: 1rem;
-            border-right: none;
-            border-bottom: 1px solid #e3f2fd;
-            box-shadow: none;
-        }
-
-        /* Sidebar items stack better */
-        .sidebar ul {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .sidebar li {
-            flex: 1 1 45%;
-            /* two per row */
-        }
-
-        /* Content padding reduced */
-        .content {
-            padding: 0.5rem;
-        }
-
-        /* Card responsiveness */
-        .card-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
-            gap: 10px;
-        }
-
-        .card {
-            width: 100%;
-        }
-
-        /* Search input full width */
-        .search-input {
-            width: 100%;
-            margin-top: 10px;
-            display: block;
-        }
-
-
-
-
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: -220px;
-            /* hidden by default */
-            width: 220px;
-            height: 100vh;
-            background: #f5e7df;
-            ;
-            /* adjust to your color */
-            color: inherit;
-            transition: transform 0.3s ease;
-            transform: translateX(-5px);
-            z-index: 1000;
-            padding: 1rem;
-        }
-
-        /* When sidebar is open */
-        .sidebar.open {
-            left: 0;
-        }
-
-        /* Show toggle button only on small screens */
-        .toggle-btn {
-            display: block;
-            position: fixed;
-            top: 2px;
-            left: 10px;
-            z-index: 1100;
-            background: #c3a38c;
-            color: white;
-            border: none;
-            padding: 5px 5px;
-            font-size: 20px;
-            border-radius: 6px;
-            cursor: pointer;
-        }
-
-        .sidebar.open h3.container-header1 {
-            display: none;
-        }
-
-        .sidebar.open hr.container-header1 {
-            display: none;
-        }
-
-        .sidebar.open ul {
-            margin-top: 25px;
-        }
-
-        /* Optional – prevent content shift */
-        .main-content {
-            margin-left: 0;
-        }
-
+   /* 📱 Mobile View */
+@media (max-width: 768px) {
+    .dashboard-container {
+        flex-direction: column; /* stack sidebar above */
     }
+
+    .sidebar, #sidebar-placeholder {
+        width: 100%;
+        min-height: auto;
+        box-shadow: none;
+        border-right: none;
+        border-bottom: 1px solid #e3f2fd;
+    }
+
+    .content {
+        width: 100%;
+        padding: 0.8rem;
+    }
+
+    .card-container {
+        grid-template-columns: 1fr; /* single column on mobile */
+    }
+
+    .recently-joined-header,
+    .recently-login-header,
+    .profile-matched-header {
+        font-size: 1.1rem;
+    }
+
+    .search-input {
+        width: 60%;
+        font-size: 13px;
+    }
+}
+
+
+
+.content {
+    flex: 1;
+    padding: 1rem;
+    min-width: 0;
+    overflow-y: auto; 
+    overflow-x: auto;
+    max-height: 100vh;
+}
+
+html, body {
+    height: 100%;
+    overflow: auto !important;
+}
+/* newly added */
+/* ✅ Card Container Wrapper — allows both horizontal and vertical scroll */
+/* .card-container-wrapper {
+  overflow: auto; 
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 0.8rem;
+  scrollbar-width: thin;
+  scrollbar-color: #bfbfbf transparent;
+} */
+
+/* Scrollbar styling for Chrome / Edge */
+.card-container-wrapper::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.card-container-wrapper::-webkit-scrollbar-thumb {
+  background-color: #bfbfbf;
+  border-radius: 10px;
+}
+.card-container-wrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* ✅ Card Container — use flex with wrap to allow multiple rows */
+/* .card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-start;
+  justify-content: flex-start;
+  box-sizing: border-box;
+} */
+
+/* ✅ Individual Card */
+/* .card {
+  flex: 0 0 220px; 
+  min-width: 220px;
+  background: #fff;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  padding: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+} */
+
+/* ✅ Responsive — stack vertically on mobile */
+@media (max-width: 768px) {
+ .card-container-wrapper {
+        overflow-x: hidden;
+        overflow-y: auto;
+        white-space: normal;
+    }
+
+    .card-container {
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        gap: 1rem;
+    }
+
+    .card {
+        min-width: 0%;
+    }
+
+
+
+
+
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -220px; /* hidden by default */
+    width: 220px;
+    height: 100vh;
+    background: #f5e7df;; /* adjust to your color */
+    color: inherit;
+     transition: transform 0.3s ease;
+    transform: translateX(-5px);
+    z-index: 1000;
+    padding: 1rem;
+  }
+
+  /* When sidebar is open */
+  .sidebar.open {
+    left: 0;
+  }
+
+  /* Show toggle button only on small screens */
+  .toggle-btn {
+    display: block;
+    position: fixed;
+    top: 2px;
+    left: 10px;
+    z-index: 1100;
+    background: #c3a38c;
+    color: white;
+    border: none;
+    padding: 5px 5px;
+    font-size: 20px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .sidebar.open h3.container-header1 {
+    display: none;
+  }
+
+  .sidebar.open hr.container-header1 {
+    display: none;
+  }
+
+  .sidebar.open ul {
+    margin-top: 25px;
+  }
+
+  /* Optional – prevent content shift */
+  .main-content {
+    margin-left: 0;
+  }
+
+}
+
 
     @media (max-width: 480px) {
         .sidebar {
@@ -451,6 +518,91 @@
         font-size: 12px;
         color: #0e0101;
     }
+
+
+@media (max-width: 768px) {
+        html,
+        body {
+          overflow-y: auto;
+        }
+
+        .dashboard-container {
+          height: auto;
+        }
+
+        .content {
+          padding: 1rem;
+        }
+
+        .navbar {
+          padding: 0.8rem 1rem;
+          flex-direction: column;
+          gap: 10px;
+        }
+
+        .navbar-left h1 {
+          font-size: 1.4rem;
+        }
+
+        .navbar-right {
+          flex-direction: column;
+          width: 100%;
+        }
+
+        .search-input {
+          width: 100%;
+          max-width: 100%;
+        }
+
+        .profile_image {
+          width: 120px;
+          height: 120px;
+        }
+
+        .profile_details h4 {
+          font-size: 1.2rem;
+        }
+
+        .profile_details p {
+          font-size: 13px;
+        }
+
+        .recently-joined-header,
+        .recently-login-header,
+        .profile-matched-header {
+          font-size: 1.2rem;
+        }
+
+        .card {
+          width: 160px;
+        }
+
+        .card img {
+          height: 160px;
+        }
+      }
+      .container-header > span {
+    display: flex;          /* Aligns children (icon and input) in a row */
+    align-items: center;    /* Vertically centers them */
+    border:none;
+    border-radius: 6px;
+    padding: 5px 8px;
+    background-color:none;  /* Gives it a white background */
+}
+
+/* Style for the icon inside the wrapper */
+.container-header > span .fa-search {
+    color: #777; /* Makes the icon grey */
+}
+
+/* Style for the input inside the wrapper */
+.container-header > span .search-input {
+    border: none;   /* Removes the default input border */
+    outline: none;  /* Removes the blue glow on focus */
+    padding-left: 12px; /* Adds space between the icon and the text */
+    /* The width: 100% from your media query will now correctly fill the remaining space */
+}
+
 </style>
 
 <body>

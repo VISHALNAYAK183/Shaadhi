@@ -18,172 +18,286 @@
   <link rel="stylesheet" href="chat_list.css">
   <script src="chat_list.js" defer></script> <!-- Ensure JS is loaded after the DOM -->
   <script src="chat_functions.js" defer></script>
-  <style>
+  
 
+<style>
+    /* Base styles */
+    #content {
+        position: relative;
+        z-index: 1;
+        overflow: hidden; /* Ensures the background doesn't spill out */
+    }
 
-#content {
-  position: relative;
-  z-index: 1;
-  overflow: hidden; /* ensures the background doesn't spill out */
-}
+    #content::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: url("../img/shaadhi.png") no-repeat center center/cover;
+        filter: blur(10px);
+        opacity: 0.85;
+        z-index: -1; /* Keep it behind everything inside main */
+        border-radius: 10px;
+    }
 
+    .dashboard-content {
+        position: relative;
+        z-index: 2;
+    }
 
-#content::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url("../img/shaadhi.png") no-repeat center center/cover;
-  filter: blur(10px);
-  opacity: 0.85;
-  z-index: -1; /* keep it behind everything inside main */
-  border-radius: 10px;
-}
+    .toggle-btn {
+        display: none;
+    }
+    #sidebar-placeholder {
+        background: linear-gradient(180deg, #f5e7df 0%, #f5e7df 100%);
+        color: #2c3e50;
+        border-right: 1px solid #e3f2fd;
+    }
 
+    .sidebar {
+        width: 280px;
+        background: linear-gradient(180deg, #f5e7df 0%, #f5e7df 100%);
+        padding: 1.5rem;
+        border-right: 1px solid #e3f2fd;
+        box-shadow: 4px 0 15px rgba(33, 150, 243, 0.1);
+    }
 
-.dashboard-content {
-  position: relative;
-  z-index: 2;
-}
+    .sidebar h3 {
+        font-family: 'Playfair Display', serif;
+        color: #c3a38c;
+        font-size: 1.3rem;
+        font-weight: 600;
+        text-align: center;
+        margin-bottom: 1rem;
+    }
 
+    .sidebar hr {
+        border: none;
+        height: 2px;
+        background: linear-gradient(90deg, #c3a38c, #e3f2fd);
+        margin-bottom: 1.5rem;
+    }
 
-     .toggle-btn {
-  display: none;
-}
-     #sidebar-placeholder {
-            background: linear-gradient(180deg, #f5e7df 0%, #f5e7df 100%);
-            color: #2c3e50;
-            border-right: 1px solid #e3f2fd;
+    .sidebar ul {
+        list-style-type: none;
+        padding: 0;
+    }
+
+    .sidebar ul li {
+        margin: 8px 0;
+        position: relative;
+    }
+
+    .sidebar ul .submenu {
+        display: none;
+        padding-left: 25px;
+        background: rgba(227, 242, 253, 0.3);
+        border-radius: 8px;
+        margin-top: 8px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .sidebar ul li a {
+        text-decoration: none;
+        color: #2c3e50;
+        display: flex;
+        align-items: center;
+        padding: 12px 15px;
+        border-radius: 10px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+    }
+
+    .sidebar ul li a:hover {
+        background: linear-gradient(135deg, #c3a38c 0%, #c3a38c 50%, #c3a38c 100%);
+        color: white;
+        transform: translateX(5px);
+        box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+    }
+
+    .sidebar ul li a i {
+        margin-right: 10px;
+        width: 18px;
+        text-align: center;
+    }
+
+    /* General mobile layout adjustments */
+    @media screen and (max-width: 768px) {
+        html, body {
+            height: 100%; /* Ensure html and body can contain full height */
+            margin: 0;
+            overflow-y: auto; /* Allow scrolling if content exceeds viewport */
         }
 
-        .sidebar {
-            width: 280px;
-            background: linear-gradient(180deg, #f5e7df 0%, #f5e7df 100%);
-            padding: 1.5rem;
-            border-right: 1px solid #e3f2fd;
-            box-shadow: 4px 0 15px rgba(33, 150, 243, 0.1);
+        .dashboard-container {
+            display: flex; /* Use flexbox for layout */
+            flex-direction: column; /* Stack children vertically */
+            min-height: 100vh; /* Make container at least full viewport height */
+            height: auto; /* Allow growing taller than viewport if needed */
         }
 
-        .sidebar h3 {
-            font-family: 'Playfair Display', serif;
-            color: #c3a38c;
-            font-size: 1.3rem;
-            font-weight: 600;
-            text-align: center;
-            margin-bottom: 1rem;
+        #navbar-placeholder {
+             flex-shrink: 0; /* Prevent navbar from shrinking */
         }
 
-        .sidebar hr {
-            border: none;
-            height: 2px;
-            background: linear-gradient(90deg, #c3a38c, #e3f2fd);
-            margin-bottom: 1.5rem;
-        }
-
-        .sidebar ul {
-            list-style-type: none;
-            padding: 0;
-        }
-
-        .sidebar ul li {
-            margin: 8px 0;
+        main#content.content {
+            flex-grow: 1; /* Allow content area to take remaining vertical space */
+            padding: 1rem;
+            box-sizing: border-box; /* Include padding in height calculation */
+            width: 100%;
+             /* Keep position relative for the ::before pseudo-element */
             position: relative;
+            z-index: 1;
+            overflow: hidden; /* Keep overflow hidden for the pseudo-element */
         }
 
-        .sidebar ul .submenu {
-            display: none;
-            padding-left: 25px;
-            background: rgba(227, 242, 253, 0.3);
-            border-radius: 8px;
-            margin-top: 8px;
-            padding-top: 10px;
-            padding-bottom: 10px;
+        /* The ::before pseudo-element will now cover the full height of #content */
+        #content::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("../img/shaadhi.png") no-repeat center center/cover;
+            filter: blur(10px);
+            opacity: 0.85;
+            z-index: -1;
+            border-radius: 10px; /* You might want to remove this if it looks odd */
         }
 
-        .sidebar ul li a {
-            text-decoration: none;
-            color: #2c3e50;
-            display: flex;
-            align-items: center;
-            padding: 12px 15px;
-            border-radius: 10px;
-            font-weight: 500;
-            transition: all 0.3s ease;
+        /* Ensure content inside is positioned correctly above the background */
+        .dashboard-content {
+            position: relative;
+            z-index: 2;
         }
 
-        .sidebar ul li a:hover {
-            background: linear-gradient(135deg, #c3a38c 0%, #c3a38c 50%, #c3a38c 100%);
+
+        /* Sidebar specific mobile styles */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -220px; /* Hidden by default */
+            width: 220px;
+            height: 100vh;
+            background: #f5e7df; /* Adjust to your color */
+            color: inherit;
+            transition: transform 0.3s ease, left 0.3s ease; /* Added left transition */
+            transform: translateX(0); /* Start without translation */
+            z-index: 1000;
+            padding: 1rem;
+        }
+
+        .sidebar.open {
+            left: 0; /* Slide in */
+            transform: translateX(0); /* Ensure no translation when open */
+        }
+
+        .toggle-btn {
+            display: block;
+            position: fixed;
+            top: 15px; /* Adjusted position slightly */
+            left: 15px; /* Adjusted position slightly */
+            z-index: 1100;
+            background: #c3a38c;
             color: white;
-            transform: translateX(5px);
-            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
+            border: none;
+            padding: 8px 12px; /* Adjusted padding */
+            font-size: 20px;
+            border-radius: 6px;
+            cursor: pointer;
         }
 
-        
-
-        .sidebar ul li a i {
-            margin-right: 10px;
-            width: 18px;
-            text-align: center;
+        .sidebar.open h3.container-header1,
+        .sidebar.open hr.container-header1 {
+             display: none;
         }
 
-        @media screen and (max-width: 768px) {
-  .sidebar {
-    position: fixed;
-    top: 0;
-    left: -220px; /* hidden by default */
-    width: 220px;
-    height: 100vh;
-    background: #f5e7df;; /* adjust to your color */
-    color: inherit;
-     transition: transform 0.3s ease;
-    transform: translateX(-5px);
-    z-index: 1000;
-    padding: 1rem;
-  }
+        .sidebar.open ul {
+             margin-top: 25px;
+        }
 
-  /* When sidebar is open */
-  .sidebar.open {
-    left: 0;
-  }
-
-  /* Show toggle button only on small screens */
-  .toggle-btn {
-    display: block;
-    position: fixed;
-    top: 2px;
-    left: 10px;
-    z-index: 1100;
-    background: #c3a38c;
-    color: white;
-    border: none;
-    padding: 5px 5px;
-    font-size: 20px;
-    border-radius: 6px;
-    cursor: pointer;
-  }
-
-  .sidebar.open h3.container-header1 {
-    display: none;
-  }
-
-  .sidebar.open hr.container-header1 {
-    display: none;
-  }
-
-  .sidebar.open ul {
-    margin-top: 25px;
-  }
-
-  /* Optional – prevent content shift */
-  .main-content {
-    margin-left: 0;
-  }
-}
+        .main-content { /* Assuming this class exists for content area */
+             margin-left: 0;
+        }
 
 
-  </style>
+        /* Other Mobile Adjustments (Navbar, Cards etc.) */
+        .navbar {
+            padding: 0.8rem 1rem;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .navbar-left h1 {
+            font-size: 1.4rem;
+        }
+
+        .navbar-right {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .search-input {
+            width: 100%;
+            max-width: 100%;
+        }
+
+        .profile_image {
+            width: 120px;
+            height: 120px;
+        }
+
+        .profile_details h4 {
+            font-size: 1.2rem;
+        }
+
+        .profile_details p {
+            font-size: 13px;
+        }
+
+        .recently-joined-header,
+        .recently-login-header,
+        .profile-matched-header {
+            font-size: 1.2rem;
+        }
+
+        .card {
+            width: 160px;
+        }
+
+        .card img {
+            height: 160px;
+        }
+
+         /* Added specific mobile navbar layout from previous steps */
+         body #navbar-placeholder .navbar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: auto !important;
+            padding: 10px 0;
+        }
+
+        body #navbar-placeholder .navbar-brand {
+            margin-bottom: 10px;
+            /* Centering handled by parent align-items */
+        }
+
+        body #navbar-placeholder .navbar-profile {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            width: 100%;
+        }
+
+    } /* End of @media screen and (max-width: 768px) */
+
+ </style>
 </head>
 <body>
   <div id="navbar-placeholder"></div>
