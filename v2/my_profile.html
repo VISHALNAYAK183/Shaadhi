@@ -14,12 +14,13 @@
     <link rel="shortcut icon" type="image/png" href="../img/icon-167x167.png">
     <link rel="shortcut icon" type="image/png" href="../img/icon-180x180.png">
     <link rel="shortcut icon" type="image/png" href="../img/icon-192x192.png">
-    <style>
+  <style>
 /* *** GLOBAL MARGIN/PADDING RESET (AGGRESSIVE) *** */
 html, body {
     padding: 0 !important; /* Force all padding to zero */
     margin: 0 !important; /* Force all margin to zero */
     box-sizing: border-box; 
+    -webkit-box-sizing: border-box; /* Safari/old browser compatibility */
     width: 100%;
     overflow-x: hidden; /* Prevents horizontal scrollbar */
     /* *** FIX: Ensure vertical scrolling on the entire page and allow collapse *** */
@@ -172,7 +173,8 @@ html, body {
     align-items: center;
     }
     
-    .option-button {
+    /* ⭐ Specific rule for the "Edit" button inside profile-basic */
+    .profile-basic > .option-button {
     display: flex;
     flex: 2;
     align-items: right;
@@ -230,10 +232,10 @@ html, body {
         margin: 2px 0; /* Reduced vertical margin for p elements */
     }
     .more-section {
-        order: 2; /* Options row section third (the toggle button and dropdown) */
+        order: 2; /* Options row section third */
         width: 100%;
-        /* Reduced vertical space around the toggle/dropdown area */
-        margin: 5px 0; 
+        /* ⭐ Pushed section down */
+        margin: 35px 0 10px 0; 
     }
     #detailsSection {
         /* 🔥 FIX 2: Set the main content section to appear below the dropdown */
@@ -267,10 +269,15 @@ html, body {
         gap: 5px; /* Reduced gap */
     }
 
-    .option-button {
+    /* ⭐ Specific rule for the "Edit" button inside profile-basic */
+    .profile-basic > .option-button {
         justify-content: center;
         margin-left: 0;
-        margin-top: 5px; /* Reduced margin */
+        
+        /* 🚩 START EDIT BUTTON FIX */
+        margin-top: 0; /* Was 5px */
+        margin-bottom: 10px;
+        /* 🚩 END EDIT BUTTON FIX */
     }
 }
 
@@ -308,9 +315,15 @@ html, body {
         font-size: 14px;
     }
 
-    .option-button {
+    /* This rule is now correctly scoped to only the "Edit" button */
+    .profile-basic > .option-button {
         width: 100%;
         justify-content: center;
+        
+        /* 🚩 START EDIT BUTTON FIX */
+        margin-top: 0;
+        margin-bottom: 10px;
+        /* 🚩 END EDIT BUTTON FIX */
     }
 }
 
@@ -403,14 +416,14 @@ html, body {
     }
     
     /* Optional mobile cleanup */
-     #sidebar-placeholder.open h3.container-header1,
-     #sidebar-placeholder.open hr.container-header1 {
-         display: none;
-     }
+    #sidebar-placeholder.open h3.container-header1,
+    #sidebar-placeholder.open hr.container-header1 {
+        display: none;
+    }
 
-     #sidebar-placeholder.open ul {
-         margin-top: 25px;
-     }
+    #sidebar-placeholder.open ul {
+        margin-top: 25px;
+    }
 }
 /* *** END FIX: Mobile Sidebar Positioning *** */
 
@@ -427,6 +440,7 @@ html, body {
 }
 
 /* ✅ Buttons */
+/* This is the main style for buttons in options-row */
 .option-button {
     background: #c3a38c;
     color: white;
@@ -436,6 +450,11 @@ html, body {
     font-size: 14px;
     cursor: pointer;
     transition: background 0.3s;
+    
+    /* ⭐ Resets from conflicting rules (just in case) */
+    display: inline-block;
+    flex: none;
+    margin: 0; /* Will be overridden by gap or specific rules */
 }
 
 .option-button:hover {
@@ -451,114 +470,176 @@ html, body {
     margin: 0; /* Removed margin */
 }
 
+/* ==================================================================
+START: USER REQUESTED CHANGE (Mobile Options Row)
+==================================================================
+*/
 /* ✅ Responsive (mobile) - Options Dropdown */
 @media (max-width: 768px) {
+    
     .mobile-menu-icon {
-        display: block;
-        align-self: flex-start;
-        position: relative;
-        left: 0;
-        top: 0;
-        /* Add margin to separate the icon from the options when dropdown is closed */
-        margin-bottom: 5px; 
+        display: none;
     }
 
     .options-row {
-        display: none !important; /* hidden by default on mobile */
-        flex-direction: column;
-        align-items: flex-start;
+        display: flex !important;
+        flex-direction: row;
+        overflow-x: auto;
+        overflow-y: hidden;
+        flex-wrap: nowrap;
+        
         background-color: white;
-        /* 🔥 CRITICAL FIX: Change position from absolute to relative to keep it in the document flow */
         position: relative; 
         top: auto; 
         left: auto; 
-        width: 98%; 
-        margin: 0 auto; 
-        padding: 5px; /* 🔥 Reduced padding around the entire dropdown */
+        
+        /* 🚩 START SCROLL FIX */
+        justify-content: flex-start !important; /* Overrides desktop 'center' */
+        /* 🚩 END SCROLL FIX */
+
+        width: 100%; 
+        box-sizing: border-box; 
+        
+        margin: 0; /* Removed auto margin */
+        
+        /* 🚩 START SCROLL FIX */
+        padding: 10px; /* Was 10px 0. This adds left/right padding. */
+        /* 🚩 END SCROLL FIX */
+        
         border-radius: 8px;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
         z-index: 999;
-        gap: 0; /* 🔥 Removed gap between buttons in the flex column */
+        
+        gap: 8px; 
         margin-bottom: 10px;
+
+        /* ⭐ START: SCROLLBAR THICKNESS FIX */
+        /* For Firefox */
+        scrollbar-width: thin;
+        scrollbar-color: #c3a38c #f1f1f1; /* thumb color track_color */
+        /* ⭐ END: SCROLLBAR THICKNESS FIX */
     }
     
-    /* 🔥 Tighter spacing for buttons inside the dropdown */
+    /* ⭐ START: SCROLLBAR THICKNESS FIX */
+    /* For Chrome, Safari, and Edge */
+    .options-row::-webkit-scrollbar {
+        height: 5px; /* Sets the thickness (height) of the horizontal scrollbar */
+    }
+
+    .options-row::-webkit-scrollbar-track {
+        background: #f1f1f1; /* Light grey track background */
+        border-radius: 10px;
+    }
+
+    .options-row::-webkit-scrollbar-thumb {
+        background: #c3a38c; /* Color of the scrollbar handle (matches buttons) */
+        border-radius: 10px;
+    }
+
+    .options-row::-webkit-scrollbar-thumb:hover {
+        background: #a1836c; /* Darker color on hover */
+    }
+    /* ⭐ END: SCROLLBAR THICKNESS FIX */
+
+
+    /* ⭐⭐⭐ START: FINAL FIX ⭐⭐⭐ */
+    /* Remove pseudo-elements */
+    .options-row::before,
+    .options-row::after {
+        display: none;
+    }
+
     .options-row .option-button {
-        width: 100%;
-        margin: 2px 0; /* Minimal vertical margin between buttons */
-        padding: 6px 10px;
+        width: auto;
+        flex-shrink: 0;
+        margin: 0; /* Margin is handled by gap */
+        padding: 6px 12px;
+        display: inline-block;
+        flex: none; 
     }
 
-    .options-row.show {
-        display: flex !important;
+    /* 🚩 SCROLL FIX: Removed redundant first/last child margins */
+    /*
+    .options-row .option-button:first-child {
+        margin-left: 10px;
     }
+    .options-row .option-button:last-child {
+        margin-right: 10px;
+    }
+    */
+    /* ⭐⭐⭐ END: FINAL FIX ⭐⭐⭐ */
+
 }
+/* ==================================================================
+END: USER REQUESTED CHANGE
+==================================================================
+*/
 
- @media (max-width: 768px) {
+    @media (max-width: 768px) {
         html,
         body {
-          overflow-y: auto;
+            overflow-y: auto;
         }
 
         .dashboard-container {
-          height: auto;
+            height: auto;
         }
 
         .sidebar {
-          width: 100%;
+            width: 100%;
         }
 
         .content {
-          padding: 1rem;
+            padding: 1rem;
         }
 
         .navbar {
-          padding: 0.8rem 1rem;
-          flex-direction: column;
-          gap: 10px;
+            padding: 0.8rem 1rem;
+            flex-direction: column;
+            gap: 10px;
         }
 
         .navbar-left h1 {
-          font-size: 1.4rem;
+            font-size: 1.4rem;
         }
 
         .navbar-right {
-          flex-direction: column;
-          width: 100%;
+            flex-direction: column;
+            width: 100%;
         }
 
         .search-input {
-          width: 100%;
-          max-width: 100%;
+            width: 100%;
+            max-width: 100%;
         }
 
         .profile_image {
-          width: 120px;
-          height: 120px;
+            width: 120px;
+            height: 120px;
         }
 
         .profile_details h4 {
-          font-size: 1.2rem;
+            font-size: 1.2rem;
         }
 
         .profile_details p {
-          font-size: 13px;
+            font-size: 13px;
         }
 
         .recently-joined-header,
         .recently-login-header,
         .profile-matched-header {
-          font-size: 1.2rem;
+            font-size: 1.2rem;
         }
 
         .card {
-          width: 160px;
+            width: 160px;
         }
 
         .card img {
-          height: 160px;
+            height: 160px;
         }
-      }
+    }
 
 </style>
 <body>
@@ -567,7 +648,7 @@ html, body {
 
     <div class="dashboard-container">
         <button class="toggle-btn" onclick="toggleSidebar()">☰</button>
-           <div id="sidebar-placeholder"></div>
+            <div id="sidebar-placeholder"></div>
 
 
         <main id="content" class="content">
@@ -588,16 +669,14 @@ html, body {
                         <p><span class="labelStar"><strong>Weight:</strong></span> <span id="profileWeight"></span></p>
                         <div class="more-section" id="more">
                             
-<div class="mobile-menu-icon" onclick="toggleOptions()">☰</div>
-
 <div id="optionsRow" class="options-row">
-  <button class="option-button" data-section="basic">Basic</button>
-  <button class="option-button" data-section="additional">Additional</button>
-  <button class="option-button" data-section="education">Education</button>
-  <button class="option-button" data-section="horoscope">Horoscope</button>
-  <button class="option-button" data-section="family">Family</button>
-  <button class="option-button" data-section="photo">Photo</button>
-  <button class="option-button" data-section="delete">Profile Status</button>
+    <button class="option-button" data-section="basic">Basic</button>
+    <button class="option-button" data-section="additional">Additional</button>
+    <button class="option-button" data-section="education">Education</button>
+    <button class="option-button" data-section="horoscope">Horoscope</button>
+    <button class="option-button" data-section="family">Family</button>
+    <button class="option-button" data-section="photo">Photo</button>
+    <button class="option-button" data-section="delete">Profile Status</button>
 </div>
 
                         </div>
@@ -613,7 +692,7 @@ html, body {
                         </div>
                     </div>
                 </div>
-              
+            
 
                 <div id="zoomModal" class="zoom-modal" style="display: none;">
                     <div class="zoom-modal-content">
@@ -635,21 +714,13 @@ html, body {
 let myProfileNew = [];
 let photos_url = []; // 💡 FIX 1: Initialize global photo array to prevent errors
 
-function toggleOptions() {
-    document.getElementById("optionsRow").classList.toggle("show");
-}
+// toggleOptions() function removed as it is no longer needed
 
 /* *** FIX: Corrected toggleSidebar function *** */
 function toggleSidebar() {
     const sidebar = document.getElementById('sidebar-placeholder');
     // Toggle the 'open' class on the sidebar placeholder
     sidebar.classList.toggle('open');
-    
-    // Optionally close the options dropdown if open when sidebar is toggled
-    const optionsRow = document.getElementById("optionsRow");
-    if (window.innerWidth <= 768 && optionsRow.classList.contains("show")) {
-        optionsRow.classList.remove("show");
-    }
 }
 /* ******************************************* */
 
@@ -658,7 +729,7 @@ function openPageAndPostMessage() {
         sessionStorage.setItem("formData", JSON.stringify(myProfileNew));
         window.location.href = "EditRegister";
     } else {
-       console.error("myProfileNew is not defined or empty for basic edit.");
+        console.error("myProfileNew is not defined or empty for basic edit.");
     }
 }
 function openEditAdditional(){
@@ -666,7 +737,7 @@ function openEditAdditional(){
         sessionStorage.setItem("formData", JSON.stringify(myProfileNew));
         window.location.href = "EditAdditionalDetail";
     } else {
-       console.error("myProfileNew is not defined or empty for additional edit.");
+        console.error("myProfileNew is not defined or empty for additional edit.");
     }
 }
 function openEditEducation(){
@@ -674,7 +745,7 @@ function openEditEducation(){
         sessionStorage.setItem("formData", JSON.stringify(myProfileNew));
         window.location.href = "EditEducation";
     } else {
-       console.error("myProfileNew is not defined or empty for education edit.");
+        console.error("myProfileNew is not defined or empty for education edit.");
     }
 }
 function openEditHoroscope(){
@@ -682,7 +753,7 @@ function openEditHoroscope(){
         sessionStorage.setItem("formData", JSON.stringify(myProfileNew));
         window.location.href = "EditHoroscope";
     } else {
-       console.error("myProfileNew is not defined or empty for horoscope edit.");
+        console.error("myProfileNew is not defined or empty for horoscope edit.");
     }
 }
 function openEditFamily(){
@@ -690,7 +761,7 @@ function openEditFamily(){
         sessionStorage.setItem("formData", JSON.stringify(myProfileNew));
         window.location.href = "EditFamily";
     } else {
-       console.error("Edit family is not defined or empty.");
+        console.error("Edit family is not defined or empty.");
     }
 }
 function openEditPhoto(){
@@ -698,7 +769,7 @@ function openEditPhoto(){
         sessionStorage.setItem("formData", JSON.stringify(myProfileNew));
         window.location.href = "EditPhoto";
     } else {
-       console.error("Edit family is not defined or empty.");
+        console.error("Edit family is not defined or empty.");
     }
 }
 
@@ -750,7 +821,7 @@ loadHTMLContent('sidebar-placeholder', 'sidebar', function () {
     const submenuLinks = document.querySelectorAll('.submenu a');
     submenuLinks.forEach(link => {
         link.addEventListener('click', function (event) {
-           //consolelog(`Navigating to ${this.getAttribute('href')}`);
+            //console.log(`Navigating to ${this.getAttribute('href')}`);
         });
     });
 });
@@ -779,7 +850,7 @@ function closeDropdownOnClickOutside(event) {
 
 
 function logout() {
-    //consolelog("User logged out");
+    //console.log("User logged out");
     localStorage.clear();
     localStorage.setItem("visitedSuccessPage", "true");
     window.location.href = 'Login';
@@ -796,11 +867,7 @@ document.querySelectorAll(".option-button").forEach(button => {
         const section = this.getAttribute("data-section");
         loadSectionDetails(section);
 
-        // ✅ Close dropdown automatically on mobile
-        const optionsRow = document.getElementById("optionsRow");
-        if (window.innerWidth <= 768) {
-            optionsRow.classList.remove("show");
-        }
+        // Code to close dropdown on mobile removed
     });
 });
 
@@ -829,7 +896,7 @@ function toggleLike(element) {
         "matri_id_to": localStorage.getItem("matriIdTo"),
         "type": type
     }
-   //consolelog(data);
+    //console.log(data);
     axios.post(`${BASE_URL}/matri_liked.php`, data, {
 headers: {
     'Content-Type': 'application/json',
@@ -845,7 +912,7 @@ if (response.data.token) {
 if (
     response.data.message?.p_out_mssg_flg === 'N' &&
     (response.data.message?.p_out_mssg?.includes('Token expired') ||
-     response.data.message?.p_out_mssg?.includes('Invalid token'))
+    response.data.message?.p_out_mssg?.includes('Invalid token'))
 ) {
     handleSessionExpiry();
     return;
@@ -923,9 +990,9 @@ function getPhotoHTML(photoArray) {
             <div class="photo-item" style="position: relative; display: inline-block; margin: 10px;">
                 <img class="photo" src="${photoUrl.url}" alt="Photo" style="width: 150px; height: 150px; object-fit: cover; cursor: pointer;">
                 <div class="edit-icon" 
-                     style="position: absolute; top: 5px; right: 5px; background-color: rgba(0, 0, 0, 0.6); color: white; border-radius: 50%; width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; cursor: pointer;" 
-                     onclick="showPhotoOptions('${photoUrl.sl_id}')">
-                     ✎
+                        style="position: absolute; top: 5px; right: 5px; background-color: rgba(0, 0, 0, 0.6); color: white; border-radius: 50%; width: 25px; height: 25px; display: flex; align-items: center; justify-content: center; cursor: pointer;" 
+                        onclick="showPhotoOptions('${photoUrl.sl_id}')">
+                    ✎
                 </div>
             </div>
         `;
@@ -945,7 +1012,7 @@ function showPhotoOptions(photoId) {
 
     popup.innerHTML = `
         <p style="margin: 0 0 10px;">Choose an option:</p> 
-        <button style="position: absolute; top: 5px; right: 5px; cursor: pointer; font-size: 16px;" onclick="closePopup()">✖</button >           
+        <button style="position: absolute; top: 5px; right: 5px; cursor: pointer; font-size: 16px;" onclick="closePopup()">✖</button> 
         <button style="margin: 5px; padding: 10px; cursor: pointer;" onclick="setAsProfilePhoto('${photoId}')">Set as Profile Photo</button>
         <button style="margin: 5px; padding: 10px; cursor: pointer;" onclick="deletePhoto('${photoId}')">Delete</button>
         
@@ -959,17 +1026,17 @@ img=localStorage.getItem("baseURL")
 function setAsProfilePhoto(photoId) {
     // Retrieve base URL from localStorage
 
-   //consolelog('ll',photoId)
+    //console.log('ll',photoId)
     // Extract unique sl_id for the selected photo (assume sl_id is part of photoUrl or data)
     const sl_id = photoId; // Replace with your logic to extract sl_id
     const matri_id =localStorage.getItem("matriId"); // Replace with the actual matri_id for the user
-   //consolelog("m",matri_id)
+    //console.log("m",matri_id)
     const data = {
         type: "profile",
         matri_id: matri_id,
         sl_id: sl_id
     };
-   //consolelog("bhbj",data);
+    //console.log("bhbj",data);
 
     call_api(data);
 
@@ -1075,7 +1142,7 @@ async function handleSessionExpiry() {
 }
 
 function deletePhoto(photoId) {
-   //consolelog("Deleting photo with ID:", photoId);
+    //console.log("Deleting photo with ID:", photoId);
 
     // Retrieve the necessary identifiers
     const matri_id = localStorage.getItem("matriId"); // Replace with the actual matri_id for the user
@@ -1086,7 +1153,7 @@ function deletePhoto(photoId) {
         matri_id: matri_id,
         sl_id: sl_id // Use the photoId passed to the function
     };
-   //consolelog("Delete Payload:", data);
+    //console.log("Delete Payload:", data);
 
     // Make the API call
     call_delete_api(data);
@@ -1187,7 +1254,7 @@ function initZoom() {
     // When any photo is clicked, show the zoomed-in version
     photos.forEach(photo => {
         photo.addEventListener('click', () => {
-            zoomedImage.src = photo.src;    // Set the clicked image as the zoomed image
+            zoomedImage.src = photo.src;     // Set the clicked image as the zoomed image
             zoomModal.style.display = 'flex';   // Show the modal
         });
     });
@@ -1220,7 +1287,7 @@ function myProfile() {
     .then(function(response) {
         const res = response.data;
 if (res.token) {
-          localStorage.setItem("jwtToken", res.token);
+        localStorage.setItem("jwtToken", res.token);
     }
         if (res.message && res.message.p_out_mssg_flg === 'Y') {
             const myProfile = res.dataout[0];
@@ -1273,8 +1340,8 @@ console.log("MY njfenjem",myProfileNew);
         if (
             error.response &&
             (error.response.status === 401 ||
-               (error.response.data &&
-               (error.response.data.message.p_out_mssg.includes("expired") ||
+                (error.response.data &&
+                (error.response.data.message.p_out_mssg.includes("expired") ||
                 error.response.data.message.p_out_mssg.includes("Invalid token"))))
         ) {
             handleSessionExpiry(); // 🔥 centralized session expiry handler
@@ -1365,30 +1432,30 @@ async function displayRadioButton() {
 // Function to restore the checked state on page load
 function restoreRadioButtonState() {
     const savedStatus = localStorage.getItem('profile_status');
-   //consolelog('Saved Status:', savedStatus);
+    //console.log('Saved Status:', savedStatus);
 
     const radios = document.getElementsByName('utrr');
-   //consolelog('Radio buttons found:', radios.length); // This should show the actual number of radio buttons
+    //console.log('Radio buttons found:', radios.length); // This should show the actual number of radio buttons
 
     if (savedStatus) {
         for (let radio of radios) {
-           //consolelog(`Radio value: ${radio.value}, Expected value: ${savedStatus}`);
+            //console.log(`Radio value: ${radio.value}, Expected value: ${savedStatus}`);
             if (String(radio.value) === String(savedStatus)) {
                 radio.checked = true;
-               //consolelog(`Radio button with value ${radio.value} is now checked`);
+                //console.log(`Radio button with value ${radio.value} is now checked`);
                 return; 
             }
         }
-       //consolewarn('No matching radio button found for saved status:', savedStatus);
+        //console.warn('No matching radio button found for saved status:', savedStatus);
     }
 }
 
 function setDefaultRadioButton() {
     const defaultStatus = localStorage.getItem('profile_status'); // Define the default value you want (e.g., "1" for "Active")
-   //consolelog("defaultStatus",defaultStatus);
+    //console.log("defaultStatus",defaultStatus);
     // Set the default radio button to checked
     const defaultRadio = document.querySelector(`input[name="utrr"][value="${defaultStatus}"]`);
-   //consolelog("defaultStatus",defaultRadio);
+    //console.log("defaultStatus",defaultRadio);
     if (defaultRadio) {
         defaultRadio.checked = true;
     }
@@ -1400,9 +1467,9 @@ function setDefaultRadioButton() {
 // Call this function when the page loads
 //document.addEventListener('DOMContentLoaded', restoreRadioButtonState);
 
-       // Function to load section details dynamically
-       
-       function loadSectionDetails(section) {
+        // Function to load section details dynamically
+        
+        function loadSectionDetails(section) {
             
             let heightInCm = parseFloat(myProfileNew.height);
 
@@ -1467,14 +1534,14 @@ function setDefaultRadioButton() {
                 additional: `
                 
                 
-                    <div class="profile-basic">
-                                <button 
-             class="option-button" 
-             data-section="edit" 
-             id="edit" 
-             onClick="openEditAdditional()">
-             Edit
-          </button>
+                            <div class="profile-basic">
+                                    <button 
+                        class="option-button" 
+                        data-section="edit" 
+                        id="edit" 
+                        onClick="openEditAdditional()">
+                        Edit
+                    </button>
     <div class="profile-item1">
         <strong class="profile-label1">Height:</strong>
         <span id="profileHeight">${parseInt(myProfileNew.height)+"cm"}</span>
@@ -1520,14 +1587,14 @@ function setDefaultRadioButton() {
 
                 `,
                 education: `
-                    <div class="profile-basic">
-                                <button 
-             class="option-button" 
-             data-section="edit" 
-             id="edit" 
-             onClick="openEditEducation()">
-             Edit
-          </button>
+                            <div class="profile-basic">
+                                    <button 
+                        class="option-button" 
+                        data-section="edit" 
+                        id="edit" 
+                        onClick="openEditEducation()">
+                        Edit
+                    </button>
     <div class="profile-item1">
         <strong class="profile-label1">Qualification:</strong>
         <span id="qualification1">${myProfileNew.qualification}</span>
@@ -1557,14 +1624,14 @@ function setDefaultRadioButton() {
 
                 `,
                 horoscope: `
-                            <div class="profile-basic">
-                                         <button 
-             class="option-button" 
-             data-section="edit" 
-             id="edit" 
-             onClick="openEditHoroscope()">
-             Edit
-          </button>
+                                    <div class="profile-basic">
+                                            <button 
+                        class="option-button" 
+                        data-section="edit" 
+                        id="edit" 
+                        onClick="openEditHoroscope()">
+                        Edit
+                    </button>
     <div class="profile-item1">
         
         <strong class="profile-label1">Nakshatra:</strong>
@@ -1595,15 +1662,15 @@ function setDefaultRadioButton() {
 
                 `,
                 family: `
-                    <div class="profile-basic">
-                                <button 
-             class="option-button" 
-             data-section="edit" 
-             id="edit" 
-             onClick="openEditFamily()">
-             Edit
-          </button>
-               <div class="profile-item1">
+                            <div class="profile-basic">
+                                    <button 
+                        class="option-button" 
+                        data-section="edit" 
+                        id="edit" 
+                        onClick="openEditFamily()">
+                        Edit
+                    </button>
+                <div class="profile-item1">
         <strong class="profile-label1">No. of kids:</strong>
         <span id="kids">${myProfileNew.kids}</span>
         
@@ -1657,64 +1724,50 @@ function setDefaultRadioButton() {
 
                 `,
                 photo: `
-                            <button 
-             class="option-button" 
-             data-section="edit" 
-             id="edit" 
-             onClick="openEditPhoto()">
-             Upload
-          </button>
-                        <div class="photo-row">
-                        ${getPhotoHTML(photos_url)}
-                        </div>
-                        `,
+                                    <button 
+                        class="option-button" 
+                        data-section="edit" 
+                        id="edit" 
+                        onClick="openEditPhoto()">
+                        Upload
+                    </button>
+                            <div class="photo-row">
+                            ${getPhotoHTML(photos_url)}
+                            </div>
+                            `,
+                delete: `
+                                        <div>
+                                        <input type="radio" id="r1" name="utrr" value="1">
+                                        <label for="r1">Active</label><br><br>
 
+                                        <input type="radio" id="r2" name="utrr" value="2">
+                                        <label for="r2">Married</label><br><br>
 
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        delete: `
-                            <div>
-                            <input type="radio" id="r1" name="utrr" value="1">
-                            <label for="r1">Active</label><br><br>
+                                        <input type="radio" id="r3" name="utrr" value="3">
+                                        <label for="r3">Not Interested</label><br><br>
 
-                            <input type="radio" id="r2" name="utrr" value="2">
-                            <label for="r2">Married</label><br><br>
+                                        <input type="radio" id="r4" name="utrr" value="4">
+                                        <label for="r4">Delete</label><br><br>
 
-                            <input type="radio" id="r3" name="utrr" value="3">
-                            <label for="r3">Not Interested</label><br><br>
-
-                            <input type="radio" id="r4" name="utrr" value="4">
-                            <label for="r4">Delete</label><br><br>
-
-                            <button class="option-button-sub" id="delete1" onclick="displayRadioButton()">Submit</button> 
-                            </div>                      
-                        `,
-                        
-                        
-                        
-                        
-                        
+                                        <button class="option-button-sub" id="delete1" onclick="displayRadioButton()">Submit</button> 
+                                        </div>                                    
+                                `,
             };
             
             
             
             detailsSection.innerHTML = sectionData[section] || "<p>No details available for this section.</p>";
-             // Initialize zoom functionality after the section is loaded
-             if (section === 'photo') {
-                 initZoom();
-             }
+            // Initialize zoom functionality after the section is loaded
+            if (section === 'photo') {
+                initZoom();
+            }
 
 
-             if (section === 'delete') {
-                 setDefaultRadioButton();
-             }
+            if (section === 'delete') {
+                setDefaultRadioButton();
+            }
             
-           }
+        }
 
 // Function to update progress bar
 
@@ -1801,7 +1854,7 @@ document.addEventListener('DOMContentLoaded', function () {
             
             // NOTE: profileFor/profileId are not in this HTML, skipping update for them.
             
-           //consolelog(response.data.dataout);
+            //console.log(response.data.dataout);
                 let myProfile=response.data.dataout[0];
                 myProfileNew=response.data.dataout[0];
                 
@@ -1811,7 +1864,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 document.getElementById("profileAge").textContent = `${(myProfile.age==null || myProfile.age=='null')?'':myProfile.age+"yrs"}`;
                 document.getElementById("profileHeight").textContent = `${(myProfile.height==null || myProfile.height=='null')?'': myProfile.height+"cm"}`;
                 document.getElementById("profileWeight").textContent = `${(myProfile.weight==null || myProfile.weight=='null')?'':myProfile.weight+"kg"}`;
-             
+            
                 let imgURL='';
                 if(myProfile.gender_type==='Male' && (myProfile.url===null || myProfile.url==='')){
                     imgURL='../img/2.png';
@@ -1830,7 +1883,7 @@ document.addEventListener('DOMContentLoaded', function () {
             
             
             let baseURL=response.data.dataout[0].base_url;
-            loadSectionRow();      
+            loadSectionRow();     
 
             loadSectionDetails('basic');
 
@@ -1893,7 +1946,7 @@ document.addEventListener('DOMContentLoaded', function () {
     .catch(function (error) {
         console.error("Image fetch error:", error);
         if (!handleSessionExpiry(error)) {
-             // Non-critical error, no big popup needed
+            // Non-critical error, no big popup needed
         }
     });
 
