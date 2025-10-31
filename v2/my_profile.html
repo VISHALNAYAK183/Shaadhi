@@ -1383,12 +1383,20 @@ async function displayRadioButton() {
         const response = await axios.post(`${BASE_URL}/profile_status.php`, val, {
             headers: {
                 'Content-Type': 'application/json',
-                "Authorization": "Bearer " + localStorage.getItem("jwtToken")
+                'Authorization': 'Bearer ' + localStorage.getItem('jwtToken')
             }
         });
 
-        if (response.data.message && response.data.message.p_out_mssg_flg === 'Y') {
-            const profileStatus = response.data.profile_status || val.status;
+        const data = response.data;
+
+        // ✅ If new token is sent, update localStorage immediately
+        if (data.token) {
+            localStorage.setItem('jwtToken', data.token);
+            //localStorage.setItem('token_expiry', data.token_expiry);
+        }
+
+        if (data.message && data.message.p_out_mssg_flg === 'Y') {
+            const profileStatus = data.profile_status || val.status;
             localStorage.setItem('profile_status', profileStatus);
 
             await Swal.fire({
@@ -1400,7 +1408,7 @@ async function displayRadioButton() {
         } else {
             await Swal.fire({
                 title: "Error!",
-                text: "Failed to update profile status.",
+                text: data.message?.p_out_mssg || "Failed to update profile status.",
                 icon: "error",
                 confirmButtonText: "OK",
             });
@@ -1408,14 +1416,16 @@ async function displayRadioButton() {
     } catch (error) {
         console.error('Error:', error);
 
-        // ✅ Use handleSessionExpiry for token errors
+        // ✅ Token/session expiry handling
         if (
             error.response &&
             (error.response.status === 401 ||
-                (error.response.data && (
-                    error.response.data.message === "Session expired. Please log in again." ||
-                    error.response.data.message.startsWith("Invalid token")
-                )))
+                (error.response.data &&
+                    (
+                        error.response.data.message === "Session expired. Please log in again." ||
+                        error.response.data.message?.startsWith("Invalid token")
+                    )
+                ))
         ) {
             await handleSessionExpiry();
         } else {
