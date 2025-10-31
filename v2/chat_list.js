@@ -46,55 +46,70 @@ function get_list_js() {
     }
   }
 
+  async function getChatList() {
+  let data = null;
 
- async function getChatList() {
   try {
+    const token = localStorage.getItem("jwtToken");
+    const matriId = localStorage.getItem("matriId");
+
+    if (!token || !matriId) {
+      console.warn("Missing token or matriId");
+      await handleSessionExpiry();
+      return;
+    }
+
     const response = await fetch(`${BASE_URL}/message.php`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': 'Bearer ' + localStorage.getItem("jwtToken")
+        "Content-Type": "application/json",
+        "Authorization": "Bearer " + token,
       },
       body: JSON.stringify({
-        matri_id: localStorage.getItem("matriId"),
-        type: 'chat_list',
+        matri_id: matriId,
+        type: "chat_list",
       }),
     });
- if (data.newToken) {
+
+    data = await response.json();
+
+    if (response.status === 401) {
+      console.warn("Unauthorized - Token expired (HTTP 401)");
+      await handleSessionExpiry();
+      return;
+    }
+
+    if (data.newToken) {
       localStorage.setItem("jwtToken", data.newToken);
     }
-   
-    if (response.status === 401) {
-      console.warn("Unauthorized - Token expired!");
+
+    if (
+      data.message &&
+      typeof data.message.p_out_mssg === "string" &&
+      data.message.p_out_mssg.toLowerCase().includes("expired")
+    ) {
+      console.warn("Backend says: session expired");
       await handleSessionExpiry();
       return;
     }
 
     if (!response.ok) {
-      throw new Error('Failed to fetch chat list');
+      console.error("Fetch failed:", data);
+      throw new Error("Failed to fetch chat list");
     }
 
-    const data = await response.json();
-
- 
-    if (
-      data.message &&
-      data.message.p_out_mssg &&
-      data.message.p_out_mssg.toLowerCase().includes("expired")
-    ) {
-      console.warn("Token expired - Redirecting to login!");
-      await handleSessionExpiry();
-      return;
+    if (Array.isArray(data.dataout)) {
+      populateChatList(data.dataout);
+    } else {
+      console.warn("No chat list data found");
     }
 
-   
-
-    populateChatList(data.dataout);
   } catch (error) {
-    console.error('Error fetching chat list:', error);
+    console.error("Error fetching chat list:", error, data); 
     await handleSessionExpiry();
   }
 }
+
 
 
 async function handleSessionExpiry() {
