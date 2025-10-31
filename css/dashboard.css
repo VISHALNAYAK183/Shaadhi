@@ -666,9 +666,9 @@ html, body {
 
 /* Profile Section Styling */
 .profile {
-    margin: 0px 40px;
+    margin: 0px 10px;
     border: 1px solid #e3f2fd;
-    padding: 20px;
+    /* padding: 20px; */
     border-radius: 15px;
     background: white;
     box-shadow: 0 8px 25px rgba(33, 150, 243, 0.1);
