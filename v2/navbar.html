@@ -1,9 +1,10 @@
+<!-- 
 <header class="navbar">
     <div class="navbar-left">
         <img src="../img/bunts_matrimony.png" alt="Left Navbar Image" class="left-navbar-image">
     </div>
     <div class="navbar-progress">
-        <!-- Profile progress can go here -->
+     
     </div>
     <div class="navbar-right">
         <div style="margin-right: 20px;">
@@ -26,44 +27,119 @@
       
     </style>
 </header>
+ -->
+<header class="navbar">
+  <div class="navbar-left">
+    <img src="../img/bunts_matrimony.png" alt="Left Navbar Image" class="left-navbar-image">
+  </div>
 
-<script>
-    /*
-    document.addEventListener('DOMContentLoaded', () => {
-  // Get references to the elements
-  const profileFor1 = document.getElementById("profileFor1");
-  const profileMatriId = document.getElementById("profileMatriId");
-  const profileImg = document.getElementById("profileImg");
-  const profilePicture = document.getElementById("profilePicture");
-  const profileFor = document.getElementById("profileFor");
-  const profileId = document.getElementById("profileId");
-  console.log("localStorage.getItem('myprofile_fullname')" );
-  console.log(localStorage.getItem('myprofile_fullname') + '\n' +localStorage.getItem('myprofile_photo_url'))
-  // Set the values from localStorage
-  if (profileFor1) {
-    profileFor1.textContent = localStorage.getItem('myprofile_fullname') || 'Guest';
-    
-  }
+  <div class="navbar-right" id="welcomebanner">
+    <div class="user-info">
+      <h3>Welcome, <span id="profileFor1"><strong>XYZ</strong></span></h3>
+      <span id="profileMatriId">TB000</span>
+    </div>
 
-  if (profileMatriId) {
-    profileMatriId.textContent = localStorage.getItem('matriId') || 'N/A';
-  }
+    <div class="profile-icon" tabindex="0" onclick="toggleProfileDropdown()">
+      <img src="https://via.placeholder.com/40" alt="Profile Icon" id="profileImg">
+    </div>
 
-  if (profileImg) {
-    profileImg.src = localStorage.getItem('myprofile_photo_url') || '';
-  }
+    <div id="profileDropdown" class="profile-dropdown" style="display: none;">
+      <div class="profileImg">
+        <img src="https://via.placeholder.com/40" alt="Profile Icon" id="profilePicture">
+      </div>
+      <p>Name: <span id="profileFor"><strong>XYZ</strong></span></p>
+      <p>Matri Id: <span id="profileId">TB000</span></p>
+      <button onclick="logout()">Logout</button>
+    </div>
+  </div>
+</header>
 
-  if (profilePicture) {
-    profilePicture.src = localStorage.getItem('myprofile_photo_url') || '';
-  }
+<style>
+/* Navbar base layout */
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 8px 16px;
+  border-bottom: 1px solid #ddd;
+}
 
-  if (profileFor) {
-    profileFor.textContent = localStorage.getItem('myprofile_fullname') || 'Guest';
-  }
+/* Left logo */
+.left-navbar-image {
+  height: 45px;
+}
 
-  if (profileId) {
-    profileId.textContent = localStorage.getItem('matriId') || 'N/A';
-  }
-});
-*/
-</script>
+/* Right side layout */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  position: relative;
+}
+
+/* User info: 2-row text block */
+.user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  line-height: 1.2;
+}
+
+.user-info h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+#profileMatriId {
+  font-size: 14px;
+  color: #666;
+}
+
+/* Profile icon */
+.profile-icon img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid #cc2114;
+}
+
+/* Dropdown styling */
+.profile-dropdown {
+  position: absolute;
+  top: 60px;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 10px;
+  width: 180px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  z-index: 1000;
+}
+
+.profile-dropdown p {
+  margin: 4px 0;
+  font-size: 14px;
+}
+
+.profile-dropdown button {
+  margin-top: 8px;
+  width: 100%;
+  background-color: #cc2114;
+  color: white;
+  border: none;
+  padding: 6px 0;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+@media (max-width: 480px) {
+  .navbar-right {
+  display: none;
+}
+}
+</style>

@@ -666,7 +666,7 @@ html, body {
 
 /* Profile Section Styling */
 .profile {
-    margin: 0px 10px;
+    margin: 0px 0px;
     border: 1px solid #e3f2fd;
     /* padding: 20px; */
     border-radius: 15px;
