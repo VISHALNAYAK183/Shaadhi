@@ -1111,6 +1111,62 @@
       }
 
 
+/* Make the verification badge responsive */
+.card-wrapper .edit-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none; /* Removed yellow background */
+  border: none;
+  border-radius: 0; /* No circle border */
+  width: auto;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: none;
+  cursor: default;
+  transition: none !important;
+  z-index: 10;
+}
+
+.card-wrapper .edit-button .veri img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  border-radius: 0; /* Keeps image shape as is */
+  background: none;
+}
+
+
+/* ====================== RESPONSIVE ====================== */
+@media (max-width: 768px) {
+  .card-wrapper .edit-button {
+    top: 6px;
+    right: 6px;
+    width: 28px;
+    height: 28px;
+  }
+
+  .card-wrapper .edit-button .veri img {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card-wrapper .edit-button {
+    top: 4px;
+    right: 4px;
+    width: 24px;
+    height: 24px;
+  }
+
+  .card-wrapper .edit-button .veri img {
+    width: 16px;
+    height: 16px;
+  }
+}
 
       /* Newly added for liked buttons */
       .options-row-dashboard {

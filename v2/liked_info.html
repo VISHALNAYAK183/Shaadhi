@@ -69,56 +69,76 @@
             border-right: 1px solid #e3f2fd;
             box-shadow: 4px 0 15px rgba(33, 150, 243, 0.1);
         }
-    .card-wrapper .edit-button {
-        position: absolute;
-        top: 8px; /* Adjust the top spacing */
-        right: 8px; /* Adjust the right spacing */
-        background-color: #fff;
-        color: #000;
-        border: 1px solid #ccc; /* Add a border for clarity */
-        border-radius: 50%; /* Make it circular */
-        width: 30px;
-        height: 30px;
-        font-size: 16px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        transition: transform 0.2s, box-shadow 0.2s;
-        position: relative; /* Make it the reference point for the tooltip */
-    }
-    
-    /* Button hover effect */
-    .card-wrapper .edit-button:hover {
-        transform: scale(1.1);
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    }
-    
-    /* Tooltip for the button */
-    .card-wrapper .edit-button::after {
-        content: "Premium Profile"; /* Tooltip text */
-        position: absolute;
-        top: 35px; /* Adjust tooltip position below the button */
-        right: 50%; /* Center it horizontally */
-        transform: translateX(50%);
-        background-color: #333;
-        color: #fff;
-        padding: 5px 10px;
-        font-size: 12px;
-        border-radius: 5px;
-        white-space: nowrap;
-        opacity: 0; /* Hidden by default */
-        visibility: hidden; /* Hidden by default */
-        transition: opacity 0.3s ease, visibility 0.3s ease;
-        z-index: 10;
-    }
-    
-    /* Show tooltip on hover */
-    .card-wrapper .edit-button:hover::after {
-        opacity: 1; /* Make it visible */
-        visibility: visible; /* Make it visible */
-    }
+ .card-wrapper {
+  position: relative;
+}
+
+/* Premium verify icon button */
+.card-wrapper .edit-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: transparent; /* no background */
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: default;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Prevent hover zoom/shadow */
+.card-wrapper .edit-button:hover {
+  transform: none;
+  box-shadow: none;
+  background: transparent;
+}
+
+/* Verification image inside */
+.card-wrapper .edit-button .veri img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+/* Tooltip styling */
+.card-wrapper .edit-button::after {
+  content: "Premium Profile";
+  position: absolute;
+  top: 35px;
+  right: 50%;
+  transform: translateX(50%);
+  background-color: #333;
+  color: #fff;
+  padding: 5px 8px;
+  font-size: 12px;
+  border-radius: 5px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease;
+  white-space: nowrap;
+}
+/* Show tooltip on hover */
+.card-wrapper .edit-button:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+/* ✅ Responsive adjustments */
+@media (max-width: 768px) {
+  .card-wrapper .edit-button {
+    top: 6px;
+    right: 6px;
+  }
+
+  .card-wrapper .edit-button .veri img {
+    width: 22px;
+    height: 22px;
+  }
+}
 
     /* shetty */
 
@@ -143,14 +163,7 @@
     min-width: 0; /* prevent overflow */
 }
 
-/* Cards layout */
-/* .card-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 1rem;
-} */
 
-/* Search bar styling */
 .search-input {
     padding: 6px 10px;
     font-size: 14px;
@@ -287,17 +300,6 @@ html, body {
     height: 100%;
     overflow: auto !important;
 }
-/* newly added */
-/* ✅ Card Container Wrapper — allows both horizontal and vertical scroll */
-/* .card-container-wrapper {
-  overflow: auto; 
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: 0.8rem;
-  scrollbar-width: thin;
-  scrollbar-color: #bfbfbf transparent;
-} */
-
-/* Scrollbar styling for Chrome / Edge */
 .card-container-wrapper::-webkit-scrollbar {
   width: 10px;
   height: 10px;
@@ -310,33 +312,7 @@ html, body {
   background: transparent;
 }
 
-/* ✅ Card Container — use flex with wrap to allow multiple rows */
-/* .card-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  align-items: flex-start;
-  justify-content: flex-start;
-  box-sizing: border-box;
-} */
 
-/* ✅ Individual Card */
-/* .card {
-  flex: 0 0 220px; 
-  min-width: 220px;
-  background: #fff;
-  border: 1px solid #eaeaea;
-  border-radius: 10px;
-  padding: 10px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-  transition: transform 0.2s ease;
-}
-
-.card:hover {
-  transform: translateY(-4px);
-} */
-
-/* ✅ Responsive — stack vertically on mobile */
 @media (max-width: 768px) {
  .card-container-wrapper {
         overflow-x: hidden;
@@ -706,20 +682,25 @@ html, body {
                 const card = document.createElement('div');
                 card.className = 'card';
 
-                card.innerHTML = `
-                     <div class="card-wrapper">
-
-                   ${ profile.plan_status=='Paid'?card.innerHTML= card.innerHTML+` <button class="edit-button" title="Premium Profile"><div class="veri"><img src="../img/veri.png" alt="verification" style="width: 30px; height: 30px;"></div>
-                        </button>` :""}
-                    
-                        <img src="${imgURL}" alt="${profile.first_name}" class="card-image">
-                        <div class="card-details">
-                            <h4>${profile.first_name}</h4>
-                             <p> ${profile.age} Yrs , ${profile.matri_id}</p>
-                            
-                        </div>
-                    </div>
-                `;
+            card.innerHTML = `
+  <div class="card-wrapper">
+    ${
+      profile.plan_status === 'Paid'
+        ? `<button class="edit-button" title="Premium Profile">
+             <div class="veri">
+               <img src="../img/veri.png" alt="verification">
+             </div>
+           </button>`
+        : ''
+    }
+    <img src="${imgURL}" alt="${profile.first_name}" class="card-image">
+    <div class="card-details">
+      <h4>${profile.first_name}</h4>
+      <p>${profile.age} Yrs, ${profile.matri_id}</p>
+    </div>
+  </div>
+`;
+  
 
                 card.onclick =  async function() {
                     localStorage.setItem("matriIdTo",profile.matri_id);

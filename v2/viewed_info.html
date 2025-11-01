@@ -73,65 +73,86 @@
         box-shadow: 4px 0 15px rgba(33, 150, 243, 0.1);
     }
 
-    .card-wrapper .edit-button {
-        position: absolute;
-        top: 8px;
-        /* Adjust the top spacing */
-        right: 8px;
-        /* Adjust the right spacing */
-        background-color: #fff;
-        color: #000;
-        border: 1px solid #ccc;
-        /* Add a border for clarity */
-        border-radius: 50%;
-        /* Make it circular */
-        width: 30px;
-        height: 30px;
-        font-size: 16px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-        transition: transform 0.2s, box-shadow 0.2s;
-        position: relative;
-        /* Make it the reference point for the tooltip */
-    }
+  /* Verification icon (Premium badge) */
+.card-wrapper {
+  position: relative;
+}
 
-    /* Button hover effect */
-    .card-wrapper .edit-button:hover {
-        transform: scale(1.1);
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    }
+/* Remove all backgrounds, borders, and shadows */
+.card-wrapper .edit-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: transparent;   /* ✅ No background */
+  border: none;              /* ✅ No border */
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: default;
+  box-shadow: none;
+  transition: none !important;
+  z-index: 10;
+}
 
-    /* Tooltip for the button */
-    .card-wrapper .edit-button::after {
-        content: "Premium Profile";
-        /* Tooltip text */
-        position: absolute;
-        top: 35px;
-        /* Adjust tooltip position below the button */
-        right: 50%;
-        /* Center it horizontally */
-        transform: translateX(50%);
-        background-color: #333;
-        color: #fff;
-        padding: 5px 10px;
-        font-size: 12px;
-        border-radius: 5px;
-        white-space: nowrap;
-        opacity: 0;
-        /* Hidden by default */
-        visibility: hidden;
-        /* Hidden by default */
-        transition: opacity 0.3s ease, visibility 0.3s ease;
-        z-index: 10;
-    }
+/* Prevent hover effects */
+.card-wrapper .edit-button:hover {
+  transform: none;
+  box-shadow: none;
+  background: transparent;
+}
 
-    .card-wrapper .edit-button:hover::after {
-        opacity: 1;
-        visibility: visible;
-    }
+/* Verification image styling */
+.card-wrapper .veri img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  border-radius: 50%;
+  background: transparent; /* ✅ Ensure no background color */
+}
+
+/* Tooltip text */
+.card-wrapper .edit-button::after {
+  content: "Premium Profile";
+  position: absolute;
+  top: 35px;
+  right: 50%;
+  transform: translateX(50%);
+  background-color: #333;
+  color: #fff;
+  padding: 5px 10px;
+  font-size: 12px;
+  border-radius: 5px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease;
+  z-index: 20;
+}
+
+/* Show tooltip on hover */
+.card-wrapper .edit-button:hover::after {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ✅ Make sure the icon stays properly placed even on mobile */
+@media (max-width: 768px) {
+  .card-wrapper .edit-button {
+    top: 6px;
+    right: 6px;
+    width: 26px;
+    height: 26px;
+  }
+
+  .card-wrapper .veri img {
+    width: 24px;
+    height: 24px;
+  }
+}
+
 
     /*shetty */
     /* General responsive rules */
@@ -173,11 +194,6 @@
         display: none;
     }
 
-
-
-
-    /* Responsive adjustments */
-   /* 📱 Mobile View */
 @media (max-width: 768px) {
     .dashboard-container {
         flex-direction: column; /* stack sidebar above */
@@ -227,17 +243,7 @@ html, body {
     height: 100%;
     overflow: auto !important;
 }
-/* newly added */
-/* ✅ Card Container Wrapper — allows both horizontal and vertical scroll */
-/* .card-container-wrapper {
-  overflow: auto; 
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: 0.8rem;
-  scrollbar-width: thin;
-  scrollbar-color: #bfbfbf transparent;
-} */
 
-/* Scrollbar styling for Chrome / Edge */
 .card-container-wrapper::-webkit-scrollbar {
   width: 10px;
   height: 10px;
@@ -250,33 +256,6 @@ html, body {
   background: transparent;
 }
 
-/* ✅ Card Container — use flex with wrap to allow multiple rows */
-/* .card-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
-  align-items: flex-start;
-  justify-content: flex-start;
-  box-sizing: border-box;
-} */
-
-/* ✅ Individual Card */
-/* .card {
-  flex: 0 0 220px; 
-  min-width: 220px;
-  background: #fff;
-  border: 1px solid #eaeaea;
-  border-radius: 10px;
-  padding: 10px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-  transition: transform 0.2s ease;
-}
-
-.card:hover {
-  transform: translateY(-4px);
-} */
-
-/* ✅ Responsive — stack vertically on mobile */
 @media (max-width: 768px) {
  .card-container-wrapper {
         overflow-x: hidden;
@@ -332,26 +311,15 @@ html, body {
     border-radius: 6px;
     cursor: pointer;
   }
-
-   /* .sidebar.open h3.container-header1 {
-    display: none;
-  }
-
-  .sidebar.open hr.container-header1 {
-    display: none;
-  } */
-
   .sidebar.open ul {
     margin-top: 25px;
   }
 
-  /* Optional – prevent content shift */
   .main-content {
     margin-left: 0;
   }
 
 }
-
 
     @media (max-width: 480px) {
         .sidebar {
@@ -381,11 +349,6 @@ html, body {
         .card-container {
             grid-template-columns: 1fr;
         }
-
-
-
-
-
         .sidebar {
             position: fixed;
             top: 0;
@@ -435,11 +398,6 @@ html, body {
 
     }
 
-
-    /* ============================
-   Card Styling (Clean + Simple)
-=============================== */
-    /* Card Styling */
     .card-container-wrapper {
         position: relative;
         overflow-x: auto;
@@ -587,7 +545,6 @@ html, body {
     color: #777; /* Makes the icon grey */
 }
 
-/* Style for the input inside the wrapper */
 .container-header > span .search-input {
     border: none;   /* Removes the default input border */
     outline: none;  /* Removes the blue glow on focus */
