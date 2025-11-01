@@ -54,14 +54,14 @@
        //consolelog("Received Data:", myProfileNew);
         
         // Dynamically populate the form fields if the data exists
-        if (myProfileNew.gender) {
+       if (myProfileNew.gender) {
+  if (myProfileNew.gender == "1") {
+    document.getElementById("male").checked = true;
+  } else if (myProfileNew.gender == "2") {
+    document.getElementById("female").checked = true;
+  }
+}
 
-            if (myProfileNew.gender == "1") {
-                document.getElementById("male").checked = true;
-            } else if (genderValue == "2") {
-                document.getElementById("female").checked = true;
-            }
-      }
         if (myProfileNew.first_name) {
             document.getElementById("first-name").value = myProfileNew.first_name;
         }
@@ -166,9 +166,45 @@
   }
 
   
+
+// ===================== BALI DROPDOWN =====================
+$(document).ready(function() {
+  const baliDropdown = $('#bali-dropdown').select2({
+    placeholder: "Select your Bali",
+    width: '100%'
+  });
+
+  function loadBaliOptions() {
+    const data = { "type": "bali" };
+
+    axios.post(`${BASE_URL}/get_data.php`, data, {
+      headers: { 'Content-Type': 'application/json' }
+    })
+    .then(function(response) {
+      const baliList = response.data.dataout;
+      $('#bali-dropdown').empty().append('<option value="" disabled>Select your Bali</option>');
+
+      // Add all Bali options
+      for (let i = 0; i < baliList.length; i++) {
+        $('#bali-dropdown').append(
+          `<option value="${baliList[i].bali_id}">${baliList[i].bali}</option>`
+        );
+      }
+
+      // ✅ Automatically select default Bali
+      if (myProfileNew && myProfileNew.bali_id) {
+        $('#bali-dropdown').val(myProfileNew.bali_id).trigger('change');
+      }
+    })
+    .catch(function(error) {
+      console.error("Error fetching Bali list:", error);
+    });
+  }
+
+  loadBaliOptions();
 });
 
-
+});
 
 
 function goBack() {
@@ -588,6 +624,15 @@ function goBack() {
             </select>
             <div class="error-message" id="subcaste-error" style="display:none;">Please select your sub-caste.</div>
         </div>
+
+        <div class="form-group">
+  <label for="bali-dropdown">Bali:</label>
+  <select id="bali-dropdown" class="searchable-dropdown" style="width: 100%;" required>
+    <option value="" disabled selected>Select your Bali</option>
+  </select>
+  <div class="error-message" id="bali-error" style="display:none;">Please select your Bali.</div>
+</div>
+
         <div class="form-buttons">
         <button type="button" class="back-btn" onclick="goBack()">← Back</button>
         <button type="submit" class="update-btn">Update</button>
@@ -732,12 +777,14 @@ function goBack() {
               const maritalStatus = document.getElementById('marital-status').value;
              
               const selectedSubCaste = $('#search-dropdown').val(); // Get the selected sub-caste
+              const selectedBali = $('#bali-dropdown').val();
              let matri_id=localStorage.getItem('matriId');
              const update = {
              "type":"basic_data",
               "marital_status":maritalStatus,
               "matri_id":matri_id,
-               "sub_caste": selectedSubCaste
+               "sub_caste": selectedSubCaste,
+               "bali_id": selectedBali
        };
               return axios.post(`${BASE_URL}/update_profile.php`, update, {
   headers: {
