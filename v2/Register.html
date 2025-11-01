@@ -305,11 +305,14 @@
                 </select>
                 <select id="dob-year" name="dob-year" required>
                     <option value="" disabled selected>Year</option>
-                    <script>
-                        for (let i = 2004; i >= 1950; i--) {
+                  <script>
+                        const currentYear = new Date().getFullYear();
+                        const startYear = currentYear - 18; // e.g. if 2025 → 2007
+
+                        for (let i = startYear; i >= 1950; i--) {
                             document.write('<option value="' + i + '">' + i + '</option>');
                         }
-                    </script>
+                        </script>
                 </select>
             </div>
             <div class="error-message" id="dob-error">Please select your date of birth.</div>
