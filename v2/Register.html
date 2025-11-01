@@ -369,6 +369,14 @@
             </select>
             <div class="error-message" id="subcaste-error" style="display:none;">Please select your sub-caste.</div>
         </div>
+
+        <div class="form-group">
+            <label for="bali">Bali:</label>
+            <select id="search-dropdown1" class="searchable-dropdown" style="width: 100%;" required>
+                <option value="" disabled selected>Select your Bali</option>
+            </select>
+            <div class="error-message" id="subcaste-error" style="display:none;">Please select your Bali.</div>
+        </div>
         
 
         <button type="submit" onclick="validateForm()">Submit</button>
@@ -411,6 +419,7 @@
         errorMessage.style.display = "none"; // Hide error message if validation passes
         return true; // Allow form submission
     }
+
 $(document).ready(function() {
     // Initialize Select2 on the dropdown
     const subcasteDropdown = $('#search-dropdown').select2({
@@ -446,6 +455,41 @@ $(document).ready(function() {
     loadSubCasteOptions();
 });
 
+
+$(document).ready(function() {
+    // Initialize Select2 on the dropdown
+    const baliDropdown = $('#search-dropdown1').select2({
+        placeholder: "Select your Bali",
+        width: '100%'            // Adjust width to fit
+    });
+
+    // Fetch and load sub-castes dynamically
+    function loadbaliOptions() {
+        const data = {
+            "type": "bali"  // Adjust caste_id as needed
+        };
+        
+        axios.post(`${BASE_URL}/get_data.php`, data, {
+            headers: { 'Content-Type': 'application/json' }
+        })
+        .then(function (response) {
+           //consolelog('API Response:', response.data); // Log the response for debugging
+
+            const balis = response.data.dataout; 
+
+            for (var i = 0; i < balis.length; i++) {
+                    $('#search-dropdown1').append('<option value="' +balis[i].id + '">' + balis[i].bali + '</option>');
+                }
+
+
+            // Refresh Select2 UI
+            baliDropdown.trigger('change');
+        });
+    }
+
+    // Call function to load options on page load
+    loadbaliOptions();
+});
 
 
     function checkPhoneExistence() {
@@ -521,7 +565,8 @@ $(document).ready(function() {
     const email = document.getElementById('email').value.trim();
     const maritalStatus = document.getElementById('marital-status').value;
     const gender = document.querySelector('input[name="gender"]:checked').value;  // Get selected gender
-    const selectedSubCaste = $('#search-dropdown').val(); // Get the selected sub-caste
+    const selectedSubCaste = $('#search-dropdown').val(); 
+      const selectedbali = $('#search-dropdown1').val();
    //consolelog("DOB:", dob);
 
 
@@ -568,6 +613,7 @@ $(document).ready(function() {
                     profile_creator: localStorage.getItem('profileFor'),
                     gender: gender,
                     sub_caste: selectedSubCaste,
+                    bali:selectedbali,
                     password: localStorage.getItem('password'),  // Adjust or retrieve securely
                     creator_name: localStorage.getItem('name'),
                     creator_phone: localStorage.getItem('phone')
