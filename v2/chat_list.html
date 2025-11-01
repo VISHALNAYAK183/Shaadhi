@@ -295,7 +295,109 @@
             width: 100%;
         }
 
-    } /* End of @media screen and (max-width: 768px) */
+    } 
+    /* =======================
+   Upgrade Card Styling
+======================= */
+.upgrade-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2rem auto;
+  padding: 2rem;
+  max-width: 900px;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(195, 163, 140, 0.2);
+  box-sizing: border-box; /* Ensures padding doesn't break layout */
+}
+
+.upgrade-content {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+  text-align: left;
+}
+
+.upgrade-content img {
+  width: 280px;
+  height: auto;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.upgrade-text {
+  flex: 1;
+  min-width: 250px;
+}
+
+.upgrade-text h2 {
+  color: #c3a38c;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem;
+  margin-bottom: 0.8rem;
+}
+
+.upgrade-text p {
+  color: #2c3e50;
+  line-height: 1.5;
+  font-size: 1rem;
+  margin-bottom: 0.6rem;
+}
+
+.upgrade-button {
+  display: inline-block;
+  background: linear-gradient(135deg, #c3a38c, #d8b9a2);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.upgrade-button:hover {
+  background: linear-gradient(135deg, #b5917e, #c3a38c);
+  transform: translateY(-2px);
+}
+
+/* =======================
+   Responsive for Mobile
+======================= */
+@media screen and (max-width: 768px) {
+  .upgrade-card {
+    flex-direction: column;
+    text-align: center;
+    padding: 1.5rem 1.3rem; /* ✅ Added horizontal padding for equal spacing */
+    margin: 1.2rem 1rem; /* ✅ Added balanced left-right margin */
+  }
+
+  .upgrade-content {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+  }
+
+  .upgrade-content img {
+    width: 85%;
+    max-width: 250px;
+  }
+
+  .upgrade-text h2 {
+    font-size: 1.4rem;
+  }
+
+  .upgrade-text p {
+    font-size: 0.95rem;
+  }
+
+  .upgrade-button {
+    width: 85%;
+    max-width: 250px;
+    text-align: center;
+  }
+}
 
  </style>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
