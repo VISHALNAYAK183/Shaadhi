@@ -572,14 +572,14 @@
                         <div class="icon-row1">
                             <img id="profilePhoto" alt="User Photo" class="profile-photo">
                             <div class="icon-row">
-                                <div class="icon-item likedClass" id="likeId" onclick="toggleLike(this)">
-                                    <i class="fas fa-heart" style="color: #d0afaf; font-size: 24px; cursor: pointer;"
-                                        id="likeIdIcon"></i>
+                                <div class="icon-item likedClass" onclick="toggleLike(this)">
+                                    <i class="far fa-heart" style="color: #d0afaf;  font-size: 24px; cursor: pointer;"
+                                      ></i>
 
                                     <span>Like</span>
                                 </div>
                                 <div class="icon-item shortlist" onclick="shortlistInfoSection(this)">
-                                    <i class="fas fa-bookmark" style="
+                                    <i class="far fa-bookmark" style="
                                         font-size: 24px;
                                         color: #d0afaf;
                                         cursor: pointer;
@@ -869,12 +869,13 @@
 
         function toggleLike(element) {
             const icon = element.querySelector('i'); // Get the <i> tag
+               
             let type;
 
             // Ensure the icon starts with the correct class
-            if (!icon.classList.contains('fa-heart') && !icon.classList.contains('fa-heart-o')) {
-                icon.classList.add('fa-heart');
-            }
+            // if (!icon.classList.contains('fa-heart') && !icon.classList.contains('fa-heart-o')) {
+            //     icon.classList.add('fa-heart');
+            // }
 
             // Determine current state (do not update UI yet)
             if (localStorage.getItem("liked") === '1') {
@@ -899,9 +900,14 @@
                     if (response.data.message.p_out_mssg_flg === 'Y') {
 
                         if (type === 'liked') {
+                            icon.classList.remove('far');  // unfilled
+                            icon.classList.add('fas');     // filled
                             icon.style.color = 'red';
                             localStorage.setItem("liked", '1');
+                   
                         } else {
+                            icon.classList.remove('fas');  // unfilled
+                            icon.classList.add('far');     // filled
                             icon.style.color = '#d0afaf';
                             localStorage.setItem("liked", '0');
                         }
@@ -1049,7 +1055,7 @@ async function handleSessionExpiry() {
     localStorage.removeItem('jwtToken');
     localStorage.removeItem('matriId');
     sessionStorage.clear();
-    window.location.href = "login";
+    window.location.href = "Login";
 }
 
 
@@ -1524,6 +1530,14 @@ async function handleSessionExpiry() {
                         candidate_profile_info = resData.dataout[0] || {};
                         moreButton.style.display = "none";
                         localStorage.setItem("liked", candidate_profile_info.liked || 0);
+                        if(localStorage.getItem("liked") =="1"){
+                        const likedIcon = document.querySelector(".likedClass i.fa-heart");
+                        if (likedIcon) {
+                            likedIcon.classList.remove('far');  // unfilled
+                            likedIcon.classList.add('fas');     // filled
+                            likedIcon.style.color = 'red';
+                        }
+                    }
                     } else {
                         Swal.fire({
                             title: "Error!",
@@ -1545,7 +1559,7 @@ async function handleSessionExpiry() {
                             confirmButtonText: "OK"
                         }).then(() => {
                             // Redirect to login page
-                            window.location.href = "login";
+                            window.location.href = "Login";
                         });
                     } else {
                         Swal.fire({
@@ -1594,13 +1608,13 @@ async function handleSessionExpiry() {
             //consolelog(localStorage.getItem("liked"));
 
             function addlike() {
-                const icon = document.getElementById("likeIdIcon");
+                const icon = document.getElementById("i");
                 const likedStatus = localStorage.getItem("liked");
                 console.log(likedStatus); // Get liked status from localStorage
                 if (likedStatus == '1') {
                     // If liked, set to filled heart and red color
-                    // icon.classList.add('fa-heart');
-                    // icon.classList.remove('fa-heart-o');
+                    icon.classList.add('fa-heart');
+                    icon.classList.remove('fa-heart-o');
                     icon.style.color = 'red';
                 } else {
                     // If disliked (or not set), set to outline heart and gray color

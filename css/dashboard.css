@@ -1011,7 +1011,7 @@ html, body {
 }
 
 .icon-item:hover {
-    background: linear-gradient(135deg, #c3a38c 0%, #c3a38c 100%);
+    background: linear-gradient(135deg, #a27c39 0%, #885836 100%);
     color: white;
     transform: translateY(-2px);
 }
