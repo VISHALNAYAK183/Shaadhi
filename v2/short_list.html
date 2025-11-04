@@ -199,26 +199,23 @@
 }
 
 .card-details {
-  /* padding-top: 8px; */
- 
-  color: #000;
   line-height: 1.5;
 }
 
-.card-details h4 {
+.card-details .profile-name {
   font-family: "Poppins", sans-serif;
-
   margin-bottom: 1px;
-   font-size: 16px;
+  font-size: 16px;
   font-weight: 600;
-  color: #000;
+  color: #ea4a57; /* Name color */
 }
 
-.card-details p {
+.card-details .profile-info {
   margin: 2px 0;
-   font-size: 12px;
-  color: #2d2d2d;
+  font-size: 12px;
+  color: #2d2d2d; /* Age & Matri ID color */
 }
+
 
 
  .toggle-btn {
@@ -744,26 +741,27 @@
                 card.className = 'card';
 
                 // Set the card content
-                card.innerHTML = `
-                <div class="card-wrapper" id="profile-${profile.matri_id}">
-                    ${profile.plan_status == 'Paid' ? `
-                    <button class="edit-button" title="Premium Profile">
-                        <div class="veri">
-                            <img src="../img/veri.png" alt="verification" style="width: 30px; height: 30px;">
-                        </div>
-                    </button>` : ""}
-                    
-                    <img src="${imgURL}" alt="${profile.first_name}" class="card-image">
-                    <div class="card-details">
-                        <h4>${profile.first_name}</h4>
-                         <p> ${profile.age} Yrs , ${profile.matri_id}</p>
-                        <p>
+              card.innerHTML = `
+<div class="card-wrapper">
+   ${
+     profile.plan_status == "Paid"
+       ? `<button class="edit-button" title="Premium Profile">
+            <div class="veri">
+              <img src="../img/veri.png" alt="verification" style="width:30px;height:30px;">
+            </div>
+          </button>`
+       : ""
+   }
+   <img src="${imgURL}" alt="${profile.first_name}" class="card-image" loading="lazy">
+   <div class="card-details">
+        <h4 class="profile-name">${profile.first_name}</h4>
+        <p class="profile-info">${profile.age} Yrs , ${profile.matri_id}</p>
+          <p>
                             <a href="#" class="btn-unshortlist" onclick="unshortlistProfile(event, '${profile.matri_id}')">Unshortlist</a>
                         </p>
-                    </div>
-                </div>
-            `;
-            
+   </div>
+</div>`;
+
             
 
                 card.onclick =  async function() {
