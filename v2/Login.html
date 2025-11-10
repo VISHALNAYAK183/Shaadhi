@@ -1,1240 +1,515 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Bunts Matrimony Login</title>
-    <link rel="shortcut icon" type="image/png" href="../img/icon-72x72.png" />
-    <link rel="shortcut icon" type="image/png" href="../img/icon-96x96.png" />
-    <link rel="shortcut icon" type="image/png" href="../img/icon-128x128.png" />
-    <link rel="shortcut icon" type="image/png" href="../img/icon-144x144.png" />
-    <link rel="shortcut icon" type="image/png" href="../img/icon-152x152.png" />
-    <link rel="shortcut icon" type="image/png" href="../img/icon-167x167.png" />
-    <link rel="shortcut icon" type="image/png" href="../img/icon-180x180.png" />
-    <link rel="shortcut icon" type="image/png" href="../img/icon-192x192.png" />
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Bunts Matrimony - Login</title>
 
-    <!-- Add Font Awesome CDN in your <head> -->
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <style>
-      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+<!-- Fonts & Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
 
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-      }
+<style>
+:root {
+  --primary: #E3425B;
+  --primary-dark: #c32d46;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
 
-      body {
-        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
-          sans-serif;
-        min-height: 90vh;
-        background-image: url("../img/shaadhi.png");
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding: 10px;
-        position: relative;
-        overflow-x: hidden;
-      }
-
-      body::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        backdrop-filter: blur(4px);
-        background: rgba(131, 43, 0, 0.3);
-        pointer-events: none;
-        z-index: 1;
-      }
-
-      .main-container {
-        position: relative;
-        z-index: 2;
-        width: 100%;
-        max-width: 1200px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .header {
-        text-align: center;
-        margin-bottom: 2px;
-      }
-
-      .logo-section {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 5px;
-        margin-bottom: 15px;
-      }
-
-      .logo-img {
-        /* width: 80px; */
-        width : 150%;        /* height: 80px; */
-        /* border-radius: 50%; */
-        border: 4px solid #c3a38c;
-        box-shadow: 0 8px 20px rgba(131, 43, 0, 0.3);
-        object-fit: cover;
-      }
-
-      .brand-text h1 {
-        font-size: 48px;
-        font-weight: 700;
-        color: #4d3a02df;
-        margin: 0;
-        letter-spacing: -1px;
-        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-      }
-
-      .brand-subtitle {
-        font-size: 25px;
-        color: #0d0b09;
-        margin: 10px 0 0 0;
-        font-weight: 800;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
-      }
-
-      .login-forms {
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        gap: 30px;
-        width: 100%;
-        max-width: 900px;
-        flex-wrap: wrap;
-      }
-
-      .form-section {
-        flex: 1;
-        min-width: 350px;
-        max-width: 400px;
-        background: rgba(255, 255, 255, 0.35); /* transparent white */
-        backdrop-filter: blur(8px); /* glass effect */
-        border-radius: 14px;
-        padding: 14px 28px; /* reduced padding */
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        transition: all 0.3s ease;
-        height: auto;
-      }
-      .login-section {
-        height: 450px; /* reduced height */
-      }
-
-      .otp-section {
-        height: 350px; /* slightly smaller */
-      }
-      .form-section:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-      }
-
-      .form-title {
-        font-size: 20px;
-        font-weight: 600;
-        color: #222;
-        margin-bottom: 2px;
-        text-align: center;
-      }
-
-      .form-subtitle {
-        font-size: 13px;
-        color: #555;
-        text-align: center;
-        margin-bottom: 18px;
-      }
-      .input-group {
-        margin-bottom: 10px; /* reduced spacing */
-      }
-
-      .input-group label {
-        font-size: 13px;
-        color: #333;
-        margin-bottom: 5px;
-      }
-
-      .input-group input {
-        padding: 10px 12px;
-        border-radius: 8px;
-        font-size: 14px;
-      }
-      .input-group input[type="text"],
-      .input-group input[type="password"] {
-        width: 100%;
-        padding: 12px 16px;
-        border: 1px solid #e0e0e0;
-        border-radius: 8px;
-        font-size: 16px;
-        transition: all 0.3s ease;
-        background: #f8f9fa;
-        color: #333;
-      }
-
-      .input-group input[type="text"]:focus,
-      .input-group input[type="password"]:focus {
-        outline: none;
-        border-color: #c3a38c;
-        background: white;
-        box-shadow: 0 0 0 3px rgba(131, 43, 0, 0.1);
-      }
-
-      .input-group input::placeholder {
-        color: #999;
-      }
-
-.captcha-container {
-  margin: 1px 0;
-   width: fit-content;
+body {
+  font-family: "Inter", system-ui, sans-serif;
+  background: url("../img/background.jpg") center/cover no-repeat fixed;
+  height: 100vh; 
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden; /* ✅ No scroll on web */
+  position: relative;
 }
 
-.captcha-label {
-  font-size: 14px;
-  font-weight: 600;
-  color: #444;
-  display: block;
-  margin-bottom: 8px;
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255, 255, 255, 0.45);
+  backdrop-filter: blur(7px);
+  z-index: 0;
 }
 
-/* Align all items in one line */
-.captcha-row {
+header {
+  background: rgba(255, 255, 255, 0.98);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 1%;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.logo-group img { height: 90px; }
+
+header .actions {
   display: flex;
   align-items: center;
-  justify-content: space-between;
- gap: 8px;
+  gap: 10px;
+  font-weight: 600;
 }
-
-.captcha-box {
-  background: #fafafa;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  font-size: 18px;
+header .btn-register {
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  padding: 9px 18px;
+  border-radius: 30px;
   font-weight: 700;
-  letter-spacing: 3px;
-  color: #2c3e50;
-  text-align: center;
-  padding: 6px 10px;
-  user-select: none;
-  width: 120px;             
-  height: 40px;            
+  cursor: pointer;
+  transition: .3s;
+}
+header .btn-register:hover { background: var(--primary-dark); }
+
+.hero {
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Courier New', monospace;  
-  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.05);
+  gap: 60px;
+  padding: 40px 8%;
+  position: relative;
+  flex-wrap: wrap;
+  z-index: 2;
 }
 
-
-.refresh-btn {
-  background: none;
-  border: none;
-   font-size: 18px;
-  color: #c3a38c;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-  padding: 8px;
+/* Background watermark */
+.hero::after {
+  content: "";
+  position: absolute;
+  right: -400px;
+  top: 60%;
+  transform: translateY(-50%) scaleX(-1);
+  width: 1500px;
+  height: 1300px;
+  background: url("../img/Bunts matrimony_Final-06.png") no-repeat center/contain;
+  opacity: 0.9;
+  z-index: 1;
 }
 
-.refresh-btn:hover {
-  transform: rotate(180deg);
+.hero-left img {
+  max-width: 600px;
+  width: 100%;
+  height: auto;
+  z-index: 2;
 }
 
-#captchaInput {
-  width: 180px;     
-  padding: 8px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  font-size: 15px;
+.hero-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+}
+
+.login-card {
+  background: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(18px);
+  border-radius: 18px;
+  padding: 25px 28px;
+  max-width: 440px;
+  width: 100%;
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+  z-index: 2;
+  position: relative;
+}
+
+.login-card h2 {
   text-align: center;
-  background: #fafafa;
+  color: #000;
+  font-weight: 800;
+  font-size: 20px;
+  margin-bottom: 6px;
 }
-
-.error {
-  color: red;
+.login-card p {
+  text-align: center;
+  color: #444;
   font-size: 13px;
-  margin-top: 6px;
+  margin-bottom: 14px;
+}
+
+.form-group { margin-bottom: 10px; }
+
+.form-group input {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  font-size: 14px;
+  background: rgba(255, 255, 255, .95);
+  color: #111;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
+}
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(227, 66, 91, .25);
+}
+
+.captcha {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.captcha-box {
+  background: #fff;
+  border: 1px dashed #ccc;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  font-family: monospace;
+}
+.refresh-btn {
+  border: none; background: none; color: var(--primary);
+  cursor: pointer; font-size: 18px;
+}
+.refresh-btn:hover { color: var(--primary-dark); }
+
+.btn {
+  display: block;
+  width: 100%;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 0;
+  font-weight: 700;
+  cursor: pointer;
+  margin-top: 10px;
+  box-shadow: 0 8px 20px -8px rgba(227, 66, 91, .45);
+}
+.btn:hover { background: var(--primary-dark); }
+
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #777;
+  font-size: 12px;
+  margin: 10px 0;
+}
+.divider::before, .divider::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: #ddd;
+  margin: 0 10px;
+}
+
+.forgot { text-align: right; margin-top: 4px; }
+.forgot a { color: var(--primary); font-size: 13px; text-decoration: none; }
+.forgot a:hover { text-decoration: underline; }
+
+/* ✅ I agree section now sits exactly below the card */
+.agree {
+  text-align: center;
+  margin-top: 15px;
+  color: #333;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 5;
+  position: relative;
+}
+.agree a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+}
+.agree a:hover { text-decoration: underline; }
+
+
+
+#otp-input-container {
+  display: none;
+}
+@media (max-width: 992px) {
+  body {
+    height: auto;
+    overflow-y: auto; /* Allow scroll only on mobile */
+  }
+  .hero { flex-direction: column; padding: 40px 6%; }
+  .hero::after { display: none; }
+  .login-card { width: 90%; }
+  .hero-left img { max-width: 80%; }
 }
 
 
-      .btn {
-        width: 100%;
-        background: #e58c4c;
-        color: white;
-        border: none;
-        padding: 10px 16px;
-        border-radius: 8px;
-        font-size: 15px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        margin-top: 12px;
-        margin-bottom: 2px;
-      }
+</style>
+</head>
 
-      .btn:hover {
-        background: #f08a41;
-        transform: translateY(-1px);
-        box-shadow: 0 4px 12px rgba(197, 48, 48, 0.3);
-      }
+<body>
+  <header>
+    <div class="logo-group">
+      <img src="../img/buntslogo.jpg" alt="Bunts Logo" height="60" />
+    </div>
+    <div class="actions">
+      <span>Don't have an account?</span>
+      <button class="btn-register" onclick="location.href='Signup'">REGISTER</button>
+    </div>
+  </header>
 
-      .btn:active {
-        transform: translateY(0);
-      }
+  <section class="hero">
+    <div class="hero-left">
+      <img src="../img/kannadaText.png" alt="ಹೃದಯಗಳಿಗೆ ಸೇತುವೆ" />
+    </div>
 
-      .forgot-password {
-        text-align: right;
-        margin-top: 8px;
-      }
+    <div class="hero-right">
+      <div class="login-card">
+        <h2>Login with Password</h2>
+        <p>Sign in to your account</p>
 
-      .forgot-password a {
-        color: #c53030;
-        text-decoration: none;
-        font-size: 14px;
-        transition: color 0.3s ease;
-      }
-
-      .forgot-password a:hover {
-        color: #b91c1c;
-        text-decoration: underline;
-      }
-
-      #otp-input-container {
-        display: none;
-        margin-top: 20px;
-      }
-
-      #resend-otp {
-        color: #c53030;
-        text-decoration: none;
-        font-size: 14px;
-        cursor: pointer;
-        transition: color 0.3s ease;
-      }
-
-      #resend-otp:hover {
-        color: #b91c1c;
-        text-decoration: underline;
-      }
-
-      .flexEnd {
-        display: flex;
-        justify-content: flex-end;
-        margin-top: 8px;
-      }
-
-      .bottom-section {
-        background: rgba(255, 255, 255, 0.3);
-        backdrop-filter: blur(6px);
-        border-radius: 14px;
-        padding: 11px;
-        text-align: center;
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
-        width: 100%;
-        max-width: 450px;
-        margin-top: 20px;
-      }
-
-      .checkbox-group {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 20px;
-        gap: 10px;
-      }
-
-      .checkbox-group input[type="checkbox"] {
-        width: 18px;
-        height: 18px;
-        accent-color: #c3a38c;
-      }
-
-      .checkbox-group label {
-        font-size: 14px;
-        color: #333;
-      }
-
-      .checkbox-group a {
-        color: #c53030;
-        text-decoration: none;
-      }
-
-      .checkbox-group a:hover {
-        text-decoration: underline;
-      }
-
-      .extra-links {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-        align-items: center;
-      }
-
-      .extra-links span {
-        color: #666;
-        font-size: 14px;
-      }
-
-      .extra-links a {
-        color: #c53030;
-        text-decoration: none;
-        font-weight: 500;
-        transition: all 0.3s ease;
-      }
-
-      .extra-links a:hover {
-        color: #b91c1c;
-        text-decoration: underline;
-      }
-
-      .error {
-        color: #e74c3c;
-        font-size: 14px;
-        margin-top: 5px;
-        display: block;
-        font-weight: 500;
-      }
-
-      .loader-container {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: rgba(131, 43, 0, 0.9);
-        z-index: 9999;
-        display: none;
-      }
-
-      .loading-text {
-        font-size: 24px;
-        color: white;
-        margin-right: 15px;
-        font-weight: 500;
-      }
-
-      .dots {
-        display: inline-block;
-      }
-
-      .dot {
-        display: inline-block;
-        width: 12px;
-        height: 12px;
-        background-color: white;
-        border-radius: 50%;
-        margin-left: 8px;
-        opacity: 0;
-        animation: bounce 1.4s infinite both;
-      }
-
-      .dot:nth-child(1) {
-        animation-delay: 0s;
-      }
-
-      .dot:nth-child(2) {
-        animation-delay: 0.2s;
-      }
-
-      .dot:nth-child(3) {
-        animation-delay: 0.4s;
-      }
-
-      @keyframes bounce {
-        0%,
-        20%,
-        50%,
-        80%,
-        100% {
-          opacity: 0;
-          transform: translateY(0);
-        }
-
-        40% {
-          opacity: 1;
-          transform: translateY(-15px);
-        }
-
-        60% {
-          opacity: 1;
-          transform: translateY(-7px);
-        }
-      }
-
-      .popup {
-        position: fixed;
-        top: 40px;
-        right: 50px;
-        background: white;
-        padding: 20px 25px;
-        border-radius: 12px;
-        border-left: 5px solid #27ae60;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        animation: slideIn 0.3s ease;
-        z-index: 10000;
-      }
-
-      @keyframes slideIn {
-        from {
-          transform: translateX(100px);
-          opacity: 0;
-        }
-
-        to {
-          transform: translateX(0);
-          opacity: 1;
-        }
-      }
-
-      .popup p {
-        color: #333;
-        margin: 0;
-        font-weight: 500;
-      }
-
-      @media (max-width: 768px) {
-        .login-forms {
-          grid-template-columns: 1fr;
-          gap: 20px;
-        }
-
-        .logo-section {
-          flex-direction: column;
-          gap: 15px;
-        }
-
-        .brand-title {
-          font-size: 24px;
-        }
-
-        .form-section {
-          padding: 25px;
-        }
-
-        .extra-links {
-          flex-direction: column;
-          gap: 15px;
-        }
-
-        .captcha-box {
-          flex-wrap: wrap;
-        }
-
-        #captchaInput {
-          width: 100%;
-          margin-top: 10px;
-        }
-      }
-
-      @media (max-width: 480px) {
-        body {
-          padding: 15px;
-        }
-
-        .header,
-        .form-section,
-        .bottom-section {
-          padding: 20px;
-        }
-
-        .brand-title {
-          font-size: 20px;
-        }
-
-        .brand-subtitle {
-          font-size: 14px;
-        }
-      }
-
-      .password-wrapper {
-        position: relative;
-        display: flex;
-        align-items: center;
-      }
-
-      .password-wrapper input {
-        width: 100%;
-        padding-right: 40px;
-        /* make space for the icon */
-      }
-
-      .toggle-password {
-        position: absolute;
-        right: 10px;
-        cursor: pointer;
-        font-size: 18px;
-        color: #555;
-        /* subtle eye color */
-      }
-
-      .toggle-password:hover {
-        color: #000;
-      }
-    </style>
-  </head>
-
-  <body>
-    <div class="main-container">
-      <div id="popupmsg"></div>
-
-      <div class="header">
-        <div class="logo-section">
-          <img
-            src="../img/bunts_matrimony.png"
-            alt="Bunts Matrimony"
-            class="logo-img"
-          />
-          <!-- <div class="brand-text">
-            <h1>BUNTS MATRIMONY</h1>
-          </div> -->
+        <div class="form-group">
+          <input type="text" id="phone-email" placeholder="Enter your phone, email or Matri ID" />
+          <div id="phoneErrorMessage" class="error"></div>
         </div>
-        <!-- <p class="brand-subtitle">ಹೃದಯಗಳಿಗೆ ಸೇತುವೆ</p> -->
+
+        <div class="form-group">
+          <input type="password" id="password" placeholder="Enter your password" />
+          <div class="forgot"><a href="forgot_password">Forgot Password?</a></div>
+          <div id="passwordErrorMessage" class="error"></div>
+        </div>
+
+        <div class="form-group captcha">
+          <div class="captcha-box" id="captchaValue">000000</div>
+          <button class="refresh-btn" onclick="generateCaptcha()"><i class="fa-solid fa-rotate-right"></i></button>
+          <input type="text" id="captchaInput" placeholder="Enter CAPTCHA">
+        </div>
+        <div class="error" id="errorMessage"></div>
+
+        <button class="btn" onclick="loginWithPassword()">LOGIN</button>
+
+        <div class="divider">OR</div>
+
+        <h2>Login with OTP</h2>
+        <p>Quick and secure access</p>
+        <div class="form-group">
+          <input type="text" id="otp-phone-email" placeholder="Enter 10-digit phone number" />
+          <div id="phoneOTPErrorMessage" class="error"></div>
+        </div>
+        <button class="btn" id="generate-otp" onclick="generateOtp()">Generate OTP</button>
+
+        <div id="otp-input-container">
+          <div class="form-group">
+            <input type="text" id="otp" placeholder="Enter 4-digit OTP" />
+            <a href="#" id="resend-otp" style="display:none" onclick="resendOtp()">Resend OTP</a>
+          </div>
+          <button class="btn" onclick="loginWithOtp()">Verify & Login</button>
+          <p id="otp-timer"></p>
+        </div>
       </div>
 
-      <div class="login-forms" style="display: flex; gap: 100px">
-        <div class="form-section login-section">
-          <h2 class="form-title" style="color: #ea4a57">Login with Password</h2>
-          <p class="form-subtitle">Sign in to your account</p>
+      <div class="agree">
+        <label><input type="checkbox" id="terms" checked> I agree to the 
+          <a href="term">terms and privacy policy</a></label><br>
+        For any Query / Support <a href="support">Click here</a>
+      </div>
+    </div>
+  </section>
 
-          <div class="input-group">
-            <label for="phone-email">Phone / Email / Matri ID</label>
-            <input
-              type="text"
-              id="phone-email"
-              placeholder="Enter your phone, email or Matri ID"
-            />
-            <div id="phoneErrorMessage" class="error"></div>
-          </div>
-
-          <div class="input-group">
-            <label for="password">Password</label>
-            <div class="password-wrapper">
-              <input
-                type="password"
-                id="password"
-                placeholder="Enter your password"
-              />
-              <span class="toggle-password" onclick="togglePassword()">
-                <i class="fa-solid fa-eye-slash"></i>
-              </span>
-            </div>
-            <div id="passwordErrorMessage" class="error"></div>
-            <div class="forgot-password">
-              <a href="forgot_password">Forgot Password?</a>
-            </div>
-          </div>
-
-          <div class="captcha-container">
-  <label class="captcha-label">CAPTCHA</label>
-  <div class="captcha-row">
-    <div class="captcha-box" id="captchaValue">A7B3C</div>
-    <button type="button" class="refresh-btn" onclick="generateCaptcha()">↻</button>
-    <input type="text" id="captchaInput" placeholder="Enter CAPTCHA" required />
+  <div id="loader" class="loader-container">
+    <div class="loading-text">Loading</div>
+    <div class="dots">
+      <div class="dot"></div><div class="dot"></div><div class="dot"></div>
+    </div>
   </div>
-  <div class="error" id="errorMessage"></div>
-</div>
 
+  <!-- Scripts -->
+  <script src="baseurl.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 
-          <button class="btn" onclick="loginWithPassword()">LOGIN</button>
-        </div>
+  <script>
+    // Reused from old version
+    const OTP_TIMEOUT_DURATION = 30;
+    let otpTimeout;
+    let correctOtp = "";
+    let currentCaptcha = "";
 
-        <div class="form-section otp-section" id="otpContainer">
-          <h2 class="form-title" style="color: #ea4a57">Login with OTP</h2>
-          <p class="form-subtitle">Quick and secure access</p>
+    function generateCaptcha() {
+      const chars = "0123456789";
+      let captcha = "";
+      for (let i = 0; i < 6; i++) captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+      currentCaptcha = captcha;
+      document.getElementById("captchaValue").textContent = captcha;
+    }
 
-          <div class="input-group">
-            <label for="otp-phone-email">Phone Number</label>
-            <input
-              type="text"
-              id="otp-phone-email"
-              placeholder="Enter 10-digit phone number"
-            />
-            <div id="phoneOTPErrorMessage" class="error"></div>
-          </div>
+    window.onload = generateCaptcha;
 
-          <button class="btn" id="generate-otp" onclick="generateOtp()">
-            Generate OTP
-          </button>
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
 
-          <div id="otp-input-container">
-            <div class="input-group">
-              <label for="otp">Enter OTP</label>
-              <input type="text" id="otp" placeholder="6-digit OTP" />
-              <div class="flexEnd">
-                <a
-                  href="#"
-                  id="resend-otp"
-                  style="display: none"
-                  onclick="resendOtp()"
-                  >Resend OTP</a
-                >
-              </div>
-            </div>
-            <button class="btn" onclick="loginWithOtp()">Verify & Login</button>
-            <p id="otp-timer"></p>
-          </div>
-        </div>
-      </div>
+    function isValidPhone(phone) {
+      return /^(\+?\d{1,3})?(\d{10})$/.test(phone);
+    }
 
-      <div class="bottom-section">
-        <div class="checkbox-group">
-          <input type="checkbox" id="terms" checked />
-          <label for="terms"
-            >I agree to the
-            <a href="term">terms and privacy policy</a></label
-          >
-        </div>
-
-        <div class="extra-links">
-          <span>Don't have an account? <a href="Signup">Register</a></span>
-          <span
-            >For any Query / Support <a href="support">Click here</a></span
-          >
-        </div>
-      </div>
-    </div>
-
-    <div id="loader" class="loader-container">
-      <div class="loading-text">Loading</div>
-      <div class="dots">
-        <div class="dot"></div>
-        <div class="dot"></div>
-        <div class="dot"></div>
-      </div>
-    </div>
-
-    <!-- Keep existing JavaScript files -->
-    <script src="baseurl.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
-    <script>
-      "js/cache.js";
-    </script>
-    <script>
-      const OTP_TIMEOUT_DURATION = 30;
-      let otpTimeout;
-      let correctOtp = "0000";
-
-      let currentCaptcha = "";
-
-      // Function to generate a 6-digit random CAPTCHA
-      function generateCaptcha() {
-        // const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*';
-        const characters = "0123456789";
-        const fontStyles = [
-          "Arial",
-          "Verdana",
-          "Tahoma",
-          "Georgia",
-          "Comic Sans MS",
-          "Courier New",
-        ];
-        const colors = [
-          "#FF5733",
-          "#33FF57",
-          "#3357FF",
-          "#FF33A6",
-          "#FF8C33",
-          "#7D33FF",
-        ];
-
-        let captcha = "";
-        for (let i = 0; i < 6; i++) {
-          captcha += characters.charAt(
-            Math.floor(Math.random() * characters.length)
-          );
-        }
-
-        // Store the captcha globally for validation
-        currentCaptcha = captcha;
-
-        // Style and display the captcha
-        const captchaElement = document.getElementById("captchaValue");
-        captchaElement.textContent = captcha;
-
-        // Apply random font style, size, and color
-        captchaElement.style.fontFamily =
-          fontStyles[Math.floor(Math.random() * fontStyles.length)];
-        captchaElement.style.color =
-          colors[Math.floor(Math.random() * colors.length)];
-        captchaElement.style.fontSize = `${
-          Math.floor(Math.random() * 10) + 20
-        }px`; // Font size between 20px and 30px
-        captchaElement.style.transform = `rotate(${
-          Math.floor(Math.random() * 15) - 7
-        }deg)`; // Slight rotation for distortion
-      }
-
-      // Generate a CAPTCHA when the page loads
-      window.onload = generateCaptcha;
-
-      function isValidEmail(email) {
-        const emailRegex = /^[^\\s@]+@[^\s@]+\\.[^\\s@]+$/;
-        return emailRegex.test(email);
-      }
-
-      function isValidPhone(phone) {
-        const phoneRegex = /^(\+?\d{1,3})?(\d{10})$/;
-        return phoneRegex.test(phone);
-      }
-
-      function handleLoginSuccess() {
-        var checkbox = document.getElementById("terms");
-        if (!checkbox.checked) {
-          Swal.fire({
-            icon: "info",
-            title: "Terms and Privacy Policy",
-            text: "Agree to the policy before login",
-            showCancelButton: true,
-            confirmButtonText: "Yes, I Agree",
-            cancelButtonText: "No",
-          }).then((result) => {
-            if (result.isConfirmed) {
-              document.getElementById("terms").checked = true;
-              document.getElementById("loader").style.display = "flex";
-              handleLoginSuccess();
-            }
-          });
-        } else {
-          const payload = {
-            matri_id: localStorage.getItem("matriId"),
-            category: "login_details",
-            device: "WEB",
-          };
-
-          axios.post(`${BASE_URL}/login.php`, payload).then((response) => {
-            if (response.data.dataout[0].p_out_mssg_flg === "Y") {
-              console.log("Login details saved");
-            }
-          });
-
-         Swal.fire({
-      icon: "success",
-      title: "Login Successful!",
-      text: "Welcome to Bunts Matrimony",
-      showConfirmButton: false,
-      timer: 2000, // ⏱ auto-close after 2 seconds
-      timerProgressBar: true,
-    }).then(() => {
-      window.location.href = "dashboard";
-    });
-        }
-      } 
-      function loginWithPassword() {
-        const emailOrPhone = document.getElementById("phone-email").value;
-        const password = document.getElementById("password").value;
-        const passwordErrorMessage = document.getElementById(
-          "passwordErrorMessage"
-        );
-        const phoneErrorMessage = document.getElementById("phoneErrorMessage");
-        document.getElementById("loader").style.display = "flex";
-
-        passwordErrorMessage.textContent = "";
-        phoneErrorMessage.textContent = "";
-
-        const userCaptchaInput = document.getElementById("captchaInput").value;
-
-        if (!password) {
-          passwordErrorMessage.textContent = "Please enter a valid password.";
-          document.getElementById("loader").style.display = "none";
-          return;
-        }
-
-        if (!emailOrPhone) {
-          phoneErrorMessage.textContent =
-            "Please enter a 10 digits valid Phone Number/Email/Matri Id";
-          document.getElementById("loader").style.display = "none";
-          return;
-        }
-
-        const data = { user: emailOrPhone, password: password };
-
-        if (userCaptchaInput !== currentCaptcha) {
-          document.getElementById("errorMessage").textContent =
-            "Invalid CAPTCHA. Please try again.";
-          document.getElementById("loader").style.display = "none";
-          generateCaptcha();
-        } else {
-          document.getElementById("errorMessage").textContent = "";
-
-          fetch(`${BASE_URL}/login.php`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data),
-          })
-            .then((response) => response.json())
-            .then((data) => {
-              if (data.dataout[0].p_out_mssg_flg === "Y") {
-                let token = data.dataout[0].token;
-                localStorage.setItem("jwtToken", token);
-
-                let decoded = jwt_decode(token);
-                console.log("Decoded JWT:", decoded);
-
-                // Save values from JWT payload
-                localStorage.setItem("matriId", decoded.data.matri_id);
-                localStorage.setItem("mId", decoded.data.id);
-                localStorage.setItem("phone", decoded.data.phone);
-
-                document.getElementById("loader").style.display = "none";
-
-                handleLoginSuccess();
-              } else {
-                document.getElementById("loader").style.display = "none";
-                Swal.fire({
-                  icon: "error",
-                  title: "Login Failed",
-                  text: data.dataout[0].p_out_mssg,
-                  confirmButtonText: "OK",
-                }).then((result) => {
-                  if (result.isConfirmed) {
-                    location.reload();
-                  }
-                });
-              }
-            })
-            .catch((error) => {
-              document.getElementById("loader").style.display = "none";
-              console.error("Error:", error);
-              Swal.fire({
-                icon: "error",
-                title: "Server Error",
-                text: "Please try again later.",
-              });
-            });
-        }
-      }
-
-     function generateOtp() {
-  const emailOrPhone = document.getElementById("otp-phone-email").value;
-  const phoneOTPErrorMessage = document.getElementById("phoneOTPErrorMessage");
-
-  if (!isValidPhone(emailOrPhone) && !isValidEmail(emailOrPhone)) {
-    phoneOTPErrorMessage.textContent = "Please enter a valid Phone Number.";
-    return;
-  }
-
-  const phoneRegex = /^\d{10}$/;
-  if (!phoneRegex.test(emailOrPhone)) {
-    phoneOTPErrorMessage.textContent = "Please enter a 10-digit valid Phone Number";
-    document.getElementById("loader").style.display = "none";
-    return;
-  }
-
-  const data = { user: emailOrPhone };
-
-  axios
-    .post(`${BASE_URL}/login.php`, data, {
-      headers: { "Content-Type": "application/json" },
-    })
-    .then((response) => {
-      console.log("Login check response:", response.data);
-
-      const flag = response.data?.dataout?.[0]?.p_out_mssg_flg;
-      if (flag === "Y") {
-        // Call sendSMS if user exists
-        sendSMS();
-      } else {
+    function handleLoginSuccess() {
+      if (!document.getElementById("terms").checked) {
         Swal.fire({
-          icon: "error",
-          title: "Credential Not Found",
-          text: "Please try again.",
-          confirmButtonText: "OK",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            location.reload();
-          }
+          icon: "info",
+          title: "Agree to Terms",
+          text: "You must agree before login.",
         });
+        return;
       }
-    })
-    .catch((error) => {
-      console.error("Error in generateOtp:", error);
+
       Swal.fire({
-        icon: "error",
-        title: "Server Error",
-        text: "Unable to connect. Please try again later.",
-        confirmButtonText: "OK",
-      });
-    });
-}
+        icon: "success",
+        title: "Login Successful!",
+        text: "Welcome to Bunts Matrimony",
+        showConfirmButton: false,
+        timer: 2000
+      }).then(() => window.location.href = "dashboard");
+    }
 
+    function loginWithPassword() {
+      const user = document.getElementById("phone-email").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const captchaInput = document.getElementById("captchaInput").value.trim();
 
-      function handleCredentialResponse(response) {
-        const user = jwt_decode(response.credential); // Decode JWT response
-        console.log("Logged in user:", user);
-        console.log("Logged in user:", user.name);
-        console.log("Logged in user:", user.email);
-        console.log("Logged in user:", user.picture);
-        console.log("Logged in user:", user.sub);
-        google_sign_in(user.email, user.sub);
+      if (!user || !password) {
+        Swal.fire("Missing Fields", "Enter valid details", "warning");
+        return;
       }
 
-      function google_sign_in(user, sub) {
-        if (user != null && sub != null && user !== "" && sub !== "") {
-          const payload = {
-            user: user,
-            password: sub,
-          };
+      if (captchaInput !== currentCaptcha) {
+        Swal.fire("Invalid CAPTCHA", "Please try again.", "error");
+        generateCaptcha();
+        return;
+      }
 
-          document.getElementById("loader").style.display = "flex";
-
-          axios
-            .post(`${BASE_URL}/login.php`, payload)
-            .then((response) => {
-              let data = response.data;
-
-              if (data.dataout[0].p_out_mssg_flg === "Y") {
-                console.log("Login Successful");
-
-                // ✅ Decode JWT
-                let token = data.dataout[0].token;
-                localStorage.setItem("jwtToken", token);
-
-                let decoded = jwt_decode(token);
-                console.log("Decoded JWT:", decoded);
-
-                // Save values from JWT payload
-                localStorage.setItem("matriId", decoded.data.matri_id);
-                localStorage.setItem("mId", decoded.data.id);
-                localStorage.setItem("phone", decoded.data.phone);
-
-                document.getElementById("loader").style.display = "none";
-
-                handleLoginSuccess();
-              } else {
-                document.getElementById("loader").style.display = "none";
-                Swal.fire({
-                  icon: "error",
-                  title: "Login Failed",
-                  text: data.dataout[0].p_out_mssg,
-                  confirmButtonText: "OK",
-                }).then((result) => {
-                  if (result.isConfirmed) {
-                    location.reload();
-                  }
-                });
-              }
-            })
-            .catch((error) => {
-              document.getElementById("loader").style.display = "none";
-              console.error("Error:", error);
-              Swal.fire({
-                icon: "error",
-                title: "Server Error",
-                text: "Please try again later.",
-              });
-            });
+      document.getElementById("loader").style.display = "flex";
+      fetch(`${BASE_URL}/login.php`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ user, password })
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("loader").style.display = "none";
+        if (data.dataout[0].p_out_mssg_flg === "Y") {
+          const token = data.dataout[0].token;
+          localStorage.setItem("jwtToken", token);
+          const decoded = jwt_decode(token);
+          localStorage.setItem("matriId", decoded.data.matri_id);
+          localStorage.setItem("phone", decoded.data.phone);
+          handleLoginSuccess();
+        } else {
+          Swal.fire("Login Failed", data.dataout[0].p_out_mssg, "error");
         }
+      })
+      .catch(() => {
+        document.getElementById("loader").style.display = "none";
+        Swal.fire("Server Error", "Please try again later.", "error");
+      });
+    }
+
+    function generateOtp() {
+      const phone = document.getElementById("otp-phone-email").value.trim();
+      if (!isValidPhone(phone)) {
+        Swal.fire("Invalid", "Enter valid 10-digit phone number.", "warning");
+        return;
       }
 
-      function sendSMS() {
-        const emailOrPhone = document.getElementById("otp-phone-email").value;
-        const pad = document.getElementById("otpContainer");
-        const data = { number: emailOrPhone, type: "otp" };
-        fetch(`${BASE_URL}/send_sms.php`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-        })
-          .then((response) => response.json())
-          .then((data) => {
-            console.log(data);
-            if (data.message.p_out_mssg_flg === "Y") {
-              if (data.data.Otp != "") {
-                // sendOtpSms(emailOrPhone);
+      axios.post(`${BASE_URL}/login.php`, { user: phone })
+      .then(res => {
+        if (res.data.dataout[0].p_out_mssg_flg === "Y") sendSMS();
+        else Swal.fire("User not found", "Please try again.", "error");
+      });
+    }
 
-                correctOtp = data.data.Otp;
-                const popup = document.getElementById("popupmsg");
-                popup.innerHTML = ` <div class="popup">
-                        <p>successfully send OTP via SMS</p>
-                                </div>`;
+    function sendSMS() {
+      const number = document.getElementById("otp-phone-email").value.trim();
+      fetch(`${BASE_URL}/send_sms.php`, {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ number, type: "otp" })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.message.p_out_mssg_flg === "Y") {
+          correctOtp = data.data.Otp;
+          document.getElementById("otp-input-container").style.display = "block";
+          document.getElementById("generate-otp").style.display = "none";
+          startOtpTimer();
+          Swal.fire("Success", "OTP sent successfully!", "success");
+        }
+      });
+    }
 
-                setInterval(() => {
-                  popup.style.display = "none";
-                }, 3000);
-                document.getElementById("otp-input-container").style.display =
-                  "block";
-                startOtpTimer();
-                document.getElementById("generate-otp").style.display = "none";
-              } else {
-                Swal.fire({
-                  icon: "error",
-                  title: "OTP Not Matched",
-                  text: "Please try again.",
-                  confirmButtonText: "OK",
-                }).then((result) => {
-                  // Reload the page when the alert is closed
-                  if (result.isConfirmed) {
-                    location.reload(); // Reload the page
-                  }
-                });
-              }
-            } else {
-              Swal.fire({
-                icon: "error",
-                title: "Unable to send OTP at the current moment ",
-                text: "please try again after sometime.",
-                confirmButtonText: "OK",
-              });
-            }
-          });
-      }
+    function startOtpTimer() {
+      let timeLeft = OTP_TIMEOUT_DURATION;
+      document.getElementById("otp-timer").innerText = `You can request new OTP in ${timeLeft}s`;
+      otpTimeout = setInterval(() => {
+        timeLeft--;
+        document.getElementById("otp-timer").innerText = `You can request new OTP in ${timeLeft}s`;
+        if (timeLeft <= 0) {
+          clearInterval(otpTimeout);
+          document.getElementById("otp-timer").innerText = "";
+          document.getElementById("resend-otp").style.display = "inline";
+        }
+      }, 1000);
+    }
 
-      function startOtpTimer() {
-        let timeLeft = OTP_TIMEOUT_DURATION;
-        document.getElementById(
-          "otp-timer"
-        ).innerText = `You can request a new OTP in ${timeLeft} seconds.`;
-        otpTimeout = setInterval(() => {
-          timeLeft--;
-          document.getElementById(
-            "otp-timer"
-          ).innerText = `You can request a new OTP in ${timeLeft} seconds.`;
-          if (timeLeft <= 0) {
-            clearInterval(otpTimeout);
-            document.getElementById("otp-timer").innerText = "";
-            document.getElementById("resend-otp").style.display = "inline";
-          }
-        }, 1000);
-      }
+    function resendOtp() {
+      clearInterval(otpTimeout);
+      document.getElementById("resend-otp").style.display = "none";
+      generateOtp();
+    }
 
-      function resendOtp() {
-        clearInterval(otpTimeout);
-        document.getElementById("resend-otp").style.display = "none";
-        generateOtp();
-      }
-
-      function loginWithOtp() {
-  const emailOrPhone = document.getElementById("otp-phone-email").value.trim();
+  function loginWithOtp() {
   const otp = document.getElementById("otp").value.trim();
-  document.getElementById("loader").style.display = "flex";
+  const phone = document.getElementById("otp-phone-email").value.trim();
 
-  // --- Step 1: Validate OTP length ---
-  if (otp.length !== 4) {
-    document.getElementById("loader").style.display = "none";
-    Swal.fire({
-      icon: "error",
-      title: "Invalid OTP",
-      text: "Please enter a 4-digit OTP.",
-      confirmButtonText: "OK",
-    });
+  if (!otp) {
+    Swal.fire("Missing OTP", "Please enter the OTP.", "warning");
     return;
   }
 
-  // --- Step 2: Verify OTP Hash ---
   if (CryptoJS.MD5(otp).toString() !== correctOtp) {
-    document.getElementById("loader").style.display = "none";
-    Swal.fire({
-      icon: "error",
-      title: "Incorrect OTP",
-      text: "Please enter a valid OTP.",
-      confirmButtonText: "OK",
-    });
+    Swal.fire("Invalid OTP", "Please try again.", "error");
     return;
   }
 
-  // --- Step 3: Send verification request to server ---
-  const data = { user: emailOrPhone, otp: otp };
+  document.getElementById("loader").style.display = "flex";
 
   fetch(`${BASE_URL}/login.php`, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({ user: phone, otp })
   })
-    .then((response) => response.json())
-    .then((data) => {
-      console.log("OTP login response:", data);
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("loader").style.display = "none";
 
-      // ✅ Adjusted to match your backend response (same as password login)
-      if (data.dataout && data.dataout[0].p_out_mssg_flg === "Y") {
-        const token = data.dataout[0].token;
-        localStorage.setItem("jwtToken", token);
+    if (data.dataout[0].p_out_mssg_flg === "Y") {
+     
+      const token = data.dataout[0].token;
+      localStorage.setItem("jwtToken", token);
+      const decoded = jwt_decode(token);
+      localStorage.setItem("matriId", decoded.data.matri_id);
+      localStorage.setItem("phone", decoded.data.phone);
 
-        const decoded = jwt_decode(token);
-        console.log("Decoded JWT:", decoded);
-
-        // Store user data from JWT payload
-        localStorage.setItem("matriId", decoded.data.matri_id);
-        localStorage.setItem("mId", decoded.data.id);
-        localStorage.setItem("phone", decoded.data.phone);
-
-        document.getElementById("loader").style.display = "none";
-        clearInterval(otpTimeout);
-
-        // Redirect or show dashboard
-        handleLoginSuccess();
-      } else {
-        document.getElementById("loader").style.display = "none";
-        Swal.fire({
-          icon: "error",
-          title: "OTP Verification Failed",
-          text: data.dataout ? data.dataout[0].p_out_mssg : "Please try again.",
-          confirmButtonText: "OK",
-        }).then((result) => {
-          if (result.isConfirmed) {
-            location.reload();
-          }
-        });
-      }
-    })
-    .catch((error) => {
-      console.error("Error verifying OTP:", error);
-      document.getElementById("loader").style.display = "none";
-      Swal.fire({
-        icon: "error",
-        title: "Server Error",
-        text: "Please try again later.",
-        confirmButtonText: "OK",
-      });
-    });
+      handleLoginSuccess(); 
+    } else {
+      Swal.fire("Failed", data.dataout[0].p_out_mssg || "OTP Verification Failed", "error");
+    }
+  })
+  .catch(() => {
+    document.getElementById("loader").style.display = "none";
+    Swal.fire("Server Error", "Please try again later.", "error");
+  });
 }
 
-
-      function googleLogin() {
-        //alert("Google Login not yet implemented");
-        Swal.fire({
-          icon: "error",
-          title: "Google Login not yet implemented",
-          text: "Please try again.",
-          confirmButtonText: "OK",
-        }).then((result) => {
-          // Reload the page when the alert is closed
-          if (result.isConfirmed) {
-            location.reload(); // Reload the page
-          }
-        });
-      }
-
-      function togglePassword() {
-        const passwordInput = document.getElementById("password");
-        const toggleIcon = document.querySelector(".toggle-password i");
-
-        if (passwordInput.type === "password") {
-          passwordInput.type = "text";
-          toggleIcon.classList.remove("fa-eye-slash");
-          toggleIcon.classList.add("fa-eye");
-        } else {
-          passwordInput.type = "password";
-          toggleIcon.classList.remove("fa-eye");
-          toggleIcon.classList.add("fa-eye-slash");
-        }
-      }
-    </script>
-  </body>
+  </script>
+</body>
 </html>
