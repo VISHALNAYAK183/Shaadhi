@@ -31,8 +31,8 @@ body::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(255, 255, 255, 0.45);
-  backdrop-filter: blur(1px);
+  background: rgba(255 255 255 / 59%);
+  /* backdrop-filter: blur(1px); */
   z-index: 0;
 }
 
@@ -110,13 +110,13 @@ header .btn-register:hover { background: var(--primary-dark); }
 }
 
 .login-card {
-  background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: blur(18px);
+  background: rgba(255, 255, 255, 0.759);
+  /* backdrop-filter: blur(18px); */
   border-radius: 18px;
   padding: 25px 28px;
   max-width: 440px;
   width: 100%;
-  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.658);
   z-index: 2;
   position: relative;
 }
@@ -147,11 +147,11 @@ header .btn-register:hover { background: var(--primary-dark); }
   color: #111;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.12);
 }
-.form-group input:focus {
+/* .form-group input:focus {
   outline: none;
   border-color: var(--primary);
   box-shadow: 0 0 0 3px rgba(227, 66, 91, .25);
-}
+} */
 
 .captcha {
   display: flex;
@@ -160,12 +160,14 @@ header .btn-register:hover { background: var(--primary-dark); }
 }
 .captcha-box {
   background: #fff;
-  border: 1px dashed #ccc;
+  border: 1px #ccc;
   border-radius: 8px;
   padding: 8px 12px;
   font-weight: 700;
-  letter-spacing: 3px;
+  font-size: large;
+  letter-spacing: 2px;
   font-family: monospace;
+  box-shadow: 0 3px 6px rgb(0 0 0 / 47%);
 }
 .refresh-btn {
   border: none; background: none; color: var(--primary);
@@ -175,7 +177,7 @@ header .btn-register:hover { background: var(--primary-dark); }
 
 .btn {
   display: block;
-  width: 100%;
+  width: 60%;
   background: var(--primary);
   color: #fff;
   border: none;
@@ -192,7 +194,7 @@ header .btn-register:hover { background: var(--primary-dark); }
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #777;
+  color: #000000;
   font-size: 12px;
   margin: 10px 0;
 }
@@ -200,8 +202,9 @@ header .btn-register:hover { background: var(--primary-dark); }
   content: "";
   flex: 1;
   height: 1px;
-  background: #ddd;
+  background: #000000;
   margin: 0 10px;
+  color: #000;
 }
 
 .forgot { text-align: right; margin-top: 4px; }
@@ -267,7 +270,7 @@ header .btn-register:hover { background: var(--primary-dark); }
         <p>Sign in to your account</p>
 
         <div class="form-group">
-          <input type="text" id="phone-email" placeholder="Enter your phone, email or Matri ID" />
+          <input type="text" id="phone-email" placeholder="Enter your phone/ Matri ID" />
           <div id="phoneErrorMessage" class="error"></div>
         </div>
 
@@ -280,7 +283,7 @@ header .btn-register:hover { background: var(--primary-dark); }
         <div class="form-group captcha">
           <div class="captcha-box" id="captchaValue">000000</div>
           <button class="refresh-btn" onclick="generateCaptcha()"><i class="fa-solid fa-rotate-right"></i></button>
-          <input type="text" id="captchaInput" placeholder="Enter CAPTCHA">
+          <input type="text" id="captchaInput" placeholder="Enter CAPTCHA"  style="box-shadow: 0 3px 6px rgb(0 0 0 / 47%);"">
         </div>
         <div class="error" id="errorMessage"></div>
 
