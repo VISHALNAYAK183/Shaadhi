@@ -51,7 +51,7 @@ html, body {
 .recently-joined-header, .recently-login-header, .profile-matched-header {
     margin-top: 0.8rem;
     font-family: 'Playfair Display', serif;
-    color: #c3a38c;
+    color: #ea4a57;
     font-weight: 600;
     font-size: 1.4rem;
     border-bottom: 3px solid #e3f2fd;
@@ -64,7 +64,7 @@ html, body {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: linear-gradient(135deg, #c3a38c 0%, #c3a38c 50%, #c3a38c 100%);
+            background: linear-gradient(135deg, #ea4a57 0%, #ea4a57 50%, #ea4a57 100%);
             color: white;
             /* padding: 1rem 2rem; */
             padding: 5px 3px;
@@ -123,7 +123,7 @@ html, body {
 
 
 /* #sidebar-placeholder:hover {
-    background: linear-gradient(135deg, #c3a38c, #c3a38c 100%);
+    background: linear-gradient(135deg, #ea4a57, #ea4a57 100%);
     color: #FDEEF4;
     transform: translatey(5px);
     box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
@@ -139,7 +139,7 @@ html, body {
 
         .sidebar h3 {
             font-family: 'Playfair Display', serif;
-            color: #c3a38c;
+            color: #ea4a57;
             font-size: 1.3rem;
             font-weight: 600;
             text-align: center;
@@ -149,7 +149,7 @@ html, body {
         .sidebar hr {
             border: none;
             height: 2px;
-            background: linear-gradient(90deg, #c3a38c, #e3f2fd);
+            background: linear-gradient(90deg, #ea4a57, #e3f2fd);
             margin-bottom: 1.5rem;
         }
 
@@ -185,7 +185,7 @@ html, body {
         }
 
         .sidebar ul li a:hover {
-            background: linear-gradient(135deg, #c3a38c 0%, #c3a38c 50%, #c3a38c 100%);
+            background: linear-gradient(135deg, #ea4a57 0%, #ea4a57 50%, #ea4a57 100%);
             color: white;
             transform: translateX(5px);
             box-shadow: 0 4px 15px rgba(33, 150, 243, 0.3);
@@ -544,7 +544,7 @@ html, body {
     top: 40px;
     right: 50%;
     transform: translateX(50%);
-    background: #c3a38c;
+    background: #ea4a57;
     color: #fff;
     padding: 6px 12px;
     font-size: 11px;
@@ -571,7 +571,7 @@ html, body {
     position: absolute;
     top: 50%;
     z-index: 100;
-    background: linear-gradient(135deg, #c3a38c 0%, #c3a38c 100%);
+    background: linear-gradient(135deg, #ea4a57 0%, #ea4a57 100%);
     color: white;
     border: none;
     padding: 10px;
@@ -583,7 +583,7 @@ html, body {
 }
 
 .arrow-button:hover {
-    background: linear-gradient(135deg, #c3a38c 0%, #c3a38c 100%);
+    background: linear-gradient(135deg, #ea4a57 0%, #ea4a57 100%);
     transform: scale(1.1);
 }
 
@@ -627,7 +627,7 @@ html, body {
 }
 
 .carousel-controls button {
-    background: linear-gradient(135deg, #c3a38c 0%, #c3a38c 100%);
+    background: linear-gradient(135deg, #ea4a57 0%, #ea4a57 100%);
     color: #fff;
     border: none;
     padding: 8px 12px;
@@ -660,7 +660,7 @@ html, body {
 }
 
 .carousel-dots .dot.active {
-    background: #c3a38c;
+    background: #ea4a57;
     transform: scale(1.2);
 }
 
@@ -676,7 +676,7 @@ html, body {
 
 .profile h2 {
     font-size: 1.8rem;
-    color: #c3a38c;
+    color: #ea4a57;
     margin-bottom: 1rem;
     font-family: 'Playfair Display', serif;
 }
@@ -696,7 +696,7 @@ html, body {
 /* Matches Section */
 .matches h2 {
     font-size: 1.8rem;
-    color: #c3a38c;
+    color: #ea4a57;
     margin-bottom: 1rem;
     font-family: 'Playfair Display', serif;
 }
@@ -733,7 +733,7 @@ html, body {
 }
 
 .view-profile-button {
-    background: linear-gradient(135deg, #c3a38c 0%, #c3a38c 100%);
+    background: linear-gradient(135deg, #ea4a57 0%, #ea4a57 100%);
     color: white;
     border: none;
     width: 100%;
@@ -745,7 +745,7 @@ html, body {
 }
 
 .view-profile-button:hover {
-    background: linear-gradient(135deg, #c3a38c 0%, #c3a38c 100%);
+    background: linear-gradient(135deg, #ea4a57 0%, #ea4a57 100%);
 }
 
 /* Profile dropdown */
@@ -923,7 +923,7 @@ html, body {
 
 .more-button {
     padding: 12px 24px;
-    background: linear-gradient(135deg, #c3a38c 0%, #c3a38c 100%);
+    background: linear-gradient(135deg, #ea4a57 0%, #ea4a57 100%);
     color: white;
     border: none;
     border-radius: 25px;
@@ -956,13 +956,13 @@ html, body {
 }
 
 .option-button:hover {
-    background: linear-gradient(135deg, #c3a38c 0%, #c3a38c 100%);
+    background: linear-gradient(135deg, #ea4a57 0%, #ea4a57 100%);
     color: white;
     transform: translateY(-2px);
 }
 
 .option-button.active {
-    background: linear-gradient(135deg, #c3a38c 0%, #c3a38c 100%);
+    background: linear-gradient(135deg, #ea4a57 0%, #ea4a57 100%);
     color: white;
 }
 
@@ -1085,7 +1085,7 @@ html, body {
 .labelStar {
     width: 150px;
     text-align: left;
-    color: #c3a38c;
+    color: #ea4a57;
     font-weight: 500;
 }
 
@@ -1100,7 +1100,7 @@ html, body {
 .small-title {
     font-size: 16px;
     font-weight: normal;
-    color: #c3a38c;
+    color: #ea4a57;
 }
 
 /* Loading dialog */
@@ -1202,10 +1202,10 @@ html, body {
 }
 
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(135deg, #c3a38c 0%, #c3a38c 100%);
+    background: linear-gradient(135deg, #ea4a57 0%, #ea4a57 100%);
     border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: linear-gradient(135deg, #c3a38c 0%, #c3a38c 100%);
+    background: linear-gradient(135deg, #ea4a57 0%, #ea4a57 100%);
 }
