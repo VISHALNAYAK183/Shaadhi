@@ -148,11 +148,7 @@ header .btn-register:hover { background: var(--primary-dark); }
  background: #fff; /* white inside */
   box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
 }
-/* .form-group input:focus {
-  outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(227, 66, 91, .25);
-} */
+
 
 .captcha {
   display: flex;
@@ -244,6 +240,101 @@ header .btn-register:hover { background: var(--primary-dark); }
   .hero::after { display: none; }
   .login-card { width: 90%; }
   .hero-left img { max-width: 80%; }
+}
+/* === Extra Responsive Tweaks === */
+
+@media (max-width: 768px) {
+  header {
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px;
+    text-align: center;
+  }
+
+  header .logo-group img {
+    height: 70px;
+  }
+
+  header .actions {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .hero {
+    flex-direction: column;
+    padding: 20px 5%;
+    gap: 25px;
+    text-align: center;
+  }
+
+  .hero-left img {
+    position: static;
+    max-width: 90%;
+    margin: 0 auto;
+  }
+
+  .login-card {
+    width: 95%;
+    padding: 20px 18px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  }
+
+  .btn {
+    width: 80%; /* Slightly larger on mobile for easier tap */
+    font-size: 15px;
+  }
+
+  .form-group input {
+    font-size: 15px;
+    padding: 10px;
+  }
+
+  .captcha {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .captcha-box {
+    text-align: center;
+    width: 100%;
+  }
+
+  .refresh-btn {
+    align-self: center;
+    margin-top: 5px;
+  }
+
+  .agree {
+    font-size: 13px;
+    padding: 0 5%;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-left img {
+    max-width: 100%;
+  }
+
+  .login-card h2 {
+    font-size: 18px;
+  }
+
+  .login-card p {
+    font-size: 12px;
+  }
+
+  .btn {
+    width: 100%;
+    font-size: 14px;
+  }
+
+  .form-group input {
+    font-size: 14px;
+  }
+
+  .agree {
+    font-size: 12px;
+  }
 }
 
 
