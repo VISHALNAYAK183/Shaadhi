@@ -337,6 +337,116 @@ header .btn-register:hover { background: var(--primary-dark); }
   }
 }
 
+.mobile-register {
+  margin-top: 10px;
+  display: none;
+}
+
+.mobile-register a {
+  color: var(--primary);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-register {
+    display: block;
+    text-align: left;
+    padding-left: 5%;
+  }
+}
+@media (max-width: 768px) {
+  .hero-left img {
+    display: none !important;
+  }
+}
+.mobile-kannada {
+  display: none;
+  width: 250px;
+  margin-top: 10px;
+  margin-left: 0; /* <-- remove unwanted left margin */
+}
+
+@media (max-width: 768px) {
+  .mobile-kannada {
+    display: block;
+    text-align: left;
+  }
+  .agree {
+    text-align: left !important;  /* <-- force left alignment */
+    padding-left: 5%;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .mobile-kannada {
+    display: block;
+  }
+}
+@media (max-width: 768px) {
+  .hero::after {
+    display: block;
+    position: relative;
+    width: 240px;
+    height: 240px;
+    right: -10px;
+    top: 0;
+    transform: none;
+    margin-left: auto;
+  }
+}
+@media (max-width: 768px) {
+  header .actions {
+    display: none !important;
+  }
+}
+@media (max-width: 768px) {
+  .hero::after {
+    display: block;
+    width: 200px;
+    height: 200px;
+    position: relative;
+    top: -10px;
+    margin-left: auto; /* Right side */
+    margin-right: 5%;
+  }
+}
+/* Hide custom Kannada + Final image row on desktop */
+.mobile-image-row {
+  display: none;
+}
+
+/* Mobile image row (Kannada + Final) */
+@media (max-width: 768px) {
+
+ 
+  .hero::after {
+    display: none !important;
+  }
+
+  /* Mobile Row */
+  .mobile-image-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding: 0 5%;
+  }
+
+  /* Kannada Text (left) */
+  .mobile-kannada {
+    width: 70%;
+    display: block;
+  }
+
+  /* Final image (right) — rotated + bigger */
+  .mobile-final {
+    width: 70%;
+    transform: rotate(270deg) scale(1.2); /* rotate + enlarge */
+    display: block;
+  }
+}
 
 </style>
 </head>
@@ -403,10 +513,23 @@ header .btn-register:hover { background: var(--primary-dark); }
       </div>
 
       <div class="agree">
-        <label><input type="checkbox" id="terms" checked> I agree to the 
-          <a href="term">terms and privacy policy</a></label><br>
-        For any Query / Support <a href="support">Click here</a>
-      </div>
+  <label><input type="checkbox" id="terms" checked> 
+    I agree to the <a href="term">terms and privacy policy</a>
+  </label><br>
+  For any Query / Support <a href="support">Click here</a>
+
+  <div class="mobile-register">
+     <span>Don't have an account?</span>
+    <a href="Signup">Register</a>
+  </div>
+<div class="mobile-image-row">
+    <img src="../img/kannadaText.png" class="mobile-kannada" alt="Kannada Text">
+    <img src="../img/Bunts matrimony_Final-06.png" class="mobile-final" alt="Final Image">
+</div>
+
+
+</div>
+
     </div>
   </section>
 
