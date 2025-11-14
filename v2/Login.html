@@ -15,6 +15,13 @@
   --primary-dark: #ea4a57;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  max-width: 100%;
+  overflow-x: hidden !important;
+}
+* {
+  max-width: 100%;
+}
 
 body {
   font-family: "Inter", system-ui, sans-serif;
@@ -611,12 +618,6 @@ header .btn-register:hover { background: var(--primary-dark); }
     </div>
   </section>
 
-  <div id="loader" class="loader-container">
-    <div class="loading-text">Loading</div>
-    <div class="dots">
-      <div class="dot"></div><div class="dot"></div><div class="dot"></div>
-    </div>
-  </div>
 
   <!-- Scripts -->
   <script src="baseurl.js"></script>
